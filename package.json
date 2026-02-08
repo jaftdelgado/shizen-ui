@@ -1,0 +1,26 @@
+{
+  "name": "shizen-ui",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "bun --filter \"*\" dev",
+    "build": "bun --filter \"*\" build",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "version": "changeset version",
+    "release": "changeset publish"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.29.8",
+    "@tailwindcss/vite": "^4.0.0",
+    "@types/bun": "latest",
+    "eslint": "^9.39.2",
+    "eslint-plugin-svelte": "^3.14.0",
+    "prettier": "^3.7.4",
+    "prettier-plugin-svelte": "^3.4.1",
+    "svelte": "^5.0.0",
+    "tailwindcss": "^4.0.0",
+    "typescript": "^5.0.0",
+    "typescript-eslint": "^8.52.0"
+  }
+}
