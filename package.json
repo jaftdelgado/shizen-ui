@@ -2,6 +2,11 @@
   "name": "shizen-ui",
   "private": true,
   "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/styles",
+    "packages/svelte"
+  ],
   "scripts": {
     "dev": "bun --filter \"*\" dev",
     "build": "bun --filter \"*\" build",
