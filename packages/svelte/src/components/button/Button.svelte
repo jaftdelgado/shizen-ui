@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { cn } from "@kori-ui/styles";
+  import { cn } from "@shizen-ui/styles";
   import type { HTMLButtonAttributes } from "svelte/elements";
   import type { Snippet } from "svelte";
   import { getContext } from "svelte";

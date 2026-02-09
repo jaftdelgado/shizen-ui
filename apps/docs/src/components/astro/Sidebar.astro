@@ -1,0 +1,41 @@
+---
+const componentFiles = await Astro.glob("../../pages/docs/components/*.mdx");
+const sidebarItems = componentFiles.map((file) => ({
+  name: file.frontmatter.title || file.url?.split("/").pop(),
+  href: file.url
+}));
+
+const { pathname } = Astro.url;
+---
+
+<aside
+  class="fixed top-16 bottom-0 left-[max(0px,calc(50%-45rem))] w-64 overflow-y-auto py-10 hidden md:block"
+>
+  <nav class="space-y-8">
+    <div>
+      <h5 class="mb-4 font-semibold text-slate-900 px-1">Componentes</h5>
+      <ul class="space-y-2 border-l border-slate-200 ml-1">
+        {
+          sidebarItems.map((item) => {
+            const isActive = pathname === item.href || pathname === `${item.href}/`;
+            return (
+              <li>
+                <a
+                  href={item.href}
+                  class:list={[
+                    "block border-l pl-4 -ml-px transition-colors",
+                    isActive
+                      ? "border-primary text-primary font-medium"
+                      : "border-transparent text-slate-600 hover:border-slate-400 hover:text-slate-900"
+                  ]}
+                >
+                  {item.name}
+                </a>
+              </li>
+            );
+          })
+        }
+      </ul>
+    </div>
+  </nav>
+</aside>

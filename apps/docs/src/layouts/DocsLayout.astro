@@ -1,0 +1,55 @@
+---
+import "../styles/global.css";
+import Sidebar from "@components/astro/Sidebar.astro";
+import TableOfContents from "@components/astro/TableOfContents.astro";
+
+interface Props {
+  title: string;
+  headings: { depth: number; slug: string; text: string }[];
+}
+
+const { title, headings } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{title} | Shizen UI</title>
+  </head>
+  <body class="bg-gray-50 text-slate-900 antialiased font-sans">
+    <header class="sticky top-0 z-40 w-full border-b bg-white/80 backdrop-blur">
+      <div class="mx-auto flex h-16 max-w-8xl items-center justify-between px-6">
+        <a href="/" class="text-xl font-bold text-primary">Shizen UI</a>
+        <nav class="flex gap-4">
+          <a
+            href="https://github.com/jaftdelgado/shizen-ui"
+            class="hover:text-primary text-sm font-medium transition-colors"
+          >
+            GitHub
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <div class="mx-auto max-w-8xl px-6">
+      <div class="flex flex-col md:flex-row gap-8">
+        <Sidebar />
+
+        <main class="flex-auto py-10 md:pl-72 lg:pr-72 min-w-0 flex justify-center">
+          <article
+            class="prose prose-slate w-full max-w-[40rem]
+            prose-headings:scroll-mt-24
+            h1:text-4xl prose-h1:font-extrabold prose-h1:tracking-tight
+            prose-h2:text-2xl prose-h2:border-b prose-h2:pb-2 prose-h2:mt-12"
+          >
+            <slot />
+          </article>
+        </main>
+
+        <TableOfContents headings={headings} />
+      </div>
+    </div>
+  </body>
+</html>

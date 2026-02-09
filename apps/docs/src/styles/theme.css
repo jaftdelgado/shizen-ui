@@ -1,0 +1,9 @@
+@theme {
+  --color-component: #f2f2f7;
+}
+
+@layer base {
+  .dark {
+    --color-component: #f9f9fa;
+  }
+}

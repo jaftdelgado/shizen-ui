@@ -4,7 +4,6 @@
     @apply leading-none text-center whitespace-nowrap select-none;
     @apply disabled:opacity-disabled disabled:cursor-auto;
 
-    /* Default tokens */
     --btn-bg: transparent;
     --btn-bg-hover: var(--btn-bg);
     --btn-fg: currentColor;
@@ -66,19 +65,18 @@
     );
   }
 
-  /* Tamaños y Utilidades */
   .button--sm {
-    @apply h-control-sm px-4 text-sm;
+    @apply h-control-sm px-3 text-sm;
     --btn-gap: 0.5rem;
   }
 
   .button--md {
-    @apply h-control-md px-5 text-sm;
+    @apply h-control-md px-4 text-sm;
     --btn-gap: 0.575rem;
   }
 
   .button--lg {
-    @apply h-control-lg px-6 text-base;
+    @apply h-control-lg px-5 text-base;
     --btn-gap: 0.65rem;
   }
 

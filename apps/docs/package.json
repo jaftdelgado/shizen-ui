@@ -1,0 +1,21 @@
+{
+  "name": "@shizen-ui/docs",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^4.3.13",
+    "@astrojs/svelte": "^7.2.5",
+    "@shizen-ui/styles": "workspace:*",
+    "@shizen-ui/svelte": "workspace:*",
+    "@tailwindcss/vite": "^4.1.18",
+    "astro": "^5.17.1",
+    "svelte": "^5.0.0",
+    "tailwindcss": "^4.1.18"
+  }
+}

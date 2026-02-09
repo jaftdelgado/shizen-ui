@@ -1,0 +1,72 @@
+---
+title: "Button"
+description: "Componente de acción interactivo con soporte para variantes de marca."
+---
+
+import DocsLayout from "@layouts/DocsLayout.astro";
+import ComponentExample from "@components/astro/ComponentExample.astro";
+import { Button } from "@shizen-ui/svelte";
+
+<DocsLayout title={frontmatter.title} headings={getHeadings()}>
+
+# Button
+
+El componente `Button` permite a los usuarios interactuar con la interfaz y realizar acciones. Está construido sobre Svelte 5 y estilizado con Tailwind v4.
+
+## Uso Básico
+
+Para utilizar el botón, simplemente impórtalo desde el paquete de Svelte. Utiliza la variante `primary` para acciones principales.
+
+<ComponentExample code={`<Button color="primary">Siguiente paso</Button>`}>
+  <Button client:load color="primary">
+    Siguiente paso
+  </Button>
+</ComponentExample>
+
+## Variantes de Color
+
+Contamos con dos variantes principales que se adaptan a la jerarquía visual de tu aplicación.
+
+### Primary
+
+Es la variante por defecto, diseñada para captar la atención del usuario.
+
+<ComponentExample code={`<Button color="primary">Guardar cambios</Button>`}>
+  <Button client:load color="primary">
+    Guardar cambios
+  </Button>
+</ComponentExample>
+
+### Secondary
+
+Ideal para acciones secundarias, como cancelar o volver atrás.
+
+<ComponentExample code={`<Button color="secondary">Cancelar</Button>`}>
+  <Button client:load color="secondary">
+    Cancelar
+  </Button>
+</ComponentExample>
+
+## Personalización (CSS Class)
+
+Puedes extender los estilos base utilizando la prop `class`. Gracias a `tailwind-merge`, tus clases no entrarán en conflicto con las internas del componente.
+
+<ComponentExample
+  code={`<Button color="primary" class="rounded-full px-8 shadow-lg">
+  Botón Redondeado
+</Button>`}
+>
+  <Button client:load color="primary" class="rounded-full px-8 shadow-lg">
+    Botón Redondeado
+  </Button>
+</ComponentExample>
+
+## API Reference
+
+| Propiedad | Tipo                       | Defecto     | Descripción                           |
+| :-------- | :------------------------- | :---------- | :------------------------------------ |
+| `color`   | `'primary' \| 'secondary'` | `'primary'` | Define el esquema de color del botón. |
+| `class`   | `string`                   | `""`        | Clases adicionales de Tailwind.       |
+| `onclick` | `function`                 | `undefined` | Manejador de eventos para el click.   |
+
+</DocsLayout>

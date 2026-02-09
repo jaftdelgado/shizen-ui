@@ -15,6 +15,12 @@
     "version": "changeset version",
     "release": "changeset publish"
   },
+  "overrides": {
+    "vite": "^6.0.0"
+  },
+  "trustedDependencies": [
+    "tailwindcss"
+  ],
   "devDependencies": {
     "@changesets/cli": "^2.29.8",
     "@tailwindcss/vite": "^4.0.0",
@@ -22,6 +28,7 @@
     "eslint": "^9.39.2",
     "eslint-plugin-svelte": "^3.14.0",
     "prettier": "^3.7.4",
+    "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-svelte": "^3.4.1",
     "svelte": "^5.0.0",
     "tailwindcss": "^4.0.0",

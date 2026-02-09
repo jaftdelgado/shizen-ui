@@ -1,0 +1,28 @@
+---
+interface Props {
+  headings: { depth: number; slug: string; text: string }[];
+}
+
+const { headings } = Astro.props;
+const toc = headings.filter((h) => h.depth > 1 && h.depth < 4);
+---
+
+<aside
+  class="fixed top-16 bottom-0 right-[max(0px,calc(50%-45rem))] w-64 overflow-y-auto py-10 hidden lg:block"
+>
+  <h5 class="mb-4 font-semibold text-slate-900 px-1 text-sm tracking-tight">En esta página</h5>
+  <ul class="space-y-2 text-sm">
+    {
+      toc.map((h) => (
+        <li class={h.depth === 3 ? "pl-4" : ""}>
+          <a
+            href={`#${h.slug}`}
+            class="text-slate-500 hover:text-primary transition-colors line-clamp-2"
+          >
+            {h.text}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</aside>
