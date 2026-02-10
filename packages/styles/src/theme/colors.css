@@ -16,16 +16,14 @@
   --color-placeholderText: #9ca3af;
 
   --color-primaryControl: #ff3e00;
-  --color-primaryControlHover: #2563eb; /* Antigua lógica */
   --color-secondaryControl: #e5e7eb;
-  --color-secondaryControlHover: #d1d5db; /* Antigua lógica */
   --color-tertiaryControl: #f3f4f6;
   --color-destructive: #dc2626;
 
   /* Foreground Colors */
   --color-primary-foreground: #ffffff;
-  --color-secondary-foreground: #111827;
-  --color-tertiary-foreground: #4b5563;
+  --color-secondary-foreground: #ff3e00;
+  --color-tertiary-foreground: #8e939d;
   --color-destructive-foreground: #ffffff;
 
   /* New Mix Hovers */
@@ -34,11 +32,13 @@
     var(--color-primaryControl) 90%,
     var(--color-primary-foreground) 10%
   );
+
   --color-secondary-hover: color-mix(
     in oklab,
     var(--color-secondaryControl) 90%,
-    var(--color-secondary-foreground) 10%
+    var(--color-secondaryText) 10%
   );
+
   --color-tertiary-hover: color-mix(
     in oklab,
     var(--color-tertiaryControl) 90%,

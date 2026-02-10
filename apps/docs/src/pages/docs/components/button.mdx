@@ -6,6 +6,8 @@ layout: "@layouts/DocsLayout.astro"
 import ComponentExample from "@components/astro/ComponentExample.astro";
 
 import ButtonUsage from "@examples/svelte/button/ButtonUsage.svelte";
+import ButtonVariants from "@examples/svelte/button/ButtonVariants.svelte";
+import ButtonSizes from "@examples/svelte/button/ButtonSizes.svelte";
 
 # Button
 
@@ -17,4 +19,16 @@ Interactive element that lets users take actions or make decisions with a click.
 
 ## Examples
 
+### Variants
+
+<ComponentExample src="svelte/button/ButtonVariants.svelte">
+  <ButtonVariants client:load />
+</ComponentExample>
+
 ### Sizes
+
+<ComponentExample src="svelte/button/ButtonSizes.svelte">
+  <ButtonSizes client:load />
+</ComponentExample>
+
+### Disabled State

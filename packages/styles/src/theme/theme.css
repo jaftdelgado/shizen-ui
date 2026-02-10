@@ -1,0 +1,35 @@
+@theme inline {
+  /* Text Colors */
+  --color-primary-text: var(--primary-text);
+  --color-secondary-text: var(--secondary-text);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-control: var(--control);
+  --color-control-foreground: var(--control-foreground);
+
+  --color-danger: var(--danger);
+  --color-danger-foreground: var(--danger-foreground);
+
+  /* Calculated Variables */
+
+  /* Colors */
+  --color-accent-hover: color-mix(
+    in oklab,
+    var(--color-accent) 90%,
+    var(--color-accent-foreground) 10%
+  );
+
+  --color-control-hover: color-mix(
+    in oklab,
+    var(--color-control) 96%,
+    var(--color-control-foreground) 4%
+  );
+
+  --color-danger-hover: color-mix(
+    in oklab,
+    var(--color-danger) 90%,
+    var(--color-danger-foreground) 10%
+  );
+}

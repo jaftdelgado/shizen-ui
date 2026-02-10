@@ -1,7 +1,7 @@
 @theme {
-  --spacing-control-sm: 2.25rem;
-  --spacing-control-md: 2.5rem;
-  --spacing-control-lg: 2.75rem;
+  --spacing-control-sm: 2rem;
+  --spacing-control-md: 2.25rem;
+  --spacing-control-lg: 2.5rem;
 
-  --radius-control: 0.85rem;
+  --radius-control: 0.75rem;
 }

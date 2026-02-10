@@ -21,27 +21,27 @@
   }
 
   .button--primary {
-    --btn-bg: var(--color-primaryControl);
-    --btn-bg-hover: var(--color-primary-hover);
-    --btn-fg: var(--color-primary-foreground);
+    --btn-bg: var(--color-accent);
+    --btn-fg: var(--color-accent-foreground);
+    --btn-bg-hover: var(--color-accent-hover);
   }
 
   .button--secondary {
-    --btn-bg: var(--color-secondaryControl);
-    --btn-bg-hover: var(--color-secondary-hover);
-    --btn-fg: var(--color-secondary-foreground);
+    --btn-bg: var(--color-control);
+    --btn-fg: var(--color-accent);
+    --btn-bg-hover: var(--color-control-hover);
   }
 
   .button--tertiary {
-    --btn-bg: var(--color-tertiaryControl);
-    --btn-bg-hover: var(--color-tertiary-hover);
-    --btn-fg: var(--color-tertiary-foreground);
+    --btn-bg: var(--color-control);
+    --btn-fg: var(--color-secondary-text);
+    --btn-bg-hover: var(--color-control-hover);
   }
 
   .button--danger {
-    --btn-bg: var(--color-destructive);
-    --btn-bg-hover: var(--color-destructive-hover);
-    --btn-fg: var(--color-destructive-foreground);
+    --btn-bg: var(--color-danger);
+    --btn-fg: var(--color-danger-foreground);
+    --btn-bg-hover: var(--color-danger-hover);
   }
 
   .button--ghost {
@@ -58,11 +58,7 @@
   .button--soft-danger {
     --btn-bg: var(--color-secondaryControl);
     --btn-fg: var(--color-destructive);
-    --btn-bg-hover: color-mix(
-      in oklab,
-      var(--color-secondaryControl),
-      var(--color-destructive) 10%
-    );
+    --btn-bg-hover: var(--color-control-hover);
   }
 
   .button--sm {
@@ -76,7 +72,7 @@
   }
 
   .button--lg {
-    @apply h-control-lg px-5 text-base;
+    @apply h-control-lg px-4 text-base;
     --btn-gap: 0.65rem;
   }
 

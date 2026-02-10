@@ -1,5 +1,6 @@
 <script lang="ts">
   import { cn } from "@shizen-ui/styles";
+  import { buttonStyles, type ButtonVariants } from "@shizen-ui/styles";
   import type { HTMLButtonAttributes } from "svelte/elements";
   import type { Snippet } from "svelte";
   import { getContext } from "svelte";
@@ -7,8 +8,8 @@
   type IconContent = Snippet | string;
 
   interface BaseProps extends HTMLButtonAttributes {
-    variant?: "primary" | "secondary" | "tertiary" | "ghost" | "outline" | "danger" | "soft-danger";
-    size?: "sm" | "md" | "lg";
+    variant?: ButtonVariants["variant"];
+    size?: ButtonVariants["size"];
   }
 
   interface NormalProps extends BaseProps {
@@ -43,8 +44,8 @@
 
   const BUTTON_GROUP_CTX_KEY = "button-group";
   const groupContext = getContext<{
-    variant: BaseProps["variant"];
-    size: BaseProps["size"];
+    variant: ButtonVariants["variant"];
+    size: ButtonVariants["size"];
   }>(BUTTON_GROUP_CTX_KEY);
 
   const finalVariant = $derived(groupContext?.variant ?? variant);
@@ -66,11 +67,12 @@
   {onclick}
   {disabled}
   {...rest}
-  use:clickRipple
   class={cn(
-    "button",
-    `button--${finalVariant}`,
-    iconOnly ? ["button--icon-only", `button--icon-only--${finalSize}`] : `button--${finalSize}`,
+    buttonStyles({
+      variant: finalVariant,
+      size: finalSize,
+      iconOnly: iconOnly as any
+    }),
     className
   )}
 >
