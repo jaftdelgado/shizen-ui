@@ -1,40 +1,74 @@
 ---
+import { codeToHtml } from "shiki";
+
 interface Props {
   code: string;
   lang?: string;
-  title?: string;
+  theme?: string;
+  showLineNumbers?: boolean;
 }
 
-const { code, title = "Example Code" } = Astro.props;
+const { code = "", lang = "tsx", theme = "github-light", showLineNumbers = true } = Astro.props;
+
+const highlightedCode = await codeToHtml(code, {
+  lang,
+  theme,
+  structure: "classic"
+});
 ---
 
-<div class="border border-slate-200 rounded-xl overflow-hidden bg-slate-900 my-4">
+<div class="border-t border-slate-100 bg-component">
   <div
-    class="flex items-center justify-between px-4 py-2 bg-slate-800/50 border-b border-slate-700/50"
+    class:list={[
+      "py-4 overflow-x-auto font-mono shiki-container",
+      { "line-numbers": showLineNumbers }
+    ]}
   >
-    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">
-      {title}
-    </span>
-    <button
-      class="text-xs text-slate-400 hover:text-white transition-colors cursor-pointer flex items-center gap-1"
-      onclick={`navigator.clipboard.writeText(\`${code.trim()}\`)`}
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="14"
-        height="14"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        ><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path
-          d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg
-      >
-      Copy
-    </button>
+    <Fragment set:html={highlightedCode} />
   </div>
-  <pre
-    class="p-4 overflow-x-auto text-sm text-slate-300 font-mono leading-relaxed"><code>{code.trim()}</code></pre>
 </div>
+
+<style is:global>
+  .shiki-container pre {
+    background-color: transparent !important;
+    margin: 0;
+    padding: 0;
+    display: block;
+    line-height: 1.6;
+    font-size: 0.875rem;
+  }
+
+  .shiki-container code {
+    display: block;
+    width: fit-content;
+    min-width: 100%;
+    counter-reset: step;
+  }
+
+  .line {
+    display: inline-block;
+    width: 100%;
+    padding: 0 1.5rem;
+    box-sizing: border-box;
+  }
+
+  .line span {
+    line-height: inherit;
+  }
+
+  .line-numbers .line {
+    padding-left: 0;
+  }
+
+  .line-numbers .line::before {
+    content: counter(step);
+    counter-increment: step;
+    width: 3rem;
+    display: inline-block;
+    text-align: right;
+    color: var(--color-secondaryText);
+    user-select: none;
+    padding-right: 1rem;
+    font-size: 0.875rem;
+  }
+</style>

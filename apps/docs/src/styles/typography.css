@@ -1,0 +1,42 @@
+@layer base {
+  .prose-content {
+    & h1:not([class*="text--"]) {
+      @apply text-primaryText text-3xl font-semibold mb-4 tracking-tighter;
+    }
+
+    & h2:not([class*="text--"]) {
+      @apply text-primaryText text-xl font-medium mt-16 tracking-tight;
+    }
+
+    & h3:not([class*="text--"]) {
+      @apply text-primaryText text-lg font-medium mb-2 mt-10 tracking-tight;
+    }
+
+    & p:not([class*="text--"]) {
+      @apply text-secondaryText leading-relaxed text-base;
+    }
+
+    & code:not(pre code) {
+      @apply bg-zinc-800 text-zinc-200 px-1.5 py-0.5 rounded text-sm font-mono;
+    }
+
+    & ul,
+    & ol {
+      @apply mb-5 ml-6 text-zinc-400 space-y-2;
+    }
+
+    & ul {
+      @apply list-disc;
+    }
+
+    & li strong {
+      @apply text-zinc-200;
+    }
+  }
+}
+
+@layer components {
+  [class*="text--"] {
+    margin: 0;
+  }
+}

@@ -1,6 +1,8 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 @import "@shizen-ui/styles/styles";
 @import "./theme.css";
+@import "./typography.css";
 
 @font-face {
   font-family: "Geist";

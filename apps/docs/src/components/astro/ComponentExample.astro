@@ -1,33 +1,43 @@
 ---
+import CodeBlock from "./CodeBlock.astro";
+
 interface Props {
-  code?: string;
+  src?: string;
+  lang?: string;
+  theme?: string;
+  showLineNumbers?: boolean;
 }
 
-const { code } = Astro.props;
+const { src, lang = "svelte", theme, showLineNumbers = true } = Astro.props;
+
+let code = "";
+
+if (src) {
+  const examples = import.meta.glob("/src/examples/**/*.svelte", {
+    query: "?raw",
+    import: "default"
+  });
+
+  const fullPath = `/src/examples/${src}`;
+  const loadCode = examples[fullPath];
+
+  if (loadCode) {
+    code = (await loadCode()) as string;
+  } else {
+    console.warn(`[ComponentExample] No se encontró: ${fullPath}`);
+  }
+}
 ---
 
-<div class="my-8 border border-slate-200 rounded-xl overflow-hidden bg-transparent shadow-xs">
-  <div class="p-8 flex items-center justify-center min-h-84 from-slate-50 via-white to-slate-50">
+<div class="my-8 border border-slate-200 rounded-2xl overflow-hidden bg-transparent">
+  <div class="p-8 flex items-center justify-center min-h-84">
     <slot />
   </div>
 
   {
     code && (
-      <div class="border-t border-slate-100 bg-component">
-        <div class="flex items-center justify-between px-4 py-2">
-          <span class="text-xs font-medium text-slate-400 uppercase tracking-wider">
-            Example Code
-          </span>
-          <button
-            class="text-xs text-slate-400 hover:text-white transition-colors cursor-pointer"
-            onclick={`navigator.clipboard.writeText(\`${code}\`)`}
-          >
-            Copy
-          </button>
-        </div>
-        <pre class="p-4 overflow-x-auto text-sm text-slate-300 font-mono">
-          <code>{code}</code>
-        </pre>
+      <div class="border-t border-slate-200">
+        <CodeBlock code={code} lang={lang} theme={theme} showLineNumbers={showLineNumbers} />
       </div>
     )
   }
