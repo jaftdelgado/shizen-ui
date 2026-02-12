@@ -1,15 +1,20 @@
 @layer components {
   .button {
-    @apply relative overflow-hidden inline-flex items-center justify-center rounded-control font-medium transition-colors duration-200 cursor-pointer;
+    @apply relative overflow-hidden inline-flex items-center justify-center rounded-control font-medium transition-colors duration-200;
     @apply leading-none text-center whitespace-nowrap select-none;
-    @apply disabled:opacity-disabled disabled:cursor-auto;
+    @apply disabled:opacity-disabled;
 
+    cursor: var(--cursor-interactive);
     --btn-bg: transparent;
     --btn-bg-hover: var(--btn-bg);
     --btn-fg: currentColor;
 
     background-color: var(--btn-bg);
     color: var(--btn-fg);
+  }
+
+  .button:disabled {
+    cursor: var(--cursor-disabled);
   }
 
   .button:hover:not(:disabled) {
@@ -45,14 +50,14 @@
   }
 
   .button--ghost {
-    --btn-fg: var(--color-primaryText);
-    --btn-bg-hover: color-mix(in oklab, transparent, var(--color-primaryText) 8%);
+    --btn-fg: var(--color-secondary-text);
+    --btn-bg-hover: var(--color-ghost-hover);
   }
 
   .button--outline {
     @apply border border-secondaryControl;
-    --btn-fg: var(--color-secondaryText);
-    --btn-bg-hover: color-mix(in oklab, transparent, var(--color-secondaryText) 8%);
+    --btn-fg: var(--color-control-foreground);
+    --btn-bg-hover: var(--color-ghost-hover);
   }
 
   .button--soft-danger {
