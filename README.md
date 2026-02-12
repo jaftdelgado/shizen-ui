@@ -1,5 +1,7 @@
 # shizen-ui
 
+🍀 Shizen UI is a minimalist and customizable Svelte 5 UI library inspired by HeroUI and shadcn.
+
 To install dependencies:
 
 ```bash
