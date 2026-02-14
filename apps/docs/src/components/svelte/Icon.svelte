@@ -3,6 +3,7 @@
 
   export let name: IconName;
   export let size: number = 16;
+  export let strokeWidth: number = 0.1;
 </script>
 
 <svg
@@ -11,6 +12,8 @@
   height={size}
   viewBox="0 0 16 16"
   fill="none"
+  stroke="currentColor"
+  stroke-width={strokeWidth}
   class={$$props.class}
   aria-hidden="true"
   focusable="false"
@@ -18,3 +21,10 @@
 >
   {@html icons[name]}
 </svg>
+
+<style>
+  svg :global(path) {
+    stroke-width: inherit;
+    stroke: inherit;
+  }
+</style>

@@ -4,6 +4,12 @@
   .default,
   [data-theme="light"],
   [data-theme="default"] {
+    /* Spacing scale */
+    --spacing: 0.25rem;
+
+    /* Radius */
+    --radius: 0.25rem;
+
     /* Cursor variables */
     --cursor-interactive: pointer;
     --cursor-disabled: not-allowed;
@@ -20,6 +26,7 @@
     --background: #f5f5f5;
     --surface: var(--white);
     --overlay: var(--white);
+    --separator: #e4e4e7;
 
     /* Text Colors */
     --primary-text: var(--eclipse);

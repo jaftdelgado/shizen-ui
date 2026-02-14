@@ -1,0 +1,39 @@
+---
+title: "Button Group"
+layout: "@layouts/DocsLayout.astro"
+---
+
+import ComponentExample from "@components/astro/ComponentExample.astro";
+
+import ButtonGroupUsage from "@examples/svelte/button-group/ButtonGroupUsage.svelte";
+import ButtonGroupVariants from "@examples/svelte/button-group/ButtonGroupVariants.svelte";
+import ButtonGroupSizes from "@examples/svelte/button-group/ButtonGroupSizes.svelte";
+import ButtonGroupOrientation from "@examples/svelte/button-group/ButtonGroupOrientation.svelte";
+
+# Button Group
+
+ButtonGroup allows you to group a series of buttons together in a single container, managing their styles and layout consistently.
+
+<ComponentExample src="svelte/button-group/ButtonGroupUsage.svelte">
+  <ButtonGroupUsage client:load />
+</ComponentExample>
+
+## Examples
+
+### Variants
+
+<ComponentExample src="svelte/button-group/ButtonGroupVariants.svelte">
+  <ButtonGroupVariants client:load />
+</ComponentExample>
+
+### Sizes
+
+<ComponentExample src="svelte/button-group/ButtonGroupSizes.svelte">
+  <ButtonGroupSizes client:load />
+</ComponentExample>
+
+### Orientation
+
+<ComponentExample src="svelte/button-group/ButtonGroupOrientation.svelte">
+  <ButtonGroupOrientation client:load />
+</ComponentExample>

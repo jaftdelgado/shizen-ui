@@ -56,14 +56,14 @@
   }
 
   .button--outline {
-    @apply border border-secondaryControl;
+    @apply border border-separator;
     --btn-fg: var(--color-control-foreground);
     --btn-bg-hover: var(--color-ghost-hover);
   }
 
   .button--soft-danger {
-    --btn-bg: var(--color-secondaryControl);
-    --btn-fg: var(--color-destructive);
+    --btn-bg: var(--color-control);
+    --btn-fg: var(--color-danger);
     --btn-bg-hover: var(--color-control-hover);
   }
 

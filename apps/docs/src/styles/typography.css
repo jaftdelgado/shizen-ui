@@ -1,19 +1,19 @@
 @layer base {
   .prose-content {
     & h1:not([class*="text--"]) {
-      @apply text-primaryText text-3xl font-semibold mb-4 tracking-tighter;
+      @apply text-primary-text text-3xl font-semibold mb-4 tracking-tighter;
     }
 
     & h2:not([class*="text--"]) {
-      @apply text-primaryText text-xl font-medium mt-16 tracking-tight;
+      @apply text-primary-text text-xl font-medium mt-16 tracking-tight;
     }
 
     & h3:not([class*="text--"]) {
-      @apply text-primaryText text-lg font-medium mb-2 mt-10 tracking-tight;
+      @apply text-primary-text text-lg font-medium mb-2 mt-10 tracking-tight;
     }
 
     & p:not([class*="text--"]) {
-      @apply text-secondaryText leading-relaxed text-base;
+      @apply text-secondary-text leading-relaxed text-base;
     }
 
     & code:not(pre code) {
