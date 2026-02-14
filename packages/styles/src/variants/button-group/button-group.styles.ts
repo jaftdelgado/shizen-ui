@@ -21,16 +21,16 @@ export const buttonGroupStyles = tv({
       horizontal: "button-group--horizontal",
       vertical: "button-group--vertical"
     },
-    showSeparators: {
-      true: "button-group--with-separators",
-      false: ""
+    hideSeparator: {
+      false: "button-group--separators",
+      true: ""
     }
   },
   defaultVariants: {
     variant: "primary",
     size: "md",
     orientation: "horizontal",
-    showSeparators: true
+    hideSeparator: false
   }
 });
 

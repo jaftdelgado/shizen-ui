@@ -72,16 +72,16 @@
   .button-group > .button:active:not(:disabled) {
     @apply z-20;
   }
-  .button-group--with-separators > .button:not(:last-child)::after {
+  .button-group--separators > .button:not(:last-child)::after {
     content: "";
     @apply absolute bg-current opacity-20 rounded-full;
   }
-  .button-group--horizontal.button-group--with-separators > .button:not(:last-child)::after {
+  .button-group--horizontal.button-group--separators > .button:not(:last-child)::after {
     @apply right-0 top-1/2 -translate-y-1/2;
     width: 1px;
     height: 60%;
   }
-  .button-group--vertical.button-group--with-separators > .button:not(:last-child)::after {
+  .button-group--vertical.button-group--separators > .button:not(:last-child)::after {
     @apply bottom-0 left-1/2 -translate-x-1/2;
     height: 1px;
     width: 60%;

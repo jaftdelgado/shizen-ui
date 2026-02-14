@@ -10,7 +10,7 @@
     variant?: ButtonGroupVariants["variant"];
     size?: ButtonGroupVariants["size"];
     orientation?: ButtonGroupVariants["orientation"];
-    showSeparators?: boolean;
+    hideSeparator?: boolean;
     disabled?: boolean;
   }
 
@@ -20,7 +20,7 @@
     variant = "primary",
     size = "md",
     orientation = "horizontal",
-    showSeparators = true,
+    hideSeparator = false,
     disabled = false,
     ...rest
   }: Props = $props();
@@ -49,7 +49,7 @@
       variant,
       size,
       orientation,
-      showSeparators
+      hideSeparator
     }),
     className
   )}
