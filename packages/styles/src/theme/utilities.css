@@ -1,0 +1,4 @@
+@utility status-disabled {
+  opacity: var(--disabled-opacity);
+  cursor: var(--cursor-disabled);
+}

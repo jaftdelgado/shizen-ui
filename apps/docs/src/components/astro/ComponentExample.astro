@@ -19,28 +19,29 @@ if (src) {
   });
 
   const fullPath = `/src/examples/${src}`;
-  const loadCode = examples[fullPath];
+  const loadCode = (await examples[fullPath]?.()) as string;
 
   if (loadCode) {
-    const rawCode = (await loadCode()) as string;
-    // Aplicamos trim() para eliminar saltos de línea al inicio y al final
-    code = rawCode.trim();
+    code = loadCode.trim();
   } else {
     console.warn(`[ComponentExample] No se encontró: ${fullPath}`);
   }
 }
 ---
 
-<div class="my-8 border border-slate-200 rounded-2xl overflow-hidden bg-transparent">
+<section
+  class="my-8 border border-slate-200 rounded-2xl overflow-hidden bg-transparent"
+  aria-label="Ejemplo de componente"
+>
   <div class="p-8 flex items-center justify-center min-h-92">
     <slot />
   </div>
 
   {
     code && (
-      <div class="border-t border-slate-200">
+      <div class="border-t border-slate-200" aria-label="Código fuente del ejemplo">
         <CodeBlock code={code} lang={lang} theme={theme} showLineNumbers={showLineNumbers} />
       </div>
     )
   }
-</div>
+</section>

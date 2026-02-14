@@ -2,19 +2,20 @@
   .button {
     @apply relative overflow-hidden inline-flex items-center justify-center rounded-control font-medium transition-colors duration-200;
     @apply leading-none text-center whitespace-nowrap select-none;
-    @apply disabled:opacity-disabled;
 
-    cursor: var(--cursor-interactive);
+    /* Default tokens */
     --btn-bg: transparent;
     --btn-bg-hover: var(--btn-bg);
     --btn-fg: currentColor;
 
+    cursor: var(--cursor-interactive);
     background-color: var(--btn-bg);
     color: var(--btn-fg);
   }
 
-  .button:disabled {
-    cursor: var(--cursor-disabled);
+  .button:disabled,
+  .button[aria-disabled="true"] {
+    @apply status-disabled;
   }
 
   .button:hover:not(:disabled) {

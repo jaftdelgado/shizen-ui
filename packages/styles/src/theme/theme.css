@@ -27,7 +27,7 @@
     var(--color-control-foreground) 8%
   );
 
-  --color-ghost-hover: color-mix(in oklab, var(--color-control-foreground) 10%, transparent);
+  --color-ghost-hover: color-mix(in oklab, var(--color-control-foreground) 8%, transparent);
 
   --color-danger-hover: color-mix(
     in oklab,

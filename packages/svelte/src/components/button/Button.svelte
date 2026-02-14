@@ -78,7 +78,9 @@
 >
   <span class="button__content relative z-10">
     {#if iconOnly}
-      {@render children?.()}
+      <span class="flex items-center justify-center shrink-0">
+        {@render children?.()}
+      </span>
     {:else}
       {@render renderIcon(startContent)}
 

@@ -30,14 +30,14 @@
     --control: #e5e7eb;
     --control-foreground: var(--secondary-text);
 
-    --accent: #ff3e00;
+    --accent: #007aff;
     --accent-foreground: var(--inverted-text);
 
     --success: #22c55e;
 
     --warning: #facc15;
 
-    --danger: #dc2626;
+    --danger: #ff3b30;
     --danger-foreground: var(--inverted-text);
   }
 }

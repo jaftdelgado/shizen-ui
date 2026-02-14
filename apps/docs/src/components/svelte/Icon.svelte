@@ -12,6 +12,8 @@
   viewBox="0 0 16 16"
   fill="none"
   class={$$props.class}
+  aria-hidden="true"
+  focusable="false"
   {...$$restProps}
 >
   {@html icons[name]}
