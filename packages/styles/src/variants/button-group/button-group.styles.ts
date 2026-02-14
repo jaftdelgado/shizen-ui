@@ -20,12 +20,17 @@ export const buttonGroupStyles = tv({
     orientation: {
       horizontal: "button-group--horizontal",
       vertical: "button-group--vertical"
+    },
+    showSeparators: {
+      true: "button-group--with-separators",
+      false: ""
     }
   },
   defaultVariants: {
     variant: "primary",
     size: "md",
-    orientation: "horizontal"
+    orientation: "horizontal",
+    showSeparators: true
   }
 });
 

@@ -10,6 +10,8 @@
     variant?: ButtonGroupVariants["variant"];
     size?: ButtonGroupVariants["size"];
     orientation?: ButtonGroupVariants["orientation"];
+    showSeparators?: boolean;
+    disabled?: boolean;
   }
 
   let {
@@ -18,6 +20,8 @@
     variant = "primary",
     size = "md",
     orientation = "horizontal",
+    showSeparators = true,
+    disabled = false,
     ...rest
   }: Props = $props();
 
@@ -29,6 +33,9 @@
     },
     get size() {
       return size;
+    },
+    get disabled() {
+      return disabled;
     }
   });
 </script>
@@ -36,11 +43,13 @@
 <div
   role="group"
   {...rest}
+  aria-disabled={disabled}
   class={cn(
     buttonGroupStyles({
       variant,
       size,
-      orientation
+      orientation,
+      showSeparators
     }),
     className
   )}

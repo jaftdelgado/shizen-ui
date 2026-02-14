@@ -8,6 +8,7 @@ import ComponentExample from "@components/astro/ComponentExample.astro";
 import ButtonGroupUsage from "@examples/svelte/button-group/ButtonGroupUsage.svelte";
 import ButtonGroupVariants from "@examples/svelte/button-group/ButtonGroupVariants.svelte";
 import ButtonGroupSizes from "@examples/svelte/button-group/ButtonGroupSizes.svelte";
+import ButtonGroupDisabled from "@examples/svelte/button-group/ButtonGroupDisabled.svelte";
 import ButtonGroupOrientation from "@examples/svelte/button-group/ButtonGroupOrientation.svelte";
 
 # Button Group
@@ -30,6 +31,12 @@ ButtonGroup allows you to group a series of buttons together in a single contain
 
 <ComponentExample src="svelte/button-group/ButtonGroupSizes.svelte">
   <ButtonGroupSizes client:load />
+</ComponentExample>
+
+### Disabled State
+
+<ComponentExample src="svelte/button-group/ButtonGroupDisabled.svelte">
+  <ButtonGroupDisabled client:load />
 </ComponentExample>
 
 ### Orientation

@@ -11,7 +11,7 @@
     "soft-danger"
   ] as const;
 
-  const labels = ["First", "Second", "Third"];
+  const labels = ["Left", "Center", "Right"];
 </script>
 
 <div class="flex flex-col gap-4">

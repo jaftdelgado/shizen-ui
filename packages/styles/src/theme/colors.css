@@ -1,0 +1,79 @@
+@theme {
+  --opacity-hover: 0.34;
+  --opacity-hover-sutil: 0.15;
+  --opacity-disabled: 0.4;
+
+  --white: #ffffff;
+  --black: #000000;
+  --snow: #fcfcfc;
+  --eclipse: #18181b;
+
+  --color-surface: #ffffff;
+  --color-hover: #8d8d8d;
+
+  --color-primaryText: #111827;
+  --color-secondaryText: #8e939d;
+  --color-placeholderText: #9ca3af;
+
+  --color-primaryControl: #ff3e00;
+  --color-secondaryControl: #e5e7eb;
+  --color-tertiaryControl: #f3f4f6;
+  --color-destructive: #dc2626;
+
+  /* Foreground Colors */
+  --color-primary-foreground: #ffffff;
+  --color-secondary-foreground: #ff3e00;
+  --color-tertiary-foreground: #8e939d;
+  --color-destructive-foreground: #ffffff;
+
+  /* New Mix Hovers */
+  --color-primary-hover: color-mix(
+    in oklab,
+    var(--color-primaryControl) 90%,
+    var(--color-primary-foreground) 10%
+  );
+
+  --color-secondary-hover: color-mix(
+    in oklab,
+    var(--color-secondaryControl) 90%,
+    var(--color-secondaryText) 10%
+  );
+
+  --color-tertiary-hover: color-mix(
+    in oklab,
+    var(--color-tertiaryControl) 90%,
+    var(--color-tertiary-foreground) 10%
+  );
+  --color-destructive-hover: color-mix(
+    in oklab,
+    var(--color-destructive) 90%,
+    var(--color-destructive-foreground) 10%
+  );
+}
+
+@layer base {
+  .dark {
+    --opacity-hover: 0.2;
+    --opacity-hover-sutil: 0.06;
+    --opacity-disabled: 0.3;
+
+    --color-surface: #080808;
+    --color-hover: #d8d8d8;
+
+    --color-primaryText: #f9fafb;
+    --color-secondaryText: #a2a2a2;
+    --color-placeholderText: #3d3e3f;
+
+    --color-primaryControl: #ff3e00;
+    --color-primaryControlHover: #ff5921; /* Antigua lógica */
+    --color-secondaryControl: #181818;
+    --color-secondaryControlHover: #374151; /* Antigua lógica */
+    --color-tertiaryControl: #262626;
+    --color-destructive: #f12c2c;
+
+    --color-primary-foreground: #ffffff;
+    --color-secondary-foreground: #f9fafb;
+    --color-tertiary-foreground: #d1d5db;
+    --color-destructive-foreground: #ffffff;
+  }
+}

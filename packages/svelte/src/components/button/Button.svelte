@@ -46,10 +46,12 @@
   const groupContext = getContext<{
     variant: ButtonVariants["variant"];
     size: ButtonVariants["size"];
+    disabled: boolean;
   }>(BUTTON_GROUP_CTX_KEY);
 
   const finalVariant = $derived(groupContext?.variant ?? variant);
   const finalSize = $derived(groupContext?.size ?? size);
+  const isCurrentlyDisabled = $derived(groupContext?.disabled || disabled);
 </script>
 
 {#snippet renderIcon(content: IconContent | undefined)}
@@ -65,7 +67,7 @@
 <button
   {type}
   {onclick}
-  {disabled}
+  disabled={isCurrentlyDisabled}
   {...rest}
   class={cn(
     buttonStyles({

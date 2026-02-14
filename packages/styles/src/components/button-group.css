@@ -2,74 +2,88 @@
   .button-group {
     @apply inline-flex isolate;
   }
-
   .button-group--horizontal {
     @apply flex-row;
   }
-
   .button-group--vertical {
     @apply flex-col items-stretch;
   }
-
   .button-group--vertical > .button {
     @apply w-full flex justify-center items-center;
-    aspect-ratio: auto;
   }
-
   .button-group--vertical > .button.button--icon-only {
     @apply aspect-square min-w-max w-full;
   }
-
   .button-group--horizontal > .button {
     @apply rounded-none;
   }
-
   .button-group--horizontal > .button:first-child {
     @apply rounded-l-control;
   }
-
   .button-group--horizontal > .button:last-child {
     @apply rounded-r-control;
   }
-
   .button-group--horizontal > .button:only-child {
     @apply rounded-control;
   }
-
-  .button-group--horizontal.button-group--outline > .button:not(:first-child) {
-    @apply -ml-px;
-  }
-
   .button-group--vertical > .button {
     @apply rounded-none;
   }
-
   .button-group--vertical > .button:first-child {
     @apply rounded-t-control;
   }
-
   .button-group--vertical > .button:last-child {
     @apply rounded-b-control;
   }
-
   .button-group--vertical > .button:only-child {
     @apply rounded-control;
   }
-
-  .button-group--vertical.button-group--outline > .button:not(:first-child) {
-    @apply -mt-px;
+  .button-group--outline.button-group--horizontal > .button:first-child {
+    @apply border-r-0;
   }
-
+  .button-group--outline.button-group--horizontal > .button:not(:first-child):not(:last-child) {
+    @apply border-x-0;
+  }
+  .button-group--outline.button-group--horizontal > .button:last-child {
+    @apply border-l-0;
+  }
+  .button-group--outline.button-group--horizontal > .button:only-child {
+    @apply border;
+  }
+  .button-group--outline.button-group--vertical > .button:first-child {
+    @apply border-b-0;
+  }
+  .button-group--outline.button-group--vertical > .button:not(:first-child):not(:last-child) {
+    @apply border-y-0;
+  }
+  .button-group--outline.button-group--vertical > .button:last-child {
+    @apply border-t-0;
+  }
+  .button-group--outline.button-group--vertical > .button:only-child {
+    @apply border;
+  }
   .button-group > .button {
     @apply relative;
   }
-
   .button-group > .button:hover:not(:disabled),
   .button-group > .button:focus-visible {
     @apply z-10;
   }
-
   .button-group > .button:active:not(:disabled) {
     @apply z-20;
+  }
+  .button-group--with-separators > .button:not(:last-child)::after {
+    content: "";
+    @apply absolute bg-current opacity-20 rounded-full;
+  }
+  .button-group--horizontal.button-group--with-separators > .button:not(:last-child)::after {
+    @apply right-0 top-1/2 -translate-y-1/2;
+    width: 1px;
+    height: 60%;
+  }
+  .button-group--vertical.button-group--with-separators > .button:not(:last-child)::after {
+    @apply bottom-0 left-1/2 -translate-x-1/2;
+    height: 1px;
+    width: 60%;
   }
 }
