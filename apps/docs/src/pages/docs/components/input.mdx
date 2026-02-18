@@ -1,0 +1,46 @@
+---
+title: "Input"
+layout: "@layouts/DocsLayout.astro"
+---
+
+import ComponentExample from "@components/astro/ComponentExample.astro";
+
+import InputUsage from "@examples/svelte/input/InputUsage.svelte";
+import InputSizes from "@examples/svelte/input/InputSizes.svelte";
+import InputDisabled from "@examples/svelte/input/InputDisabled.svelte";
+import InputTypes from "@examples/svelte/input/InputTypes.svelte";
+import InputControlled from "@examples/svelte/input/InputControlled.svelte";
+
+# Input
+
+Input field that allows users to enter and edit text.
+
+<ComponentExample src="svelte/input/InputUsage.svelte">
+  <InputUsage client:load />
+</ComponentExample>
+
+## Examples
+
+### Sizes
+
+<ComponentExample src="svelte/input/InputSizes.svelte">
+  <InputSizes client:load />
+</ComponentExample>
+
+### Disabled State
+
+<ComponentExample src="svelte/input/InputDisabled.svelte">
+  <InputDisabled client:load />
+</ComponentExample>
+
+### Types
+
+<ComponentExample src="svelte/input/InputTypes.svelte">
+  <InputTypes client:load />
+</ComponentExample>
+
+### Controlled
+
+<ComponentExample src="svelte/input/InputControlled.svelte">
+  <InputControlled client:load />
+</ComponentExample>

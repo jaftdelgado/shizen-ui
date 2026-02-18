@@ -1,0 +1,31 @@
+@layer components {
+  .input {
+    @apply relative inline-flex items-center w-full rounded-control  transition-all duration-200;
+    @apply outline-none placeholder:text-field-placeholder;
+
+    background-color: var(--color-control);
+    color: var(--color-field-foreground);
+
+    &:focus {
+      @apply status-focused-field;
+      background-color: var(--color-field-hover);
+    }
+
+    &:disabled,
+    &[aria-disabled="true"] {
+      @apply status-disabled;
+    }
+  }
+
+  .input--sm {
+    @apply h-field-sm px-3 text-sm;
+  }
+
+  .input--md {
+    @apply h-field-md px-4 text-sm;
+  }
+
+  .input--lg {
+    @apply h-field-lg px-4 text-base;
+  }
+}

@@ -4,11 +4,10 @@
   .default,
   [data-theme="light"],
   [data-theme="default"] {
-    /* Spacing scale */
+    /* Dimensions scale */
     --spacing: 0.25rem;
-
-    /* Radius */
     --radius: 0.25rem;
+    --padding: 0.25rem;
 
     /* Cursor variables */
     --cursor-interactive: pointer;
@@ -27,15 +26,21 @@
     --surface: var(--white);
     --overlay: var(--white);
     --separator: #e4e4e7;
+    --focus: var(--accent);
 
     /* Text Colors */
     --primary-text: var(--eclipse);
-    --secondary-text: #4b5563;
-    --tertiary-text: #6b7280;
+    --secondary-text: #5b616d;
+    --tertiary-text: #a3a7af;
     --inverted-text: var(--snow);
 
-    --control: #e5e7eb;
+    --control: #eaecef;
     --control-foreground: var(--secondary-text);
+
+    /* Form Fields */
+    --field: var(--control);
+    --field-foreground: var(--primary-text);
+    --field-placeholder: var(--tertiary-text);
 
     --accent: #007aff;
     --accent-foreground: var(--inverted-text);

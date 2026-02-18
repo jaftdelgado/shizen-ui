@@ -4,20 +4,30 @@
   --spacing-control-md: calc(var(--spacing) * 9); /* 2.25rem (36px) */
   --spacing-control-lg: calc(var(--spacing) * 10); /* 2.5rem (40px) */
 
+  --spacing-field-sm: calc(var(--spacing) * 8); /* 2rem (32px) */
+  --spacing-field-md: calc(var(--spacing) * 9); /* 2.25rem (36px) */
+  --spacing-field-lg: calc(var(--spacing) * 10); /* 2.5rem (40px) */
+
   /* Radius tokens */
   --radius-control: calc(var(--radius) * 3); /* 0.75rem (12px) */
 
   --color-separator: var(--separator);
+  --color-focus: var(--focus);
 
   /* Text Colors */
   --color-primary-text: var(--primary-text);
   --color-secondary-text: var(--secondary-text);
+  --color-tertiary-text: var(--tertiary-text);
 
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
 
   --color-control: var(--control);
   --color-control-foreground: var(--control-foreground);
+
+  --color-field: var(--control);
+  --color-field-foreground: var(--primary-text);
+  --color-field-placeholder: var(--tertiary-text);
 
   --color-danger: var(--danger);
   --color-danger-foreground: var(--danger-foreground);
@@ -31,17 +41,23 @@
     var(--color-accent-foreground) 10%
   );
 
+  --color-danger-hover: color-mix(
+    in oklab,
+    var(--color-danger) 90%,
+    var(--color-danger-foreground) 10%
+  );
+
   --color-control-hover: color-mix(
     in oklab,
     var(--color-control) 94%,
     var(--color-control-foreground) 6%
   );
 
-  --color-ghost-hover: color-mix(in oklab, var(--color-control-foreground) 8%, transparent);
-
-  --color-danger-hover: color-mix(
+  --color-field-hover: color-mix(
     in oklab,
-    var(--color-danger) 90%,
-    var(--color-danger-foreground) 10%
+    var(--color-field) 98%,
+    var(--color-field-foreground) 2%
   );
+
+  --color-ghost-hover: color-mix(in oklab, var(--color-control-foreground) 8%, transparent);
 }
