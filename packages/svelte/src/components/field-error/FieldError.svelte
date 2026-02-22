@@ -1,43 +1,49 @@
 <script lang="ts">
   import { getContext } from "svelte";
   import { cn } from "@shizen-ui/styles";
-  import { descriptionStyles } from "@shizen-ui/styles";
+  import { fieldErrorStyles, type FieldErrorVariants } from "@shizen-ui/styles";
   import type { HTMLAttributes } from "svelte/elements";
   import type { Snippet } from "svelte";
 
   interface Props extends HTMLAttributes<HTMLParagraphElement> {
     children: Snippet;
-    disabled?: boolean;
+    truncate?: boolean;
+    invalid?: boolean;
     id?: string;
   }
 
-  let { children, class: className, disabled = false, id: propId, ...rest }: Props = $props();
+  let {
+    children,
+    class: className,
+    truncate = false,
+    invalid = false,
+    id: propId,
+    ...rest
+  }: Props = $props();
 
   const FIELD_STATE_CTX_KEY = "field-state";
 
   const fieldState = getContext<{
     invalid?: boolean;
-    disabled?: boolean;
     id?: string;
   }>(FIELD_STATE_CTX_KEY);
 
-  const finalInvalid = $derived(fieldState?.invalid ?? false);
-  const finalDisabled = $derived(fieldState?.disabled ?? disabled);
+  const finalInvalid = $derived(fieldState?.invalid ?? invalid);
 
-  const finalId = $derived(propId ?? (fieldState?.id ? `${fieldState.id}-description` : undefined));
+  const finalId = $derived(propId ?? (fieldState?.id ? `${fieldState.id}-error` : undefined));
 </script>
 
-{#if !finalInvalid}
+{#if finalInvalid}
   <p
     id={finalId}
     class={cn(
-      descriptionStyles({
-        disabled: finalDisabled
+      fieldErrorStyles({
+        truncate
       }),
       className
     )}
-    data-slot="description"
-    data-disabled={finalDisabled}
+    data-slot="error-message"
+    role="alert"
     {...rest}
   >
     {@render children()}

@@ -1,0 +1,54 @@
+---
+title: "Text Field"
+layout: "@layouts/DocsLayout.astro"
+---
+
+import ComponentExample from "@components/astro/ComponentExample.astro";
+
+import TextFieldUsage from "@examples/svelte/text-field/TextFieldUsage.svelte";
+import TextFieldRequired from "@examples/svelte/text-field/TextFieldRequired.svelte";
+import TextFieldInvalid from "@examples/svelte/text-field/TextFieldInvalid.svelte";
+import TextFieldDisabled from "@examples/svelte/text-field/TextFieldDisabled.svelte";
+import TextFieldFullWidth from "@examples/svelte/text-field/TextFieldFullWidth.svelte";
+
+# Text Field
+
+A low-level composition component that synchronizes `Label`, `Input`, `Description`, and `FieldError` via context. Use `TextField` when you need full control over field layout and accessibility wiring.
+
+<ComponentExample src="svelte/text-field/TextFieldUsage.svelte">
+  <TextFieldUsage client:load />
+</ComponentExample>
+
+## Examples
+
+### Required
+
+Fields marked as `required` automatically render an asterisk indicator inside the `Label`.
+
+<ComponentExample src="svelte/text-field/TextFieldRequired.svelte">
+  <TextFieldRequired client:load />
+</ComponentExample>
+
+### Validation (Invalid State)
+
+When `invalid` is set, the `FieldError` message is shown and the `Description` is automatically hidden to avoid conflicting messages.
+
+<ComponentExample src="svelte/text-field/TextFieldInvalid.svelte">
+  <TextFieldInvalid client:load />
+</ComponentExample>
+
+### Disabled
+
+Setting `disabled` on `TextField` propagates the state down to all child components through context — no need to set it individually on each one.
+
+<ComponentExample src="svelte/text-field/TextFieldDisabled.svelte">
+  <TextFieldDisabled client:load />
+</ComponentExample>
+
+### Full Width
+
+Use `fullWidth` to make the field stretch to fill the width of its container.
+
+<ComponentExample src="svelte/text-field/TextFieldFullWidth.svelte">
+  <TextFieldFullWidth client:load />
+</ComponentExample>

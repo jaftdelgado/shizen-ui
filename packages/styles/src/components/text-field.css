@@ -1,0 +1,13 @@
+@layer components {
+  .text-field {
+    @apply flex flex-col gap-1.5 w-full relative;
+  }
+
+  .text-field--full-width {
+    @apply w-full;
+  }
+
+  .text-field[data-invalid="true"] [data-slot="description"] {
+    @apply hidden;
+  }
+}

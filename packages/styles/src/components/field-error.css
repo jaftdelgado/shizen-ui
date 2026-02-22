@@ -1,0 +1,11 @@
+@layer components {
+  .field-error {
+    @apply text-xs font-medium px-0.5 transition-all duration-200;
+    color: var(--color-danger);
+    line-height: var(--line-height-tight, 1.25rem);
+  }
+
+  .field-error--truncate {
+    @apply truncate block;
+  }
+}

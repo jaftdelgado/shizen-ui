@@ -29,15 +29,17 @@
     invalid?: boolean;
     disabled?: boolean;
     required?: boolean;
+    id?: string;
   }>(FIELD_STATE_CTX_KEY);
 
   const finalInvalid = $derived(fieldState?.invalid ?? invalid);
   const finalDisabled = $derived(fieldState?.disabled ?? disabled);
   const finalRequired = $derived(fieldState?.required ?? required);
+  const finalFor = $derived(htmlFor ?? fieldState?.id);
 </script>
 
 <label
-  for={htmlFor}
+  for={finalFor}
   class={cn(
     labelStyles({
       invalid: finalInvalid,
