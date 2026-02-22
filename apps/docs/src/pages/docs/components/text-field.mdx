@@ -21,7 +21,15 @@ A low-level composition component that synchronizes `Label`, `Input`, `Descripti
 
 ## Examples
 
-### Required
+### Disabled State
+
+Setting `disabled` on `TextField` propagates the state down to all child components through context — no need to set it individually on each one.
+
+<ComponentExample src="svelte/text-field/TextFieldDisabled.svelte">
+  <TextFieldDisabled client:load />
+</ComponentExample>
+
+### Required Field
 
 Fields marked as `required` automatically render an asterisk indicator inside the `Label`.
 
@@ -29,20 +37,12 @@ Fields marked as `required` automatically render an asterisk indicator inside th
   <TextFieldRequired client:load />
 </ComponentExample>
 
-### Validation (Invalid State)
+### Validation
 
 When `invalid` is set, the `FieldError` message is shown and the `Description` is automatically hidden to avoid conflicting messages.
 
 <ComponentExample src="svelte/text-field/TextFieldInvalid.svelte">
   <TextFieldInvalid client:load />
-</ComponentExample>
-
-### Disabled
-
-Setting `disabled` on `TextField` propagates the state down to all child components through context — no need to set it individually on each one.
-
-<ComponentExample src="svelte/text-field/TextFieldDisabled.svelte">
-  <TextFieldDisabled client:load />
 </ComponentExample>
 
 ### Full Width

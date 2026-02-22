@@ -2,6 +2,10 @@
   @apply ring-2 ring-focus ring-offset-0 outline-none;
 }
 
+@utility invalid-field-ring {
+  @apply ring-2 ring-danger ring-offset-0 outline-none;
+}
+
 @utility status-disabled {
   opacity: var(--disabled-opacity);
   cursor: var(--cursor-disabled);
@@ -9,4 +13,8 @@
 
 @utility status-focused-field {
   @apply focus-field-ring;
+}
+
+@utility status-invalid-field {
+  @apply invalid-field-ring;
 }

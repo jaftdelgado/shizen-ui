@@ -1,9 +1,6 @@
 @layer components {
   .description {
-    @apply text-xs text-secondary-text text-wrap wrap-break-word transition-colors duration-200;
-  }
-
-  .description[data-disabled="true"] {
-    @apply status-disabled;
+    @apply text-secondary-text text-xs px-1;
+    @apply text-wrap wrap-break-word transition-colors duration-200;
   }
 }

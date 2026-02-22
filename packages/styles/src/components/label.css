@@ -1,7 +1,7 @@
 @layer components {
   .label {
     @apply inline-flex items-center transition-colors duration-200;
-    @apply text-primary-text text-sm font-medium;
+    @apply text-primary-text text-sm font-medium px-1;
   }
 
   .label--invalid {

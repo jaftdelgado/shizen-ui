@@ -1,14 +1,27 @@
 @layer components {
   .input {
-    @apply relative inline-flex items-center w-full rounded-control  transition-all duration-200;
+    @apply relative inline-flex items-center w-full rounded-control transition-all duration-200;
     @apply outline-none placeholder:text-field-placeholder;
 
-    background-color: var(--color-control);
-    color: var(--color-field-foreground);
+    /* Base tokens */
+    --input-bg: var(--color-control);
+    --input-bg-hover: var(--color-field-hover);
+    --input-fg: var(--color-field-foreground);
+
+    background-color: var(--input-bg);
+    color: var(--input-fg);
+
+    &:hover:not(:disabled, [data-invalid="true"]) {
+      background-color: var(--input-bg-hover);
+    }
 
     &:focus {
       @apply status-focused-field;
-      background-color: var(--color-field-hover);
+      background-color: var(--input-bg-hover);
+    }
+
+    &[data-invalid="true"] {
+      @apply status-invalid-field;
     }
 
     &:disabled,
@@ -18,14 +31,14 @@
   }
 
   .input--sm {
-    @apply h-field-sm px-3 text-sm;
+    @apply h-field-sm px-field-sm text-sm;
   }
 
   .input--md {
-    @apply h-field-md px-4 text-sm;
+    @apply h-field-md px-field-md text-sm;
   }
 
   .input--lg {
-    @apply h-field-lg px-4 text-base;
+    @apply h-field-lg px-field-lg text-base;
   }
 }
