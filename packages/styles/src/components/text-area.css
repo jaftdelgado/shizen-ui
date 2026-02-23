@@ -1,0 +1,35 @@
+@layer components {
+  .textarea {
+    @apply relative inline-flex w-full rounded-field transition-[background-color,box-shadow,ring] duration-200;
+    @apply placeholder:text-field-placeholder text-sm px-3 py-2;
+
+    min-height: var(--spacing-field-md);
+
+    --input-bg: var(--color-control);
+    --input-bg-hover: var(--color-field-hover);
+    --input-fg: var(--color-field-foreground);
+
+    background-color: var(--input-bg);
+    color: var(--input-fg);
+    resize: vertical;
+
+    &:hover:not(:disabled, [data-invalid="true"]) {
+      background-color: var(--input-bg-hover);
+    }
+
+    &:focus {
+      @apply status-focused-field;
+      background-color: var(--input-bg-hover);
+    }
+
+    &[data-invalid="true"] {
+      @apply status-invalid-field;
+    }
+
+    &:disabled,
+    &[aria-disabled="true"] {
+      @apply status-disabled;
+      resize: none;
+    }
+  }
+}

@@ -1,7 +1,5 @@
 @layer components {
   .text-field {
-    /* min-w-0 permite que el contenedor se encoja si es necesario */
-    /* max-w-full impide que el contenido flex lo ensanche más allá del padre */
     @apply flex flex-col gap-1.5 w-full max-w-full relative min-w-0;
   }
 

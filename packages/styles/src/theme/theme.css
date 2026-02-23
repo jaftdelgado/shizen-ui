@@ -14,6 +14,7 @@
 
   /* Radius tokens */
   --radius-control: calc(var(--radius) * 3); /* 0.75rem (12px) */
+  --radius-field: calc(var(--radius) * 3); /* 0.75rem (12px) */
 
   --color-separator: var(--separator);
   --color-focus: var(--focus);
@@ -59,8 +60,8 @@
 
   --color-field-hover: color-mix(
     in oklab,
-    var(--color-field) 98%,
-    var(--color-field-foreground) 2%
+    var(--color-field) 99%,
+    var(--color-field-foreground) 1%
   );
 
   --color-ghost-hover: color-mix(in oklab, var(--color-control-foreground) 8%, transparent);

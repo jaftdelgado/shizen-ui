@@ -10,6 +10,7 @@ import TextFieldRequired from "@examples/svelte/text-field/TextFieldRequired.sve
 import TextFieldInvalid from "@examples/svelte/text-field/TextFieldInvalid.svelte";
 import TextFieldDisabled from "@examples/svelte/text-field/TextFieldDisabled.svelte";
 import TextFieldFullWidth from "@examples/svelte/text-field/TextFieldFullWidth.svelte";
+import TextFieldTextArea from "@examples/svelte/text-field/TextFieldTextArea.svelte";
 
 # Text Field
 
@@ -51,4 +52,12 @@ Use `fullWidth` to make the field stretch to fill the width of its container.
 
 <ComponentExample src="svelte/text-field/TextFieldFullWidth.svelte">
   <TextFieldFullWidth client:load />
+</ComponentExample>
+
+### Text Area
+
+The `TextArea` component can be used within `TextField` for multi-line input.
+
+<ComponentExample src="svelte/text-field/TextFieldTextArea.svelte">
+  <TextFieldTextArea client:load />
 </ComponentExample>

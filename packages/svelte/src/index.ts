@@ -4,4 +4,5 @@ export * from "./components/description/index.js";
 export * from "./components/field-error/index.js";
 export * from "./components/input/index.js";
 export * from "./components/label/index.js";
+export * from "./components/text-area/index.js";
 export * from "./components/text-field/index.js";
