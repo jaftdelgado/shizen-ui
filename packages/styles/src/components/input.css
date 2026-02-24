@@ -3,7 +3,6 @@
     @apply relative inline-flex items-center w-full rounded-control transition-all duration-200;
     @apply outline-none placeholder:text-field-placeholder;
 
-    /* Base tokens */
     --input-bg: var(--color-control);
     --input-bg-hover: var(--color-field-hover);
     --input-fg: var(--color-field-foreground);
@@ -28,6 +27,14 @@
     &[aria-disabled="true"] {
       @apply status-disabled;
     }
+
+    &[data-in-group="true"] {
+      @apply bg-transparent border-none ring-0 shadow-none h-full;
+      &:hover,
+      &:focus {
+        @apply bg-transparent ring-0 shadow-none;
+      }
+    }
   }
 
   .input--sm {
@@ -40,5 +47,9 @@
 
   .input--lg {
     @apply h-field-lg px-field-lg text-base;
+  }
+
+  .input[data-in-group="true"] {
+    @apply h-full py-0 rounded-none;
   }
 }

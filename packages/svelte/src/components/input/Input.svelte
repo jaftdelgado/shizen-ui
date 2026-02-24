@@ -22,16 +22,21 @@
   }: Props = $props();
 
   const FIELD_STATE_CTX_KEY = "field-state";
-
   const fieldState = getContext<{
     invalid?: boolean;
     disabled?: boolean;
     id?: string;
   }>(FIELD_STATE_CTX_KEY);
 
+  const groupCtx = getContext<{
+    size: InputVariants["size"];
+    inGroup: boolean;
+  }>("input-group-context");
+
   const finalInvalid = $derived(fieldState?.invalid ?? invalid);
   const finalDisabled = $derived(fieldState?.disabled ?? disabled);
   const finalId = $derived(propId ?? fieldState?.id);
+  const activeSize = $derived(groupCtx?.inGroup ? groupCtx.size : size);
 
   const descriptionId = $derived(fieldState?.id ? `${fieldState.id}-description` : undefined);
   const errorId = $derived(fieldState?.id ? `${fieldState.id}-error` : undefined);
@@ -44,7 +49,7 @@
   bind:value
   class={cn(
     inputStyles({
-      size
+      size: activeSize
     }),
     className
   )}
@@ -52,5 +57,6 @@
   aria-describedby={!finalInvalid ? descriptionId : undefined}
   aria-errormessage={finalInvalid ? errorId : undefined}
   data-invalid={finalInvalid}
+  data-in-group={groupCtx?.inGroup}
   {...rest}
 />

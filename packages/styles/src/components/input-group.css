@@ -1,0 +1,67 @@
+@layer components {
+  .input-group {
+    @apply relative inline-flex items-center w-full rounded-control transition-[background-color,box-shadow,ring] duration-200;
+    @apply overflow-hidden;
+
+    --group-bg: var(--color-control);
+    --group-bg-hover: var(--color-field-hover);
+
+    background-color: var(--group-bg);
+    color: var(--color-field-foreground);
+
+    &:hover:not([data-disabled="true"], [data-invalid="true"]) {
+      background-color: var(--group-bg-hover);
+    }
+
+    &:focus-within:not([data-disabled="true"]) {
+      @apply status-focused-field;
+      background-color: var(--group-bg-hover);
+    }
+
+    &[data-invalid="true"] {
+      @apply status-invalid-field;
+    }
+
+    &[data-disabled="true"] {
+      @apply status-disabled;
+    }
+  }
+
+  .input-group--sm {
+    @apply h-field-sm text-sm;
+  }
+  .input-group--md {
+    @apply h-field-md text-sm;
+  }
+  .input-group--lg {
+    @apply h-field-lg text-base;
+  }
+
+  .input-group--has-textarea {
+    @apply items-start h-auto min-h-10;
+  }
+
+  .input-group__prefix,
+  .input-group__suffix {
+    @apply flex items-center justify-center px-3 text-secondary-text shrink-0 self-stretch;
+    @apply transition-colors duration-200 select-none;
+  }
+
+  .input-group--has-textarea .input-group__prefix,
+  .input-group--has-textarea .input-group__suffix {
+    @apply pt-3 items-start;
+  }
+
+  .input-group .input,
+  .input-group .textarea {
+    @apply bg-transparent border-none ring-0 shadow-none h-full w-full flex-1;
+    @apply focus:ring-0 focus:outline-none;
+  }
+
+  .input-group:has(.input-group__prefix) .input {
+    @apply pl-0;
+  }
+  .input-group:has(.input-group__suffix) .input {
+    @apply pr-1;
+  }
+}
