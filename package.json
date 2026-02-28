@@ -13,7 +13,8 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "version": "changeset version",
-    "release": "changeset publish"
+    "release": "changeset publish",
+    "add-component": "bun --filter @shizen-ui/svelte add-component"
   },
   "overrides": {
     "vite": "^6.0.0"
