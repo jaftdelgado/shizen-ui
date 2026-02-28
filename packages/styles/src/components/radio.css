@@ -1,0 +1,97 @@
+@layer components {
+  .radio {
+    @apply inline-flex items-center cursor-pointer gap-2 transition-opacity duration-200;
+
+    /* Tokens base */
+    --radio-bg: var(--color-control);
+    --radio-bg-hover: var(--color-control-hover);
+    --radio-dot: var(--color-white);
+    --radio-border-width: 0px;
+    --radio-border-color: transparent;
+
+    &[data-disabled="true"] {
+      @apply status-disabled;
+    }
+
+    &[data-checked="true"] {
+      --radio-bg: var(--color-accent);
+      --radio-bg-hover: var(--color-accent-hover);
+      --radio-border-color: var(--color-accent);
+    }
+  }
+
+  .radio__control {
+    @apply relative flex items-center justify-center rounded-full transition-all duration-200;
+    @apply size-5;
+
+    box-sizing: border-box;
+
+    background-color: var(--radio-bg);
+    border-style: solid;
+    border-width: var(--radio-border-width);
+    border-color: var(--radio-border-color);
+
+    &:hover:not([data-disabled="true"]) {
+      background-color: var(--radio-bg-hover);
+      border-color: var(--radio-bg-hover);
+    }
+  }
+
+  .radio--bordered {
+    --radio-border-width: 2px;
+    --radio-border-color: var(--color-separator);
+  }
+
+  .radio__input {
+    @apply sr-only;
+  }
+
+  .radio__indicator {
+    @apply rounded-full scale-0 transition-transform duration-200;
+    background-color: var(--radio-dot);
+
+    &[data-checked="true"] {
+      @apply scale-100;
+    }
+  }
+
+  .radio--sm {
+    .radio__control {
+      @apply size-4;
+    }
+    .radio__indicator {
+      @apply size-1.5;
+    }
+  }
+
+  .radio--md {
+    .radio__control {
+      @apply size-5;
+    }
+    .radio__indicator {
+      @apply size-2;
+    }
+  }
+
+  .radio--lg {
+    .radio__control {
+      @apply size-6;
+    }
+    .radio__indicator {
+      @apply size-3;
+    }
+  }
+
+  .radio__content {
+    @apply flex flex-col justify-center;
+  }
+
+  /* Radio Group */
+  .radio-group {
+    @apply flex flex-col w-full;
+  }
+
+  .radio-group__wrapper {
+    @apply flex flex-wrap gap-2;
+  }
+}
