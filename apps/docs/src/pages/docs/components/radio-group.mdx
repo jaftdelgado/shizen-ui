@@ -1,14 +1,16 @@
 ---
-title: "Radio"
+title: "Radio Group"
 layout: "@layouts/DocsLayout.astro"
 ---
 
 import ComponentExample from "@components/astro/ComponentExample.astro";
 
 import RadioUsage from "@examples/svelte/radio/RadioUsage.svelte";
+import RadioDisabled from "@examples/svelte/radio/RadioDisabled.svelte";
+import RadioInvalid from "@examples/svelte/radio/RadioInvalid.svelte";
 import RadioControlled from "@examples/svelte/radio/RadioControlled.svelte";
 
-# Radio
+# Radio Group
 
 Radio buttons allow users to select a single option from a list of mutually exclusive choices.
 
@@ -18,8 +20,21 @@ Radio buttons allow users to select a single option from a list of mutually excl
 
 ## Examples
 
+### Disabled State
+
+<ComponentExample src="svelte/radio/RadioDisabled.svelte">
+  <RadioDisabled client:load />
+</ComponentExample>
+
+### Invalid State
+
+<ComponentExample src="svelte/radio/RadioInvalid.svelte">
+  <RadioInvalid client:load />
+</ComponentExample>
+
 ### Controlled
 
 <ComponentExample src="svelte/radio/RadioControlled.svelte">
   <RadioControlled client:load />
 </ComponentExample>
+

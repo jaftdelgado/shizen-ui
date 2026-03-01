@@ -1,8 +1,7 @@
 @layer components {
   .field-error {
-    @apply text-xs font-medium px-1 transition-all duration-200 wrap-break-word;
+    @apply text-xs font-medium transition-all duration-200 wrap-break-word leading-tight;
     color: var(--color-danger);
-    line-height: var(--line-height-tight, 1.25rem);
   }
 
   .field-error--truncate {

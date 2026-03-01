@@ -8,10 +8,6 @@
     @apply text-danger;
   }
 
-  .label--disabled {
-    @apply status-disabled;
-  }
-
   .label__required-indicator {
     @apply text-danger select-none;
   }

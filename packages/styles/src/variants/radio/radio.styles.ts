@@ -7,19 +7,6 @@ export const radioStyles = tv({
     indicator: "radio__indicator",
     content: "radio__content",
     group: "radio-group"
-  },
-  variants: {
-    orientation: {
-      vertical: {
-        group: "flex-col"
-      },
-      horizontal: {
-        group: "flex-row flex-wrap"
-      }
-    }
-  },
-  defaultVariants: {
-    orientation: "vertical"
   }
 });
 

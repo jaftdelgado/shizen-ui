@@ -30,24 +30,3 @@
     @apply font-sans antialiased;
   }
 }
-@layer utilities {
-  .text-crop {
-    display: inline-block;
-    line-height: 1; /* Colapsa el contenedor sobre el texto */
-  }
-
-  /* El pseudo-elemento before recorta el espacio superior */
-  .text-crop::before {
-    content: "";
-    display: table;
-    /* Ajuste fino para Geist: sube la línea base ligeramente */
-    margin-bottom: -0.21em;
-  }
-
-  /* El pseudo-elemento after recorta el espacio inferior si lo necesitas */
-  .text-crop::after {
-    content: "";
-    display: table;
-    margin-top: -0.1em;
-  }
-}

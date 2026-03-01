@@ -15,7 +15,7 @@
       description: "Only alerts for @mentions and DMs."
     },
     {
-      value: "none",
+      value: "muted",
       label: "Muted",
       description: "No alerts, badges only."
     }

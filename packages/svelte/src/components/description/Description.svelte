@@ -19,15 +19,17 @@
     invalid?: boolean;
     disabled?: boolean;
     id?: string;
+    keepDescription?: boolean;
   }>(FIELD_STATE_CTX_KEY);
 
   const finalInvalid = $derived(fieldState?.invalid ?? false);
   const finalDisabled = $derived(fieldState?.disabled ?? disabled);
-
   const finalId = $derived(propId ?? (fieldState?.id ? `${fieldState.id}-description` : undefined));
+
+  const shouldShow = $derived(!finalInvalid || fieldState?.keepDescription);
 </script>
 
-{#if !finalInvalid}
+{#if shouldShow}
   <p
     id={finalId}
     class={cn(
@@ -38,6 +40,7 @@
     )}
     data-slot="description"
     data-disabled={finalDisabled}
+    data-invalid={finalInvalid}
     {...rest}
   >
     {@render children()}

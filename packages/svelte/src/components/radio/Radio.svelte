@@ -28,7 +28,6 @@
 
   const FIELD_STATE_CTX_KEY = "field-state";
   const groupCtx = getContext<any>("radio-group-context");
-
   const parentFieldState = getContext<any>(FIELD_STATE_CTX_KEY);
 
   const finalDisabled = $derived(parentFieldState?.disabled ?? groupCtx?.disabled ?? disabled);
@@ -60,7 +59,8 @@
     },
     get id() {
       return id;
-    }
+    },
+    keepDescription: true
   });
 
   const styles = $derived(radioStyles());

@@ -1,50 +1,58 @@
 @layer components {
   .radio {
     @apply inline-flex items-start gap-3 transition-opacity duration-200 outline-none select-none;
-
-    --radio-bg: var(--color-control);
-    --radio-bg-hover: var(--color-control-hover);
-    --radio-dot: var(--color-accent-foreground);
+    --radio-bg: var(--color-field);
+    --radio-bg-hover: var(--color-field-hover);
+    --radio-indicator: var(--color-accent-foreground);
     --radio-border-width: 0px;
     --radio-border-color: transparent;
+  }
 
-    /* Forzamos el cursor interactivo en el contenedor y todos sus hijos */
-    &,
-    & * {
-      cursor: var(--cursor-interactive);
-    }
+  .radio,
+  .radio * {
+    cursor: var(--cursor-interactive);
+  }
 
-    &[data-disabled="true"] {
-      @apply status-disabled;
-      /* Sobrescribimos al cursor deshabilitado para el contenedor y todos sus hijos */
-      &,
-      & * {
-        cursor: var(--cursor-disabled);
-      }
-    }
+  .radio[data-disabled="true"] {
+    @apply status-disabled;
+  }
 
-    &[data-checked="true"],
-    &[aria-checked="true"] {
-      --radio-bg: var(--color-accent);
-      --radio-bg-hover: var(--color-accent-hover);
-      --radio-border-color: var(--color-accent);
-    }
+  .radio[data-disabled="true"],
+  .radio[data-disabled="true"] * {
+    cursor: var(--cursor-disabled);
+  }
+
+  .radio[data-checked="true"],
+  .radio[aria-checked="true"] {
+    --radio-bg: var(--color-accent);
+    --radio-bg-hover: var(--color-accent-hover);
+    --radio-border-color: var(--color-accent);
   }
 
   .radio__control {
-    @apply relative mt-0.75 flex items-center justify-center rounded-full transition-all duration-200 shrink-0;
+    @apply relative mt-1 flex items-center justify-center rounded-full transition-all duration-200 shrink-0;
     @apply size-4;
-
     box-sizing: border-box;
     background-color: var(--radio-bg);
     border-style: solid;
     border-width: var(--radio-border-width);
     border-color: var(--radio-border-color);
+  }
 
-    &:hover:not([data-disabled="true"]) {
-      background-color: var(--radio-bg-hover);
-      border-color: var(--radio-bg-hover);
-    }
+  .radio__control:hover:not([data-disabled="true"]) {
+    background-color: var(--radio-bg-hover);
+    border-color: var(--radio-bg-hover);
+  }
+
+  .radio[data-invalid="true"] .radio__control {
+    @apply status-invalid-field ring-1;
+  }
+
+  .radio[data-invalid="true"][data-checked="true"] .radio__control,
+  .radio[data-invalid="true"][aria-checked="true"] .radio__control {
+    @apply status-invalid-field ring-1;
+    background-color: var(--color-danger);
+    border-color: var(--color-danger);
   }
 
   .radio--bordered {
@@ -58,12 +66,12 @@
 
   .radio__indicator {
     @apply size-2 rounded-full scale-0 transition-transform duration-200;
-    background-color: var(--radio-dot);
+    background-color: var(--radio-indicator);
+  }
 
-    &[data-checked="true"],
-    .radio[aria-checked="true"] & {
-      @apply scale-100;
-    }
+  .radio__indicator[data-checked="true"],
+  .radio[aria-checked="true"] .radio__indicator {
+    @apply scale-100;
   }
 
   .radio__content {
@@ -71,26 +79,14 @@
   }
 
   .radio-group {
-    @apply flex flex-col w-full;
+    @apply flex flex-col w-fit;
   }
 
-  .radio-group > .radio {
+  .radio-group > .radio:first-of-type {
     @apply mt-4;
   }
 
-  .radio-group[data-orientation="vertical"] {
-    @apply flex-col;
-  }
-
-  .radio-group[data-orientation="vertical"] > .radio + .radio {
+  .radio-group > .radio + .radio {
     @apply mt-4;
-  }
-
-  .radio-group[data-orientation="horizontal"] {
-    @apply flex-row flex-wrap items-center gap-x-6 gap-y-2;
-  }
-
-  .radio-group[data-orientation="horizontal"] > .radio {
-    @apply mt-0;
   }
 }
