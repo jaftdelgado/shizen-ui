@@ -1,0 +1,47 @@
+<script lang="ts">
+  import { RadioGroup, Radio, Label, Description } from "@shizen-ui/svelte";
+  import Icon from "@components/svelte/Icon.svelte";
+
+  let selectedMethod = $state("credit_card");
+
+  const paymentMethods = [
+    {
+      value: "credit_card",
+      label: "Credit Card",
+      description: "Visa, Mastercard, or Amex."
+    },
+    {
+      value: "paypal",
+      label: "PayPal",
+      description: "Pay using your PayPal account."
+    },
+    {
+      value: "bank_transfer",
+      label: "Bank Transfer",
+      description: "Direct bank-to-bank transfer."
+    }
+  ];
+</script>
+
+<div class="flex-center justify-center p-4">
+  <RadioGroup bind:value={selectedMethod}>
+    <Label>Payment Method</Label>
+    <Description>Select how you want to pay for your order.</Description>
+
+    <RadioGroup.Items>
+      {#each paymentMethods as method}
+        <Radio value={method.value}>
+          <Radio.Control>
+            <Radio.Indicator>
+              <Icon name="check" strokeWidth={1.6} class="size-2 text-accent-foreground" />
+            </Radio.Indicator>
+          </Radio.Control>
+          <Radio.Content>
+            <Label>{method.label}</Label>
+            <Description>{method.description}</Description>
+          </Radio.Content>
+        </Radio>
+      {/each}
+    </RadioGroup.Items>
+  </RadioGroup>
+</div>

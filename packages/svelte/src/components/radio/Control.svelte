@@ -7,7 +7,7 @@
   let { children, class: className }: { children?: Snippet; class?: string } = $props();
 
   const ctx = getContext<any>("radio-context");
-  const styles = $derived(radioStyles({ size: ctx.size, variant: ctx.variant }));
+  const styles = $derived(radioStyles({}));
 </script>
 
 <div

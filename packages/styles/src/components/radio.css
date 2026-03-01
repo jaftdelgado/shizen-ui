@@ -74,6 +74,10 @@
     @apply scale-100;
   }
 
+  .radio__indicator[data-custom="true"] {
+    @apply scale-100 size-full bg-transparent flex items-center justify-center;
+  }
+
   .radio__content {
     @apply flex flex-col;
   }

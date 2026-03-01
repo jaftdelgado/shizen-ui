@@ -1,12 +1,24 @@
 <script lang="ts">
-  import { getContext } from "svelte";
+  import { getContext, type Snippet } from "svelte";
   import { cn } from "@shizen-ui/styles";
   import { radioStyles } from "@shizen-ui/styles";
 
-  let { class: className }: { class?: string } = $props();
+  let { children, class: className }: { children?: Snippet; class?: string } = $props();
 
   const ctx = getContext<any>("radio-context");
-  const styles = $derived(radioStyles({ size: ctx.size, variant: ctx.variant }));
+  const styles = $derived(radioStyles({}));
+
+  const isCustom = $derived(!!children);
 </script>
 
-<span class={cn(styles.indicator(), className)} data-checked={ctx.checked}></span>
+{#if ctx.checked}
+  <span
+    class={cn(!isCustom && styles.indicator(), className)}
+    data-checked={ctx.checked}
+    data-custom={isCustom}
+  >
+    {#if children}
+      {@render children()}
+    {/if}
+  </span>
+{/if}
