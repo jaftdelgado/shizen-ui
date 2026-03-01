@@ -8,8 +8,6 @@
     class?: string;
     value?: string;
     name?: string;
-    size?: RadioVariants["size"];
-    variant?: RadioVariants["variant"];
     orientation?: RadioVariants["orientation"];
     invalid?: boolean;
     disabled?: boolean;
@@ -22,8 +20,6 @@
     class: className,
     value = $bindable(),
     name = `radio-group-${Math.random().toString(36).slice(2, 9)}`,
-    size = "md",
-    variant = "primary",
     orientation = "vertical",
     invalid = false,
     disabled = false,
@@ -57,12 +53,6 @@
     get name() {
       return name;
     },
-    get size() {
-      return size;
-    },
-    get variant() {
-      return variant;
-    },
     get disabled() {
       return disabled;
     },
@@ -80,9 +70,8 @@
   role="radiogroup"
   data-invalid={invalid}
   data-disabled={disabled}
+  data-orientation={orientation}
   {...rest}
 >
-  <div class={styles.wrapper()}>
-    {@render children()}
-  </div>
+  {@render children()}
 </div>

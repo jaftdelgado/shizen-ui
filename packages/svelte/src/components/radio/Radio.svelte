@@ -1,25 +1,22 @@
 <script lang="ts">
   import { getContext, setContext, type Snippet } from "svelte";
   import { cn } from "@shizen-ui/styles";
-  import { radioStyles, type RadioVariants } from "@shizen-ui/styles";
-  import type { HTMLInputAttributes } from "svelte/elements";
+  import { radioStyles } from "@shizen-ui/styles";
+  import type { HTMLAttributes } from "svelte/elements";
 
-  interface Props extends Omit<HTMLInputAttributes, "size" | "checked"> {
+  interface Props extends Omit<HTMLAttributes<HTMLDivElement>, "checked"> {
     value: string;
-    size?: RadioVariants["size"];
-    variant?: RadioVariants["variant"];
     invalid?: boolean;
     disabled?: boolean;
     checked?: boolean;
     children: Snippet;
     class?: string;
+    name?: string;
   }
 
   let {
     class: className,
     value,
-    size = "md",
-    variant = "primary",
     disabled = false,
     invalid = false,
     name,
@@ -30,18 +27,13 @@
   }: Props = $props();
 
   const FIELD_STATE_CTX_KEY = "field-state";
-  const fieldState = getContext<{ invalid?: boolean; disabled?: boolean; id?: string }>(
-    FIELD_STATE_CTX_KEY
-  );
   const groupCtx = getContext<any>("radio-group-context");
 
-  const finalDisabled = $derived(fieldState?.disabled ?? groupCtx?.disabled ?? disabled);
-  const finalInvalid = $derived(fieldState?.invalid ?? groupCtx?.invalid ?? invalid);
-  const finalId = $derived(id ?? fieldState?.id);
-  const activeSize = $derived(groupCtx?.size ?? size);
-  const activeVariant = $derived(groupCtx?.variant ?? variant);
-  const activeName = $derived(groupCtx?.name ?? name);
+  const parentFieldState = getContext<any>(FIELD_STATE_CTX_KEY);
 
+  const finalDisabled = $derived(parentFieldState?.disabled ?? groupCtx?.disabled ?? disabled);
+  const finalInvalid = $derived(parentFieldState?.invalid ?? groupCtx?.invalid ?? invalid);
+  const activeName = $derived(groupCtx?.name ?? name);
   const isChecked = $derived(groupCtx ? groupCtx.value === value : checked);
 
   setContext("radio-context", {
@@ -54,45 +46,68 @@
     get invalid() {
       return finalInvalid;
     },
-    get size() {
-      return activeSize;
-    },
-    get variant() {
-      return activeVariant;
-    },
     get id() {
-      return finalId;
+      return id;
     }
   });
 
-  const styles = $derived(radioStyles({ size: activeSize, variant: activeVariant }));
+  setContext(FIELD_STATE_CTX_KEY, {
+    get invalid() {
+      return finalInvalid;
+    },
+    get disabled() {
+      return finalDisabled;
+    },
+    get id() {
+      return id;
+    }
+  });
 
-  function handleChange(e: Event) {
-    const target = e.target as HTMLInputElement;
+  const styles = $derived(radioStyles());
+
+  function handleChange() {
+    if (finalDisabled) return;
     if (groupCtx) {
       groupCtx.value = value;
     } else {
-      checked = target.checked;
+      checked = true;
     }
+  }
+
+  function handleKeyDown(e: KeyboardEvent) {
+    if (e.key === " " || e.key === "Enter") {
+      e.preventDefault();
+      handleChange();
+    }
+  }
+
+  function handleContainerClick(e: MouseEvent) {
+    const target = e.target as HTMLElement;
+    if (target.closest("label")) return;
+    handleChange();
   }
 </script>
 
-<label
+<div
   class={cn(styles.base(), className)}
   data-disabled={finalDisabled}
   data-invalid={finalInvalid}
   data-checked={isChecked}
+  onclick={handleContainerClick}
+  role="none"
 >
   <input
     type="radio"
     {value}
     name={activeName}
-    id={finalId}
+    {id}
     checked={isChecked}
     disabled={finalDisabled}
     onchange={handleChange}
     class="radio__input"
+    tabindex={isChecked || !groupCtx ? 0 : -1}
+    onkeydown={handleKeyDown}
     {...rest}
   />
   {@render children()}
-</label>
+</div>
