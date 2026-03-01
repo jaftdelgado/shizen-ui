@@ -44,6 +44,10 @@
     border-color: var(--radio-bg-hover);
   }
 
+  .radio:focus-within:not([data-disabled="true"]) .radio__control {
+    @apply status-focused;
+  }
+
   .radio[data-invalid="true"] .radio__control {
     @apply status-invalid-field ring-1;
   }

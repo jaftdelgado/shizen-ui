@@ -22,6 +22,11 @@
     background-color: var(--btn-bg-hover);
   }
 
+  .button:focus:not(:disabled):not([aria-disabled="true"]),
+  .button:focus-visible:not(:disabled):not([aria-disabled="true"]) {
+    @apply status-focused;
+  }
+
   .button__content {
     @apply h-full w-full flex items-center justify-center gap-(--btn-gap);
   }

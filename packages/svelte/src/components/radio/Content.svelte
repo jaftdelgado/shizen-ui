@@ -5,6 +5,6 @@
   let { children, class: className }: { children: Snippet; class?: string } = $props();
 </script>
 
-<div class={cn("radio__content flex flex-col", className)}>
+<div class={cn("radio__content", className)}>
   {@render children()}
 </div>

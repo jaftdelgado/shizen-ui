@@ -85,6 +85,8 @@
     const target = e.target as HTMLElement;
     if (target.closest("label")) return;
     handleChange();
+    const input = e.currentTarget.querySelector("input");
+    input?.blur();
   }
 </script>
 
@@ -107,6 +109,7 @@
     class="radio__input"
     tabindex={isChecked || !groupCtx ? 0 : -1}
     onkeydown={handleKeyDown}
+    onmousedown={(e) => e.preventDefault()}
     {...rest}
   />
   {@render children()}
