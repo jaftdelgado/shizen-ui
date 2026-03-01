@@ -27,15 +27,17 @@
     <Label>Notification Preferences</Label>
     <Description>Choose how you want to be alerted about new activity.</Description>
 
-    {#each options as option}
-      <Radio value={option.value}>
-        <Radio.Control />
-        <Radio.Content>
-          <Label>{option.label}</Label>
-          <Description>{option.description}</Description>
-        </Radio.Content>
-      </Radio>
-    {/each}
+    <RadioGroup.Items>
+      {#each options as option}
+        <Radio value={option.value}>
+          <Radio.Control />
+          <Radio.Content>
+            <Label>{option.label}</Label>
+            <Description>{option.description}</Description>
+          </Radio.Content>
+        </Radio>
+      {/each}
+    </RadioGroup.Items>
   </RadioGroup>
 
   <Description>

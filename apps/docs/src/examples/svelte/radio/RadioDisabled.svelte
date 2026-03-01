@@ -27,14 +27,16 @@
     <Label>Subscription Plan</Label>
     <Description>Locked during billing process.</Description>
 
-    {#each plans as plan}
-      <Radio value={plan.value}>
-        <Radio.Control />
-        <Radio.Content>
-          <Label>{plan.label}</Label>
-          <Description>{plan.description}</Description>
-        </Radio.Content>
-      </Radio>
-    {/each}
+    <RadioGroup.Items>
+      {#each plans as plan}
+        <Radio value={plan.value}>
+          <Radio.Control />
+          <Radio.Content>
+            <Label>{plan.label}</Label>
+            <Description>{plan.description}</Description>
+          </Radio.Content>
+        </Radio>
+      {/each}
+    </RadioGroup.Items>
   </RadioGroup>
 </div>

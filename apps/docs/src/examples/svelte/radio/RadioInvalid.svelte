@@ -40,15 +40,17 @@
     <Description>Choose how others see your profile information.</Description>
     <FieldError>This field is required. Please select an option.</FieldError>
 
-    {#each visibilityOptions as option}
-      <Radio value={option.value}>
-        <Radio.Control />
-        <Radio.Content>
-          <Label>{option.label}</Label>
-          <Description>{option.description}</Description>
-        </Radio.Content>
-      </Radio>
-    {/each}
+    <RadioGroup.Items>
+      {#each visibilityOptions as option}
+        <Radio value={option.value}>
+          <Radio.Control />
+          <Radio.Content>
+            <Label>{option.label}</Label>
+            <Description>{option.description}</Description>
+          </Radio.Content>
+        </Radio>
+      {/each}
+    </RadioGroup.Items>
   </RadioGroup>
 
   <div class="flex gap-3">

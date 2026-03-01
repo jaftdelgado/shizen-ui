@@ -1,9 +1,9 @@
 <script lang="ts">
   import { setContext, type Snippet } from "svelte";
   import { cn } from "@shizen-ui/styles";
-  import { radioStyles } from "@shizen-ui/styles";
+  import { radioStyles, type RadioVariants } from "@shizen-ui/styles";
 
-  interface Props {
+  interface Props extends RadioVariants {
     children: Snippet;
     class?: string;
     value?: string;
@@ -22,6 +22,7 @@
     invalid = false,
     disabled = false,
     required = false,
+    orientation = "vertical",
     id = `field-${Math.random().toString(36).slice(2, 9)}`,
     ...rest
   }: Props = $props();
@@ -56,10 +57,13 @@
     },
     get invalid() {
       return invalid;
+    },
+    get orientation() {
+      return orientation;
     }
   });
 
-  const styles = $derived(radioStyles());
+  const styles = $derived(radioStyles({ orientation }));
 </script>
 
 <div
@@ -68,6 +72,7 @@
   role="radiogroup"
   data-invalid={invalid}
   data-disabled={disabled}
+  data-orientation={orientation}
   {...rest}
 >
   {@render children()}
