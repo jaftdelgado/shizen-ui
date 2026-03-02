@@ -4,6 +4,7 @@ layout: "@layouts/DocsLayout.astro"
 ---
 
 import ComponentExample from "@components/astro/ComponentExample.astro";
+import CodeBlock from "@components/astro/CodeBlock.astro";
 
 import RadioUsage from "@examples/svelte/radio/RadioUsage.svelte";
 import RadioIndicator from "@examples/svelte/radio/RadioIndicator.svelte";
@@ -11,6 +12,7 @@ import RadioDisabled from "@examples/svelte/radio/RadioDisabled.svelte";
 import RadioInvalid from "@examples/svelte/radio/RadioInvalid.svelte";
 import RadioControlled from "@examples/svelte/radio/RadioControlled.svelte";
 import RadioOrientation from "@examples/svelte/radio/RadioOrientation.svelte";
+import RadioAnatomyCode from "@examples/svelte/radio/RadioAnatomy.svelte?raw";
 
 # Radio Group
 
@@ -19,6 +21,10 @@ Radio buttons allow users to select a single option from a list of mutually excl
 <ComponentExample src="svelte/radio/RadioUsage.svelte">
   <RadioUsage client:load />
 </ComponentExample>
+
+## Anatomy
+
+<CodeBlock code={RadioAnatomyCode} lang="svelte" showLineNumbers={false} />
 
 ## Examples
 

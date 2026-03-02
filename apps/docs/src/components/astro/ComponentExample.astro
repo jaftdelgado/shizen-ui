@@ -40,7 +40,13 @@ if (src) {
   {
     code && (
       <div class="border-t border-slate-200" aria-label="Component Example Code">
-        <CodeBlock code={code} lang={lang} theme={theme} showLineNumbers={showLineNumbers} />
+        <CodeBlock
+          code={code}
+          lang={lang}
+          theme={theme}
+          showLineNumbers={showLineNumbers}
+          isContained
+        />
       </div>
     )
   }
