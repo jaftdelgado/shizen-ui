@@ -93,10 +93,14 @@
 
   function handleContainerClick(e: MouseEvent) {
     const target = e.target as HTMLElement;
-    if (target.closest("label")) return;
+
+    if (target.tagName === "INPUT" || target.closest("label")) return;
+
     handleChange();
-    const input = e.currentTarget.querySelector("input");
-    input?.blur();
+
+    const container = e.currentTarget as HTMLDivElement;
+    const input = container.querySelector("input");
+    input?.focus();
   }
 </script>
 

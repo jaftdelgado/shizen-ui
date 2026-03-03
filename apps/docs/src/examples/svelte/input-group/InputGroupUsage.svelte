@@ -4,7 +4,7 @@
   import Icon from "@components/svelte/Icon.svelte";
 </script>
 
-<div class="flex items-center w-full max-w-xs">
+<div class="flex items-center w-full max-w-76">
   <TextField>
     <Label>Email</Label>
     <InputGroup>

@@ -6,6 +6,9 @@ layout: "@layouts/DocsLayout.astro"
 import ComponentExample from "@components/astro/ComponentExample.astro";
 
 import CheckboxUsage from "@examples/svelte/checkbox/CheckboxUsage.svelte";
+import CheckboxInvalid from "@examples/svelte/checkbox/CheckboxInvalid.svelte";
+import CheckboxDisabled from "@examples/svelte/checkbox/CheckboxDisabled.svelte";
+import CheckboxControlled from "@examples/svelte/checkbox/CheckboxControlled.svelte";
 
 # Checkbox
 
@@ -13,4 +16,24 @@ Checkboxes allow users to select one or more options from a list of choices. The
 
 <ComponentExample src="svelte/checkbox/CheckboxUsage.svelte">
   <CheckboxUsage client:load />
+</ComponentExample>
+
+## Examples
+
+### Disabled State
+
+<ComponentExample src="svelte/checkbox/CheckboxDisabled.svelte">
+  <CheckboxDisabled client:load />
+</ComponentExample>
+
+### Invalid State
+
+<ComponentExample src="svelte/checkbox/CheckboxInvalid.svelte">
+  <CheckboxInvalid client:load />
+</ComponentExample>
+
+### Controlled
+
+<ComponentExample src="svelte/checkbox/CheckboxControlled.svelte">
+  <CheckboxControlled client:load />
 </ComponentExample>
