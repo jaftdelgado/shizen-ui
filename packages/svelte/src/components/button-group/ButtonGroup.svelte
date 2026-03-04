@@ -1,14 +1,18 @@
 <script lang="ts">
   import { cn } from "@shizen-ui/styles";
-  import { buttonGroupStyles, type ButtonGroupVariants } from "@shizen-ui/styles";
+  import {
+    buttonGroupStyles,
+    type ButtonGroupVariants,
+    type ButtonVariants
+  } from "@shizen-ui/styles";
   import type { HTMLAttributes } from "svelte/elements";
   import type { Snippet } from "svelte";
-  import { setContext } from "svelte";
+  import { setButtonGroupContext } from "./button-group.context";
 
   interface Props extends HTMLAttributes<HTMLDivElement> {
     children: Snippet;
-    variant?: ButtonGroupVariants["variant"];
-    size?: ButtonGroupVariants["size"];
+    variant?: ButtonVariants["variant"];
+    size?: ButtonVariants["size"];
     orientation?: ButtonGroupVariants["orientation"];
     hideSeparator?: boolean;
     disabled?: boolean;
@@ -25,9 +29,7 @@
     ...rest
   }: Props = $props();
 
-  const BUTTON_GROUP_CTX_KEY = "button-group";
-
-  setContext(BUTTON_GROUP_CTX_KEY, {
+  setButtonGroupContext({
     get variant() {
       return variant;
     },

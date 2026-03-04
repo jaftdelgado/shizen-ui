@@ -3,9 +3,9 @@
   import { buttonStyles, type ButtonVariants } from "@shizen-ui/styles";
   import type { HTMLButtonAttributes } from "svelte/elements";
   import type { Snippet } from "svelte";
-  import { getContext } from "svelte";
+  import { useButtonGroupContext } from "../button-group/button-group.context";
 
-  type IconContent = Snippet | string;
+  type IconContent = Snippet<[]> | string;
 
   interface BaseProps extends HTMLButtonAttributes {
     variant?: ButtonVariants["variant"];
@@ -35,23 +35,18 @@
     onclick,
     class: className,
     type = "button",
-    variant = "primary",
-    size = "md",
-    disabled = false,
+    variant,
+    size,
+    disabled,
     iconOnly = false,
     ...rest
   }: Props = $props();
 
-  const BUTTON_GROUP_CTX_KEY = "button-group";
-  const groupContext = getContext<{
-    variant: ButtonVariants["variant"];
-    size: ButtonVariants["size"];
-    disabled: boolean;
-  }>(BUTTON_GROUP_CTX_KEY);
+  const group = useButtonGroupContext();
 
-  const finalVariant = $derived(groupContext?.variant ?? variant);
-  const finalSize = $derived(groupContext?.size ?? size);
-  const isCurrentlyDisabled = $derived(groupContext?.disabled || disabled);
+  const finalVariant = $derived(group.variant ?? variant ?? "primary");
+  const finalSize = $derived(group.size ?? size ?? "md");
+  const isCurrentlyDisabled = $derived(group.disabled || (disabled ?? false));
 </script>
 
 {#snippet renderIcon(content: IconContent | undefined)}
@@ -73,7 +68,7 @@
     buttonStyles({
       variant: finalVariant,
       size: finalSize,
-      iconOnly: iconOnly as any
+      iconOnly
     }),
     className
   )}
