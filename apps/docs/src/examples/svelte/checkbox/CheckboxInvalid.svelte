@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { Checkbox, Label, Description, FieldError } from "@shizen-ui/svelte";
+  import { Checkbox, Label, FieldError } from "@shizen-ui/svelte";
 </script>
 
 <div class="flex flex-col">
-  <Checkbox invalid={true}>
+  <Checkbox invalid={true} required={true}>
     <Checkbox.Control />
     <Checkbox.Content>
       <Label>Terms and Conditions</Label>

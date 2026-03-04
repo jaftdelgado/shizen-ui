@@ -14,6 +14,6 @@
   </Checkbox>
 
   <Description>
-    Controlled state: {isSubscribed}
+    Status: {isSubscribed ? "Checked" : "Unchecked"}
   </Description>
 </div>

@@ -6,9 +6,11 @@ layout: "@layouts/DocsLayout.astro"
 import ComponentExample from "@components/astro/ComponentExample.astro";
 
 import CheckboxUsage from "@examples/svelte/checkbox/CheckboxUsage.svelte";
+import CheckboxOnlyLabel from "@examples/svelte/checkbox/CheckboxOnlyLabel.svelte";
 import CheckboxInvalid from "@examples/svelte/checkbox/CheckboxInvalid.svelte";
 import CheckboxDisabled from "@examples/svelte/checkbox/CheckboxDisabled.svelte";
 import CheckboxControlled from "@examples/svelte/checkbox/CheckboxControlled.svelte";
+import CheckboxGroupControlled from "@examples/svelte/checkbox/CheckboxGroupControlled.svelte";
 
 # Checkbox
 
@@ -19,6 +21,12 @@ Checkboxes allow users to select one or more options from a list of choices. The
 </ComponentExample>
 
 ## Examples
+
+### Only Label
+
+<ComponentExample src="svelte/checkbox/CheckboxOnlyLabel.svelte">
+  <CheckboxOnlyLabel client:load />
+</ComponentExample>
 
 ### Disabled State
 
@@ -36,4 +44,10 @@ Checkboxes allow users to select one or more options from a list of choices. The
 
 <ComponentExample src="svelte/checkbox/CheckboxControlled.svelte">
   <CheckboxControlled client:load />
+</ComponentExample>
+
+### Group Controlled
+
+<ComponentExample src="svelte/checkbox/CheckboxGroupControlled.svelte">
+  <CheckboxGroupControlled client:load />
 </ComponentExample>

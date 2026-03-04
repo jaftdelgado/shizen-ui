@@ -3,10 +3,11 @@
   import { cn } from "@shizen-ui/styles";
   import { checkboxStyles } from "@shizen-ui/styles";
   import Indicator from "./Indicator.svelte";
+  import { CHECKBOX_CONTEXT_KEY, type CheckboxContextValue } from "../checkbox.context";
 
   let { children, class: className }: { children?: Snippet; class?: string } = $props();
 
-  const ctx = getContext<any>("checkbox-context");
+  const ctx = getContext<CheckboxContextValue>(CHECKBOX_CONTEXT_KEY);
   const styles = $derived(checkboxStyles({}));
 </script>
 

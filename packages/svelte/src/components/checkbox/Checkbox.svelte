@@ -2,13 +2,20 @@
   import { getContext, setContext, type Snippet } from "svelte";
   import { cn } from "@shizen-ui/styles";
   import { checkboxStyles } from "@shizen-ui/styles";
-  import type { HTMLAttributes } from "svelte/elements";
+  import type { HTMLInputAttributes } from "svelte/elements";
+  import {
+    CHECKBOX_CONTEXT_KEY,
+    CHECKBOX_GROUP_CONTEXT_KEY,
+    type CheckboxContextValue,
+    type CheckboxGroupContextValue,
+    type CheckboxCheckedState
+  } from "./checkbox.context";
 
-  interface Props extends Omit<HTMLAttributes<HTMLDivElement>, "checked"> {
+  interface Props extends Omit<HTMLInputAttributes, "type"> {
     value?: string;
     invalid?: boolean;
     disabled?: boolean;
-    checked?: boolean | "mixed";
+    checked?: CheckboxCheckedState;
     children: Snippet;
     class?: string;
     name?: string;
@@ -20,28 +27,36 @@
     disabled = false,
     invalid = false,
     name,
-    id = crypto.randomUUID(),
-    checked = $bindable(false),
+    id = `checkbox-${Math.random().toString(36).slice(2, 9)}`,
+    checked = $bindable<CheckboxCheckedState>(false),
     children,
     ...rest
   }: Props = $props();
 
+  let inputElement = $state<HTMLInputElement | null>(null);
+
+  interface FieldStateContextValue {
+    invalid?: boolean;
+    disabled?: boolean;
+    id?: string;
+  }
+
   const FIELD_STATE_CTX_KEY = "field-state";
-  const groupCtx = getContext<any>("checkbox-group-context");
-  const parentFieldState = getContext<any>(FIELD_STATE_CTX_KEY);
+  const groupCtx = getContext<CheckboxGroupContextValue | undefined>(CHECKBOX_GROUP_CONTEXT_KEY);
+  const parentFieldState = getContext<FieldStateContextValue | undefined>(FIELD_STATE_CTX_KEY);
 
   const finalDisabled = $derived(parentFieldState?.disabled ?? groupCtx?.disabled ?? disabled);
   const finalInvalid = $derived(parentFieldState?.invalid ?? groupCtx?.invalid ?? invalid);
   const activeName = $derived(groupCtx?.name ?? name);
 
-  let isChecked = $derived.by(() => {
+  const isChecked = $derived.by<CheckboxCheckedState>(() => {
     if (groupCtx && value !== undefined) {
       return groupCtx.value.includes(value);
     }
     return checked;
   });
 
-  setContext("checkbox-context", {
+  setContext<CheckboxContextValue>(CHECKBOX_CONTEXT_KEY, {
     get checked() {
       return isChecked;
     },
@@ -56,7 +71,7 @@
     }
   });
 
-  setContext(FIELD_STATE_CTX_KEY, {
+  setContext<FieldStateContextValue & { keepDescription: boolean }>(FIELD_STATE_CTX_KEY, {
     get invalid() {
       return finalInvalid;
     },
@@ -71,14 +86,17 @@
 
   const styles = $derived(checkboxStyles());
 
+  $effect(() => {
+    if (inputElement) {
+      inputElement.indeterminate = isChecked === "mixed";
+    }
+  });
+
   function handleChange() {
     if (finalDisabled) return;
-    if (groupCtx && value !== undefined) {
-      if (isChecked) {
-        groupCtx.value = groupCtx.value.filter((v: string) => v !== value);
-      } else {
-        groupCtx.value = [...groupCtx.value, value];
-      }
+    if (groupCtx) {
+      if (value === undefined) return;
+      groupCtx.toggleValue(value);
     } else {
       checked = isChecked === true ? false : true;
     }
@@ -113,10 +131,12 @@
   role="none"
 >
   <input
+    bind:this={inputElement}
     type="checkbox"
     {value}
     name={activeName}
     {id}
+    aria-checked={isChecked === "mixed" ? "mixed" : isChecked}
     checked={isChecked === true}
     disabled={finalDisabled}
     onchange={handleChange}

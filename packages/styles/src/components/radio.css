@@ -31,7 +31,7 @@
 
   .radio__control {
     @apply relative  flex items-center justify-center transition-all duration-200 shrink-0;
-    @apply size-5 rounded-full;
+    @apply size-4 rounded-full mt-0.5;
     box-sizing: border-box;
     background-color: var(--radio-bg);
     border-style: solid;

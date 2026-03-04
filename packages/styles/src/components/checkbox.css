@@ -33,7 +33,7 @@
 
   .checkbox__control {
     @apply relative flex items-center justify-center transition-all duration-200 shrink-0;
-    @apply size-5 rounded-lg;
+    @apply size-4 rounded-md mt-0.5;
     box-sizing: border-box;
     background-color: var(--checkbox-bg);
     border-style: solid;

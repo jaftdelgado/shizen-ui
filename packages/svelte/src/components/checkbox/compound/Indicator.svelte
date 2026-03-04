@@ -2,13 +2,13 @@
   import { getContext, type Snippet } from "svelte";
   import { cn } from "@shizen-ui/styles";
   import { checkboxStyles } from "@shizen-ui/styles";
+  import { CHECKBOX_CONTEXT_KEY, type CheckboxContextValue } from "../checkbox.context";
 
   let { children, class: className }: { children?: Snippet; class?: string } = $props();
 
-  const ctx = getContext<any>("checkbox-context");
+  const ctx = getContext<CheckboxContextValue>(CHECKBOX_CONTEXT_KEY);
   const styles = $derived(checkboxStyles({}));
-
-  const isCustom = $derived(!!children);
+  const isCustom = $derived(Boolean(children));
 </script>
 
 {#if ctx.checked === true || ctx.checked === "mixed"}
@@ -37,8 +37,8 @@
       </svg>
     {:else}
       <svg
-        width="12"
-        height="12"
+        width="10"
+        height="10"
         viewBox="0 0 10 10"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
