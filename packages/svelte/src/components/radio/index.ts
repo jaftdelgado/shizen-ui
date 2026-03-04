@@ -1,9 +1,11 @@
 import RadioRoot from "./Radio.svelte";
 import RadioGroupRoot from "./RadioGroup.svelte";
-import Items from "./Items.svelte";
-import Control from "./Control.svelte";
-import Indicator from "./Indicator.svelte";
-import Content from "./Content.svelte";
+import Items from "./compound/Items.svelte";
+import Control from "./compound/Control.svelte";
+import Indicator from "./compound/Indicator.svelte";
+import Content from "./compound/Content.svelte";
+
+export type { RadioContextValue, RadioGroupContextValue, RadioOrientation } from "./radio.types";
 
 export const Radio = Object.assign(RadioRoot, {
   Control,
