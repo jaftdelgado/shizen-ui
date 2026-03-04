@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Checkbox, Label, Description } from "@shizen-ui/svelte";
+  import { Checkbox, Label, Description, Button } from "@shizen-ui/svelte";
 
   let agree = $state(false);
 </script>
