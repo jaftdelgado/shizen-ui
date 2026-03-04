@@ -8,16 +8,18 @@ const toc = headings.filter((h) => h.depth > 1 && h.depth < 4);
 ---
 
 <aside
-  class="fixed top-16 bottom-0 right-[max(0px,calc(50%-45rem))] w-64 overflow-y-auto py-10 hidden lg:block"
+  class="fixed top-16 bottom-0 right-[max(0px,calc(50%-45rem))] w-64 overflow-y-auto py-10 hidden lg:block z-30"
+  id="table-of-contents"
 >
   <h5 class="mb-4 font-semibold text-slate-900 px-1 text-sm tracking-tight">En esta página</h5>
-  <ul class="space-y-2 text-sm">
+  <ul class="space-y-2 text-sm" id="toc-list">
     {
       toc.map((h) => (
         <li class={h.depth === 3 ? "pl-4" : ""}>
           <a
             href={`#${h.slug}`}
-            class="text-slate-500 hover:text-primary transition-colors line-clamp-2"
+            class="toc-link text-secondary-text hover:text-accent transition-colors line-clamp-2"
+            data-slug={h.slug}
           >
             {h.text}
           </a>
@@ -26,3 +28,76 @@ const toc = headings.filter((h) => h.depth > 1 && h.depth < 4);
     }
   </ul>
 </aside>
+
+<script>
+  function updateTableOfContents() {
+    const article = document.querySelector("article");
+    if (!article) return;
+
+    const headings = Array.from(article.querySelectorAll("h2, h3"))
+      .map((heading) => ({
+        depth: parseInt(heading.tagName.charAt(1)),
+        slug: heading.id,
+        text: heading.textContent || ""
+      }))
+      .filter((h) => h.depth > 1 && h.depth < 4);
+
+    const tocList = document.getElementById("toc-list");
+    if (!tocList) return;
+
+    tocList.innerHTML = headings
+      .map((h) => {
+        const paddingClass = h.depth === 3 ? "pl-4" : "";
+        return `
+          <li class="${paddingClass}">
+            <a
+              href="#${h.slug}"
+              class="toc-link text-secondary-text hover:text-accent transition-colors line-clamp-2"
+              data-slug="${h.slug}"
+            >
+              ${h.text}
+            </a>
+          </li>
+        `;
+      })
+      .join("");
+
+    updateActiveTocLink();
+  }
+
+  function updateActiveTocLink() {
+    const links = document.querySelectorAll(".toc-link");
+    const headings = document.querySelectorAll("article h2, article h3");
+
+    let activeId = "";
+    const scrollPosition = window.scrollY + 100;
+
+    headings.forEach((heading) => {
+      const rect = heading.getBoundingClientRect();
+      const top = rect.top + window.scrollY;
+
+      if (top <= scrollPosition) {
+        activeId = heading.id;
+      }
+    });
+
+    links.forEach((link) => {
+      const slug = link.getAttribute("data-slug");
+      if (slug === activeId) {
+        link.classList.remove("text-secondary-text");
+        link.classList.add("text-accent", "font-medium");
+      } else {
+        link.classList.remove("text-accent", "font-medium");
+        link.classList.add("text-secondary-text");
+      }
+    });
+  }
+
+  updateTableOfContents();
+
+  document.addEventListener("astro:after-swap", () => {
+    updateTableOfContents();
+  });
+
+  window.addEventListener("scroll", updateActiveTocLink);
+</script>

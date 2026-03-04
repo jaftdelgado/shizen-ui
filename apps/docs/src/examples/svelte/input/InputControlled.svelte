@@ -1,10 +1,10 @@
 <script>
-  import { Input, Label, FieldError } from "@shizen-ui/svelte";
-  let username = $state("");
+  import { Input, Label, Description } from "@shizen-ui/svelte";
+  let domain = $state("");
 </script>
 
-<div class="flex flex-col max-w-xs">
-  <Label required>Hola</Label>
-  <Input bind:value={username} placeholder="Username" />
-  <FieldError invalid>https://{username}</FieldError>
+<div class="flex flex-col w-full max-w-64 gap-1.5">
+  <Label>Domain</Label>
+  <Input bind:value={domain} placeholder="Enter your domain" />
+  <Description>https://{domain}</Description>
 </div>

@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import Sidebar from "@components/astro/Sidebar.astro";
 import TableOfContents from "@components/astro/TableOfContents.astro";
+import { ViewTransitions } from "astro:transitions";
 
 interface Props {
   title: string;
@@ -17,6 +18,7 @@ const { title, headings } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <title>{title} | Shizen UI</title>
+    <ViewTransitions />
   </head>
   <body class="bg-background font-sans">
     <header
@@ -24,28 +26,27 @@ const { title, headings } = Astro.props;
     >
       <div class="mx-auto flex h-16 max-w-8xl items-center justify-between px-6">
         <a href="/" class="text-xl font-bold text-primary-text">Shizen UI</a>
-        <nav class="flex gap-4">
-          <a
-            href="https://github.com/jaftdelgado/shizen-ui"
-            class="hover:text-white text-sm font-medium text-zinc-400 transition-colors"
-          >
-            GitHub
-          </a>
-        </nav>
       </div>
     </header>
 
     <div class="mx-auto max-w-8xl px-6">
       <div class="flex flex-col md:flex-row gap-8">
-        <Sidebar />
+        <div transition:persist="sidebar">
+          <Sidebar />
+        </div>
 
-        <main class="flex-auto py-10 md:pl-72 lg:pr-72 min-w-0 flex justify-center">
+        <main
+          class="flex-auto py-10 md:pl-72 lg:pr-72 min-w-0 flex justify-center"
+          transition:animate="fade"
+        >
           <article class="prose-content w-full max-w-160">
             <slot />
           </article>
         </main>
 
-        <TableOfContents headings={headings} />
+        <div transition:persist="toc">
+          <TableOfContents headings={headings} />
+        </div>
       </div>
     </div>
   </body>

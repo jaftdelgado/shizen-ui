@@ -1,37 +1,54 @@
 ---
 const componentFiles = await Astro.glob("../../pages/docs/components/*.mdx");
-const sidebarItems = componentFiles.map((file) => ({
-  name: file.frontmatter.title || file.url?.split("/").pop(),
-  href: file.url
-}));
+const sidebarItems = componentFiles
+  .map((file) => ({
+    name: file.frontmatter.title || file.url?.split("/").pop(),
+    href: file.url
+  }))
+  .sort((a, b) => a.name.localeCompare(b.name));
 
 const { pathname } = Astro.url;
 ---
 
 <aside
-  class="fixed top-16 bottom-0 left-[max(0px,calc(50%-45rem))] w-64 overflow-y-auto py-10 hidden md:block"
+  class="fixed top-16 bottom-0 left-[max(0px,calc(50%-45rem))] z-30 w-64 overflow-y-auto py-10 hidden md:block"
 >
   <nav class="space-y-8">
     <div>
       <h5 class="mb-4 font-semibold text-slate-900 px-1">Componentes</h5>
-      <ul class="space-y-2 border-l border-slate-200 ml-1">
+      <ul class="ml-1" id="sidebar-nav">
         {
-          sidebarItems.map((item) => {
+          sidebarItems.map((item, index) => {
             const isActive = pathname === item.href || pathname === `${item.href}/`;
             return (
-              <li>
-                <a
-                  href={item.href}
-                  class:list={[
-                    "block border-l pl-4 -ml-px transition-colors",
-                    isActive
-                      ? "border-primary text-primary font-medium"
-                      : "border-transparent text-slate-600 hover:border-slate-400 hover:text-slate-900"
-                  ]}
-                >
-                  {item.name}
-                </a>
-              </li>
+              <>
+                <li>
+                  <a
+                    href={item.href}
+                    data-href={item.href}
+                    class:list={[
+                      "sidebar-link group flex items-center transition-colors",
+                      isActive ? "text-accent" : "text-secondary-text hover:text-accent"
+                    ]}
+                  >
+                    <span
+                      class:list={[
+                        "sidebar-line inline-block h-px shrink-0 transition-all duration-300 ease-out",
+                        isActive
+                          ? "w-14 bg-accent"
+                          : "w-8 bg-tertiary-text group-hover:w-14 group-hover:bg-accent"
+                      ]}
+                    />
+                    <span class="pl-4 transition-all duration-300">{item.name}</span>
+                  </a>
+                </li>
+                {index < sidebarItems.length - 1 && (
+                  <li class="flex flex-col gap-2 pointer-events-none" aria-hidden="true">
+                    <span class="inline-block h-px w-8 bg-tertiary-text" />
+                    <span class="inline-block h-px w-8 bg-tertiary-text" />
+                  </li>
+                )}
+              </>
             );
           })
         }
@@ -39,3 +56,32 @@ const { pathname } = Astro.url;
     </div>
   </nav>
 </aside>
+
+<script>
+  function updateActiveLink() {
+    const currentPath = window.location.pathname;
+    const links = document.querySelectorAll(".sidebar-link");
+
+    links.forEach((link) => {
+      const href = link.getAttribute("data-href");
+      const isActive = currentPath === href || currentPath === `${href}/`;
+      const line = link.querySelector(".sidebar-line");
+
+      if (isActive) {
+        link.classList.remove("text-secondary-text");
+        link.classList.add("text-accent");
+        line?.classList.remove("w-8", "bg-tertiary-text");
+        line?.classList.add("w-14", "bg-accent");
+      } else {
+        link.classList.remove("text-accent");
+        link.classList.add("text-secondary-text");
+        line?.classList.remove("w-14", "bg-accent");
+        line?.classList.add("w-8", "bg-tertiary-text");
+      }
+    });
+  }
+
+  updateActiveLink();
+
+  document.addEventListener("astro:after-swap", updateActiveLink);
+</script>
