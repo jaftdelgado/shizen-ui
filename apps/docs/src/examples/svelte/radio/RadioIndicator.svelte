@@ -33,7 +33,7 @@
         <Radio value={method.value}>
           <Radio.Control>
             <Radio.Indicator>
-              <Icon name="check" strokeWidth={1.6} class="size-2 text-accent-foreground" />
+              <Icon name="check" strokeWidth={1.6} class="size-2.5 text-accent-foreground" />
             </Radio.Indicator>
           </Radio.Control>
           <Radio.Content>

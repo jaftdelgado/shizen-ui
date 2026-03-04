@@ -3,8 +3,12 @@
   import { cn } from "@shizen-ui/styles";
   import { radioStyles } from "@shizen-ui/styles";
   import type { HTMLAttributes } from "svelte/elements";
-  import { RADIO_CONTEXT_KEY, RADIO_GROUP_CONTEXT_KEY } from "./radio.context";
-  import type { RadioContextValue, RadioGroupContextValue } from "./radio.types";
+  import {
+    RADIO_CONTEXT_KEY,
+    RADIO_GROUP_CONTEXT_KEY,
+    type RadioContextValue,
+    type RadioGroupContextValue
+  } from "./radio.context";
 
   interface Props extends Omit<HTMLAttributes<HTMLDivElement>, "checked"> {
     value: string;
@@ -54,7 +58,7 @@
       return finalInvalid;
     },
     get id() {
-      return id;
+      return id as string;
     }
   });
 
@@ -89,12 +93,12 @@
     }
   }
 
-  function handleContainerClick(e: MouseEvent) {
+  function handleContainerClick(e: MouseEvent & { currentTarget: HTMLDivElement }) {
     const target = e.target as HTMLElement;
     if (target.closest("label")) return;
     handleChange();
-    const input = e.currentTarget.querySelector("input");
-    input?.blur();
+    const input = e.currentTarget.querySelector('input[type="radio"]') as HTMLInputElement | null;
+    input?.focus();
   }
 </script>
 

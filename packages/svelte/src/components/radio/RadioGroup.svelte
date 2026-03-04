@@ -2,8 +2,7 @@
   import { setContext, type Snippet } from "svelte";
   import { cn } from "@shizen-ui/styles";
   import { radioStyles, type RadioVariants } from "@shizen-ui/styles";
-  import { RADIO_GROUP_CONTEXT_KEY } from "./radio.context";
-  import type { RadioGroupContextValue } from "./radio.types";
+  import { RADIO_GROUP_CONTEXT_KEY, type RadioGroupContextValue } from "./radio.context";
 
   interface Props extends RadioVariants {
     children: Snippet;

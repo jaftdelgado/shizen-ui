@@ -5,7 +5,7 @@ import Control from "./compound/Control.svelte";
 import Indicator from "./compound/Indicator.svelte";
 import Content from "./compound/Content.svelte";
 
-export type { RadioContextValue, RadioGroupContextValue, RadioOrientation } from "./radio.types";
+export type { RadioOrientation } from "./radio.context";
 
 export const Radio = Object.assign(RadioRoot, {
   Control,
@@ -16,6 +16,8 @@ export const Radio = Object.assign(RadioRoot, {
 export const RadioGroup = Object.assign(RadioGroupRoot, {
   Items
 });
+
+export { RadioRoot, RadioGroupRoot };
 
 export default {
   Radio,

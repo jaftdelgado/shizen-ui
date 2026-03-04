@@ -3,8 +3,7 @@
   import { cn } from "@shizen-ui/styles";
   import type { HTMLAttributes } from "svelte/elements";
   import { radioStyles } from "@shizen-ui/styles";
-  import { RADIO_GROUP_CONTEXT_KEY } from "../radio.context";
-  import type { RadioGroupContextValue } from "../radio.types";
+  import { RADIO_GROUP_CONTEXT_KEY, type RadioGroupContextValue } from "../radio.context";
 
   interface Props extends HTMLAttributes<HTMLDivElement> {
     children: Snippet;
