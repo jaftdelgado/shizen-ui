@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { getContext } from "svelte";
   import { cn } from "@shizen-ui/styles";
-  import { fieldErrorStyles, type FieldErrorVariants } from "@shizen-ui/styles";
+  import { fieldErrorStyles } from "@shizen-ui/styles";
+  import { useFieldStateContext } from "../../contexts/field-state.context";
   import type { HTMLAttributes } from "svelte/elements";
   import type { Snippet } from "svelte";
 
@@ -21,16 +21,13 @@
     ...rest
   }: Props = $props();
 
-  const FIELD_STATE_CTX_KEY = "field-state";
+  const fieldContext = useFieldStateContext();
 
-  const fieldState = getContext<{
-    invalid?: boolean;
-    id?: string;
-  }>(FIELD_STATE_CTX_KEY);
+  const finalInvalid = $derived(fieldContext.exists ? fieldContext.invalid : invalid);
 
-  const finalInvalid = $derived(fieldState?.invalid ?? invalid);
-
-  const finalId = $derived(propId ?? (fieldState?.id ? `${fieldState.id}-error` : undefined));
+  const finalId = $derived(
+    propId ?? (fieldContext.exists && fieldContext.id ? `${fieldContext.id}-error` : undefined)
+  );
 </script>
 
 {#if finalInvalid}

@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { getContext } from "svelte";
   import { cn } from "@shizen-ui/styles";
   import { labelStyles } from "@shizen-ui/styles";
+  import { useFieldStateContext } from "../../contexts/field-state.context";
   import type { HTMLLabelAttributes } from "svelte/elements";
   import type { Snippet } from "svelte";
 
@@ -23,19 +23,12 @@
     ...rest
   }: Props = $props();
 
-  const FIELD_STATE_CTX_KEY = "field-state";
+  const fieldContext = useFieldStateContext();
 
-  const fieldState = getContext<{
-    invalid?: boolean;
-    disabled?: boolean;
-    required?: boolean;
-    id?: string;
-  }>(FIELD_STATE_CTX_KEY);
-
-  const finalInvalid = $derived(fieldState?.invalid ?? invalid);
-  const finalDisabled = $derived(fieldState?.disabled ?? disabled);
-  const finalRequired = $derived(fieldState?.required ?? required);
-  const finalFor = $derived(htmlFor ?? fieldState?.id);
+  const finalInvalid = $derived(fieldContext.exists ? fieldContext.invalid : invalid);
+  const finalDisabled = $derived(fieldContext.exists ? fieldContext.disabled : disabled);
+  const finalRequired = $derived(fieldContext.exists ? fieldContext.required : required);
+  const finalFor = $derived(htmlFor ?? (fieldContext.exists ? fieldContext.id : undefined));
 </script>
 
 <label

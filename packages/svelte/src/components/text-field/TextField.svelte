@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { setContext } from "svelte";
   import { cn } from "@shizen-ui/styles";
-  import { textFieldStyles, type TextFieldVariants } from "@shizen-ui/styles";
+  import { textFieldStyles } from "@shizen-ui/styles";
+  import { setFieldStateContext } from "../../contexts/field-state.context";
   import type { Snippet } from "svelte";
 
   interface Props {
@@ -25,7 +25,7 @@
     ...rest
   }: Props = $props();
 
-  setContext("field-state", {
+  setFieldStateContext({
     get invalid() {
       return invalid;
     },

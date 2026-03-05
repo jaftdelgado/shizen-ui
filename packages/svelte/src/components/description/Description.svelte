@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { getContext } from "svelte";
   import { cn } from "@shizen-ui/styles";
   import { descriptionStyles } from "@shizen-ui/styles";
+  import { useFieldStateContext } from "../../contexts/field-state.context";
   import type { HTMLAttributes } from "svelte/elements";
   import type { Snippet } from "svelte";
 
@@ -13,20 +13,18 @@
 
   let { children, class: className, disabled = false, id: propId, ...rest }: Props = $props();
 
-  const FIELD_STATE_CTX_KEY = "field-state";
+  const fieldContext = useFieldStateContext();
 
-  const fieldState = getContext<{
-    invalid?: boolean;
-    disabled?: boolean;
-    id?: string;
-    keepDescription?: boolean;
-  }>(FIELD_STATE_CTX_KEY);
+  const finalInvalid = $derived(fieldContext.exists ? fieldContext.invalid : false);
+  const finalDisabled = $derived(fieldContext.exists ? fieldContext.disabled : disabled);
+  const finalId = $derived(
+    propId ??
+      (fieldContext.exists && fieldContext.id ? `${fieldContext.id}-description` : undefined)
+  );
 
-  const finalInvalid = $derived(fieldState?.invalid ?? false);
-  const finalDisabled = $derived(fieldState?.disabled ?? disabled);
-  const finalId = $derived(propId ?? (fieldState?.id ? `${fieldState.id}-description` : undefined));
-
-  const shouldShow = $derived(!finalInvalid || fieldState?.keepDescription);
+  const shouldShow = $derived(
+    !finalInvalid || (fieldContext.exists && fieldContext.keepDescription)
+  );
 </script>
 
 {#if shouldShow}
