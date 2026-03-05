@@ -87,20 +87,4 @@
   .checkbox__content {
     @apply flex flex-col;
   }
-
-  .checkbox-group {
-    @apply flex flex-col w-fit;
-  }
-
-  .checkbox-group__items {
-    @apply flex mt-4;
-  }
-
-  .checkbox-group__items--vertical {
-    @apply flex-col gap-4;
-  }
-
-  .checkbox-group__items--horizontal {
-    @apply flex-row flex-wrap gap-6;
-  }
 }

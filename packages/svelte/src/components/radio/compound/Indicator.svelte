@@ -1,12 +1,12 @@
 <script lang="ts">
-  import { getContext, type Snippet } from "svelte";
+  import { type Snippet } from "svelte";
   import { cn } from "@shizen-ui/styles";
   import { radioStyles } from "@shizen-ui/styles";
-  import { RADIO_CONTEXT_KEY, type RadioContextValue } from "../radio.context";
+  import { useRadioContext } from "../radio.context";
 
   let { children, class: className }: { children?: Snippet; class?: string } = $props();
 
-  const ctx = getContext<RadioContextValue>(RADIO_CONTEXT_KEY);
+  const ctx = useRadioContext();
   const styles = $derived(radioStyles({}));
 
   const isCustom = $derived(!!children);

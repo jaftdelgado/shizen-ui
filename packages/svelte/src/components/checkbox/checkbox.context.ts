@@ -1,5 +1,6 @@
+import { getContext, setContext } from "svelte";
+
 export type CheckboxCheckedState = boolean | "mixed";
-export type CheckboxOrientation = "horizontal" | "vertical";
 
 export interface CheckboxContextValue {
   readonly checked: CheckboxCheckedState;
@@ -8,14 +9,40 @@ export interface CheckboxContextValue {
   readonly id: string;
 }
 
-export interface CheckboxGroupContextValue {
-  readonly value: string[];
-  readonly name: string;
-  readonly disabled: boolean;
-  readonly invalid: boolean;
-  readonly orientation: CheckboxOrientation;
-  toggleValue: (val: string) => void;
+export const CHECKBOX_CONTEXT_KEY = Symbol("checkbox-context");
+
+export function setCheckboxContext(value: CheckboxContextValue) {
+  setContext(CHECKBOX_CONTEXT_KEY, value);
 }
 
-export const CHECKBOX_CONTEXT_KEY = Symbol("checkbox-context");
-export const CHECKBOX_GROUP_CONTEXT_KEY = Symbol("checkbox-group-context");
+export function useCheckboxContext() {
+  const context = getContext<CheckboxContextValue | undefined>(CHECKBOX_CONTEXT_KEY);
+
+  if (!context) {
+    return {
+      checked: false as CheckboxCheckedState,
+      disabled: false,
+      invalid: false,
+      id: "",
+      exists: false
+    } as const;
+  }
+
+  return {
+    get checked() {
+      return context.checked;
+    },
+    get disabled() {
+      return context.disabled;
+    },
+    get invalid() {
+      return context.invalid;
+    },
+    get id() {
+      return context.id;
+    },
+    get exists() {
+      return true;
+    }
+  };
+}

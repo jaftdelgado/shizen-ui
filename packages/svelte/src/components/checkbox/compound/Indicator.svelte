@@ -1,12 +1,12 @@
 <script lang="ts">
-  import { getContext, type Snippet } from "svelte";
+  import { type Snippet } from "svelte";
   import { cn } from "@shizen-ui/styles";
   import { checkboxStyles } from "@shizen-ui/styles";
-  import { CHECKBOX_CONTEXT_KEY, type CheckboxContextValue } from "../checkbox.context";
+  import { useCheckboxContext } from "../checkbox.context";
 
   let { children, class: className }: { children?: Snippet; class?: string } = $props();
 
-  const ctx = getContext<CheckboxContextValue>(CHECKBOX_CONTEXT_KEY);
+  const ctx = useCheckboxContext();
   const styles = $derived(checkboxStyles({}));
   const isCustom = $derived(Boolean(children));
 </script>

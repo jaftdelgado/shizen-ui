@@ -5,22 +5,7 @@ export const checkboxStyles = tv({
     base: "checkbox",
     control: "checkbox__control",
     indicator: "checkbox__indicator",
-    content: "checkbox__content",
-    group: "checkbox-group",
-    items: "checkbox-group__items"
-  },
-  variants: {
-    orientation: {
-      vertical: {
-        items: "checkbox-group__items--vertical"
-      },
-      horizontal: {
-        items: "checkbox-group__items--horizontal"
-      }
-    }
-  },
-  defaultVariants: {
-    orientation: "vertical"
+    content: "checkbox__content"
   }
 });
 

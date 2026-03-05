@@ -1,10 +1,10 @@
 <script lang="ts">
   import { setContext, type Snippet } from "svelte";
   import { cn } from "@shizen-ui/styles";
-  import { checkboxStyles, type CheckboxVariants } from "@shizen-ui/styles";
-  import { CHECKBOX_GROUP_CONTEXT_KEY, type CheckboxGroupContextValue } from "./checkbox.context";
+  import { checkboxGroupStyles, type CheckboxGroupVariants } from "@shizen-ui/styles";
+  import { setCheckboxGroupContext } from "./checkbox-group.context";
 
-  interface Props extends CheckboxVariants {
+  interface Props extends CheckboxGroupVariants {
     children: Snippet;
     class?: string;
     value?: string[];
@@ -61,7 +61,7 @@
     value = [...value, nextValue];
   }
 
-  setContext<CheckboxGroupContextValue>(CHECKBOX_GROUP_CONTEXT_KEY, {
+  setCheckboxGroupContext({
     get value() {
       return value;
     },
@@ -80,12 +80,12 @@
     toggleValue
   });
 
-  const styles = $derived(checkboxStyles({ orientation }));
+  const styles = $derived(checkboxGroupStyles({ orientation }));
 </script>
 
 <div
   {id}
-  class={cn(styles.group(), className)}
+  class={cn(styles.base(), className)}
   role="group"
   data-invalid={invalid}
   data-disabled={disabled}

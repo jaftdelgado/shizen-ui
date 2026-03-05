@@ -3,15 +3,10 @@
   import { cn } from "@shizen-ui/styles";
   import { checkboxStyles } from "@shizen-ui/styles";
   import type { HTMLInputAttributes } from "svelte/elements";
-  import {
-    CHECKBOX_CONTEXT_KEY,
-    CHECKBOX_GROUP_CONTEXT_KEY,
-    type CheckboxContextValue,
-    type CheckboxGroupContextValue,
-    type CheckboxCheckedState
-  } from "./checkbox.context";
+  import { setCheckboxContext, type CheckboxCheckedState } from "./checkbox.context";
+  import { useCheckboxGroupContext } from "../checkbox-group/checkbox-group.context";
 
-  interface Props extends Omit<HTMLInputAttributes, "type"> {
+  interface Props extends Omit<HTMLInputAttributes, "type" | "checked"> {
     value?: string;
     invalid?: boolean;
     disabled?: boolean;
@@ -42,21 +37,25 @@
   }
 
   const FIELD_STATE_CTX_KEY = "field-state";
-  const groupCtx = getContext<CheckboxGroupContextValue | undefined>(CHECKBOX_GROUP_CONTEXT_KEY);
+  const groupCtx = useCheckboxGroupContext();
   const parentFieldState = getContext<FieldStateContextValue | undefined>(FIELD_STATE_CTX_KEY);
 
-  const finalDisabled = $derived(parentFieldState?.disabled ?? groupCtx?.disabled ?? disabled);
-  const finalInvalid = $derived(parentFieldState?.invalid ?? groupCtx?.invalid ?? invalid);
-  const activeName = $derived(groupCtx?.name ?? name);
+  const finalDisabled = $derived(
+    parentFieldState?.disabled ?? (groupCtx.exists ? groupCtx.disabled : disabled)
+  );
+  const finalInvalid = $derived(
+    parentFieldState?.invalid ?? (groupCtx.exists ? groupCtx.invalid : invalid)
+  );
+  const activeName = $derived(groupCtx.exists ? groupCtx.name : name);
 
   const isChecked = $derived.by<CheckboxCheckedState>(() => {
-    if (groupCtx && value !== undefined) {
+    if (groupCtx.exists && value !== undefined) {
       return groupCtx.value.includes(value);
     }
     return checked;
   });
 
-  setContext<CheckboxContextValue>(CHECKBOX_CONTEXT_KEY, {
+  setCheckboxContext({
     get checked() {
       return isChecked;
     },
@@ -67,7 +66,7 @@
       return finalInvalid;
     },
     get id() {
-      return id;
+      return id as string;
     }
   });
 
@@ -79,7 +78,7 @@
       return finalDisabled;
     },
     get id() {
-      return id;
+      return id as string;
     },
     keepDescription: true
   });
@@ -94,7 +93,7 @@
 
   function handleChange() {
     if (finalDisabled) return;
-    if (groupCtx) {
+    if (groupCtx.exists) {
       if (value === undefined) return;
       groupCtx.toggleValue(value);
     } else {

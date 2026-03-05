@@ -1,10 +1,10 @@
 <script lang="ts">
   import { setContext, type Snippet } from "svelte";
   import { cn } from "@shizen-ui/styles";
-  import { radioStyles, type RadioVariants } from "@shizen-ui/styles";
-  import { RADIO_GROUP_CONTEXT_KEY, type RadioGroupContextValue } from "./radio.context";
+  import { radioGroupStyles, type RadioGroupVariants } from "@shizen-ui/styles";
+  import { setRadioGroupContext } from "./radio-group.context";
 
-  interface Props extends RadioVariants {
+  interface Props extends RadioGroupVariants {
     children: Snippet;
     class?: string;
     value?: string;
@@ -43,7 +43,7 @@
     }
   });
 
-  setContext<RadioGroupContextValue>(RADIO_GROUP_CONTEXT_KEY, {
+  setRadioGroupContext({
     get value() {
       return value;
     },
@@ -64,12 +64,12 @@
     }
   });
 
-  const styles = $derived(radioStyles({ orientation }));
+  const styles = $derived(radioGroupStyles({ orientation }));
 </script>
 
 <div
   {id}
-  class={cn(styles.group(), className)}
+  class={cn(styles.base(), className)}
   role="radiogroup"
   data-invalid={invalid}
   data-disabled={disabled}

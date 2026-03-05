@@ -3,12 +3,8 @@
   import { cn } from "@shizen-ui/styles";
   import { radioStyles } from "@shizen-ui/styles";
   import type { HTMLAttributes } from "svelte/elements";
-  import {
-    RADIO_CONTEXT_KEY,
-    RADIO_GROUP_CONTEXT_KEY,
-    type RadioContextValue,
-    type RadioGroupContextValue
-  } from "./radio.context";
+  import { setRadioContext } from "./radio.context";
+  import { useRadioGroupContext } from "../radio-group/radio-group.context";
 
   interface Props extends Omit<HTMLAttributes<HTMLDivElement>, "checked"> {
     value: string;
@@ -39,15 +35,19 @@
   }
 
   const FIELD_STATE_CTX_KEY = "field-state";
-  const groupCtx = getContext<RadioGroupContextValue | undefined>(RADIO_GROUP_CONTEXT_KEY);
+  const groupCtx = useRadioGroupContext();
   const parentFieldState = getContext<FieldStateContextValue | undefined>(FIELD_STATE_CTX_KEY);
 
-  const finalDisabled = $derived(parentFieldState?.disabled ?? groupCtx?.disabled ?? disabled);
-  const finalInvalid = $derived(parentFieldState?.invalid ?? groupCtx?.invalid ?? invalid);
-  const activeName = $derived(groupCtx?.name ?? name);
-  const isChecked = $derived(groupCtx ? groupCtx.value === value : checked);
+  const finalDisabled = $derived(
+    parentFieldState?.disabled ?? (groupCtx.exists ? groupCtx.disabled : disabled)
+  );
+  const finalInvalid = $derived(
+    parentFieldState?.invalid ?? (groupCtx.exists ? groupCtx.invalid : invalid)
+  );
+  const activeName = $derived(groupCtx.exists ? groupCtx.name : name);
+  const isChecked = $derived(groupCtx.exists ? groupCtx.value === value : checked);
 
-  setContext<RadioContextValue>(RADIO_CONTEXT_KEY, {
+  setRadioContext({
     get checked() {
       return isChecked;
     },
@@ -79,7 +79,7 @@
 
   function handleChange() {
     if (finalDisabled) return;
-    if (groupCtx) {
+    if (groupCtx.exists) {
       groupCtx.setValue(value);
     } else {
       checked = true;
@@ -119,7 +119,7 @@
     disabled={finalDisabled}
     onchange={handleChange}
     class="radio__input"
-    tabindex={isChecked || !groupCtx ? 0 : -1}
+    tabindex={isChecked || !groupCtx.exists ? 0 : -1}
     onkeydown={handleKeyDown}
     onmousedown={(e) => e.preventDefault()}
     {...rest}

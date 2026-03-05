@@ -1,0 +1,17 @@
+@layer components {
+  .radio-group {
+    @apply flex flex-col w-fit;
+  }
+
+  .radio-group__items {
+    @apply flex mt-4;
+  }
+
+  .radio-group__items--vertical {
+    @apply flex-col gap-4;
+  }
+
+  .radio-group__items--horizontal {
+    @apply flex-row flex-wrap gap-6;
+  }
+}
