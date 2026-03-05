@@ -13,6 +13,7 @@
 
   const groupCtx = useRadioGroupContext();
   const orientation = $derived(groupCtx.orientation);
+
   const styles = $derived(radioGroupStyles({ orientation }));
 </script>
 

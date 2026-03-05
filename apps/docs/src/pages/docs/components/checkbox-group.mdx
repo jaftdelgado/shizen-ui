@@ -1,0 +1,39 @@
+---
+title: "Checkbox Group"
+layout: "@layouts/DocsLayout.astro"
+---
+
+import ComponentExample from "@components/astro/ComponentExample.astro";
+
+import CheckboxGroupUsage from "@examples/svelte/checkbox-group/CheckboxGroupUsage.svelte";
+import CheckboxGroupDisabled from "@examples/svelte/checkbox-group/CheckboxGroupDisabled.svelte";
+import CheckboxGroupInvalid from "@examples/svelte/checkbox-group/CheckboxGroupInvalid.svelte";
+import CheckboxGroupControlled from "@examples/svelte/checkbox-group/CheckboxGroupControlled.svelte";
+
+# Checkbox Group
+
+A checkbox group is a collection of related checkboxes that allow users to select multiple options from a set. It provides a way to group checkboxes together, making it easier for users to understand the relationship between the options.
+
+<ComponentExample src="svelte/checkbox-group/CheckboxGroupUsage.svelte">
+  <CheckboxGroupUsage client:load />
+</ComponentExample>
+
+## Examples
+
+### Disabled State
+
+<ComponentExample src="svelte/checkbox-group/CheckboxGroupDisabled.svelte">
+  <CheckboxGroupDisabled client:load />
+</ComponentExample>
+
+### Invalid State
+
+<ComponentExample src="svelte/checkbox-group/CheckboxGroupInvalid.svelte">
+  <CheckboxGroupInvalid client:load />
+</ComponentExample>
+
+### Controlled
+
+<ComponentExample src="svelte/checkbox-group/CheckboxGroupControlled.svelte">
+  <CheckboxGroupControlled client:load />
+</ComponentExample>
