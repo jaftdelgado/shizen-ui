@@ -1,8 +1,9 @@
 <script lang="ts">
-  import { setContext, type Snippet } from "svelte";
+  import { type Snippet } from "svelte";
   import { cn } from "@shizen-ui/styles";
   import { radioGroupStyles, type RadioGroupVariants } from "@shizen-ui/styles";
   import { setRadioGroupContext } from "./radio-group.context";
+  import { setFieldStateContext } from "../../contexts/field-state.context";
 
   interface Props extends RadioGroupVariants {
     children: Snippet;
@@ -19,16 +20,16 @@
     children,
     class: className,
     value = $bindable(),
-    name = `radio-group-${Math.random().toString(36).slice(2, 9)}`,
+    name = crypto.randomUUID(),
     invalid = false,
     disabled = false,
     required = false,
     orientation = "vertical",
-    id = `field-${Math.random().toString(36).slice(2, 9)}`,
+    id = crypto.randomUUID(),
     ...rest
   }: Props = $props();
 
-  setContext("field-state", {
+  setFieldStateContext({
     get invalid() {
       return invalid;
     },
@@ -40,6 +41,9 @@
     },
     get id() {
       return id;
+    },
+    get keepDescription() {
+      return true;
     }
   });
 

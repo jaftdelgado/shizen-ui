@@ -3,7 +3,7 @@
 </script>
 
 <div class="flex flex-col">
-  <Checkbox invalid={true} required={true}>
+  <Checkbox invalid={true}>
     <Checkbox.Control />
     <Checkbox.Content>
       <Label>Terms and Conditions</Label>

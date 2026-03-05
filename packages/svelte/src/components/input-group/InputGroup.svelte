@@ -1,8 +1,17 @@
 <script lang="ts">
-  //TO DO: Agregar disabled y invalid a través de contexto
-  import { getContext, setContext } from "svelte";
   import { cn } from "@shizen-ui/styles";
   import { inputGroupStyles, type InputGroupVariants } from "@shizen-ui/styles";
+  import { useFieldStateContext } from "../../contexts/field-state.context";
+  import { setInputGroupContext } from "./input-group.context";
+  import type { Snippet } from "svelte";
+
+  interface Props {
+    children: Snippet;
+    class?: string;
+    size?: InputGroupVariants["size"];
+    fullWidth?: boolean;
+    hasTextArea?: boolean;
+  }
 
   let {
     children,
@@ -11,26 +20,20 @@
     fullWidth = false,
     hasTextArea = false,
     ...rest
-  }: {
-    children: any;
-    class?: string;
-    size?: InputGroupVariants["size"];
-    fullWidth?: boolean;
-    hasTextArea?: boolean;
-    [key: string]: any;
-  } = $props();
+  }: Props = $props();
 
-  const FIELD_STATE_CTX_KEY = "field-state";
-  const fieldState = getContext<{ invalid?: boolean; disabled?: boolean }>(FIELD_STATE_CTX_KEY);
+  const fieldContext = useFieldStateContext();
 
-  const finalInvalid = $derived(fieldState?.invalid);
-  const finalDisabled = $derived(fieldState?.disabled);
+  const finalInvalid = $derived(fieldContext.exists ? fieldContext.invalid : false);
+  const finalDisabled = $derived(fieldContext.exists ? fieldContext.disabled : false);
 
-  setContext("input-group-context", {
+  setInputGroupContext({
     get size() {
       return size;
     },
-    inGroup: true
+    get inGroup() {
+      return true;
+    }
   });
 </script>
 

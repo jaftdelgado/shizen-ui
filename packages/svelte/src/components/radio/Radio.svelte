@@ -1,10 +1,11 @@
 <script lang="ts">
-  import { getContext, setContext, type Snippet } from "svelte";
+  import { type Snippet } from "svelte";
   import { cn } from "@shizen-ui/styles";
   import { radioStyles } from "@shizen-ui/styles";
   import type { HTMLAttributes } from "svelte/elements";
   import { setRadioContext } from "./radio.context";
   import { useRadioGroupContext } from "../radio-group/radio-group.context";
+  import { setFieldStateContext, useFieldStateContext } from "../../contexts/field-state.context";
 
   interface Props extends Omit<HTMLAttributes<HTMLDivElement>, "checked"> {
     value: string;
@@ -28,21 +29,22 @@
     ...rest
   }: Props = $props();
 
-  interface FieldStateContextValue {
-    invalid?: boolean;
-    disabled?: boolean;
-    id?: string;
-  }
-
-  const FIELD_STATE_CTX_KEY = "field-state";
   const groupCtx = useRadioGroupContext();
-  const parentFieldState = getContext<FieldStateContextValue | undefined>(FIELD_STATE_CTX_KEY);
+  const parentFieldContext = useFieldStateContext();
 
   const finalDisabled = $derived(
-    parentFieldState?.disabled ?? (groupCtx.exists ? groupCtx.disabled : disabled)
+    parentFieldContext.exists
+      ? parentFieldContext.disabled
+      : groupCtx.exists
+        ? groupCtx.disabled
+        : disabled
   );
   const finalInvalid = $derived(
-    parentFieldState?.invalid ?? (groupCtx.exists ? groupCtx.invalid : invalid)
+    parentFieldContext.exists
+      ? parentFieldContext.invalid
+      : groupCtx.exists
+        ? groupCtx.invalid
+        : invalid
   );
   const activeName = $derived(groupCtx.exists ? groupCtx.name : name);
   const isChecked = $derived(groupCtx.exists ? groupCtx.value === value : checked);
@@ -62,17 +64,22 @@
     }
   });
 
-  setContext(FIELD_STATE_CTX_KEY, {
+  setFieldStateContext({
     get invalid() {
       return finalInvalid;
     },
     get disabled() {
       return finalDisabled;
     },
-    get id() {
-      return id;
+    get required() {
+      return false;
     },
-    keepDescription: true
+    get id() {
+      return id as string;
+    },
+    get keepDescription() {
+      return true;
+    }
   });
 
   const styles = $derived(radioStyles());

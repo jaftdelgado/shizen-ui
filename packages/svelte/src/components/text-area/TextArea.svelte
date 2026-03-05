@@ -1,7 +1,8 @@
 <script lang="ts">
-  import { getContext } from "svelte";
   import { cn } from "@shizen-ui/styles";
   import { textAreaStyles } from "@shizen-ui/styles";
+  import { useFieldStateContext } from "../../contexts/field-state.context";
+  import { useInputGroupContext } from "../input-group/input-group.context";
   import type { HTMLTextareaAttributes } from "svelte/elements";
 
   interface Props extends HTMLTextareaAttributes {
@@ -21,20 +22,19 @@
     ...rest
   }: Props = $props();
 
-  const FIELD_STATE_CTX_KEY = "field-state";
+  const fieldContext = useFieldStateContext();
+  const groupContext = useInputGroupContext();
 
-  const fieldState = getContext<{
-    invalid?: boolean;
-    disabled?: boolean;
-    id?: string;
-  }>(FIELD_STATE_CTX_KEY);
+  const finalInvalid = $derived(fieldContext.exists ? fieldContext.invalid : invalid);
+  const finalDisabled = $derived(fieldContext.exists ? fieldContext.disabled : disabled);
+  const finalId = $derived(propId ?? (fieldContext.exists ? fieldContext.id : undefined));
 
-  const finalInvalid = $derived(fieldState?.invalid ?? invalid);
-  const finalDisabled = $derived(fieldState?.disabled ?? disabled);
-  const finalId = $derived(propId ?? fieldState?.id);
-
-  const descriptionId = $derived(fieldState?.id ? `${fieldState.id}-description` : undefined);
-  const errorId = $derived(fieldState?.id ? `${fieldState.id}-error` : undefined);
+  const descriptionId = $derived(
+    fieldContext.exists && fieldContext.id ? `${fieldContext.id}-description` : undefined
+  );
+  const errorId = $derived(
+    fieldContext.exists && fieldContext.id ? `${fieldContext.id}-error` : undefined
+  );
 </script>
 
 <textarea
@@ -52,5 +52,6 @@
   aria-describedby={!finalInvalid ? descriptionId : undefined}
   aria-errormessage={finalInvalid ? errorId : undefined}
   data-invalid={finalInvalid}
+  data-in-group={groupContext.inGroup}
   {...rest}
 ></textarea>

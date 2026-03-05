@@ -1,10 +1,11 @@
 <script lang="ts">
-  import { getContext, setContext, type Snippet } from "svelte";
+  import { type Snippet } from "svelte";
   import { cn } from "@shizen-ui/styles";
   import { checkboxStyles } from "@shizen-ui/styles";
   import type { HTMLInputAttributes } from "svelte/elements";
   import { setCheckboxContext, type CheckboxCheckedState } from "./checkbox.context";
   import { useCheckboxGroupContext } from "../checkbox-group/checkbox-group.context";
+  import { setFieldStateContext, useFieldStateContext } from "../../contexts/field-state.context";
 
   interface Props extends Omit<HTMLInputAttributes, "type" | "checked"> {
     value?: string;
@@ -30,21 +31,22 @@
 
   let inputElement = $state<HTMLInputElement | null>(null);
 
-  interface FieldStateContextValue {
-    invalid?: boolean;
-    disabled?: boolean;
-    id?: string;
-  }
-
-  const FIELD_STATE_CTX_KEY = "field-state";
   const groupCtx = useCheckboxGroupContext();
-  const parentFieldState = getContext<FieldStateContextValue | undefined>(FIELD_STATE_CTX_KEY);
+  const parentFieldContext = useFieldStateContext();
 
   const finalDisabled = $derived(
-    parentFieldState?.disabled ?? (groupCtx.exists ? groupCtx.disabled : disabled)
+    parentFieldContext.exists
+      ? parentFieldContext.disabled
+      : groupCtx.exists
+        ? groupCtx.disabled
+        : disabled
   );
   const finalInvalid = $derived(
-    parentFieldState?.invalid ?? (groupCtx.exists ? groupCtx.invalid : invalid)
+    parentFieldContext.exists
+      ? parentFieldContext.invalid
+      : groupCtx.exists
+        ? groupCtx.invalid
+        : invalid
   );
   const activeName = $derived(groupCtx.exists ? groupCtx.name : name);
 
@@ -70,17 +72,22 @@
     }
   });
 
-  setContext<FieldStateContextValue & { keepDescription: boolean }>(FIELD_STATE_CTX_KEY, {
+  setFieldStateContext({
     get invalid() {
       return finalInvalid;
     },
     get disabled() {
       return finalDisabled;
     },
+    get required() {
+      return false;
+    },
     get id() {
       return id as string;
     },
-    keepDescription: true
+    get keepDescription() {
+      return true;
+    }
   });
 
   const styles = $derived(checkboxStyles());

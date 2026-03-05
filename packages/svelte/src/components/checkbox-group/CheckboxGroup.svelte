@@ -1,8 +1,9 @@
 <script lang="ts">
-  import { setContext, type Snippet } from "svelte";
+  import { type Snippet } from "svelte";
   import { cn } from "@shizen-ui/styles";
   import { checkboxGroupStyles, type CheckboxGroupVariants } from "@shizen-ui/styles";
   import { setCheckboxGroupContext } from "./checkbox-group.context";
+  import { setFieldStateContext } from "../../contexts/field-state.context";
 
   interface Props extends CheckboxGroupVariants {
     children: Snippet;
@@ -19,23 +20,16 @@
     children,
     class: className,
     value = $bindable<string[]>([]),
-    name = `checkbox-group-${Math.random().toString(36).slice(2, 9)}`,
+    name = crypto.randomUUID(),
     invalid = false,
     disabled = false,
     required = false,
     orientation = "vertical",
-    id = `field-${Math.random().toString(36).slice(2, 9)}`,
+    id = crypto.randomUUID(),
     ...rest
   }: Props = $props();
 
-  interface FieldStateContextValue {
-    readonly invalid?: boolean;
-    readonly disabled?: boolean;
-    readonly required?: boolean;
-    readonly id?: string;
-  }
-
-  setContext<FieldStateContextValue>("field-state", {
+  setFieldStateContext({
     get invalid() {
       return invalid;
     },
@@ -47,6 +41,9 @@
     },
     get id() {
       return id;
+    },
+    get keepDescription() {
+      return true;
     }
   });
 

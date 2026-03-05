@@ -1,7 +1,8 @@
 <script lang="ts">
-  import { getContext } from "svelte";
   import { cn } from "@shizen-ui/styles";
   import { inputStyles, type InputVariants } from "@shizen-ui/styles";
+  import { useFieldStateContext } from "../../contexts/field-state.context";
+  import { useInputGroupContext } from "../input-group/input-group.context";
   import type { HTMLInputAttributes } from "svelte/elements";
 
   interface Props extends Omit<HTMLInputAttributes, "size"> {
@@ -21,25 +22,20 @@
     ...rest
   }: Props = $props();
 
-  const FIELD_STATE_CTX_KEY = "field-state";
-  const fieldState = getContext<{
-    invalid?: boolean;
-    disabled?: boolean;
-    id?: string;
-  }>(FIELD_STATE_CTX_KEY);
+  const fieldContext = useFieldStateContext();
+  const groupContext = useInputGroupContext();
 
-  const groupCtx = getContext<{
-    size: InputVariants["size"];
-    inGroup: boolean;
-  }>("input-group-context");
+  const finalInvalid = $derived(fieldContext.exists ? fieldContext.invalid : invalid);
+  const finalDisabled = $derived(fieldContext.exists ? fieldContext.disabled : disabled);
+  const finalId = $derived(propId ?? (fieldContext.exists ? fieldContext.id : undefined));
+  const activeSize = $derived(groupContext.exists ? groupContext.size : size);
 
-  const finalInvalid = $derived(fieldState?.invalid ?? invalid);
-  const finalDisabled = $derived(fieldState?.disabled ?? disabled);
-  const finalId = $derived(propId ?? fieldState?.id);
-  const activeSize = $derived(groupCtx?.inGroup ? groupCtx.size : size);
-
-  const descriptionId = $derived(fieldState?.id ? `${fieldState.id}-description` : undefined);
-  const errorId = $derived(fieldState?.id ? `${fieldState.id}-error` : undefined);
+  const descriptionId = $derived(
+    fieldContext.exists && fieldContext.id ? `${fieldContext.id}-description` : undefined
+  );
+  const errorId = $derived(
+    fieldContext.exists && fieldContext.id ? `${fieldContext.id}-error` : undefined
+  );
 </script>
 
 <input
@@ -57,6 +53,6 @@
   aria-describedby={!finalInvalid ? descriptionId : undefined}
   aria-errormessage={finalInvalid ? errorId : undefined}
   data-invalid={finalInvalid}
-  data-in-group={groupCtx?.inGroup}
+  data-in-group={groupContext.inGroup}
   {...rest}
 />
