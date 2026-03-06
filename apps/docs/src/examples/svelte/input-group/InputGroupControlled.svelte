@@ -1,13 +1,12 @@
 <script lang="ts">
-  import { TextField, Label, Description } from "@shizen-ui/svelte";
-  import { InputGroup } from "@shizen-ui/svelte";
+  import { InputGroup, Label, Description } from "@shizen-ui/svelte";
   import Icon from "@components/svelte/Icon.svelte";
 
   let email = $state("");
 </script>
 
-<div class="flex items-center w-full max-w-76">
-  <TextField>
+<div class="flex items-center w-full max-w-64">
+  <div class="flex flex-col gap-1.5">
     <Label>Email</Label>
     <InputGroup>
       <InputGroup.Prefix>
@@ -20,5 +19,5 @@
     <Description>
       {email.length > 0 ? `Sending to: ${email}` : "Please enter a valid business email address."}
     </Description>
-  </TextField>
+  </div>
 </div>

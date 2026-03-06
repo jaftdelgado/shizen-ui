@@ -4,6 +4,7 @@ import type { InputGroupVariants } from "@shizen-ui/styles";
 export interface InputGroupContextValue {
   readonly size: InputGroupVariants["size"];
   readonly inGroup: boolean;
+  readonly disabled: boolean;
 }
 
 export const INPUT_GROUP_CONTEXT_KEY = Symbol("input-group");
@@ -19,6 +20,7 @@ export function useInputGroupContext() {
     return {
       size: "md" as InputGroupVariants["size"],
       inGroup: false,
+      disabled: false,
       exists: false
     } as const;
   }
@@ -29,6 +31,9 @@ export function useInputGroupContext() {
     },
     get inGroup() {
       return context.inGroup;
+    },
+    get disabled() {
+      return context.disabled;
     },
     get exists() {
       return true;

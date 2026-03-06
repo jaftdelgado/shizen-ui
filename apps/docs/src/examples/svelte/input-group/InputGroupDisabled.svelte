@@ -5,8 +5,8 @@
   let value = $state("info@shizen.com");
 </script>
 
-<div class="w-full max-w-xs">
-  <InputGroup size="md" data-disabled="true">
+<div class="flex flex-col w-full max-w-64">
+  <InputGroup disabled={true}>
     <InputGroup.Prefix>
       <Icon name="at" />
     </InputGroup.Prefix>

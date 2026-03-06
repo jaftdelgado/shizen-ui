@@ -26,7 +26,15 @@
   const groupContext = useInputGroupContext();
 
   const finalInvalid = $derived(fieldContext.exists ? fieldContext.invalid : invalid);
-  const finalDisabled = $derived(fieldContext.exists ? fieldContext.disabled : disabled);
+
+  const finalDisabled = $derived(
+    fieldContext.exists
+      ? fieldContext.disabled
+      : groupContext.exists
+        ? groupContext.disabled || disabled
+        : disabled
+  );
+
   const finalId = $derived(propId ?? (fieldContext.exists ? fieldContext.id : undefined));
   const activeSize = $derived(groupContext.exists ? groupContext.size : size);
 

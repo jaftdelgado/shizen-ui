@@ -11,6 +11,7 @@
     size?: InputGroupVariants["size"];
     fullWidth?: boolean;
     hasTextArea?: boolean;
+    disabled?: boolean;
   }
 
   let {
@@ -19,13 +20,16 @@
     size = "md",
     fullWidth = false,
     hasTextArea = false,
+    disabled = false,
     ...rest
   }: Props = $props();
 
   const fieldContext = useFieldStateContext();
 
   const finalInvalid = $derived(fieldContext.exists ? fieldContext.invalid : false);
-  const finalDisabled = $derived(fieldContext.exists ? fieldContext.disabled : false);
+  const finalDisabled = $derived(
+    fieldContext.exists ? fieldContext.disabled || disabled : disabled
+  );
 
   setInputGroupContext({
     get size() {
@@ -33,6 +37,9 @@
     },
     get inGroup() {
       return true;
+    },
+    get disabled() {
+      return finalDisabled;
     }
   });
 </script>

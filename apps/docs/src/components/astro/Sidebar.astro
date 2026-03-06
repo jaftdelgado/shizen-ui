@@ -27,7 +27,7 @@ const { pathname } = Astro.url;
                     href={item.href}
                     data-href={item.href}
                     class:list={[
-                      "sidebar-link group flex items-center transition-colors",
+                      "text-sm sidebar-link group flex items-center transition-colors",
                       isActive ? "text-accent" : "text-secondary-text hover:text-accent"
                     ]}
                   >
@@ -35,8 +35,8 @@ const { pathname } = Astro.url;
                       class:list={[
                         "sidebar-line inline-block h-px shrink-0 transition-all duration-300 ease-out",
                         isActive
-                          ? "w-14 bg-accent"
-                          : "w-8 bg-tertiary-text group-hover:w-14 group-hover:bg-accent"
+                          ? "w-12 bg-accent"
+                          : "w-8 bg-tertiary-text group-hover:w-12 group-hover:bg-accent"
                       ]}
                     />
                     <span class="pl-4 transition-all duration-300">{item.name}</span>
@@ -71,11 +71,11 @@ const { pathname } = Astro.url;
         link.classList.remove("text-secondary-text");
         link.classList.add("text-accent");
         line?.classList.remove("w-8", "bg-tertiary-text");
-        line?.classList.add("w-14", "bg-accent");
+        line?.classList.add("w-12", "bg-accent");
       } else {
         link.classList.remove("text-accent");
         link.classList.add("text-secondary-text");
-        line?.classList.remove("w-14", "bg-accent");
+        line?.classList.remove("w-12", "bg-accent");
         line?.classList.add("w-8", "bg-tertiary-text");
       }
     });
