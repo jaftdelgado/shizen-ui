@@ -83,9 +83,16 @@
   }
 
   function handleContainerClick(e: MouseEvent & { currentTarget: HTMLDivElement }) {
+    if (finalDisabled) return;
+
     const target = e.target as HTMLElement;
-    if (target.closest("label")) return;
+
+    if (target.tagName === "INPUT" || target.closest("label")) {
+      return;
+    }
+
     handleChange();
+
     const input = e.currentTarget.querySelector(
       'input[type="checkbox"]'
     ) as HTMLInputElement | null;

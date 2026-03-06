@@ -6,6 +6,10 @@ layout: "@layouts/DocsLayout.astro"
 import ComponentExample from "@components/astro/ComponentExample.astro";
 
 import SwitchUsage from "@examples/svelte/switch/SwitchUsage.svelte";
+import SwitchOnlyControl from "@examples/svelte/switch/SwitchOnlyControl.svelte";
+import SwitchDisabled from "@examples/svelte/switch/SwitchDisabled.svelte";
+import SwitchControlled from "@examples/svelte/switch/SwitchControlled.svelte";
+import SwitchThumbIcon from "@examples/svelte/switch/SwitchThumbIcon.svelte";
 
 # Switch
 
@@ -13,4 +17,30 @@ A switch allows users to toggle between two mutually exclusive states, typically
 
 <ComponentExample src="svelte/switch/SwitchUsage.svelte">
   <SwitchUsage client:load />
+</ComponentExample>
+
+## Examples
+
+### Without Content
+
+<ComponentExample src="svelte/switch/SwitchOnlyControl.svelte">
+  <SwitchOnlyControl client:load />
+</ComponentExample>
+
+### Disabled State
+
+<ComponentExample src="svelte/switch/SwitchDisabled.svelte">
+  <SwitchDisabled client:load />
+</ComponentExample>
+
+### Controlled
+
+<ComponentExample src="svelte/switch/SwitchControlled.svelte">
+  <SwitchControlled client:load />
+</ComponentExample>
+
+### With Icon
+
+<ComponentExample src="svelte/switch/SwitchThumbIcon.svelte">
+  <SwitchThumbIcon client:load />
 </ComponentExample>

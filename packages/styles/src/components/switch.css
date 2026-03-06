@@ -28,10 +28,15 @@
   }
 
   .switch__control {
-    @apply relative flex items-center transition-all duration-200 shrink-0;
-    @apply h-5 w-9 rounded-full mt-0.5;
+    @apply relative flex items-center shrink-0;
+    @apply rounded-full mt-0.5;
     box-sizing: border-box;
+    height: 1.25rem;
+    width: 2.5rem;
     background-color: var(--switch-bg);
+    transition:
+      background-color 250ms var(--ease-smooth, cubic-bezier(0.4, 0, 0.2, 1)),
+      box-shadow 150ms var(--ease-out, cubic-bezier(0, 0, 0.2, 1));
   }
 
   .switch__control:hover:not([data-disabled="true"]) {
@@ -52,15 +57,26 @@
   }
 
   .switch__thumb {
-    @apply absolute left-0.5 size-4 rounded-full transition-transform duration-200;
+    @apply absolute rounded-full;
+    left: 0.125rem;
+    height: 1rem;
+    width: 1.375rem;
     background-color: var(--switch-thumb-bg);
     box-shadow: var(--switch-thumb-shadow);
     transform: translateX(0);
+    transform-origin: center;
+    transition:
+      transform 250ms var(--ease-out, cubic-bezier(0, 0, 0.2, 1)),
+      background-color 250ms var(--ease-out, cubic-bezier(0, 0, 0.2, 1));
   }
 
   .switch__thumb[data-checked="true"],
   .switch[data-checked="true"] .switch__thumb {
-    transform: translateX(1rem);
+    transform: translateX(0.875rem);
+  }
+
+  .switch__thumb-content {
+    @apply flex items-center justify-center w-full h-full;
   }
 
   .switch__content {

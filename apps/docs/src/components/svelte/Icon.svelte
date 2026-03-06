@@ -4,6 +4,7 @@
   export let name: IconName;
   export let size: number = 16;
   export let strokeWidth: number = 0.1;
+  export let filled: boolean = false;
 </script>
 
 <svg
@@ -11,8 +12,8 @@
   width={size}
   height={size}
   viewBox="0 0 16 16"
-  fill="none"
-  stroke="currentColor"
+  fill={filled ? "currentColor" : "none"}
+  stroke={filled ? "none" : "currentColor"}
   stroke-width={strokeWidth}
   class={$$props.class}
   aria-hidden="true"
@@ -23,8 +24,8 @@
 </svg>
 
 <style>
-  svg :global(path) {
-    stroke-width: inherit;
-    stroke: inherit;
+  svg {
+    display: inline-block;
+    vertical-align: middle;
   }
 </style>

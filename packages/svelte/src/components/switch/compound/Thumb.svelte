@@ -17,6 +17,8 @@
   data-invalid={ctx.invalid}
 >
   {#if children}
-    {@render children()}
+    <div class="switch__thumb-content">
+      {@render children()}
+    </div>
   {/if}
 </div>
