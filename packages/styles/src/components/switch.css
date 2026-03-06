@@ -1,0 +1,69 @@
+@layer components {
+  .switch {
+    @apply inline-flex items-start gap-3 transition-opacity duration-200 outline-none select-none;
+    --switch-bg: var(--color-field);
+    --switch-bg-hover: var(--color-field-hover);
+    --switch-thumb-bg: var(--color-accent-foreground);
+    --switch-thumb-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+
+  .switch,
+  .switch * {
+    cursor: var(--cursor-interactive);
+  }
+
+  .switch[data-disabled="true"] {
+    @apply status-disabled;
+  }
+
+  .switch[data-disabled="true"],
+  .switch[data-disabled="true"] * {
+    cursor: var(--cursor-disabled);
+  }
+
+  .switch[data-checked="true"] {
+    --switch-bg: var(--color-accent);
+    --switch-bg-hover: var(--color-accent-hover);
+    --switch-thumb-bg: var(--color-accent-foreground);
+  }
+
+  .switch__control {
+    @apply relative flex items-center transition-all duration-200 shrink-0;
+    @apply h-5 w-9 rounded-full mt-0.5;
+    box-sizing: border-box;
+    background-color: var(--switch-bg);
+  }
+
+  .switch__control:hover:not([data-disabled="true"]) {
+    background-color: var(--switch-bg-hover);
+  }
+
+  .switch[data-invalid="true"] .switch__control {
+    @apply status-invalid-field ring-1;
+  }
+
+  .switch[data-invalid="true"][data-checked="true"] .switch__control {
+    @apply status-invalid-field ring-1;
+    background-color: var(--color-danger);
+  }
+
+  .switch__input {
+    @apply sr-only;
+  }
+
+  .switch__thumb {
+    @apply absolute left-0.5 size-4 rounded-full transition-transform duration-200;
+    background-color: var(--switch-thumb-bg);
+    box-shadow: var(--switch-thumb-shadow);
+    transform: translateX(0);
+  }
+
+  .switch__thumb[data-checked="true"],
+  .switch[data-checked="true"] .switch__thumb {
+    transform: translateX(1rem);
+  }
+
+  .switch__content {
+    @apply flex flex-col;
+  }
+}

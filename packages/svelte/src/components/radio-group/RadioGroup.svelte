@@ -43,7 +43,7 @@
       return id;
     },
     get keepDescription() {
-      return true;
+      return false;
     }
   });
 

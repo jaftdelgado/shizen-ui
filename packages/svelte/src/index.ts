@@ -9,5 +9,6 @@ export * from "./components/input/index.js";
 export * from "./components/label/index.js";
 export * from "./components/radio-group/index.js";
 export * from "./components/radio/index.js";
+export * from "./components/switch/index.js";
 export * from "./components/text-area/index.js";
 export * from "./components/text-field/index.js";
