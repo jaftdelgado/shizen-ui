@@ -11,4 +11,6 @@ export const Switch = Object.assign(Root, {
 
 export { type SwitchContextValue, SWITCH_CONTEXT_KEY, useSwitchContext } from "./switch.context";
 
-export default Switch;
+export default {
+  Switch
+};

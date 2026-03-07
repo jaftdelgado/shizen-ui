@@ -5,6 +5,7 @@
   import type { HTMLAttributes } from "svelte/elements";
   import { setSwitchContext, type SwitchSize } from "./switch.context";
   import { setFieldStateContext, useFieldStateContext } from "../../contexts/field-state.context";
+  import { useSwitchGroupContext } from "../switch-group/switch-group.context";
 
   interface Props extends Omit<HTMLAttributes<HTMLDivElement>, "checked"> {
     invalid?: boolean;
@@ -31,11 +32,25 @@
   }: Props = $props();
 
   const parentFieldContext = useFieldStateContext();
+  const groupCtx = useSwitchGroupContext();
 
   const finalDisabled = $derived(
-    parentFieldContext.exists ? parentFieldContext.disabled : disabled
+    groupCtx.exists
+      ? groupCtx.disabled
+      : parentFieldContext.exists
+        ? parentFieldContext.disabled
+        : disabled
   );
-  const finalInvalid = $derived(parentFieldContext.exists ? parentFieldContext.invalid : invalid);
+
+  const finalInvalid = $derived(
+    groupCtx.exists
+      ? groupCtx.invalid
+      : parentFieldContext.exists
+        ? parentFieldContext.invalid
+        : invalid
+  );
+
+  const finalSize = $derived(groupCtx.exists ? groupCtx.size : size);
 
   setSwitchContext({
     get checked() {
@@ -51,7 +66,7 @@
       return id as string;
     },
     get size() {
-      return size;
+      return finalSize;
     }
   });
 
@@ -73,7 +88,7 @@
     }
   });
 
-  const styles = $derived(switchStyles({ size }));
+  const styles = $derived(switchStyles({ size: finalSize }));
 
   function handleChange() {
     if (finalDisabled) return;
