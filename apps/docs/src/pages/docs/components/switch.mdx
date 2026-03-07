@@ -4,6 +4,9 @@ layout: "@layouts/DocsLayout.astro"
 ---
 
 import ComponentExample from "@components/astro/ComponentExample.astro";
+import CodeBlock from "@components/astro/CodeBlock.astro";
+
+import SwitchAnatomyCode from "@examples/svelte/switch/SwitchAnatomy.svelte?raw";
 
 import SwitchUsage from "@examples/svelte/switch/SwitchUsage.svelte";
 import SwitchDescription from "@examples/svelte/switch/SwitchDescription.svelte";
@@ -24,6 +27,10 @@ A switch allows users to toggle between two mutually exclusive states, typically
 <ComponentExample src="svelte/switch/SwitchUsage.svelte">
   <SwitchUsage client:load />
 </ComponentExample>
+
+## Anatomy
+
+<CodeBlock code={SwitchAnatomyCode} lang="svelte" showLineNumbers={false} />
 
 ## Examples
 
