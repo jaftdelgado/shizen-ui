@@ -1,10 +1,13 @@
 import { getContext, setContext } from "svelte";
 
+export type SwitchSize = "sm" | "md" | "lg";
+
 export interface SwitchContextValue {
   readonly checked: boolean;
   readonly disabled: boolean;
   readonly invalid: boolean;
   readonly id: string;
+  readonly size: SwitchSize;
 }
 
 export const SWITCH_CONTEXT_KEY = Symbol("switch-context");
@@ -22,6 +25,7 @@ export function useSwitchContext() {
       disabled: false,
       invalid: false,
       id: "",
+      size: "md" as SwitchSize,
       exists: false
     } as const;
   }
@@ -38,6 +42,9 @@ export function useSwitchContext() {
     },
     get id() {
       return context.id;
+    },
+    get size() {
+      return context.size;
     },
     get exists() {
       return true;

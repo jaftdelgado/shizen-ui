@@ -3,7 +3,7 @@
   import { cn } from "@shizen-ui/styles";
   import { switchStyles } from "@shizen-ui/styles";
   import type { HTMLAttributes } from "svelte/elements";
-  import { setSwitchContext } from "./switch.context";
+  import { setSwitchContext, type SwitchSize } from "./switch.context";
   import { setFieldStateContext, useFieldStateContext } from "../../contexts/field-state.context";
 
   interface Props extends Omit<HTMLAttributes<HTMLDivElement>, "checked"> {
@@ -14,6 +14,7 @@
     class?: string;
     name?: string;
     value?: string;
+    size?: SwitchSize;
   }
 
   let {
@@ -24,6 +25,7 @@
     value,
     id = crypto.randomUUID(),
     checked = $bindable(false),
+    size = "md",
     children,
     ...rest
   }: Props = $props();
@@ -47,6 +49,9 @@
     },
     get id() {
       return id as string;
+    },
+    get size() {
+      return size;
     }
   });
 
@@ -68,7 +73,7 @@
     }
   });
 
-  const styles = $derived(switchStyles());
+  const styles = $derived(switchStyles({ size }));
 
   function handleChange() {
     if (finalDisabled) return;

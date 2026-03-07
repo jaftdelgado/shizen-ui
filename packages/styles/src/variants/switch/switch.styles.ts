@@ -6,6 +6,22 @@ export const switchStyles = tv({
     control: "switch__control",
     thumb: "switch__thumb",
     content: "switch__content"
+  },
+  variants: {
+    size: {
+      sm: {
+        base: "switch--sm"
+      },
+      md: {
+        base: ""
+      },
+      lg: {
+        base: "switch--lg"
+      }
+    }
+  },
+  defaultVariants: {
+    size: "md"
   }
 });
 

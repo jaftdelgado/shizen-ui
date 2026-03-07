@@ -1,6 +1,6 @@
 @layer components {
   .switch {
-    @apply inline-flex items-start gap-3 transition-opacity duration-200 outline-none select-none;
+    @apply inline-flex items-center gap-3 transition-opacity duration-200 outline-none select-none;
     --switch-bg: var(--color-field);
     --switch-bg-hover: var(--color-field-hover);
     --switch-thumb-bg: var(--color-accent-foreground);
@@ -28,8 +28,7 @@
   }
 
   .switch__control {
-    @apply relative flex items-center shrink-0;
-    @apply rounded-full mt-0.5;
+    @apply relative flex items-center shrink-0 rounded-full;
     box-sizing: border-box;
     height: 1.25rem;
     width: 2.5rem;
@@ -37,6 +36,16 @@
     transition:
       background-color 250ms var(--ease-smooth, cubic-bezier(0.4, 0, 0.2, 1)),
       box-shadow 150ms var(--ease-out, cubic-bezier(0, 0, 0.2, 1));
+  }
+
+  .switch--sm .switch__control {
+    height: 1rem;
+    width: 2rem;
+  }
+
+  .switch--lg .switch__control {
+    height: 1.5rem;
+    width: 3rem;
   }
 
   .switch__control:hover:not([data-disabled="true"]) {
@@ -66,13 +75,32 @@
     transform: translateX(0);
     transform-origin: center;
     transition:
-      transform 250ms var(--ease-out, cubic-bezier(0, 0, 0.2, 1)),
-      background-color 250ms var(--ease-out, cubic-bezier(0, 0, 0.2, 1));
+      transform 300ms var(--ease-out-fluid, cubic-bezier(0.3, 1, 0.3, 1)),
+      background-color 200ms var(--ease-out, cubic-bezier(0, 0, 0.2, 1));
   }
 
-  .switch__thumb[data-checked="true"],
   .switch[data-checked="true"] .switch__thumb {
     transform: translateX(0.875rem);
+  }
+
+  .switch--sm .switch__thumb {
+    height: 0.75rem;
+    width: 1.03125rem;
+  }
+
+  .switch--sm.switch[data-checked="true"] .switch__thumb,
+  .switch--sm[data-checked="true"] .switch__thumb {
+    transform: translateX(0.71875rem);
+  }
+
+  .switch--lg .switch__thumb {
+    height: 1.25rem;
+    width: 1.7rem;
+  }
+
+  .switch--lg.switch[data-checked="true"] .switch__thumb,
+  .switch--lg[data-checked="true"] .switch__thumb {
+    transform: translateX(1.03125rem);
   }
 
   .switch__thumb-content {

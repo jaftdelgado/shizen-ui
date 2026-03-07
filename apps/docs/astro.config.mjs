@@ -12,6 +12,9 @@ export default defineConfig({
     plugins: [tailwindcss()],
     ssr: {
       noExternal: ["@shizen-ui/styles", "@shizen-ui/svelte"]
+    },
+    optimizeDeps: {
+      include: ["@shizen-ui/svelte"]
     }
   }
 });
