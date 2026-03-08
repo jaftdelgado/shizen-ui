@@ -2,14 +2,25 @@
   .tooltip {
     @apply absolute top-0 left-0 z-50 rounded-xl px-2.5 py-1.5 bg-overlay pointer-events-none;
     @apply text-xs text-secondary-text;
+
+    --tooltip-enter-duration: 350ms;
+    --tooltip-enter-easing: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --tooltip-exit-duration: 150ms;
+    --tooltip-exit-easing: ease;
+    --tooltip-scale-from: 0.6;
+  }
+
+  .tooltip[data-state="open"],
+  .tooltip[data-state="closed"] {
+    will-change: transform, opacity;
   }
 
   .tooltip[data-state="open"] {
-    animation: tooltip-in 150ms ease forwards;
+    animation: tooltip-in var(--tooltip-enter-duration) var(--tooltip-enter-easing) forwards;
   }
 
   .tooltip[data-state="closed"] {
-    animation: tooltip-out 150ms ease forwards;
+    animation: tooltip-out var(--tooltip-exit-duration) var(--tooltip-exit-easing) forwards;
   }
 
   .tooltip__trigger {
@@ -20,7 +31,7 @@
 @keyframes tooltip-in {
   from {
     opacity: 0;
-    scale: 0.92;
+    scale: var(--tooltip-scale-from);
   }
   to {
     opacity: 1;
@@ -35,6 +46,6 @@
   }
   to {
     opacity: 0;
-    scale: 0.92;
+    scale: var(--tooltip-scale-from);
   }
 }

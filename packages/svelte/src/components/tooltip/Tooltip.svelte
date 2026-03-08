@@ -9,7 +9,7 @@
     placement?: "top" | "right" | "bottom" | "left";
     strategy?: Strategy;
     offset?: number;
-    delay?: number;
+    delayDuration?: number;
     isOpen?: boolean;
     onOpenChange?: (open: boolean) => void;
   }
@@ -19,7 +19,7 @@
     placement = "top",
     strategy = "absolute",
     offset: offsetVal = 8,
-    delay = 200,
+    delayDuration = 200,
     isOpen = $bindable(false),
     onOpenChange
   }: Props = $props();
@@ -55,7 +55,7 @@
     clearTimeout(timer);
     timer = setTimeout(() => {
       isOpen = true;
-    }, delay);
+    }, delayDuration);
   }
 
   function handleClose() {
@@ -69,8 +69,8 @@
     get isOpen() {
       return isOpen;
     },
-    get delay() {
-      return delay;
+    get delayDuration() {
+      return delayDuration;
     },
     get placement() {
       return placement;

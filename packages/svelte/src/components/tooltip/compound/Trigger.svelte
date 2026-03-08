@@ -14,25 +14,49 @@
     const target = (el.firstElementChild as HTMLElement) ?? el;
     ctx.setReferenceEl(target);
 
+    // Track whether the last interaction was touch to ignore
+    // the synthetic mouseenter browsers fire after touchend
+    let isTouch = false;
+
+    function onTouchStart() {
+      isTouch = true;
+    }
+
     function onMouseEnter() {
+      if (isTouch) {
+        isTouch = false;
+        return;
+      }
       ctx.handleOpen();
     }
+
     function onMouseLeave() {
+      if (isTouch) return;
       ctx.handleClose();
     }
-    function onFocus() {
+
+    function onFocus(e: FocusEvent) {
+      // Only open on keyboard focus, not programmatic or pointer focus
+      if (
+        (e as FocusEvent & { sourceCapabilities?: { firesTouchEvents: boolean } })
+          .sourceCapabilities?.firesTouchEvents
+      )
+        return;
       ctx.handleOpen();
     }
+
     function onBlur() {
       ctx.handleClose();
     }
 
+    target.addEventListener("touchstart", onTouchStart, { passive: true });
     target.addEventListener("mouseenter", onMouseEnter);
     target.addEventListener("mouseleave", onMouseLeave);
     target.addEventListener("focus", onFocus, true);
     target.addEventListener("blur", onBlur, true);
 
     return () => {
+      target.removeEventListener("touchstart", onTouchStart);
       target.removeEventListener("mouseenter", onMouseEnter);
       target.removeEventListener("mouseleave", onMouseLeave);
       target.removeEventListener("focus", onFocus, true);

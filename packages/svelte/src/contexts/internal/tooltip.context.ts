@@ -6,7 +6,7 @@ export type TooltipPlacement = OverlayPlacement;
 
 export interface TooltipContextValue {
   readonly isOpen: boolean;
-  readonly delay: number;
+  readonly delayDuration: number;
   readonly placement: TooltipPlacement;
   readonly strategy: Strategy;
   readonly offsetVal: number;
@@ -40,7 +40,7 @@ export function useTooltipContext(): TooltipContextResult {
       get isOpen() {
         return false;
       },
-      get delay() {
+      get delayDuration() {
         return 200;
       },
       get placement() {
@@ -80,8 +80,8 @@ export function useTooltipContext(): TooltipContextResult {
     get isOpen() {
       return context.isOpen;
     },
-    get delay() {
-      return context.delay;
+    get delayDuration() {
+      return context.delayDuration;
     },
     get placement() {
       return context.placement;
