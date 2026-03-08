@@ -1,10 +1,12 @@
-<script>
+<script lang="ts">
   import { Tooltip, Button } from "@shizen-ui/svelte";
 </script>
 
-<Tooltip placement="bottom" delay={400}>
-  <Tooltip.Trigger>
-    <Button>Bottom tooltip</Button>
-  </Tooltip.Trigger>
-  <Tooltip.Content>Shows below the trigger</Tooltip.Content>
-</Tooltip>
+<div class="flex flex-wrap">
+  <Tooltip>
+    <Tooltip.Trigger>
+      <Button>Hover for tooltip</Button>
+    </Tooltip.Trigger>
+    <Tooltip.Content>Helpful information about this element</Tooltip.Content>
+  </Tooltip>
+</div>

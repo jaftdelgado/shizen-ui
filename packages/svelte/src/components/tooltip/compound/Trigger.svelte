@@ -1,38 +1,56 @@
 <script lang="ts">
-  import { type Snippet } from "svelte";
-  import { cn } from "@shizen-ui/styles";
-  import { tooltipStyles } from "@shizen-ui/styles";
-  import { useTooltipContext } from "../../../contexts/internal/index.js";
+  import type { Snippet } from "svelte";
+  import { useTooltipContext } from "../../../contexts/internal/tooltip.context.ts";
 
-  interface Props {
-    children: Snippet;
-    class?: string;
-  }
-
-  let { children, class: className }: Props = $props();
+  let { children }: { children: Snippet } = $props();
 
   const ctx = useTooltipContext();
-  const styles = $derived(tooltipStyles());
 
   let el = $state<HTMLElement | null>(null);
 
   $effect(() => {
-    if (el) {
-      ctx.registerTrigger(el);
+    if (!el) return;
+
+    const target = (el.firstElementChild as HTMLElement) ?? el;
+    ctx.setReferenceEl(target);
+
+    function onMouseEnter() {
+      ctx.handleOpen();
+    }
+    function onMouseLeave() {
+      ctx.handleClose();
+    }
+    function onFocus() {
+      ctx.handleOpen();
+    }
+    function onBlur() {
+      ctx.handleClose();
+    }
+
+    target.addEventListener("mouseenter", onMouseEnter);
+    target.addEventListener("mouseleave", onMouseLeave);
+    target.addEventListener("focus", onFocus, true);
+    target.addEventListener("blur", onBlur, true);
+
+    return () => {
+      target.removeEventListener("mouseenter", onMouseEnter);
+      target.removeEventListener("mouseleave", onMouseLeave);
+      target.removeEventListener("focus", onFocus, true);
+      target.removeEventListener("blur", onBlur, true);
+    };
+  });
+
+  $effect(() => {
+    if (!el) return;
+    const target = (el.firstElementChild as HTMLElement) ?? el;
+    if (ctx.isOpen) {
+      target.setAttribute("aria-describedby", "tooltip-content");
+    } else {
+      target.removeAttribute("aria-describedby");
     }
   });
 </script>
 
-<span
-  bind:this={el}
-  id={ctx.triggerId}
-  class={cn(styles.trigger(), className)}
-  aria-describedby={ctx.open ? ctx.contentId : undefined}
-  onmouseenter={ctx.show}
-  onmouseleave={ctx.hide}
-  onfocus={ctx.show}
-  onblur={ctx.hide}
-  role="none"
->
+<div bind:this={el} style="display: contents">
   {@render children()}
-</span>
+</div>

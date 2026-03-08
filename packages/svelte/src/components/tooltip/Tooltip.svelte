@@ -1,113 +1,111 @@
 <script lang="ts">
-  import { type Snippet } from "svelte";
-  import type { Placement } from "@floating-ui/dom";
-  import { computePosition, flip, shift, offset as offsetMiddleware } from "@floating-ui/dom";
-  import { setTooltipContext } from "../../contexts/internal/index.js";
+  import type { Snippet } from "svelte";
+  import type { Strategy } from "@floating-ui/dom";
+  import { OverlayState, type PopoverPlacement } from "../../shared/overlay.svelte.ts";
+  import { setTooltipContext } from "../../contexts/internal/tooltip.context.ts";
 
   interface Props {
     children: Snippet;
-    placement?: Placement;
+    placement?: PopoverPlacement;
+    strategy?: Strategy;
     offset?: number;
     delay?: number;
-    closeDelay?: number;
-    open?: boolean;
+    isOpen?: boolean;
+    onOpenChange?: (open: boolean) => void;
   }
 
   let {
     children,
     placement = "top",
-    offset = 8,
-    delay = 700,
-    closeDelay = 0,
-    open: controlledOpen = $bindable<boolean | undefined>(undefined)
+    strategy = "absolute",
+    offset: offsetVal = 8,
+    delay = 200,
+    isOpen = $bindable(false),
+    onOpenChange
   }: Props = $props();
 
-  const id = Math.random().toString(36).slice(2, 9);
-  const triggerId = `tooltip-trigger-${id}`;
-  const contentId = `tooltip-content-${id}`;
+  let timer: ReturnType<typeof setTimeout>;
 
-  let triggerEl = $state<HTMLElement | null>(null);
-  let contentEl = $state<HTMLElement | null>(null);
-  let internalOpen = $state(false);
-  let showTimeout = $state<ReturnType<typeof setTimeout> | null>(null);
-  let hideTimeout = $state<ReturnType<typeof setTimeout> | null>(null);
-
-  const isOpen = $derived(controlledOpen !== undefined ? controlledOpen : internalOpen);
-
-  async function updatePosition() {
-    if (!triggerEl || !contentEl) return;
-
-    const {
-      x,
-      y,
-      placement: finalPlacement
-    } = await computePosition(triggerEl, contentEl, {
-      placement,
-      middleware: [flip(), shift({ padding: 8 }), offsetMiddleware(offset)]
-    });
-
-    Object.assign(contentEl.style, {
-      left: `${x}px`,
-      top: `${y}px`
-    });
-
-    contentEl.setAttribute("data-placement", finalPlacement);
-  }
-
-  function show() {
-    if (hideTimeout) {
-      clearTimeout(hideTimeout);
-      hideTimeout = null;
-    }
-
-    if (controlledOpen !== undefined) return;
-
-    showTimeout = setTimeout(() => {
-      internalOpen = true;
-    }, delay);
-  }
-
-  function hide() {
-    if (showTimeout) {
-      clearTimeout(showTimeout);
-      showTimeout = null;
-    }
-
-    if (controlledOpen !== undefined) return;
-
-    hideTimeout = setTimeout(() => {
-      internalOpen = false;
-    }, closeDelay);
-  }
-
-  $effect(() => {
-    if (isOpen) {
-      Promise.resolve().then(updatePosition);
+  const overlay = new OverlayState({
+    get placement() {
+      return placement;
+    },
+    get strategy() {
+      return strategy;
+    },
+    get offsetVal() {
+      return offsetVal;
+    },
+    get closeOnScroll() {
+      return true;
+    },
+    get isOpen() {
+      return isOpen;
+    },
+    set isOpen(value) {
+      isOpen = value;
+      onOpenChange?.(value);
+    },
+    get onOpenChange() {
+      return onOpenChange;
     }
   });
 
+  function handleOpen() {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      isOpen = true;
+    }, delay);
+  }
+
+  function handleClose() {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      isOpen = false;
+    }, 100);
+  }
+
   setTooltipContext({
-    get triggerId() {
-      return triggerId;
-    },
-    get contentId() {
-      return contentId;
-    },
-    get open() {
+    get isOpen() {
       return isOpen;
+    },
+    get delay() {
+      return delay;
     },
     get placement() {
       return placement;
     },
-    registerTrigger(el: HTMLElement) {
-      triggerEl = el;
+    get strategy() {
+      return strategy;
     },
-    registerContent(el: HTMLElement) {
-      contentEl = el;
+    get offsetVal() {
+      return offsetVal;
     },
-    show,
-    hide
+    handleOpen,
+    handleClose,
+    get overlay() {
+      return {
+        get referenceEl() {
+          return overlay.referenceEl;
+        },
+        get floatingEl() {
+          return overlay.floatingEl;
+        },
+        get transformOrigin() {
+          return overlay.transformOrigin;
+        },
+        handleScroll: overlay.handleScroll
+      };
+    },
+    setReferenceEl(el) {
+      overlay.referenceEl = el;
+    },
+    setFloatingEl(el) {
+      overlay.floatingEl = el;
+    }
   });
 </script>
+
+<svelte:window onscrollcapture={overlay.handleScroll} />
 
 {@render children()}

@@ -19,6 +19,8 @@
   --color-separator: var(--separator);
   --color-focus: var(--focus);
 
+  --color-overlay: var(--color-control);
+
   /* Text Colors */
   --color-primary-text: var(--primary-text);
   --color-secondary-text: var(--secondary-text);

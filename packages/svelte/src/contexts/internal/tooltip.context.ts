@@ -1,15 +1,23 @@
 import { getContext, setContext } from "svelte";
-import type { Placement } from "@floating-ui/dom";
+import type { Strategy } from "@floating-ui/dom";
+import type { PopoverPlacement } from "../../shared/overlay.svelte.ts";
 
 export interface TooltipContextValue {
-  readonly triggerId: string;
-  readonly contentId: string;
-  readonly open: boolean;
-  readonly placement: Placement;
-  registerTrigger: (el: HTMLElement) => void;
-  registerContent: (el: HTMLElement) => void;
-  show: () => void;
-  hide: () => void;
+  readonly isOpen: boolean;
+  readonly delay: number;
+  readonly placement: PopoverPlacement;
+  readonly strategy: Strategy;
+  readonly offsetVal: number;
+  readonly handleOpen: () => void;
+  readonly handleClose: () => void;
+  readonly overlay: {
+    readonly referenceEl: HTMLElement | null;
+    readonly floatingEl: HTMLElement | null;
+    readonly transformOrigin: string;
+    readonly handleScroll: () => void;
+  };
+  setReferenceEl: (el: HTMLElement | null) => void;
+  setFloatingEl: (el: HTMLElement | null) => void;
 }
 
 export interface TooltipContextResult extends TooltipContextValue {
@@ -27,22 +35,39 @@ export function useTooltipContext(): TooltipContextResult {
 
   if (!context) {
     return {
-      get triggerId() {
-        return "";
-      },
-      get contentId() {
-        return "";
-      },
-      get open() {
+      get isOpen() {
         return false;
       },
-      get placement() {
-        return "top" as Placement;
+      get delay() {
+        return 200;
       },
-      registerTrigger: () => {},
-      registerContent: () => {},
-      show: () => {},
-      hide: () => {},
+      get placement() {
+        return "top" as PopoverPlacement;
+      },
+      get strategy() {
+        return "absolute" as Strategy;
+      },
+      get offsetVal() {
+        return 8;
+      },
+      handleOpen: () => {},
+      handleClose: () => {},
+      get overlay() {
+        return {
+          get referenceEl() {
+            return null;
+          },
+          get floatingEl() {
+            return null;
+          },
+          get transformOrigin() {
+            return "";
+          },
+          handleScroll: () => {}
+        };
+      },
+      setReferenceEl: () => {},
+      setFloatingEl: () => {},
       get exists() {
         return false;
       }
@@ -50,22 +75,36 @@ export function useTooltipContext(): TooltipContextResult {
   }
 
   return {
-    get triggerId() {
-      return context.triggerId;
+    get isOpen() {
+      return context.isOpen;
     },
-    get contentId() {
-      return context.contentId;
-    },
-    get open() {
-      return context.open;
+    get delay() {
+      return context.delay;
     },
     get placement() {
       return context.placement;
     },
-    registerTrigger: context.registerTrigger,
-    registerContent: context.registerContent,
-    show: context.show,
-    hide: context.hide,
+    get strategy() {
+      return context.strategy;
+    },
+    get offsetVal() {
+      return context.offsetVal;
+    },
+    get handleOpen() {
+      return context.handleOpen;
+    },
+    get handleClose() {
+      return context.handleClose;
+    },
+    get overlay() {
+      return context.overlay;
+    },
+    get setReferenceEl() {
+      return context.setReferenceEl;
+    },
+    get setFloatingEl() {
+      return context.setFloatingEl;
+    },
     get exists() {
       return true;
     }
