@@ -1,8 +1,8 @@
 <script lang="ts">
   import { cn } from "@shizen-ui/styles";
   import { textAreaStyles } from "@shizen-ui/styles";
-  import { useFieldStateContext } from "../../contexts/field-state.context";
-  import { useInputGroupContext } from "../input-group/input-group.context";
+  import { useFieldStateContext } from "../../contexts/index.js";
+  import { useInputGroupContext } from "../../contexts/internal/index.js";
   import type { HTMLTextareaAttributes } from "svelte/elements";
 
   interface Props extends HTMLTextareaAttributes {

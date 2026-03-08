@@ -5,7 +5,7 @@
   import type { HTMLInputAttributes } from "svelte/elements";
   import { setCheckboxContext, type CheckboxCheckedState } from "../../contexts/internal/index.js";
   import { useCheckboxGroupContext } from "../../contexts/internal/index.js";
-  import { setFieldStateContext, useFieldStateContext } from "../../contexts/field-state.context";
+  import { setFieldStateContext, useFieldStateContext } from "../../contexts/index.js";
 
   interface Props extends Omit<HTMLInputAttributes, "type" | "checked"> {
     value?: string;

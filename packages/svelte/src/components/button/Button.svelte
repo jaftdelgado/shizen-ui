@@ -3,7 +3,7 @@
   import { buttonStyles, type ButtonVariants } from "@shizen-ui/styles";
   import type { HTMLButtonAttributes } from "svelte/elements";
   import type { Snippet } from "svelte";
-  import { useButtonGroupContext } from "../button-group/button-group.context";
+  import { useButtonGroupContext } from "../../contexts/internal/index.js";
 
   type IconContent = Snippet<[]> | string;
 

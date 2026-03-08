@@ -6,7 +6,7 @@
     setSwitchGroupContext,
     type SwitchGroupOrientation
   } from "../../contexts/internal/index.js";
-  import { setFieldStateContext } from "../../contexts/field-state.context";
+  import { setFieldStateContext } from "../../contexts/index.js";
   import type { SwitchSize } from "../../contexts/internal/index.js";
 
   interface Props extends SwitchGroupVariants {

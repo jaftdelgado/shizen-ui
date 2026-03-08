@@ -7,7 +7,7 @@
   } from "@shizen-ui/styles";
   import type { HTMLAttributes } from "svelte/elements";
   import type { Snippet } from "svelte";
-  import { setButtonGroupContext } from "./button-group.context";
+  import { setButtonGroupContext } from "../../contexts/internal/index.js";
 
   interface Props extends HTMLAttributes<HTMLDivElement> {
     children: Snippet;

@@ -3,7 +3,7 @@
   import { cn } from "@shizen-ui/styles";
   import { checkboxGroupStyles, type CheckboxGroupVariants } from "@shizen-ui/styles";
   import { setCheckboxGroupContext } from "../../contexts/internal/index.js";
-  import { setFieldStateContext } from "../../contexts/field-state.context";
+  import { setFieldStateContext } from "../../contexts/index.js";
 
   interface Props extends CheckboxGroupVariants {
     children: Snippet;

@@ -13,8 +13,7 @@ export const InputGroup = Object.assign(Root, {
 
 export {
   type InputGroupContextValue,
-  INPUT_GROUP_CONTEXT_KEY,
   useInputGroupContext
-} from "./input-group.context";
+} from "../../contexts/internal/index.js";
 
 export default InputGroup;

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { cn } from "@shizen-ui/styles";
   import { textFieldStyles } from "@shizen-ui/styles";
-  import { setFieldStateContext } from "../../contexts/field-state.context";
+  import { setFieldStateContext } from "../../contexts/index.js";
   import type { Snippet } from "svelte";
 
   interface Props {

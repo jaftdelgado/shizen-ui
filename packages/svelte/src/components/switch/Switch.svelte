@@ -4,7 +4,7 @@
   import { switchStyles } from "@shizen-ui/styles";
   import type { HTMLAttributes } from "svelte/elements";
   import { setSwitchContext, type SwitchSize } from "../../contexts/internal/index.js";
-  import { setFieldStateContext, useFieldStateContext } from "../../contexts/field-state.context";
+  import { setFieldStateContext, useFieldStateContext } from "../../contexts/index.js";
   import { useSwitchGroupContext } from "../../contexts/internal/index.js";
 
   interface Props extends Omit<HTMLAttributes<HTMLDivElement>, "checked"> {

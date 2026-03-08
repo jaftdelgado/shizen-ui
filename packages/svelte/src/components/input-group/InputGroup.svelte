@@ -1,8 +1,8 @@
 <script lang="ts">
   import { cn } from "@shizen-ui/styles";
   import { inputGroupStyles, type InputGroupVariants } from "@shizen-ui/styles";
-  import { useFieldStateContext } from "../../contexts/field-state.context";
-  import { setInputGroupContext } from "./input-group.context";
+  import { useFieldStateContext } from "../../contexts/index.js";
+  import { setInputGroupContext } from "../../contexts/internal/index.js";
   import type { Snippet } from "svelte";
 
   interface Props {

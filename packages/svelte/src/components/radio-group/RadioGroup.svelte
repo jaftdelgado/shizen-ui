@@ -4,7 +4,7 @@
   import { radioGroupStyles, type RadioGroupVariants } from "@shizen-ui/styles";
   import { setRadioGroupContext } from "../../contexts/internal/index.js";
 
-  import { setFieldStateContext } from "../../contexts/field-state.context";
+  import { setFieldStateContext } from "../../contexts/index.js";
 
   interface Props extends RadioGroupVariants {
     children: Snippet;

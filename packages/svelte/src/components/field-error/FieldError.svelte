@@ -1,7 +1,7 @@
 <script lang="ts">
   import { cn } from "@shizen-ui/styles";
   import { fieldErrorStyles } from "@shizen-ui/styles";
-  import { useFieldStateContext } from "../../contexts/field-state.context";
+  import { useFieldStateContext } from "../../contexts/index.js";
   import type { HTMLAttributes } from "svelte/elements";
   import type { Snippet } from "svelte";
 

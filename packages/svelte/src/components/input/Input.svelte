@@ -1,8 +1,8 @@
 <script lang="ts">
   import { cn } from "@shizen-ui/styles";
   import { inputStyles, type InputVariants } from "@shizen-ui/styles";
-  import { useFieldStateContext } from "../../contexts/field-state.context";
-  import { useInputGroupContext } from "../input-group/input-group.context";
+  import { useFieldStateContext } from "../../contexts/index.js";
+  import { useInputGroupContext } from "../../contexts/internal/index.js";
   import type { HTMLInputAttributes } from "svelte/elements";
 
   interface Props extends Omit<HTMLInputAttributes, "size"> {
