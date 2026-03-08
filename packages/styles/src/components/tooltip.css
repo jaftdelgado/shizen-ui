@@ -1,0 +1,57 @@
+@layer components {
+  .tooltip__trigger {
+    @apply inline-flex items-center justify-center;
+  }
+
+  .tooltip__content {
+    @apply z-50 px-2.5 py-1.5 rounded-md text-xs font-medium pointer-events-none select-none;
+    @apply max-w-xs wrap-break-word;
+    background-color: var(--color-tooltip-bg, var(--color-foreground));
+    color: var(--color-tooltip-fg, var(--color-background));
+    box-shadow: var(--shadow-md);
+
+    /* Visibility states */
+    opacity: 0;
+    transition:
+      opacity 150ms ease,
+      transform 150ms ease;
+
+    &[data-state="visible"] {
+      opacity: 1;
+    }
+
+    &[data-state="hidden"] {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Placement-based enter animations */
+    &[data-placement^="top"] {
+      transform: translateY(4px);
+      &[data-state="visible"] {
+        transform: translateY(0);
+      }
+    }
+
+    &[data-placement^="bottom"] {
+      transform: translateY(-4px);
+      &[data-state="visible"] {
+        transform: translateY(0);
+      }
+    }
+
+    &[data-placement^="left"] {
+      transform: translateX(4px);
+      &[data-state="visible"] {
+        transform: translateX(0);
+      }
+    }
+
+    &[data-placement^="right"] {
+      transform: translateX(-4px);
+      &[data-state="visible"] {
+        transform: translateX(0);
+      }
+    }
+  }
+}
