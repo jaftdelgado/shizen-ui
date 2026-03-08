@@ -1,11 +1,13 @@
 import { getContext, setContext } from "svelte";
 import type { Strategy } from "@floating-ui/dom";
-import type { PopoverPlacement } from "../../shared/overlay.svelte.ts";
+import type { OverlayPlacement } from "../../shared/overlay.svelte.ts";
+
+export type TooltipPlacement = OverlayPlacement;
 
 export interface TooltipContextValue {
   readonly isOpen: boolean;
   readonly delay: number;
-  readonly placement: PopoverPlacement;
+  readonly placement: TooltipPlacement;
   readonly strategy: Strategy;
   readonly offsetVal: number;
   readonly handleOpen: () => void;
@@ -42,7 +44,7 @@ export function useTooltipContext(): TooltipContextResult {
         return 200;
       },
       get placement() {
-        return "top" as PopoverPlacement;
+        return "top" as TooltipPlacement;
       },
       get strategy() {
         return "absolute" as Strategy;

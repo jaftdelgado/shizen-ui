@@ -1,12 +1,12 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
   import type { Strategy } from "@floating-ui/dom";
-  import { OverlayState, type PopoverPlacement } from "../../shared/overlay.svelte.ts";
+  import { OverlayState } from "../../shared/overlay.svelte.ts";
   import { setTooltipContext } from "../../contexts/internal/tooltip.context.ts";
 
   interface Props {
     children: Snippet;
-    placement?: PopoverPlacement;
+    placement?: "top" | "right" | "bottom" | "left";
     strategy?: Strategy;
     offset?: number;
     delay?: number;

@@ -1,9 +1,9 @@
 import { computePosition, flip, shift, offset, type Strategy } from "@floating-ui/dom";
 
-export type PopoverPlacement = "top" | "bottom" | "left" | "right";
+export type OverlayPlacement = "top" | "bottom" | "left" | "right";
 
 interface OverlayConfig {
-  get placement(): PopoverPlacement;
+  get placement(): OverlayPlacement;
   get strategy(): Strategy;
   get offsetVal(): number;
   get closeOnScroll(): boolean;
@@ -52,9 +52,9 @@ export class OverlayState {
       ]
     });
 
-    const side = placement.split("-")[0] as PopoverPlacement;
+    const side = placement.split("-")[0] as OverlayPlacement;
 
-    const origins: Record<PopoverPlacement, string> = {
+    const origins: Record<OverlayPlacement, string> = {
       top: "bottom",
       bottom: "top",
       left: "right",

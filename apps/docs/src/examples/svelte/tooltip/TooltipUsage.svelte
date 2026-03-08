@@ -5,7 +5,7 @@
 <div class="flex flex-wrap">
   <Tooltip>
     <Tooltip.Trigger>
-      <Button>Hover for tooltip</Button>
+      <Button>Hover me</Button>
     </Tooltip.Trigger>
     <Tooltip.Content>Helpful information about this element</Tooltip.Content>
   </Tooltip>
