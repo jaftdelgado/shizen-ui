@@ -2,7 +2,7 @@
   import { type Snippet } from "svelte";
   import { cn } from "@shizen-ui/styles";
   import { checkboxGroupStyles, type CheckboxGroupVariants } from "@shizen-ui/styles";
-  import { setCheckboxGroupContext } from "./checkbox-group.context";
+  import { setCheckboxGroupContext } from "../../contexts/internal/index.js";
   import { setFieldStateContext } from "../../contexts/field-state.context";
 
   interface Props extends CheckboxGroupVariants {

@@ -3,8 +3,7 @@
   import { cn } from "@shizen-ui/styles";
   import { radioStyles } from "@shizen-ui/styles";
   import type { HTMLAttributes } from "svelte/elements";
-  import { setRadioContext } from "./radio.context";
-  import { useRadioGroupContext } from "../radio-group/radio-group.context";
+  import { setRadioContext, useRadioGroupContext } from "../../contexts/internal/index.js";
   import { setFieldStateContext, useFieldStateContext } from "../../contexts/field-state.context";
 
   interface Props extends Omit<HTMLAttributes<HTMLDivElement>, "checked"> {

@@ -2,7 +2,7 @@
   import { type Snippet } from "svelte";
   import { cn } from "@shizen-ui/styles";
   import { radioStyles } from "@shizen-ui/styles";
-  import { useRadioContext } from "../radio.context";
+  import { useRadioContext } from "../../../contexts/internal/index.js";
 
   let { children, class: className }: { children?: Snippet; class?: string } = $props();
 

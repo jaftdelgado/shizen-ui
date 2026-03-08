@@ -2,8 +2,8 @@
   import { type Snippet } from "svelte";
   import { cn } from "@shizen-ui/styles";
   import { radioStyles } from "@shizen-ui/styles";
+  import { useRadioContext } from "../../../contexts/internal/index.js";
   import Indicator from "./Indicator.svelte";
-  import { useRadioContext } from "../radio.context";
 
   let { children, class: className }: { children?: Snippet; class?: string } = $props();
 

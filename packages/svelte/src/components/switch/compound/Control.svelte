@@ -3,7 +3,7 @@
   import { cn } from "@shizen-ui/styles";
   import { switchStyles } from "@shizen-ui/styles";
   import Thumb from "./Thumb.svelte";
-  import { useSwitchContext } from "../switch.context";
+  import { useSwitchContext } from "../../../contexts/internal/index.js";
 
   let { children, class: className }: { children?: Snippet; class?: string } = $props();
 

@@ -2,7 +2,7 @@
   import { type Snippet } from "svelte";
   import { cn } from "@shizen-ui/styles";
   import { checkboxStyles } from "@shizen-ui/styles";
-  import { useCheckboxContext } from "../checkbox.context";
+  import { useCheckboxContext } from "../../../contexts/internal/index.js";
 
   let { children, class: className }: { children?: Snippet; class?: string } = $props();
 

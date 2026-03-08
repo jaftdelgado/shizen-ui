@@ -1,7 +1,7 @@
 import SwitchGroupRoot from "./SwitchGroup.svelte";
 import Items from "./compound/Items.svelte";
 
-export type { SwitchGroupOrientation } from "./switch-group.context";
+export type { SwitchGroupOrientation } from "../../contexts/internal/index.js";
 
 export const SwitchGroup = Object.assign(SwitchGroupRoot, {
   Items

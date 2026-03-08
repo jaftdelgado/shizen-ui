@@ -1,6 +1,6 @@
 @layer components {
   .field-error {
-    @apply text-xs font-medium transition-all duration-200 wrap-break-word leading-tight;
+    @apply text-xs font-medium transition-all duration-200 wrap-break-word leading-snug;
     color: var(--color-danger);
   }
 

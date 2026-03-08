@@ -2,9 +2,9 @@
   import { Switch, SwitchGroup, Label, Description } from "@shizen-ui/svelte";
 
   const permissions = [
-    { id: "read", label: "Read", description: "View content." },
-    { id: "write", label: "Write", description: "Edit content." },
-    { id: "delete", label: "Delete", description: "Remove content." }
+    { id: "read", label: "Read" },
+    { id: "write", label: "Write" },
+    { id: "delete", label: "Delete" }
   ];
 </script>
 
@@ -19,7 +19,6 @@
           <Switch.Control />
           <Switch.Content>
             <Label>{permission.label}</Label>
-            <Description>{permission.description}</Description>
           </Switch.Content>
         </Switch>
       {/each}

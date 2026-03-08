@@ -9,7 +9,7 @@ export const Switch = Object.assign(Root, {
   Content
 });
 
-export { type SwitchContextValue, SWITCH_CONTEXT_KEY, useSwitchContext } from "./switch.context";
+export { type SwitchContextValue, useSwitchContext } from "../../contexts/internal/index.js";
 
 export default {
   Switch

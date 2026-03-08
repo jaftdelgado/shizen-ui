@@ -9,23 +9,41 @@ export interface CheckboxContextValue {
   readonly id: string;
 }
 
-export const CHECKBOX_CONTEXT_KEY = Symbol("checkbox-context");
+export interface CheckboxContextResult {
+  readonly checked: CheckboxCheckedState;
+  readonly disabled: boolean;
+  readonly invalid: boolean;
+  readonly id: string;
+  readonly exists: boolean;
+}
 
-export function setCheckboxContext(value: CheckboxContextValue) {
+const CHECKBOX_CONTEXT_KEY = Symbol("shizen:checkbox");
+
+export function setCheckboxContext(value: CheckboxContextValue): void {
   setContext(CHECKBOX_CONTEXT_KEY, value);
 }
 
-export function useCheckboxContext() {
+export function useCheckboxContext(): CheckboxContextResult {
   const context = getContext<CheckboxContextValue | undefined>(CHECKBOX_CONTEXT_KEY);
 
   if (!context) {
     return {
-      checked: false as CheckboxCheckedState,
-      disabled: false,
-      invalid: false,
-      id: "",
-      exists: false
-    } as const;
+      get checked() {
+        return false;
+      },
+      get disabled() {
+        return false;
+      },
+      get invalid() {
+        return false;
+      },
+      get id() {
+        return "";
+      },
+      get exists() {
+        return false;
+      }
+    } satisfies CheckboxContextResult;
   }
 
   return {
@@ -44,5 +62,5 @@ export function useCheckboxContext() {
     get exists() {
       return true;
     }
-  };
+  } satisfies CheckboxContextResult;
 }

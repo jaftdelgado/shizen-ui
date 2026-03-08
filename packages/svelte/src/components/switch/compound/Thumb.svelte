@@ -2,7 +2,7 @@
   import { type Snippet } from "svelte";
   import { cn } from "@shizen-ui/styles";
   import { switchStyles } from "@shizen-ui/styles";
-  import { useSwitchContext } from "../switch.context";
+  import { useSwitchContext } from "../../../contexts/internal/index.js";
 
   let { children, class: className }: { children?: Snippet; class?: string } = $props();
 

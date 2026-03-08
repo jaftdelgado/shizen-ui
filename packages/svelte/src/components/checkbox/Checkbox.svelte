@@ -3,8 +3,8 @@
   import { cn } from "@shizen-ui/styles";
   import { checkboxStyles } from "@shizen-ui/styles";
   import type { HTMLInputAttributes } from "svelte/elements";
-  import { setCheckboxContext, type CheckboxCheckedState } from "./checkbox.context";
-  import { useCheckboxGroupContext } from "../checkbox-group/checkbox-group.context";
+  import { setCheckboxContext, type CheckboxCheckedState } from "../../contexts/internal/index.js";
+  import { useCheckboxGroupContext } from "../../contexts/internal/index.js";
   import { setFieldStateContext, useFieldStateContext } from "../../contexts/field-state.context";
 
   interface Props extends Omit<HTMLInputAttributes, "type" | "checked"> {

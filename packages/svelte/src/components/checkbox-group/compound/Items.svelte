@@ -3,7 +3,7 @@
   import { cn } from "@shizen-ui/styles";
   import type { HTMLAttributes } from "svelte/elements";
   import { checkboxGroupStyles } from "@shizen-ui/styles";
-  import { useCheckboxGroupContext } from "../checkbox-group.context";
+  import { useCheckboxGroupContext } from "../../../contexts/internal/index.js";
 
   interface Props extends HTMLAttributes<HTMLDivElement> {
     children: Snippet;

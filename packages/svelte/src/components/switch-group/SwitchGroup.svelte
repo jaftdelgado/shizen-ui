@@ -2,9 +2,12 @@
   import { type Snippet } from "svelte";
   import { cn } from "@shizen-ui/styles";
   import { switchGroupStyles, type SwitchGroupVariants } from "@shizen-ui/styles";
-  import { setSwitchGroupContext, type SwitchGroupOrientation } from "./switch-group.context";
+  import {
+    setSwitchGroupContext,
+    type SwitchGroupOrientation
+  } from "../../contexts/internal/index.js";
   import { setFieldStateContext } from "../../contexts/field-state.context";
-  import type { SwitchSize } from "../switch/switch.context";
+  import type { SwitchSize } from "../../contexts/internal/index.js";
 
   interface Props extends SwitchGroupVariants {
     children: Snippet;

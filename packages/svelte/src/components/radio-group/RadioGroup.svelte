@@ -2,7 +2,8 @@
   import { type Snippet } from "svelte";
   import { cn } from "@shizen-ui/styles";
   import { radioGroupStyles, type RadioGroupVariants } from "@shizen-ui/styles";
-  import { setRadioGroupContext } from "./radio-group.context";
+  import { setRadioGroupContext } from "../../contexts/internal/index.js";
+
   import { setFieldStateContext } from "../../contexts/field-state.context";
 
   interface Props extends RadioGroupVariants {

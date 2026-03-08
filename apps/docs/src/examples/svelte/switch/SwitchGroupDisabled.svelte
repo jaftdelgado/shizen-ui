@@ -9,7 +9,7 @@
 </script>
 
 <div class="flex flex-col">
-  <SwitchGroup disabled>
+  <SwitchGroup disabled={true}>
     <Label>Plan Features</Label>
     <Description>Upgrade your plan to manage these settings.</Description>
 

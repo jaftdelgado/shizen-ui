@@ -3,7 +3,7 @@ import Control from "./compound/Control.svelte";
 import Indicator from "./compound/Indicator.svelte";
 import Content from "./compound/Content.svelte";
 
-export type { CheckboxCheckedState } from "./checkbox.context";
+export type { CheckboxCheckedState } from "../../contexts/internal/index.js";
 
 export const Checkbox = Object.assign(CheckboxRoot, {
   Control,
