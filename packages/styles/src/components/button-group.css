@@ -8,80 +8,113 @@
   .button-group--vertical {
     @apply flex-col items-stretch;
   }
-  .button-group--vertical > .button {
+  .button-group--vertical > .button,
+  .button-group--vertical > :is([style*="display: contents"], [style*="display:contents"]) .button {
     @apply w-full flex justify-center items-center;
   }
-  .button-group--vertical > .button.button--icon-only {
+  .button-group--vertical > .button.button--icon-only,
+  .button-group--vertical
+    > :is([style*="display: contents"], [style*="display:contents"])
+    .button--icon-only {
     @apply aspect-square min-w-max w-full;
   }
-  .button-group--horizontal > .button {
+
+  .button-group--horizontal .button {
     @apply rounded-none;
   }
-  .button-group--horizontal > .button:first-child {
+
+  .button-group--horizontal > .button:first-child,
+  .button-group--horizontal > :first-child .button {
     @apply rounded-l-control;
   }
-  .button-group--horizontal > .button:last-child {
+
+  .button-group--horizontal > .button:last-child,
+  .button-group--horizontal > :last-child .button {
     @apply rounded-r-control;
   }
-  .button-group--horizontal > .button:only-child {
+
+  .button-group--horizontal > .button:only-child,
+  .button-group--horizontal > :only-child .button {
     @apply rounded-control;
   }
-  .button-group--vertical > .button {
+
+  .button-group--vertical .button {
     @apply rounded-none;
   }
-  .button-group--vertical > .button:first-child {
+
+  .button-group--vertical > .button:first-child,
+  .button-group--vertical > :first-child .button {
     @apply rounded-t-control;
   }
-  .button-group--vertical > .button:last-child {
+
+  .button-group--vertical > .button:last-child,
+  .button-group--vertical > :last-child .button {
     @apply rounded-b-control;
   }
-  .button-group--vertical > .button:only-child {
+
+  .button-group--vertical > .button:only-child,
+  .button-group--vertical > :only-child .button {
     @apply rounded-control;
   }
-  .button-group--outline.button-group--horizontal > .button:first-child {
+
+  .button-group--outline.button-group--horizontal > .button:first-child,
+  .button-group--outline.button-group--horizontal > :first-child .button {
     @apply border-r-0;
   }
-  .button-group--outline.button-group--horizontal > .button:not(:first-child):not(:last-child) {
+  .button-group--outline.button-group--horizontal > .button:not(:first-child):not(:last-child),
+  .button-group--outline.button-group--horizontal > :not(:first-child):not(:last-child) .button {
     @apply border-x-0;
   }
-  .button-group--outline.button-group--horizontal > .button:last-child {
+  .button-group--outline.button-group--horizontal > .button:last-child,
+  .button-group--outline.button-group--horizontal > :last-child .button {
     @apply border-l-0;
   }
-  .button-group--outline.button-group--horizontal > .button:only-child {
+  .button-group--outline.button-group--horizontal > .button:only-child,
+  .button-group--outline.button-group--horizontal > :only-child .button {
     @apply border;
   }
-  .button-group--outline.button-group--vertical > .button:first-child {
+
+  .button-group--outline.button-group--vertical > .button:first-child,
+  .button-group--outline.button-group--vertical > :first-child .button {
     @apply border-b-0;
   }
-  .button-group--outline.button-group--vertical > .button:not(:first-child):not(:last-child) {
+  .button-group--outline.button-group--vertical > .button:not(:first-child):not(:last-child),
+  .button-group--outline.button-group--vertical > :not(:first-child):not(:last-child) .button {
     @apply border-y-0;
   }
-  .button-group--outline.button-group--vertical > .button:last-child {
+  .button-group--outline.button-group--vertical > .button:last-child,
+  .button-group--outline.button-group--vertical > :last-child .button {
     @apply border-t-0;
   }
-  .button-group--outline.button-group--vertical > .button:only-child {
+  .button-group--outline.button-group--vertical > .button:only-child,
+  .button-group--outline.button-group--vertical > :only-child .button {
     @apply border;
   }
-  .button-group > .button {
+
+  .button-group .button {
     @apply relative;
   }
-  .button-group > .button:hover:not(:disabled),
-  .button-group > .button:focus-visible {
+  .button-group .button:hover:not(:disabled),
+  .button-group .button:focus-visible {
     @apply z-10;
   }
-  .button-group > .button:active:not(:disabled) {
+  .button-group .button:active:not(:disabled) {
     @apply z-20;
   }
-  .button-group--separators > .button:not(:last-child)::after {
+
+  .button-group--separators > .button:not(:last-child)::after,
+  .button-group--separators > :not(:last-child) .button::after {
     content: "";
     @apply absolute bg-current opacity-20 rounded-full;
   }
-  .button-group--horizontal.button-group--separators > .button:not(:last-child)::after {
+  .button-group--horizontal.button-group--separators > .button:not(:last-child)::after,
+  .button-group--horizontal.button-group--separators > :not(:last-child) .button::after {
     @apply right-0 top-1/2 -translate-y-1/2;
     width: 1px;
     height: 60%;
   }
-  .button-group--vertical.button-group--separators > .button:not(:last-child)::after {
+  .button-group--vertical.button-group--separators > .button:not(:last-child)::after,
+  .button-group--vertical.button-group--separators > :not(:last-child) .button::after {
     @apply bottom-0 left-1/2 -translate-x-1/2;
     height: 1px;
     width: 60%;

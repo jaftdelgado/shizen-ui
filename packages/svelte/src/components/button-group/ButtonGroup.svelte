@@ -46,15 +46,7 @@
   role="group"
   {...rest}
   aria-disabled={disabled}
-  class={cn(
-    buttonGroupStyles({
-      variant,
-      size,
-      orientation,
-      hideSeparator
-    }),
-    className
-  )}
+  class={cn(buttonGroupStyles({ variant, size, orientation, hideSeparator }), className)}
 >
   {@render children()}
 </div>
