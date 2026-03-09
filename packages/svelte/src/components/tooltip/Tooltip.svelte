@@ -3,6 +3,7 @@
   import type { Strategy } from "@floating-ui/dom";
   import { OverlayState } from "../../shared/overlay.svelte.ts";
   import { setTooltipContext } from "../../contexts/internal/tooltip.context.ts";
+  import { tooltipGroup } from "../../shared/tooltip-group.svelte.ts";
 
   interface Props {
     children: Snippet;
@@ -51,9 +52,16 @@
     }
   });
 
+  function close() {
+    clearTimeout(timer);
+    isOpen = false;
+    onOpenChange?.(false);
+  }
+
   function handleOpen() {
     clearTimeout(timer);
     timer = setTimeout(() => {
+      tooltipGroup.open(close);
       isOpen = true;
     }, delayDuration);
   }
@@ -61,6 +69,7 @@
   function handleClose() {
     clearTimeout(timer);
     timer = setTimeout(() => {
+      tooltipGroup.close(close);
       isOpen = false;
     }, 100);
   }
