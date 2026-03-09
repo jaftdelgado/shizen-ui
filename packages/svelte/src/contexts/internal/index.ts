@@ -7,3 +7,4 @@ export * from "./checkbox-group.context.js";
 export * from "./button-group.context.js";
 export * from "./input-group.context.js";
 export * from "./tooltip.context.js";
+export * from "./popover.context.js";

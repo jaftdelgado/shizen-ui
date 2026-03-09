@@ -26,6 +26,10 @@
 }
 
 @layer base {
+  html {
+    scrollbar-gutter: stable;
+  }
+
   body {
     @apply font-sans antialiased;
   }

@@ -14,8 +14,8 @@ interface OverlayConfig {
 
 export class OverlayState {
   #config: OverlayConfig;
-  referenceEl = $state<HTMLElement>();
-  floatingEl = $state<HTMLElement>();
+  referenceEl = $state<HTMLElement | null>(null);
+  floatingEl = $state<HTMLElement | null>(null);
   transformOrigin = $state<string>("center");
 
   constructor(config: OverlayConfig) {
