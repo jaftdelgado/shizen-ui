@@ -22,9 +22,12 @@
     animation: popover-out var(--popover-exit-duration) var(--popover-exit-easing) forwards;
   }
 
+  .popover:focus {
+    outline: none;
+  }
+
   .popover__dialog {
-    @apply rounded-3xl bg-overlay shadow-xs;
-    @apply p-4;
+    @apply rounded-3xl bg-overlay p-4 shadow-xs;
   }
 
   .popover__heading {

@@ -47,26 +47,6 @@
     }
   });
 
-  $effect(() => {
-    const html = document.documentElement;
-    const body = document.body;
-
-    if (isOpen) {
-      // Desktop + Android: block scroll on html preserves scroll position
-      html.style.overflow = "hidden";
-      // iOS Safari: touch-action none cuts momentum scroll immediately
-      body.style.touchAction = "none";
-    } else {
-      html.style.overflow = "";
-      body.style.touchAction = "";
-    }
-
-    return () => {
-      html.style.overflow = "";
-      body.style.touchAction = "";
-    };
-  });
-
   function open() {
     isOpen = true;
     onOpenChange?.(true);
