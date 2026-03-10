@@ -14,8 +14,6 @@
     const target = (el.firstElementChild as HTMLElement) ?? el;
     ctx.setReferenceEl(target);
 
-    // Track whether the last interaction was touch to ignore
-    // the synthetic mouseenter browsers fire after touchend
     let isTouch = false;
 
     function onTouchStart() {
@@ -36,7 +34,6 @@
     }
 
     function onFocus(e: FocusEvent) {
-      // Only open on keyboard focus, not programmatic or pointer focus
       if (
         (e as FocusEvent & { sourceCapabilities?: { firesTouchEvents: boolean } })
           .sourceCapabilities?.firesTouchEvents

@@ -48,10 +48,22 @@
   });
 
   $effect(() => {
-    document.body.style.overflow = isOpen ? "hidden" : "";
+    const html = document.documentElement;
+    const body = document.body;
+
+    if (isOpen) {
+      // Desktop + Android: block scroll on html preserves scroll position
+      html.style.overflow = "hidden";
+      // iOS Safari: touch-action none cuts momentum scroll immediately
+      body.style.touchAction = "none";
+    } else {
+      html.style.overflow = "";
+      body.style.touchAction = "";
+    }
 
     return () => {
-      document.body.style.overflow = "";
+      html.style.overflow = "";
+      body.style.touchAction = "";
     };
   });
 

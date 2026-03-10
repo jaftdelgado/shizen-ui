@@ -3,46 +3,46 @@
   import { cn, portal } from "@shizen-ui/styles";
   import { tooltipStyles } from "@shizen-ui/styles";
   import { useTooltipContext } from "../../../contexts/internal/tooltip.context.ts";
+  import { OverlayContent } from "../../../shared/overlay-content.svelte.ts";
 
   let { children, class: className }: { children: Snippet; class?: string } = $props();
 
   const ctx = useTooltipContext();
   const styles = $derived(tooltipStyles());
 
-  let el = $state<HTMLElement | null>(null);
-  let isMounted = $state(false);
-  let closeTimer: ReturnType<typeof setTimeout>;
-
-  const ANIMATION_DURATION = 150;
-
-  const isVisible = $derived(ctx.isOpen || isMounted);
-
-  $effect(() => {
-    if (ctx.isOpen) {
-      clearTimeout(closeTimer);
-      isMounted = true;
-    } else {
-      closeTimer = setTimeout(() => {
-        isMounted = false;
-      }, ANIMATION_DURATION);
-    }
-
-    return () => clearTimeout(closeTimer);
+  const overlayContent = new OverlayContent({
+    get isOpen() {
+      return ctx.isOpen;
+    },
+    get close() {
+      return ctx.handleClose;
+    },
+    get referenceEl() {
+      return ctx.overlay.referenceEl;
+    },
+    get floatingEl() {
+      return ctx.overlay.floatingEl;
+    },
+    get updatePosition() {
+      return async () => {};
+    },
+    exitDurationVar: "--tooltip-exit-duration",
+    modal: false
   });
 
   $effect(() => {
-    if (el) {
-      ctx.setFloatingEl(el);
+    if (overlayContent.el) {
+      ctx.setFloatingEl(overlayContent.el);
     }
   });
 </script>
 
-{#if isVisible}
+{#if overlayContent.isVisible}
   <div
     id="tooltip-content"
     role="tooltip"
     use:portal
-    bind:this={el}
+    bind:this={overlayContent.el}
     class={cn(styles.content(), className)}
     data-state={ctx.isOpen ? "open" : "closed"}
     style:transform-origin={ctx.overlay.transformOrigin}
