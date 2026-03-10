@@ -34,7 +34,8 @@
     "vite": "^6.4.1"
   },
   "dependencies": {
+    "@floating-ui/dom": "^1.7.4",
     "@shizen-ui/styles": "workspace:*",
-    "@floating-ui/dom": "^1.7.4"
+    "focus-trap": "^8.0.0"
   }
 }

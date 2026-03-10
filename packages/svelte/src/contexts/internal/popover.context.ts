@@ -12,6 +12,7 @@ export interface PopoverContextValue {
   readonly open: () => void;
   readonly close: () => void;
   readonly toggle: () => void;
+  readonly updatePosition: () => Promise<void>;
   readonly overlay: {
     readonly referenceEl: HTMLElement | null;
     readonly floatingEl: HTMLElement | null;
@@ -53,6 +54,7 @@ export function usePopoverContext(): PopoverContextResult {
       open: () => {},
       close: () => {},
       toggle: () => {},
+      updatePosition: async () => {},
       get overlay() {
         return {
           get referenceEl() {
@@ -97,6 +99,9 @@ export function usePopoverContext(): PopoverContextResult {
     },
     get toggle() {
       return context.toggle;
+    },
+    get updatePosition() {
+      return context.updatePosition;
     },
     get overlay() {
       return context.overlay;

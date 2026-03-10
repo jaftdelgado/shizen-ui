@@ -9,7 +9,6 @@
     placement?: "top" | "right" | "bottom" | "left";
     strategy?: Strategy;
     offset?: number;
-    lockScroll?: boolean;
     isOpen?: boolean;
     onOpenChange?: (open: boolean) => void;
   }
@@ -19,7 +18,6 @@
     placement = "bottom",
     strategy = "absolute",
     offset: offsetVal = 8,
-    lockScroll = true,
     isOpen = $bindable(false),
     onOpenChange
   }: Props = $props();
@@ -35,7 +33,7 @@
       return offsetVal;
     },
     get closeOnScroll() {
-      return !lockScroll;
+      return false;
     },
     get isOpen() {
       return isOpen;
@@ -50,9 +48,7 @@
   });
 
   $effect(() => {
-    if (lockScroll) {
-      document.body.style.overflow = isOpen ? "hidden" : "";
-    }
+    document.body.style.overflow = isOpen ? "hidden" : "";
 
     return () => {
       document.body.style.overflow = "";
@@ -93,6 +89,7 @@
     open,
     close,
     toggle,
+    updatePosition: () => overlay.updatePosition(),
     get overlay() {
       return {
         get referenceEl() {
@@ -117,6 +114,6 @@
   });
 </script>
 
-<svelte:window onkeydown={overlay.handleKeydown} onscrollcapture={overlay.handleScroll} />
+<svelte:window onkeydown={overlay.handleKeydown} />
 
 {@render children()}
