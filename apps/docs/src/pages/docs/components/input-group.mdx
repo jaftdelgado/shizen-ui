@@ -4,23 +4,46 @@ layout: "@layouts/DocsLayout.astro"
 ---
 
 import ComponentExample from "@components/astro/ComponentExample.astro";
+import CodeBlock from "@components/astro/CodeBlock.astro";
+
+import InputGroupAnatomyCode from "@examples/svelte/input-group/InputGroupAnatomy.svelte?raw";
 
 import InputGroupUsage from "@examples/svelte/input-group/InputGroupUsage.svelte";
+import InputGroupPreffixSuffix from "@examples/svelte/input-group/InputGroupPreffixSuffix.svelte";
 import InputGroupDisabled from "@examples/svelte/input-group/InputGroupDisabled.svelte";
+import InputGroupInvalid from "@examples/svelte/input-group/InputGroupInvalid.svelte";
 import InputGroupControlled from "@examples/svelte/input-group/InputGroupControlled.svelte";
 
 # Input Group
+
+Decorate inputs with prefix and suffix elements.
 
 <ComponentExample src="svelte/input-group/InputGroupUsage.svelte">
   <InputGroupUsage client:load />
 </ComponentExample>
 
+## Anatomy
+
+<CodeBlock code={InputGroupAnatomyCode} lang="svelte" showLineNumbers={false} />
+
 ## Examples
+
+### With Prefix and Suffix
+
+<ComponentExample src="svelte/input-group/InputGroupPreffixSuffix.svelte">
+  <InputGroupPreffixSuffix client:load />
+</ComponentExample>
 
 ### Disabled State
 
 <ComponentExample src="svelte/input-group/InputGroupDisabled.svelte">
   <InputGroupDisabled client:load />
+</ComponentExample>
+
+### Invalid State
+
+<ComponentExample src="svelte/input-group/InputGroupInvalid.svelte">
+  <InputGroupInvalid client:load />
 </ComponentExample>
 
 ### Controlled

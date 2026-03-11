@@ -16,7 +16,7 @@
     children,
     class: className,
     truncate = false,
-    invalid = false,
+    invalid = true,
     id: propId,
     ...rest
   }: Props = $props();

@@ -32,7 +32,7 @@
       @apply bg-transparent border-none ring-0 shadow-none h-full;
       &:hover,
       &:focus {
-        @apply bg-transparent ring-0 shadow-none;
+        @apply bg-transparent ring-0 shadow-none outline-none;
       }
     }
   }

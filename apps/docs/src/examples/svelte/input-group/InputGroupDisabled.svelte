@@ -1,20 +1,18 @@
 <script lang="ts">
-  import { InputGroup } from "@shizen-ui/svelte";
-  import Icon from "@components/svelte/Icon.svelte";
+  import { InputGroup, Label, Description } from "@shizen-ui/svelte";
+  import { CreditCard } from "@assets/icons/svelte";
 
-  let value = $state("info@shizen.com");
+  const cardNumber = "•••• •••• •••• 4242";
 </script>
 
-<div class="flex flex-col w-full max-w-64">
+<div class="flex flex-col w-full max-w-64 gap-1.5">
+  <Label for="card-number">Card number</Label>
   <InputGroup disabled={true}>
     <InputGroup.Prefix>
-      <Icon name="at" />
+      <CreditCard class="text-secondary-text" />
     </InputGroup.Prefix>
 
-    <InputGroup.Input value="hola" placeholder="example@mail.com" />
-
-    <InputGroup.Suffix>
-      <span class="text-xs font-mono uppercase opacity-50">Locked</span>
-    </InputGroup.Suffix>
+    <InputGroup.Input id="card-number" value={cardNumber} class="font-mono" />
   </InputGroup>
+  <Description>Card details are locked after payment is confirmed.</Description>
 </div>

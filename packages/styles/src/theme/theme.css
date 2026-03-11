@@ -68,4 +68,7 @@
   );
 
   --color-ghost-hover: color-mix(in oklab, var(--color-control-foreground) 8%, transparent);
+
+  /* Shadows */
+  --shadow-overlay: var(--overlay-shadow);
 }

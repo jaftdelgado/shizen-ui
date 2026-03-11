@@ -30,6 +30,36 @@ const toc = headings.filter((h) => h.depth > 1 && h.depth < 4);
 </aside>
 
 <script>
+  let tocObserver: IntersectionObserver | null = null;
+
+  function initTocObserver() {
+    const links = document.querySelectorAll(".toc-link");
+    const headings = document.querySelectorAll("article h2, article h3");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const activeId = entry.target.id;
+            links.forEach((link) => {
+              const isActive = link.getAttribute("data-slug") === activeId;
+              link.classList.toggle("text-secondary-text", !isActive);
+              link.classList.toggle("text-accent", isActive);
+              link.classList.toggle("font-medium", isActive);
+            });
+          }
+        });
+      },
+      {
+        rootMargin: "-100px 0px -66% 0px",
+        threshold: 0
+      }
+    );
+
+    headings.forEach((h) => observer.observe(h));
+    return observer;
+  }
+
   function updateTableOfContents() {
     const article = document.querySelector("article");
     if (!article) return;
@@ -62,35 +92,8 @@ const toc = headings.filter((h) => h.depth > 1 && h.depth < 4);
       })
       .join("");
 
-    updateActiveTocLink();
-  }
-
-  function updateActiveTocLink() {
-    const links = document.querySelectorAll(".toc-link");
-    const headings = document.querySelectorAll("article h2, article h3");
-
-    let activeId = "";
-    const scrollPosition = window.scrollY + 100;
-
-    headings.forEach((heading) => {
-      const rect = heading.getBoundingClientRect();
-      const top = rect.top + window.scrollY;
-
-      if (top <= scrollPosition) {
-        activeId = heading.id;
-      }
-    });
-
-    links.forEach((link) => {
-      const slug = link.getAttribute("data-slug");
-      if (slug === activeId) {
-        link.classList.remove("text-secondary-text");
-        link.classList.add("text-accent", "font-medium");
-      } else {
-        link.classList.remove("text-accent", "font-medium");
-        link.classList.add("text-secondary-text");
-      }
-    });
+    if (tocObserver) tocObserver.disconnect();
+    tocObserver = initTocObserver();
   }
 
   updateTableOfContents();
@@ -98,6 +101,4 @@ const toc = headings.filter((h) => h.depth > 1 && h.depth < 4);
   document.addEventListener("astro:after-swap", () => {
     updateTableOfContents();
   });
-
-  window.addEventListener("scroll", updateActiveTocLink);
 </script>

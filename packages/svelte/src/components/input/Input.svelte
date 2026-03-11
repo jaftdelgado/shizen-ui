@@ -25,7 +25,13 @@
   const fieldContext = useFieldStateContext();
   const groupContext = useInputGroupContext();
 
-  const finalInvalid = $derived(fieldContext.exists ? fieldContext.invalid : invalid);
+  const finalInvalid = $derived(
+    fieldContext.exists
+      ? fieldContext.invalid
+      : groupContext.exists
+        ? groupContext.invalid || invalid
+        : invalid
+  );
 
   const finalDisabled = $derived(
     fieldContext.exists

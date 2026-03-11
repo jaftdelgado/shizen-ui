@@ -27,7 +27,7 @@
   }
 
   .popover__dialog {
-    @apply rounded-3xl bg-overlay p-4 shadow-xs;
+    @apply bg-overlay shadow-overlay rounded-3xl p-4;
   }
 
   .popover__heading {

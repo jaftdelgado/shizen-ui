@@ -5,12 +5,14 @@ export interface InputGroupContextValue {
   readonly size: InputGroupVariants["size"];
   readonly inGroup: boolean;
   readonly disabled: boolean;
+  readonly invalid: boolean;
 }
 
 export interface InputGroupContextResult {
   readonly size: InputGroupVariants["size"];
   readonly inGroup: boolean;
   readonly disabled: boolean;
+  readonly invalid: boolean;
   readonly exists: boolean;
 }
 
@@ -34,6 +36,9 @@ export function useInputGroupContext(): InputGroupContextResult {
       get disabled() {
         return false;
       },
+      get invalid() {
+        return false;
+      },
       get exists() {
         return false;
       }
@@ -49,6 +54,9 @@ export function useInputGroupContext(): InputGroupContextResult {
     },
     get disabled() {
       return context.disabled;
+    },
+    get invalid() {
+      return context.invalid;
     },
     get exists() {
       return true;

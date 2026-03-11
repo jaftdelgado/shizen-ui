@@ -9,9 +9,10 @@
     children: Snippet;
     class?: string;
     size?: InputGroupVariants["size"];
+    disabled?: boolean;
     fullWidth?: boolean;
     hasTextArea?: boolean;
-    disabled?: boolean;
+    invalid?: boolean;
   }
 
   let {
@@ -21,12 +22,13 @@
     fullWidth = false,
     hasTextArea = false,
     disabled = false,
+    invalid = false,
     ...rest
   }: Props = $props();
 
   const fieldContext = useFieldStateContext();
 
-  const finalInvalid = $derived(fieldContext.exists ? fieldContext.invalid : false);
+  const finalInvalid = $derived(fieldContext.exists ? fieldContext.invalid : invalid);
   const finalDisabled = $derived(
     fieldContext.exists ? fieldContext.disabled || disabled : disabled
   );
@@ -40,6 +42,9 @@
     },
     get disabled() {
       return finalDisabled;
+    },
+    get invalid() {
+      return finalInvalid;
     }
   });
 </script>

@@ -1,6 +1,7 @@
 @layer components {
   .tooltip {
-    @apply absolute top-0 left-0 z-50 rounded-xl px-2.5 py-1.5 bg-overlay pointer-events-none;
+    @apply bg-overlay shadow-overlay;
+    @apply absolute top-0 left-0 z-50 rounded-xl px-2.5 py-1.5 pointer-events-none;
     @apply text-xs text-secondary-text;
 
     --tooltip-enter-duration: 350ms;

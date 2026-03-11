@@ -3,7 +3,7 @@
     @apply relative inline-flex items-center w-full rounded-control transition-[background-color,box-shadow,ring] duration-200;
     @apply overflow-hidden;
 
-    --group-bg: var(--color-control);
+    --group-bg: var(--color-field);
     --group-bg-hover: var(--color-field-hover);
 
     background-color: var(--group-bg);
@@ -13,13 +13,17 @@
       background-color: var(--group-bg-hover);
     }
 
-    &:focus-within:not([data-disabled="true"]) {
+    &:focus-within:not([data-disabled="true"], [data-invalid="true"]) {
       @apply status-focused-field;
       background-color: var(--group-bg-hover);
     }
 
     &[data-invalid="true"] {
       @apply status-invalid-field;
+
+      &:focus-within {
+        background-color: var(--group-bg-hover);
+      }
     }
 
     &[data-disabled="true"] {
