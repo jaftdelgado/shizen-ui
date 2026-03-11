@@ -1,24 +1,24 @@
 <script lang="ts">
-  import { Button, ButtonGroup } from "@shizen-ui/svelte";
+  import { Button, ButtonGroup, Description } from "@shizen-ui/svelte";
 
-  const variants = [
-    "primary",
-    "secondary",
-    "tertiary",
-    "outline",
-    "ghost",
-    "danger",
-    "soft-danger"
+  const variantConfigs = [
+    { value: "primary", label: "Primary" },
+    { value: "secondary", label: "Secondary" },
+    { value: "tertiary", label: "Tertiary" },
+    { value: "outline", label: "Outline" },
+    { value: "ghost", label: "Ghost" },
+    { value: "danger", label: "Danger" },
+    { value: "soft-danger", label: "Soft Danger" }
   ] as const;
 
   const labels = ["Left", "Center", "Right"];
 </script>
 
 <div class="flex flex-col gap-4">
-  {#each variants as variant}
+  {#each variantConfigs as { value, label }}
     <div class="flex flex-col gap-2">
-      <p class="text-sm capitalize">{variant}</p>
-      <ButtonGroup {variant} hideSeparator>
+      <Description>{label}</Description>
+      <ButtonGroup variant={value} hideSeparator>
         {#each labels as label}
           <Button>{label}</Button>
         {/each}

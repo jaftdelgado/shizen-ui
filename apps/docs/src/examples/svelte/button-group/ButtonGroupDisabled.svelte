@@ -1,11 +1,11 @@
 <script lang="ts">
-  import { Button, ButtonGroup } from "@shizen-ui/svelte";
+  import { Button, ButtonGroup, Description } from "@shizen-ui/svelte";
 </script>
 
 <div class="flex items-center justify-center gap-2">
   <div class="flex flex-col gap-4">
     <div class="flex flex-col items-start gap-2">
-      <p class="text-sm">All buttons disabled</p>
+      <Description>All buttons disabled</Description>
       <ButtonGroup disabled>
         <Button>Left</Button>
         <Button>Center</Button>
@@ -13,7 +13,7 @@
       </ButtonGroup>
     </div>
     <div class="flex flex-col items-start gap-2">
-      <p class="text-sm">Group disabled, but one button overrides</p>
+      <Description>Group disabled, but one button overrides</Description>
       <ButtonGroup>
         <Button disabled>Left</Button>
         <Button disabled>Center</Button>

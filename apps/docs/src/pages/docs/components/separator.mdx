@@ -1,0 +1,36 @@
+---
+title: "Separator"
+layout: "@layouts/DocsLayout.astro"
+---
+
+import ComponentExample from "@components/astro/ComponentExample.astro";
+
+import SeparatorUsage from "@examples/svelte/separator/SeparatorUsage.svelte";
+import SeparatorOrientation from "@examples/svelte/separator/SeparatorOrientation.svelte";
+import SeparatorDecorative from "@examples/svelte/separator/SeparatorDecorative.svelte";
+
+# Separator
+
+A visual divider that separates content into distinct sections.
+
+<ComponentExample src="svelte/separator/SeparatorUsage.svelte">
+  <SeparatorUsage client:load />
+</ComponentExample>
+
+## Examples
+
+### Orientation
+
+Use the `orientation` prop to render the separator horizontally or vertically.
+
+<ComponentExample src="svelte/separator/SeparatorOrientation.svelte">
+  <SeparatorOrientation client:load />
+</ComponentExample>
+
+### Decorative vs Semantic
+
+By default, `decorative` is `true` and the separator is hidden from assistive technology. Set `decorative={false}` to expose it as a semantic landmark for screen readers.
+
+<ComponentExample src="svelte/separator/SeparatorDecorative.svelte">
+  <SeparatorDecorative client:load />
+</ComponentExample>

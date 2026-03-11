@@ -1,0 +1,13 @@
+@layer components {
+  .separator {
+    @apply shrink-0 bg-separator;
+  }
+
+  .separator--horizontal {
+    @apply w-full h-px;
+  }
+
+  .separator--vertical {
+    @apply h-full w-px;
+  }
+}

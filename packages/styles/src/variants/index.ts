@@ -11,6 +11,7 @@ export * from "./label";
 export * from "./popover";
 export * from "./radio";
 export * from "./radio-group";
+export * from "./separator";
 export * from "./switch";
 export * from "./switch-group";
 export * from "./text-area";
