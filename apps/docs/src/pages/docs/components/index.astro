@@ -1,0 +1,50 @@
+---
+import DocsLayout from "@layouts/DocsLayout.astro";
+
+const components = [
+  { name: "Button", href: "/docs/components/button", summary: "Acciones primarias, secundarias, ghost y variantes de icono." },
+  { name: "Button Group", href: "/docs/components/button-group", summary: "Agrupa acciones relacionadas con una misma estructura visual." },
+  { name: "Checkbox", href: "/docs/components/checkbox", summary: "Seleccion unica con estados claros y soporte para deshabilitado." },
+  { name: "Checkbox Group", href: "/docs/components/checkbox-group", summary: "Colecciones de seleccion multiple con composicion consistente." },
+  { name: "Input", href: "/docs/components/input", summary: "Campos base para captura de texto con estilos del sistema." },
+  { name: "Input Group", href: "/docs/components/input-group", summary: "Agrupa prefijos, sufijos y campos relacionados." },
+  { name: "Popover", href: "/docs/components/popover", summary: "Superficies flotantes para acciones o contenido contextual." },
+  { name: "Radio Group", href: "/docs/components/radio-group", summary: "Seleccion exclusiva con jerarquia clara y espaciado uniforme." },
+  { name: "Separator", href: "/docs/components/separator", summary: "Divisores sutiles para estructurar layout y contenido." },
+  { name: "Switch", href: "/docs/components/switch", summary: "Toggles para cambios binarios con feedback inmediato." },
+  { name: "Text Area", href: "/docs/components/text-area", summary: "Entradas multilinea con el mismo lenguaje de formularios." },
+  { name: "Text Field", href: "/docs/components/text-field", summary: "Campo compuesto con label, description y errores." },
+  { name: "Tooltip", href: "/docs/components/tooltip", summary: "Ayudas contextuales ligeras sobre hover o foco." }
+];
+---
+
+<DocsLayout title="Components" headings={[]}>
+  <div class="space-y-10">
+    <section class="rounded-4xl border border-separator bg-surface p-8 shadow-sm">
+      <p class="text-sm font-semibold uppercase tracking-[0.16em] text-tertiary-text">Catalogo</p>
+      <h1 class="mt-4 text-4xl font-semibold tracking-[-0.04em] text-primary-text">Componentes</h1>
+      <p class="mt-4 max-w-3xl text-lg leading-8 text-secondary-text">
+        Esta libreria documenta componentes UI de Svelte construidos sobre un mismo sistema de
+        tokens, variantes y patrones de interaccion. Usa esta pagina como punto de entrada al
+        showcase y navega al componente que quieras inspeccionar.
+      </p>
+    </section>
+
+    <section class="grid gap-4 md:grid-cols-2">
+      {
+        components.map((component) => (
+          <a
+            href={component.href}
+            class="group rounded-3xl border border-separator bg-surface p-6 no-underline transition-transform duration-200 hover:-translate-y-1 hover:border-accent"
+          >
+            <p class="text-xs font-semibold uppercase tracking-[0.16em] text-tertiary-text">Svelte UI</p>
+            <h2 class="mt-3 text-2xl font-semibold tracking-[-0.03em] text-primary-text group-hover:text-accent">
+              {component.name}
+            </h2>
+            <p class="mt-3 text-base leading-7 text-secondary-text">{component.summary}</p>
+          </a>
+        ))
+      }
+    </section>
+  </div>
+</DocsLayout>

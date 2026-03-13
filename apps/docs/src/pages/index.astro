@@ -1,11 +1,281 @@
 ---
-import Welcome from "../components/Welcome.astro";
 import Layout from "../layouts/Layout.astro";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const highlights = [
+  {
+    title: "Composable by default",
+    description:
+      "Primitivas pensadas para combinar estados, variantes y contenido sin sacrificar claridad visual."
+  },
+  {
+    title: "Svelte-native APIs",
+    description:
+      "Componentes diseñados para el flujo de trabajo de Svelte, con una DX directa y sin abstracciones innecesarias."
+  },
+  {
+    title: "System-driven styling",
+    description:
+      "Tokens, capas y variantes consistentes para construir producto real con la misma base visual."
+  }
+];
+
+const stats = [
+  { value: "12+", label: "componentes documentados" },
+  { value: "Svelte 5", label: "base moderna y reactiva" },
+  { value: "Tokens", label: "tema y variantes reutilizables" }
+];
+
+const previewCards = [
+  {
+    eyebrow: "Actions",
+    title: "Buttons with intent",
+    description:
+      "Jerarquias visuales limpias para CTAs, acciones secundarias y estados deshabilitados."
+  },
+  {
+    eyebrow: "Forms",
+    title: "Fields that scale",
+    description:
+      "Inputs, text areas y grupos de campo alineados a un mismo sistema de espaciado y control."
+  },
+  {
+    eyebrow: "Overlay",
+    title: "Layered interactions",
+    description:
+      "Popover y tooltip con patrones consistentes para contenido contextual y superficies flotantes."
+  }
+];
 ---
 
-<Layout>
-  <Welcome />
+<Layout
+  title="Shizen UI | Svelte Component Library"
+  description="Showcase de Shizen UI, una libreria de componentes UI para Svelte con foco en composicion, consistencia y claridad visual."
+>
+  <main class="relative isolate overflow-hidden">
+    <div class="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+      <div class="hero-orb hero-orb-left"></div>
+      <div class="hero-orb hero-orb-right"></div>
+      <div class="grid-mask"></div>
+    </div>
+
+    <section class="mx-auto flex min-h-screen w-full max-w-8xl flex-col px-6 pb-16 pt-6 lg:px-10">
+      <header class="flex items-center justify-between py-4">
+        <a href="/" class="text-lg font-semibold tracking-[0.18em] uppercase text-primary-text">
+          Shizen UI
+        </a>
+        <a
+          href="/docs/components"
+          class="inline-flex h-10 items-center rounded-full border border-separator bg-surface px-4 text-sm font-medium text-secondary-text transition-colors hover:text-primary-text"
+        >
+          Ver componentes
+        </a>
+      </header>
+
+      <div class="flex flex-1 items-center py-12 lg:py-20">
+        <div
+          class="grid w-full gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(320px,0.9fr)] lg:items-center"
+        >
+          <div class="max-w-3xl">
+            <span
+              class="inline-flex rounded-full border border-separator bg-surface/80 px-4 py-2 text-sm text-secondary-text shadow-sm backdrop-blur-sm"
+            >
+              Libreria de componentes UI para Svelte
+            </span>
+
+            <h1
+              class="mt-8 max-w-4xl text-5xl font-semibold leading-none tracking-[-0.05em] text-balance sm:text-6xl lg:text-7xl"
+            >
+              Interfaces serenas, rapidas y listas para producto.
+            </h1>
+
+            <p class="mt-6 max-w-2xl text-lg leading-8 text-secondary-text sm:text-xl">
+              Shizen UI presenta un sistema de componentes para Svelte enfocado en composicion,
+              consistencia y detalle visual. Explora botones, formularios, overlays y patrones de
+              interaccion sobre una misma base de tokens y variantes.
+            </p>
+
+            <div class="mt-10 flex flex-col gap-4 sm:flex-row">
+              <a
+                href="/docs/components"
+                class="inline-flex h-12 items-center justify-center rounded-full bg-accent px-6 text-base font-semibold text-accent-foreground transition-transform duration-200 hover:-translate-y-0.5 hover:bg-accent-hover"
+              >
+                Explorar catalogo
+              </a>
+              <a
+                href="/docs/components/button"
+                class="inline-flex h-12 items-center justify-center rounded-full border border-separator bg-surface px-6 text-base font-semibold text-primary-text transition-colors hover:bg-white"
+              >
+                Ver ejemplo de Button
+              </a>
+            </div>
+
+            <dl class="mt-12 grid gap-4 sm:grid-cols-3">
+              {
+                stats.map((stat) => (
+                  <div class="rounded-3xl border border-separator/80 bg-surface/85 px-5 py-4 shadow-sm backdrop-blur-sm">
+                    <dt class="text-sm uppercase tracking-[0.16em] text-tertiary-text">
+                      {stat.label}
+                    </dt>
+                    <dd class="mt-3 text-3xl font-semibold tracking-[-0.04em] text-primary-text">
+                      {stat.value}
+                    </dd>
+                  </div>
+                ))
+              }
+            </dl>
+          </div>
+
+          <div class="relative lg:justify-self-end">
+            <div
+              class="showcase-panel rounded-4xl border border-white/60 bg-[linear-gradient(180deg,rgba(255,255,255,0.9),rgba(255,255,255,0.74))] p-5 shadow-[0_24px_80px_rgba(24,24,27,0.12)] backdrop-blur-xl sm:p-6"
+            >
+              <div class="flex items-center justify-between border-b border-separator/70 pb-4">
+                <div>
+                  <p class="text-xs font-semibold uppercase tracking-[0.18em] text-tertiary-text">
+                    Preview
+                  </p>
+                  <h2 class="mt-2 text-2xl font-semibold tracking-[-0.04em] text-primary-text">
+                    Svelte showcase
+                  </h2>
+                </div>
+                <span
+                  class="rounded-full bg-background px-3 py-1 text-xs font-medium text-secondary-text"
+                >
+                  Design system
+                </span>
+              </div>
+
+              <div class="mt-6 space-y-4">
+                <div class="rounded-3xl border border-separator/70 bg-background/85 p-4">
+                  <div class="flex flex-wrap gap-3">
+                    <button
+                      class="inline-flex h-10 items-center rounded-full bg-accent px-4 text-sm font-medium text-accent-foreground"
+                    >
+                      Primary action
+                    </button>
+                    <button
+                      class="inline-flex h-10 items-center rounded-full bg-control px-4 text-sm font-medium text-secondary-text"
+                    >
+                      Secondary
+                    </button>
+                    <button
+                      class="inline-flex h-10 items-center rounded-full border border-separator bg-surface px-4 text-sm font-medium text-primary-text"
+                    >
+                      Ghost
+                    </button>
+                  </div>
+                </div>
+
+                <div class="rounded-3xl border border-separator/70 bg-surface/90 p-4 shadow-sm">
+                  <div class="grid gap-3">
+                    <label class="text-sm font-medium text-primary-text" for="landing-email"
+                      >Newsletter</label
+                    >
+                    <div
+                      class="rounded-2xl border border-separator bg-background px-4 py-3 text-sm text-tertiary-text"
+                    >
+                      you@product.dev
+                    </div>
+                    <div class="flex items-center gap-2 text-sm text-secondary-text">
+                      <span class="inline-block size-2 rounded-full bg-[#22c55e]"></span>
+                      Validaciones, estados y accesibilidad consistentes.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="grid gap-3 sm:grid-cols-3">
+                  {
+                    previewCards.map((card) => (
+                      <article class="rounded-3xl border border-separator/70 bg-surface/88 p-4 shadow-sm">
+                        <p class="text-xs font-semibold uppercase tracking-[0.16em] text-tertiary-text">
+                          {card.eyebrow}
+                        </p>
+                        <h3 class="mt-3 text-lg font-semibold tracking-[-0.03em] text-primary-text">
+                          {card.title}
+                        </h3>
+                        <p class="mt-2 text-sm leading-6 text-secondary-text">{card.description}</p>
+                      </article>
+                    ))
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section class="grid gap-4 border-t border-separator/80 pt-8 md:grid-cols-3">
+        {
+          highlights.map((item) => (
+            <article class="rounded-[1.75rem] border border-separator/80 bg-surface/80 p-6 shadow-sm backdrop-blur-sm">
+              <h2 class="text-xl font-semibold tracking-[-0.03em] text-primary-text">
+                {item.title}
+              </h2>
+              <p class="mt-3 text-base leading-7 text-secondary-text">{item.description}</p>
+            </article>
+          ))
+        }
+      </section>
+    </section>
+  </main>
 </Layout>
+
+<style>
+  .grid-mask {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(to right, rgb(255 255 255 / 0.3) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(255 255 255 / 0.3) 1px, transparent 1px);
+    background-size: 72px 72px;
+    mask-image: radial-gradient(circle at center, black 25%, transparent 78%);
+    opacity: 0.45;
+  }
+
+  .hero-orb {
+    position: absolute;
+    width: 38rem;
+    height: 38rem;
+    border-radius: 9999px;
+    filter: blur(70px);
+    opacity: 0.6;
+  }
+
+  .hero-orb-left {
+    top: 5rem;
+    left: -10rem;
+    background: color-mix(in srgb, var(--accent) 20%, white 80%);
+  }
+
+  .hero-orb-right {
+    right: -8rem;
+    bottom: 2rem;
+    background: color-mix(in srgb, var(--color-control) 45%, white 55%);
+  }
+
+  .showcase-panel {
+    position: relative;
+  }
+
+  .showcase-panel::before {
+    content: "";
+    position: absolute;
+    inset: 1rem;
+    border-radius: 1.5rem;
+    border: 1px solid rgb(255 255 255 / 0.55);
+    pointer-events: none;
+  }
+
+  @media (max-width: 48rem) {
+    .hero-orb {
+      width: 24rem;
+      height: 24rem;
+      filter: blur(56px);
+    }
+
+    .grid-mask {
+      background-size: 44px 44px;
+    }
+  }
+</style>---
+
