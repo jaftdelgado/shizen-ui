@@ -1,0 +1,27 @@
+---
+title: "Number Input"
+layout: "@layouts/DocsLayout.astro"
+---
+
+import ComponentExample from "@components/astro/ComponentExample.astro";
+
+import NumberInputUsage from "@examples/svelte/number-input/NumberInputUsage.svelte";
+import NumberInputDisabled from "@examples/svelte/number-input/NumberInputDisabled.svelte";
+
+# Number Input
+
+Composable numeric input with increment and decrement controls for bounded values.
+
+<ComponentExample src="svelte/number-input/NumberInputUsage.svelte">
+  <NumberInputUsage client:load />
+</ComponentExample>
+
+## Examples
+
+### Disabled State
+
+Set `disabled` on `NumberInput` to disable the input and both stepper controls.
+
+<ComponentExample src="svelte/number-input/NumberInputDisabled.svelte">
+  <NumberInputDisabled client:load />
+</ComponentExample>

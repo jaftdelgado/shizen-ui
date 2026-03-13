@@ -7,6 +7,7 @@ export * from "./components/field-error/index.js";
 export * from "./components/input-group/index.js";
 export * from "./components/input/index.js";
 export * from "./components/label/index.js";
+export * from "./components/number-input/index.js";
 export * from "./components/popover/index.js";
 export * from "./components/radio-group/index.js";
 export * from "./components/radio/index.js";

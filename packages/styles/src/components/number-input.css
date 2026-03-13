@@ -1,0 +1,77 @@
+@layer components {
+  .number-input {
+    @apply relative inline-flex items-stretch w-full rounded-control overflow-hidden transition-all duration-200;
+
+    --number-input-bg: var(--color-control);
+    --number-input-bg-hover: var(--color-field-hover);
+    --number-input-fg: var(--color-field-foreground);
+    --number-input-border: var(--color-border);
+
+    background-color: var(--number-input-bg);
+    color: var(--number-input-fg);
+
+    &:focus-within:not([data-invalid="true"]) {
+      @apply status-focused-field;
+      background-color: var(--number-input-bg-hover);
+    }
+
+    &[data-invalid="true"] {
+      @apply status-invalid-field;
+    }
+
+    &[data-disabled="true"] {
+      @apply status-disabled;
+    }
+  }
+
+  /* ── Input ── */
+  .number-input__input {
+    @apply flex-1 min-w-0 bg-transparent border-none outline-none ring-0 shadow-none;
+    @apply text-center tabular-nums;
+    color: var(--number-input-fg);
+    appearance: textfield;
+
+    /* Remove native number spinners */
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+
+  .number-input__input--sm {
+    @apply h-field-sm px-2 text-sm;
+  }
+
+  .number-input__input--md {
+    @apply h-field-md px-3 text-sm;
+  }
+
+  .number-input__input--lg {
+    @apply h-field-lg px-4 text-base;
+  }
+
+  /* ── Buttons ── */
+  .number-input__button {
+    @apply inline-flex items-center justify-center shrink-0 px-2 transition-colors duration-150;
+    @apply text-secondary-text bg-transparent;
+
+    &:hover:not(:disabled) {
+      @apply bg-field-hover text-primary-text;
+    }
+
+    &:disabled {
+      @apply opacity-40 cursor-not-allowed;
+    }
+  }
+
+  .number-input__button--left {
+    @apply border-r;
+    @apply rounded-l-control rounded-r-none;
+  }
+
+  .number-input__button--right {
+    @apply border-l;
+    @apply rounded-r-control rounded-l-none;
+  }
+}

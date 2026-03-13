@@ -8,3 +8,4 @@ export * from "./button-group.context.js";
 export * from "./input-group.context.js";
 export * from "./tooltip.context.js";
 export * from "./popover.context.js";
+export * from "./number-input.context.js";
