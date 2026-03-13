@@ -1,6 +1,6 @@
 <script lang="ts">
   import { cn } from "@shizen-ui/styles";
-  import { numberInputStyles } from "@shizen-ui/styles";
+  import { numberInputStyles, type NumberInputVariants } from "@shizen-ui/styles";
   import type { HTMLAttributes } from "svelte/elements";
   import type { Snippet } from "svelte";
   import { NumberInputState } from "./NumberInput.svelte.js";
@@ -12,6 +12,7 @@
     min?: number;
     max?: number;
     step?: number;
+    size?: "sm" | "md" | "lg";
     disabled?: boolean;
     invalid?: boolean;
     id?: string;
@@ -24,6 +25,7 @@
     min,
     max,
     step = 1,
+    size = "md",
     disabled = false,
     invalid = false,
     id: propId,
@@ -33,7 +35,6 @@
 
   const fieldContext = useFieldStateContext();
 
-  // Solo pasamos value inicial; los $effect sincronizan el resto reactivamente
   const state = new NumberInputState({ value });
 
   $effect(() => {
@@ -62,7 +63,6 @@
 
   const finalId = $derived(propId ?? (fieldContext.exists ? fieldContext.id : undefined));
 
-  // role="group" no soporta aria-errormessage — usamos aria-describedby para ambos casos
   const ariaDescribedBy = $derived.by(() => {
     if (!fieldContext.exists || !fieldContext.id) return undefined;
     const descId = `${fieldContext.id}-description`;
@@ -82,6 +82,9 @@
     },
     get step() {
       return state.step;
+    },
+    get size() {
+      return size ?? "md";
     },
     get disabled() {
       return state.disabled;
@@ -109,7 +112,7 @@
     }
   });
 
-  const { base } = numberInputStyles();
+  const baseClass = $derived(numberInputStyles({ size }).base());
 </script>
 
 <div
@@ -118,7 +121,7 @@
   aria-describedby={ariaDescribedBy}
   data-invalid={state.invalid}
   data-disabled={state.disabled}
-  class={cn(base(), className)}
+  class={cn(baseClass, className)}
   {...rest}
 >
   {@render children?.()}

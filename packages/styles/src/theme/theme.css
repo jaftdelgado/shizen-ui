@@ -8,6 +8,7 @@
   --spacing-field-sm: calc(var(--spacing) * 8); /* 2rem (32px) */
   --spacing-field-md: calc(var(--spacing) * 9); /* 2.25rem (36px) */
   --spacing-field-lg: calc(var(--spacing) * 10); /* 2.5rem (40px) */
+
   --padding-field-sm: calc(var(--padding) * 3); /* 0.75rem (12px) */
   --padding-field-md: calc(var(--padding) * 3); /* 0.75rem (12px) */
   --padding-field-lg: calc(var(--padding) * 3); /* 0.75rem (12px) */

@@ -6,9 +6,14 @@
     --number-input-bg-hover: var(--color-field-hover);
     --number-input-fg: var(--color-field-foreground);
     --number-input-border: var(--color-border);
+    --number-input-btn-w: 2.5rem;
 
     background-color: var(--number-input-bg);
     color: var(--number-input-fg);
+
+    &:hover:not(:focus-within, [data-invalid="true"], [data-disabled="true"]) {
+      background-color: var(--number-input-bg-hover);
+    }
 
     &:focus-within:not([data-invalid="true"]) {
       @apply status-focused-field;
@@ -24,54 +29,64 @@
     }
   }
 
-  /* ── Input ── */
-  .number-input__input {
-    @apply flex-1 min-w-0 bg-transparent border-none outline-none ring-0 shadow-none;
-    @apply text-center tabular-nums;
-    color: var(--number-input-fg);
-    appearance: textfield;
+  .number-input--sm {
+    --number-input-btn-w: 2.25rem;
 
-    /* Remove native number spinners */
-    &::-webkit-outer-spin-button,
-    &::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
+    .number-input__input {
+      @apply h-field-sm text-sm px-field-sm;
     }
   }
 
-  .number-input__input--sm {
-    @apply h-field-sm px-2 text-sm;
+  .number-input--md {
+    --number-input-btn-w: 2.5rem;
+
+    .number-input__input {
+      @apply h-field-md text-sm px-field-md;
+    }
   }
 
-  .number-input__input--md {
-    @apply h-field-md px-3 text-sm;
+  .number-input--lg {
+    --number-input-btn-w: 2.5rem;
+
+    .number-input__input {
+      @apply h-field-lg text-base px-field-lg;
+    }
   }
 
-  .number-input__input--lg {
-    @apply h-field-lg px-4 text-base;
+  /* ── Input ── */
+  .number-input__input {
+    @apply flex-1 min-w-0 bg-transparent border-none outline-none ring-0 shadow-none;
+    @apply text-left tabular-nums;
+
+    color: var(--number-input-fg);
+    appearance: textfield;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+    }
   }
 
   /* ── Buttons ── */
   .number-input__button {
-    @apply inline-flex items-center justify-center shrink-0 px-2 transition-colors duration-150;
-    @apply text-secondary-text bg-transparent;
+    @apply relative flex self-stretch items-center justify-center bg-transparent text-secondary-text outline-none;
+    width: var(--number-input-btn-w);
+    cursor: var(--cursor-interactive);
 
-    &:hover:not(:disabled) {
-      @apply bg-field-hover text-primary-text;
+    &:active:not(:disabled) {
+      @apply bg-field-foreground/10;
     }
 
     &:disabled {
-      @apply opacity-40 cursor-not-allowed;
+      @apply status-disabled opacity-40;
     }
   }
 
   .number-input__button--left {
-    @apply border-r;
-    @apply rounded-l-control rounded-r-none;
+    @apply rounded-l-control rounded-r-none border-r border-current/20;
   }
 
   .number-input__button--right {
-    @apply border-l;
-    @apply rounded-r-control rounded-l-none;
+    @apply rounded-r-control rounded-l-none border-l border-current/20;
   }
 }

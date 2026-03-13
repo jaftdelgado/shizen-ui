@@ -8,23 +8,13 @@ export const numberInputStyles = tv({
   },
   variants: {
     size: {
-      sm: {
-        input: "number-input__input--sm"
-      },
-      md: {
-        input: "number-input__input--md"
-      },
-      lg: {
-        input: "number-input__input--lg"
-      }
+      sm: { base: "number-input--sm" },
+      md: { base: "number-input--md" },
+      lg: { base: "number-input--lg" }
     },
     position: {
-      left: {
-        button: "number-input__button--left"
-      },
-      right: {
-        button: "number-input__button--right"
-      }
+      left: { button: "number-input__button--left" },
+      right: { button: "number-input__button--right" }
     }
   },
   defaultVariants: {

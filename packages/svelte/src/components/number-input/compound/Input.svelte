@@ -1,21 +1,19 @@
 <script lang="ts">
   import { cn } from "@shizen-ui/styles";
-  import { numberInputStyles, type NumberInputVariants } from "@shizen-ui/styles";
+  import { numberInputStyles } from "@shizen-ui/styles";
   import type { HTMLInputAttributes } from "svelte/elements";
   import { useNumberInputContext } from "../../../contexts/internal/index.js";
 
-  interface Props extends Omit<
+  type Props = Omit<
     HTMLInputAttributes,
     "type" | "value" | "min" | "max" | "step" | "disabled" | "size"
-  > {
-    inputSize?: NumberInputVariants["size"];
-  }
+  >;
 
-  let { class: className, inputSize = "md", ...rest }: Props = $props();
+  let { class: className, ...rest }: Props = $props();
 
   const ctx = useNumberInputContext();
 
-  const { input } = numberInputStyles();
+  const inputClass = $derived(numberInputStyles({ size: ctx.size }).input());
 
   function handleChange(event: Event) {
     const target = event.currentTarget as HTMLInputElement;
@@ -24,7 +22,6 @@
     if (!Number.isNaN(parsed)) {
       ctx.setValue(parsed);
     } else {
-      // Reset display to current valid value
       target.value = String(ctx.value);
     }
   }
@@ -40,7 +37,7 @@
   disabled={ctx.disabled}
   aria-invalid={ctx.invalid}
   data-invalid={ctx.invalid}
-  class={cn(input({ size: inputSize }), className)}
+  class={cn(inputClass, className)}
   onchange={handleChange}
   {...rest}
 />
