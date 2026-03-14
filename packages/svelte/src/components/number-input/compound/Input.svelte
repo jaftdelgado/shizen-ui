@@ -21,6 +21,7 @@
 
     if (!Number.isNaN(parsed)) {
       ctx.setValue(parsed);
+      target.value = String(ctx.value);
     } else {
       target.value = String(ctx.value);
     }

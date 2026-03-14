@@ -46,7 +46,7 @@
   }
 
   .number-input--lg {
-    --number-input-btn-w: 2.5rem;
+    --number-input-btn-w: 2.75rem;
 
     .number-input__input {
       @apply h-field-lg text-base px-field-lg;

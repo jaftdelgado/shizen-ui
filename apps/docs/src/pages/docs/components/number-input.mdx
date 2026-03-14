@@ -7,7 +7,10 @@ import ComponentExample from "@components/astro/ComponentExample.astro";
 
 import NumberInputUsage from "@examples/svelte/number-input/NumberInputUsage.svelte";
 import NumberInputDisabled from "@examples/svelte/number-input/NumberInputDisabled.svelte";
+import NumberInputInvalid from "@examples/svelte/number-input/NumberInputInvalid.svelte";
 import NumberInputSizes from "@examples/svelte/number-input/NumberInputSizes.svelte";
+import NumberInputControlled from "@examples/svelte/number-input/NumberInputControlled.svelte";
+import NumberInputSteps from "@examples/svelte/number-input/NumberInputSteps.svelte";
 
 # Number Input
 
@@ -21,14 +24,30 @@ Composable numeric input with increment and decrement controls for bounded value
 
 ### Disabled State
 
-Set `disabled` on `NumberInput` to disable the input and both stepper controls.
-
 <ComponentExample src="svelte/number-input/NumberInputDisabled.svelte">
   <NumberInputDisabled client:load />
+</ComponentExample>
+
+### Invalid State
+
+<ComponentExample src="svelte/number-input/NumberInputInvalid.svelte">
+  <NumberInputInvalid client:load />
 </ComponentExample>
 
 ### Sizes
 
 <ComponentExample src="svelte/number-input/NumberInputSizes.svelte">
   <NumberInputSizes client:load />
+</ComponentExample>
+
+### Controlled
+
+<ComponentExample src="svelte/number-input/NumberInputControlled.svelte">
+  <NumberInputControlled client:load />
+</ComponentExample>
+
+### Step Values
+
+<ComponentExample src="svelte/number-input/NumberInputSteps.svelte">
+  <NumberInputSteps client:load />
 </ComponentExample>

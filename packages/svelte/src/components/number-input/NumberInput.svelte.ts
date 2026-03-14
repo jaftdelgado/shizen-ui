@@ -90,8 +90,14 @@ export class NumberInputState {
     this.value = this.#value - this.#step;
   }
 
+  #snapToStep(v: number): number {
+    if (this.#step <= 1) return v;
+    const base = this.#min ?? 0;
+    return Math.round((v - base) / this.#step) * this.#step + base;
+  }
+
   #clamp(v: number): number {
-    let result = v;
+    let result = this.#snapToStep(v);
     if (this.#min !== undefined) result = Math.max(this.#min, result);
     if (this.#max !== undefined) result = Math.min(this.#max, result);
     return result;
