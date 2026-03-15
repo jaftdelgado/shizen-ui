@@ -26,6 +26,11 @@
 
     &[data-disabled="true"] {
       @apply status-disabled;
+
+      .number-input__button,
+      .number-input__input {
+        cursor: inherit;
+      }
     }
   }
 
@@ -78,7 +83,7 @@
     }
 
     &:disabled {
-      @apply status-disabled opacity-40;
+      @apply opacity-40;
     }
   }
 
