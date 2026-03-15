@@ -77,6 +77,9 @@
     @apply relative flex self-stretch items-center justify-center bg-transparent text-secondary-text outline-none;
     width: var(--number-input-btn-w);
     cursor: var(--cursor-interactive);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
 
     &:active:not(:disabled) {
       @apply bg-field-foreground/10;

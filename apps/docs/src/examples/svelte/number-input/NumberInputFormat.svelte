@@ -15,7 +15,6 @@
       id="usd"
       bind:value={usd}
       min={0}
-      step={0.01}
       formatOptions={{ style: "currency", currency: "USD" }}
     >
       <NumberInput.DecrementButton />
@@ -31,7 +30,6 @@
       id="eur"
       bind:value={eur}
       min={0}
-      step={0.01}
       formatOptions={{ style: "currency", currency: "EUR", currencySign: "accounting" }}
     >
       <NumberInput.DecrementButton />
@@ -64,7 +62,6 @@
       id="decimal"
       bind:value={decimal}
       min={0}
-      step={0.01}
       formatOptions={{ style: "decimal", minimumFractionDigits: 2, maximumFractionDigits: 2 }}
     >
       <NumberInput.DecrementButton />

@@ -4,6 +4,8 @@
   import type { HTMLButtonAttributes } from "svelte/elements";
   import type { Snippet } from "svelte";
   import { useNumberInputContext } from "../../../contexts/internal/index.js";
+  import { useHoldRepeat } from "../../../shared/use-hold-repeat.js";
+  import { PlusIcon } from "../../../shared/icons";
 
   interface Props extends Omit<HTMLButtonAttributes, "disabled" | "onclick"> {
     children?: Snippet;
@@ -14,33 +16,27 @@
   const ctx = useNumberInputContext();
 
   const { button } = numberInputStyles();
+
+  const { start, stop } = useHoldRepeat(
+    () => ctx.increment(),
+    () => ctx.canIncrement
+  );
 </script>
 
 <button
   type="button"
   aria-label="Increment"
   disabled={!ctx.canIncrement}
-  onclick={() => ctx.increment()}
+  onpointerdown={start}
+  onpointerup={stop}
+  onpointerleave={stop}
+  oncontextmenu={(e) => e.preventDefault()}
   class={cn(button({ position: "right" }), className)}
   {...rest}
 >
   {#if children}
     {@render children()}
   {:else}
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2.25"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M5 12h14" />
-      <path d="M12 5v14" />
-    </svg>
+    <PlusIcon aria-hidden="true" />
   {/if}
 </button>
