@@ -16,6 +16,8 @@
     disabled?: boolean;
     invalid?: boolean;
     id?: string;
+    formatOptions?: Intl.NumberFormatOptions;
+    locale?: string;
     children?: Snippet;
   }
 
@@ -29,6 +31,8 @@
     disabled = false,
     invalid = false,
     id: propId,
+    formatOptions,
+    locale,
     children,
     ...rest
   }: Props = $props();
@@ -56,7 +60,6 @@
     state.invalid = fieldContext.exists ? fieldContext.invalid : invalid;
   });
 
-  // Sync state → bindable value
   $effect(() => {
     value = state.value;
   });
@@ -100,6 +103,12 @@
     },
     get id() {
       return finalId;
+    },
+    get formatOptions() {
+      return formatOptions;
+    },
+    get locale() {
+      return locale;
     },
     increment() {
       state.increment();

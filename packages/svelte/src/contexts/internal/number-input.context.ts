@@ -13,6 +13,8 @@ export interface NumberInputContextValue {
   readonly canIncrement: boolean;
   readonly canDecrement: boolean;
   readonly id: string | undefined;
+  readonly formatOptions: Intl.NumberFormatOptions | undefined;
+  readonly locale: string | undefined;
   increment: () => void;
   decrement: () => void;
   setValue: (v: number) => void;
@@ -63,6 +65,12 @@ export function useNumberInputContext(): NumberInputContextResult {
       get id() {
         return undefined;
       },
+      get formatOptions() {
+        return undefined;
+      },
+      get locale() {
+        return undefined;
+      },
       increment() {},
       decrement() {},
       setValue(_v: number) {},
@@ -102,6 +110,12 @@ export function useNumberInputContext(): NumberInputContextResult {
     },
     get id() {
       return context.id;
+    },
+    get formatOptions() {
+      return context.formatOptions;
+    },
+    get locale() {
+      return context.locale;
     },
     increment() {
       context.increment();
