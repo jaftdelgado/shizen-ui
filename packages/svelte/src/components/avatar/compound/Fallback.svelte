@@ -7,11 +7,6 @@
   interface Props {
     children?: Snippet;
     class?: string;
-    /**
-     * Delay in ms before showing the fallback.
-     * Useful to avoid flashing the fallback during fast image loads.
-     * @default 0
-     */
     delayMs?: number;
   }
 
@@ -38,3 +33,13 @@
 
   const isVisible = $derived(!ctx.imageLoaded && delayPassed);
 </script>
+
+<span
+  class={cn(styles.fallback(), className)}
+  data-visible={isVisible}
+  aria-hidden={ctx.imageLoaded ? "true" : undefined}
+>
+  {#if children}
+    {@render children()}
+  {/if}
+</span>

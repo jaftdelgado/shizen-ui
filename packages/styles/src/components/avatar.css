@@ -7,6 +7,8 @@
     width: var(--avatar-size);
     height: var(--avatar-size);
     font-size: var(--avatar-font-size);
+    outline: 1px solid rgb(0 0 0 / 0.08);
+    outline-offset: -1px;
   }
 
   /* Size variants — drive via CSS custom properties that cascade to slots */
@@ -43,8 +45,8 @@
   .avatar__fallback {
     @apply w-full h-full flex items-center justify-center;
     @apply font-medium leading-none;
-    background-color: var(--color-field);
-    color: var(--color-foreground-secondary);
+    background-color: var(--color-control);
+    color: var(--color-control-foreground);
   }
 
   .avatar__fallback[data-visible="false"] {

@@ -7,9 +7,6 @@ import ComponentExample from "@components/astro/ComponentExample.astro";
 
 import AvatarUsage from "@examples/svelte/avatar/AvatarUsage.svelte";
 import AvatarSizes from "@examples/svelte/avatar/AvatarSizes.svelte";
-import AvatarClassName from "@examples/svelte/avatar/AvatarClassName.svelte";
-import AvatarFallbackDelay from "@examples/svelte/avatar/AvatarFallbackDelay.svelte";
-import AvatarImageAttributes from "@examples/svelte/avatar/AvatarImageAttributes.svelte";
 
 # Avatar
 
@@ -21,26 +18,8 @@ Avatar displays a user image with an optional fallback content when the image is
 
 ## Examples
 
-### Sizes (size)
+### Sizes
 
 <ComponentExample src="svelte/avatar/AvatarSizes.svelte">
   <AvatarSizes client:load />
-</ComponentExample>
-
-### Custom Class (class)
-
-<ComponentExample src="svelte/avatar/AvatarClassName.svelte">
-  <AvatarClassName client:load />
-</ComponentExample>
-
-### Fallback Delay (delayMs)
-
-<ComponentExample src="svelte/avatar/AvatarFallbackDelay.svelte">
-  <AvatarFallbackDelay client:load />
-</ComponentExample>
-
-### Image Attributes
-
-<ComponentExample src="svelte/avatar/AvatarImageAttributes.svelte">
-  <AvatarImageAttributes client:load />
 </ComponentExample>
