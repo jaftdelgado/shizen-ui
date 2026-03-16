@@ -1,3 +1,4 @@
+export * from "./components/avatar/index.js";
 export * from "./components/button-group/index.js";
 export * from "./components/button/index.js";
 export * from "./components/checkbox-group/index.js";

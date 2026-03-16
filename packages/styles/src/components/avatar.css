@@ -1,0 +1,53 @@
+@layer components {
+  .avatar {
+    @apply relative inline-flex items-center justify-center shrink-0;
+    @apply rounded-full overflow-hidden select-none;
+    --avatar-size: var(--avatar-size-md, 2.5rem);
+    --avatar-font-size: var(--avatar-font-size-md, 1rem);
+    width: var(--avatar-size);
+    height: var(--avatar-size);
+    font-size: var(--avatar-font-size);
+  }
+
+  /* Size variants — drive via CSS custom properties that cascade to slots */
+  .avatar--sm {
+    --avatar-size: 2rem;
+    --avatar-font-size: 0.75rem;
+  }
+
+  .avatar--md {
+    --avatar-size: 2.5rem;
+    --avatar-font-size: 1rem;
+  }
+
+  .avatar--lg {
+    --avatar-size: 3rem;
+    --avatar-font-size: 1.125rem;
+  }
+
+  .avatar--xl {
+    --avatar-size: 3.5rem;
+    --avatar-font-size: 1.25rem;
+  }
+
+  /* Image slot */
+  .avatar__image {
+    @apply w-full h-full object-cover;
+  }
+
+  .avatar__image[data-loaded="false"] {
+    @apply hidden;
+  }
+
+  /* Fallback slot */
+  .avatar__fallback {
+    @apply w-full h-full flex items-center justify-center;
+    @apply font-medium leading-none;
+    background-color: var(--color-field);
+    color: var(--color-foreground-secondary);
+  }
+
+  .avatar__fallback[data-visible="false"] {
+    @apply hidden;
+  }
+}
