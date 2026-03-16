@@ -29,7 +29,7 @@
 
       .number-input__button,
       .number-input__input {
-        cursor: inherit;
+        cursor: var(--cursor-disabled);
       }
     }
   }
@@ -81,12 +81,21 @@
     -webkit-user-select: none;
     touch-action: manipulation;
 
+    svg {
+      transition: transform 350ms cubic-bezier(0.34, 1.45, 0.64, 1);
+    }
+
     &:active:not(:disabled) {
       @apply bg-field-foreground/10;
+
+      svg {
+        transform: scale(0.9);
+        transition: transform 100ms ease-out;
+      }
     }
 
     &:disabled {
-      @apply opacity-40;
+      @apply status-disabled;
     }
   }
 

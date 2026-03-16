@@ -4,11 +4,15 @@ layout: "@layouts/DocsLayout.astro"
 ---
 
 import ComponentExample from "@components/astro/ComponentExample.astro";
+import CodeBlock from "@components/astro/CodeBlock.astro";
+
+import NumberInputAnatomyCode from "@examples/svelte/number-input/NumberInputAnatomy.svelte?raw";
 
 import NumberInputUsage from "@examples/svelte/number-input/NumberInputUsage.svelte";
 import NumberInputDisabled from "@examples/svelte/number-input/NumberInputDisabled.svelte";
 import NumberInputInvalid from "@examples/svelte/number-input/NumberInputInvalid.svelte";
 import NumberInputSizes from "@examples/svelte/number-input/NumberInputSizes.svelte";
+import NumberInputMinMaxValue from "@examples/svelte/number-input/NumberInputMinMaxValue.svelte";
 import NumberInputControlled from "@examples/svelte/number-input/NumberInputControlled.svelte";
 import NumberInputSteps from "@examples/svelte/number-input/NumberInputSteps.svelte";
 import NumberInputFormat from "@examples/svelte/number-input/NumberInputFormat.svelte";
@@ -21,6 +25,10 @@ Composable numeric input with increment and decrement controls for bounded value
 <ComponentExample src="svelte/number-input/NumberInputUsage.svelte">
   <NumberInputUsage client:load />
 </ComponentExample>
+
+## Anatomy
+
+<CodeBlock code={NumberInputAnatomyCode} lang="svelte" showLineNumbers={false} />
 
 ## Examples
 
@@ -46,6 +54,12 @@ Composable numeric input with increment and decrement controls for bounded value
 
 <ComponentExample src="svelte/number-input/NumberInputControlled.svelte">
   <NumberInputControlled client:load />
+</ComponentExample>
+
+### Min & Max Values
+
+<ComponentExample src="svelte/number-input/NumberInputMinMaxValue.svelte">
+  <NumberInputMinMaxValue client:load />
 </ComponentExample>
 
 ### Step Values
