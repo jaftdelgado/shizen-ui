@@ -1,19 +1,19 @@
 <script lang="ts">
   import { Button } from "@shizen-ui/svelte";
-  import Icon from "@components/svelte/Icon.svelte";
+  import { CloudUploadIcon, CameraIcon } from "@assets/icons/svelte";
 </script>
 
 <div class="flex items-center gap-2">
   <Button>
     {#snippet startContent()}
-      <Icon name="square_brackets_bars_vertical" />
+      <CameraIcon class="size-4" />
     {/snippet}
-    Scan Article
+    Open Camera
   </Button>
 
   <Button variant="tertiary">
     {#snippet endContent()}
-      <Icon name="folder_arrow_up_in" />
+      <CloudUploadIcon class="size-4" />
     {/snippet}
     Upload Files
   </Button>

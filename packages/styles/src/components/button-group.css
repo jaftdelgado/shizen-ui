@@ -1,122 +1,147 @@
 @layer components {
   .button-group {
     @apply inline-flex isolate;
-  }
-  .button-group--horizontal {
-    @apply flex-row;
-  }
-  .button-group--vertical {
-    @apply flex-col items-stretch;
-  }
-  .button-group--vertical > .button,
-  .button-group--vertical > :is([style*="display: contents"], [style*="display:contents"]) .button {
-    @apply w-full flex justify-center items-center;
-  }
-  .button-group--vertical > .button.button--icon-only,
-  .button-group--vertical
-    > :is([style*="display: contents"], [style*="display:contents"])
-    .button--icon-only {
-    @apply aspect-square min-w-max w-full;
+
+    &.button-group--vertical {
+      @apply flex-col items-stretch;
+
+      > .button,
+      > :is([style*="display: contents"], [style*="display:contents"]) .button {
+        @apply w-full flex justify-center items-center;
+      }
+
+      > .button.button--icon-only,
+      > :is([style*="display: contents"], [style*="display:contents"]) .button--icon-only {
+        @apply aspect-square min-w-max w-full;
+      }
+    }
   }
 
+  /* ── Border radius ── */
   .button-group--horizontal .button {
     @apply rounded-none;
   }
-
-  .button-group--horizontal > .button:first-child,
-  .button-group--horizontal > :first-child .button {
+  .button-group--horizontal > :first-child .button,
+  .button-group--horizontal > .button:first-child {
     @apply rounded-l-control;
   }
-
-  .button-group--horizontal > .button:last-child,
-  .button-group--horizontal > :last-child .button {
+  .button-group--horizontal > :last-child .button,
+  .button-group--horizontal > .button:last-child {
     @apply rounded-r-control;
   }
-
-  .button-group--horizontal > .button:only-child,
-  .button-group--horizontal > :only-child .button {
+  .button-group--horizontal > :only-child .button,
+  .button-group--horizontal > .button:only-child {
     @apply rounded-control;
   }
 
   .button-group--vertical .button {
     @apply rounded-none;
   }
-
-  .button-group--vertical > .button:first-child,
-  .button-group--vertical > :first-child .button {
+  .button-group--vertical > :first-child .button,
+  .button-group--vertical > .button:first-child {
     @apply rounded-t-control;
   }
-
-  .button-group--vertical > .button:last-child,
-  .button-group--vertical > :last-child .button {
+  .button-group--vertical > :last-child .button,
+  .button-group--vertical > .button:last-child {
     @apply rounded-b-control;
   }
-
-  .button-group--vertical > .button:only-child,
-  .button-group--vertical > :only-child .button {
+  .button-group--vertical > :only-child .button,
+  .button-group--vertical > .button:only-child {
     @apply rounded-control;
   }
 
-  .button-group--outline.button-group--horizontal > .button:first-child,
-  .button-group--outline.button-group--horizontal > :first-child .button {
-    @apply border-r-0;
-  }
-  .button-group--outline.button-group--horizontal > .button:not(:first-child):not(:last-child),
-  .button-group--outline.button-group--horizontal > :not(:first-child):not(:last-child) .button {
-    @apply border-x-0;
-  }
-  .button-group--outline.button-group--horizontal > .button:last-child,
-  .button-group--outline.button-group--horizontal > :last-child .button {
-    @apply border-l-0;
-  }
-  .button-group--outline.button-group--horizontal > .button:only-child,
-  .button-group--outline.button-group--horizontal > :only-child .button {
-    @apply border;
+  /* ── Outline borders ── */
+  .button-group--outline {
+    &.button-group--horizontal {
+      > :first-child .button,
+      > .button:first-child {
+        @apply border-r-0;
+      }
+      > :not(:first-child):not(:last-child) .button,
+      > .button:not(:first-child):not(:last-child) {
+        @apply border-x-0;
+      }
+      > :last-child .button,
+      > .button:last-child {
+        @apply border-l-0;
+      }
+      > :only-child .button,
+      > .button:only-child {
+        @apply border;
+      }
+    }
+
+    &.button-group--vertical {
+      > :first-child .button,
+      > .button:first-child {
+        @apply border-b-0;
+      }
+      > :not(:first-child):not(:last-child) .button,
+      > .button:not(:first-child):not(:last-child) {
+        @apply border-y-0;
+      }
+      > :last-child .button,
+      > .button:last-child {
+        @apply border-t-0;
+      }
+      > :only-child .button,
+      > .button:only-child {
+        @apply border;
+      }
+    }
   }
 
-  .button-group--outline.button-group--vertical > .button:first-child,
-  .button-group--outline.button-group--vertical > :first-child .button {
-    @apply border-b-0;
-  }
-  .button-group--outline.button-group--vertical > .button:not(:first-child):not(:last-child),
-  .button-group--outline.button-group--vertical > :not(:first-child):not(:last-child) .button {
-    @apply border-y-0;
-  }
-  .button-group--outline.button-group--vertical > .button:last-child,
-  .button-group--outline.button-group--vertical > :last-child .button {
-    @apply border-t-0;
-  }
-  .button-group--outline.button-group--vertical > .button:only-child,
-  .button-group--outline.button-group--vertical > :only-child .button {
-    @apply border;
-  }
-
+  /* ── Button overrides inside group ── */
   .button-group .button {
     @apply relative;
-  }
-  .button-group .button:hover:not(:disabled),
-  .button-group .button:focus-visible {
-    @apply z-10;
-  }
-  .button-group .button:active:not(:disabled) {
-    @apply z-20;
+
+    &:hover:not(:disabled),
+    &:focus-visible {
+      @apply z-10;
+    }
+    &:active:not(:disabled) {
+      @apply z-20;
+    }
+
+    &:active:not(:disabled),
+    &[data-pressed="true"]:not(:disabled) {
+      transform: none;
+
+      .button__content {
+        transform: scale(0.96);
+        transition: transform 100ms cubic-bezier(0.4, 0, 1, 1);
+      }
+    }
+
+    .button__content {
+      transition: transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
   }
 
-  .button-group--separators > .button:not(:last-child)::after,
-  .button-group--separators > :not(:last-child) .button::after {
-    content: "";
-    @apply absolute bg-current opacity-20 rounded-full;
+  /* ── Separators ── */
+  .button-group--separators {
+    > .button:not(:last-child)::after,
+    > :not(:last-child) .button::after {
+      content: "";
+      @apply absolute bg-current opacity-20 rounded-full;
+    }
   }
-  .button-group--horizontal.button-group--separators > .button:not(:last-child)::after,
-  .button-group--horizontal.button-group--separators > :not(:last-child) .button::after {
-    @apply right-0 top-1/2 -translate-y-1/2;
-    width: 1px;
-    height: 60%;
+
+  .button-group--horizontal.button-group--separators {
+    > .button:not(:last-child)::after,
+    > :not(:last-child) .button::after {
+      @apply right-0 top-1/2 -translate-y-1/2;
+      width: 1px;
+      height: 60%;
+    }
   }
-  .button-group--vertical.button-group--separators > .button:not(:last-child)::after,
-  .button-group--vertical.button-group--separators > :not(:last-child) .button::after {
-    @apply bottom-0 left-1/2 -translate-x-1/2;
-    height: 1px;
-    width: 60%;
+
+  .button-group--vertical.button-group--separators {
+    > .button:not(:last-child)::after,
+    > :not(:last-child) .button::after {
+      @apply bottom-0 left-1/2 -translate-x-1/2;
+      height: 1px;
+      width: 60%;
+    }
   }
 }

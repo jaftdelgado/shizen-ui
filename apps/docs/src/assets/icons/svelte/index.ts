@@ -5,5 +5,7 @@ export { default as Globe } from "./Globe.svelte";
 export { default as PullRequest } from "./PullRequest.svelte";
 export { default as Tray } from "./Tray.svelte";
 
+export { default as CameraIcon } from "./CameraIcon.svelte";
+export { default as CloudUploadIcon } from "./CloudUploadIcon.svelte";
 export { default as ZoomInIcon } from "./ZoomInIcon.svelte";
 export { default as ZoomOutIcon } from "./ZoomOutIcon.svelte";

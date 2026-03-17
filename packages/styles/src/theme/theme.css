@@ -50,7 +50,19 @@
     var(--color-accent-foreground) 10%
   );
 
+  --color-accent-pressed: color-mix(
+    in oklab,
+    var(--color-accent) 90%,
+    var(--color-accent-foreground) 10%
+  );
+
   --color-danger-hover: color-mix(
+    in oklab,
+    var(--color-danger) 90%,
+    var(--color-danger-foreground) 10%
+  );
+
+  --color-danger-pressed: color-mix(
     in oklab,
     var(--color-danger) 90%,
     var(--color-danger-foreground) 10%
@@ -62,6 +74,12 @@
     var(--color-control-foreground) 6%
   );
 
+  --color-control-pressed: color-mix(
+    in oklab,
+    var(--color-control) 90%,
+    var(--color-control-foreground) 10%
+  );
+
   --color-field-hover: color-mix(
     in oklab,
     var(--color-field) 99%,
@@ -69,6 +87,8 @@
   );
 
   --color-ghost-hover: color-mix(in oklab, var(--color-control-foreground) 8%, transparent);
+
+  --color-ghost-pressed: color-mix(in oklab, var(--color-control-foreground) 12%, transparent);
 
   /* Shadows */
   --shadow-overlay: var(--overlay-shadow);
