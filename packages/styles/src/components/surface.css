@@ -1,0 +1,10 @@
+@layer components {
+  .surface {
+    @apply rounded-2xl shadow-xs;
+
+    /* Default tokens */
+    --surface-bg: var(--color-surface);
+
+    background-color: var(--surface-bg);
+  }
+}

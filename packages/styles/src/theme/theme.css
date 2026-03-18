@@ -21,6 +21,7 @@
   --color-focus: var(--focus);
 
   --color-background: var(--background);
+  --color-surface: var(--surface);
   --color-overlay: var(--overlay);
 
   /* Text Colors */

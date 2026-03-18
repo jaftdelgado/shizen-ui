@@ -13,6 +13,7 @@ export * from "./components/popover/index.js";
 export * from "./components/radio-group/index.js";
 export * from "./components/radio/index.js";
 export * from "./components/separator/index.js";
+export * from "./components/surface/index.js";
 export * from "./components/switch-group/index.js";
 export * from "./components/switch/index.js";
 export * from "./components/text-area/index.js";

@@ -22,8 +22,8 @@
     --eclipse: #18181b;
 
     /* Base Colors */
-    --background: #fafafa;
-    --surface: var(--snow);
+    --background: #fffbfb;
+    --surface: var(--white);
     --overlay: var(--white);
     --separator: #e4e4e7;
     --focus: var(--accent);
