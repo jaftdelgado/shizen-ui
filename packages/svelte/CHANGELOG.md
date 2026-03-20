@@ -1,5 +1,11 @@
 # @shizen-ui/svelte
 
+## 0.1.0-alpha.1
+
+### Patch Changes
+
+- cc96ca1: fix: resolve workspace dependency in published package
+
 ## 0.1.0-alpha.0
 
 ### Minor Changes

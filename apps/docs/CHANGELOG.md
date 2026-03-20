@@ -1,5 +1,12 @@
 # @shizen-ui/docs
 
+## 0.0.2-alpha.1
+
+### Patch Changes
+
+- Updated dependencies [cc96ca1]
+  - @shizen-ui/svelte@0.1.0-alpha.1
+
 ## 0.0.2-alpha.0
 
 ### Patch Changes
