@@ -14,7 +14,7 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "version": "changeset version",
-    "release": "changeset publish --tag alpha",
+    "release": "changeset publish",
     "add-component": "bun --filter @shizen-ui/svelte add-component"
   },
   "overrides": {
