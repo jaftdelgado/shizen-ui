@@ -34,13 +34,18 @@ const rewriteDependencies = (deps: Record<string, string>): Record<string, strin
   return result;
 };
 
+const resolvedDependencies = rewriteDependencies(pkg.dependencies);
+
+const updatedPkg = { ...pkg, dependencies: resolvedDependencies };
+writeFileSync(join(root, "package.json"), JSON.stringify(updatedPkg, null, 2) + "\n");
+
 const distPkg = {
   name: pkg.name,
   version: pkg.version,
   type: pkg.type,
   exports: rewriteExports(pkg.exports),
   peerDependencies: pkg.peerDependencies,
-  dependencies: rewriteDependencies(pkg.dependencies)
+  dependencies: resolvedDependencies
 };
 
 writeFileSync(join(root, "dist", "package.json"), JSON.stringify(distPkg, null, 2));
