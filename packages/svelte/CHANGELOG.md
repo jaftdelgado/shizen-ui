@@ -1,5 +1,11 @@
 # @shizen-ui/svelte
 
+## 0.1.0-alpha.2
+
+### Patch Changes
+
+- 60c108e: fix: resolve workspace dependency in published package.json
+
 ## 0.1.0-alpha.1
 
 ### Patch Changes
