@@ -1,6 +1,6 @@
 {
   "name": "@shizen-ui/styles",
-  "version": "0.0.1",
+  "version": "0.1.0-alpha.0",
   "description": "Core styles and Tailwind v4 configuration for shizen-ui",
   "type": "module",
   "main": "./dist/index.js",
