@@ -1,10 +1,12 @@
-# dependencies (bun install)
+# dependencies
 node_modules
 
-# output
+# build output
 out
 dist
 *.tgz
+.svelte-kit
+.astro
 
 # code coverage
 coverage
@@ -12,10 +14,10 @@ coverage
 
 # logs
 logs
-_.log
-report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
+*.log
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
-# dotenv environment variable files
+# dotenv
 .env
 .env.development.local
 .env.test.local
@@ -26,9 +28,12 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 .eslintcache
 .cache
 *.tsbuildinfo
+.turbo
 
-# IntelliJ based IDEs
+# IDEs
 .idea
+.vscode
 
-# Finder (MacOS) folder config
+# OS
 .DS_Store
+Thumbs.db
