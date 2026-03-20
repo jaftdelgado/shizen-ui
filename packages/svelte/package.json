@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@floating-ui/dom": "^1.7.4",
-    "@shizen-ui/styles": "workspace:*",
+    "@shizen-ui/styles": "^0.1.0-alpha.0",
     "focus-trap": "^8.0.0"
   }
 }

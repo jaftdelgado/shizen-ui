@@ -1,1 +1,1 @@
-export * from "./number-input.styles";
+export * from "./number-input.styles.js";

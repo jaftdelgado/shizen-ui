@@ -1,2 +1,2 @@
-export * from "./cn";
-export * from "./portal";
+export * from "./cn.js";
+export * from "./portal.js";
