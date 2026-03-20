@@ -1,0 +1,10 @@
+{
+  "mode": "pre",
+  "tag": "alpha",
+  "initialVersions": {
+    "@shizen-ui/docs": "0.0.1",
+    "@shizen-ui/styles": "0.0.1",
+    "@shizen-ui/svelte": "0.0.1"
+  },
+  "changesets": []
+}
