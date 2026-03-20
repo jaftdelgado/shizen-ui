@@ -1,5 +1,11 @@
 # @shizen-ui/svelte
 
+## 0.1.0-alpha.4
+
+### Patch Changes
+
+- efa8b5d: fix: add style export condition for Tailwind v4 compatibility
+
 ## 0.1.0-alpha.2
 
 ### Patch Changes
