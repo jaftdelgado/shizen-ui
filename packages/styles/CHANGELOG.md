@@ -1,5 +1,11 @@
 # @shizen-ui/styles
 
+## 0.1.0-alpha.6
+
+### Patch Changes
+
+- 1eac6f0: fix: add style export condition for Tailwind v4 CSS import compatibility
+
 ## 0.1.0-alpha.3
 
 ### Patch Changes

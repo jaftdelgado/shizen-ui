@@ -1,5 +1,12 @@
 # @shizen-ui/docs
 
+## 0.0.2-alpha.6
+
+### Patch Changes
+
+- Updated dependencies [1eac6f0]
+  - @shizen-ui/styles@0.1.0-alpha.6
+
 ## 0.0.2-alpha.5
 
 ### Patch Changes
