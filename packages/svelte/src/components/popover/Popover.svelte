@@ -1,8 +1,8 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
   import type { Strategy } from "@floating-ui/dom";
-  import { OverlayState } from "../../shared/overlay.svelte.ts";
-  import { setPopoverContext } from "../../contexts/internal/popover.context.ts";
+  import { OverlayState } from "../../shared/overlay.svelte.js";
+  import { setPopoverContext } from "../../contexts/internal/popover.context.js";
 
   interface Props {
     children: Snippet;

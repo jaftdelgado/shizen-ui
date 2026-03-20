@@ -2,8 +2,8 @@
   import type { Snippet } from "svelte";
   import { cn, portal } from "@shizen-ui/styles";
   import { tooltipStyles } from "@shizen-ui/styles";
-  import { useTooltipContext } from "../../../contexts/internal/tooltip.context.ts";
-  import { OverlayContent } from "../../../shared/overlay-content.svelte.ts";
+  import { useTooltipContext } from "../../../contexts/internal/tooltip.context.js";
+  import { OverlayContent } from "../../../shared/overlay-content.svelte.js";
 
   let { children, class: className }: { children: Snippet; class?: string } = $props();
 

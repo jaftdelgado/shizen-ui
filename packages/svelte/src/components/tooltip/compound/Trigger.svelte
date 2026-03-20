@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
-  import { useTooltipContext } from "../../../contexts/internal/tooltip.context.ts";
+  import { useTooltipContext } from "../../../contexts/internal/tooltip.context.js";
 
   let { children }: { children: Snippet } = $props();
 

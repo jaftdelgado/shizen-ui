@@ -1,9 +1,9 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
   import type { Strategy } from "@floating-ui/dom";
-  import { OverlayState } from "../../shared/overlay.svelte.ts";
-  import { setTooltipContext } from "../../contexts/internal/tooltip.context.ts";
-  import { tooltipGroup } from "../../shared/tooltip-group.svelte.ts";
+  import { OverlayState } from "../../shared/overlay.svelte.js";
+  import { setTooltipContext } from "../../contexts/internal/tooltip.context.js";
+  import { tooltipGroup } from "../../shared/tooltip-group.svelte.js";
 
   interface Props {
     children: Snippet;

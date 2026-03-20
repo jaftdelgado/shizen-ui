@@ -2,8 +2,8 @@
   import type { Snippet } from "svelte";
   import { cn, portal } from "@shizen-ui/styles";
   import { popoverStyles } from "@shizen-ui/styles";
-  import { usePopoverContext } from "../../../contexts/internal/popover.context.ts";
-  import { OverlayContent } from "../../../shared/overlay-content.svelte.ts";
+  import { usePopoverContext } from "../../../contexts/internal/popover.context.js";
+  import { OverlayContent } from "../../../shared/overlay-content.svelte.js";
 
   let { children, class: className }: { children: Snippet; class?: string } = $props();
 

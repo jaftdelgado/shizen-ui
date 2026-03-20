@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
-  import { usePopoverContext } from "../../../contexts/internal/popover.context.ts";
+  import { usePopoverContext } from "../../../contexts/internal/popover.context.js";
 
   let { children }: { children: Snippet } = $props();
 
