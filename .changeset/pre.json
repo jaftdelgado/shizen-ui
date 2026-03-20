@@ -7,6 +7,7 @@
     "@shizen-ui/svelte": "0.0.1"
   },
   "changesets": [
+    "clean-cats-press",
     "tidy-onions-pump"
   ]
 }
