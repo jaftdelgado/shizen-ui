@@ -1,5 +1,11 @@
 # @shizen-ui/svelte
 
+## 0.1.0-alpha.5
+
+### Patch Changes
+
+- 05b0087: replace .ts extensions with .js in component imports for ESM compatibility
+
 ## 0.1.0-alpha.4
 
 ### Patch Changes
