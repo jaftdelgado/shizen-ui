@@ -3,26 +3,30 @@
   "version": "0.0.1",
   "description": "Core styles and Tailwind v4 configuration for shizen-ui",
   "type": "module",
-  "main": "./src/index.ts",
-  "module": "./src/index.ts",
-  "types": "./src/index.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./src/index.ts",
-      "types": "./src/index.ts"
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
     },
-    "./styles": "./src/index.css",
-    "./components/*": "./src/components/*.css",
-    "./theme/*": "./src/theme/*.css"
+    "./styles": "./dist/index.css",
+    "./components/*": "./dist/components/*.css",
+    "./theme/*": "./dist/theme/*.css"
   },
   "files": [
-    "src"
+    "dist"
   ],
   "publishConfig": {
     "access": "public"
   },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json && bun scripts/copy-css.ts"
+  },
   "devDependencies": {
-    "tailwindcss": "^4.0.0"
+    "tailwindcss": "^4.0.0",
+    "typescript": "^5.0.0"
   },
   "dependencies": {
     "clsx": "^2.1.1",

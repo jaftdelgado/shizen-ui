@@ -9,7 +9,8 @@
   ],
   "scripts": {
     "dev": "bun --filter \"*\" dev",
-    "build": "bun --filter \"*\" build",
+    "build": "bun --filter @shizen-ui/styles build && bun --filter @shizen-ui/svelte build",
+    "build:packages": "bun --filter @shizen-ui/styles build && bun --filter @shizen-ui/svelte build",
     "lint": "eslint .",
     "format": "prettier --write .",
     "version": "changeset version",

@@ -2,32 +2,29 @@
   "name": "@shizen-ui/svelte",
   "version": "0.0.1",
   "type": "module",
-  "main": "./src/index.ts",
-  "module": "./src/index.ts",
-  "types": "./src/index.ts",
-  "svelte": "./src/index.ts",
   "exports": {
     ".": {
-      "types": "./src/index.ts",
-      "svelte": "./src/index.ts",
-      "import": "./src/index.ts"
-    },
-    "./contexts/*": {
-      "types": "./src/contexts/*.ts",
-      "import": "./src/contexts/*.ts"
-    },
-    "./components/*": "./src/components/*.svelte"
-  },
-  "scripts": {
-    "add-component": "bun scripts/add-component.ts"
+      "types": "./dist/index.d.ts",
+      "svelte": "./dist/index.js",
+      "import": "./dist/index.js"
+    }
   },
   "files": [
-    "src"
+    "dist"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "svelte-package -i src && bun scripts/generate-pkg.ts",
+    "dev": "svelte-package -i src --watch",
+    "add-component": "bun scripts/add-component.ts"
+  },
   "peerDependencies": {
     "svelte": "^5.0.0"
   },
   "devDependencies": {
+    "@sveltejs/package": "^2.5.7",
     "@sveltejs/vite-plugin-svelte": "^6.2.4",
     "svelte": "^5.0.0",
     "typescript": "^5.0.0",
