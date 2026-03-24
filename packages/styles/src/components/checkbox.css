@@ -1,8 +1,8 @@
 @layer components {
   .checkbox {
     @apply inline-flex items-start gap-3 transition-opacity duration-200 outline-none select-none;
-    --checkbox-bg: var(--color-field);
-    --checkbox-bg-hover: var(--color-field-hover);
+    --checkbox-bg: var(--color-control);
+    --checkbox-bg-hover: var(--color-control-hover);
     --checkbox-indicator: var(--color-accent-foreground);
     --checkbox-border-width: 0px;
     --checkbox-border-color: transparent;

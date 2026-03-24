@@ -3,7 +3,7 @@
     @apply relative inline-flex items-center w-full rounded-control transition-all duration-200;
     @apply outline-none placeholder:text-field-placeholder;
 
-    --input-bg: var(--color-control);
+    --input-bg: var(--color-field);
     --input-bg-hover: var(--color-field-hover);
     --input-fg: var(--color-field-foreground);
 

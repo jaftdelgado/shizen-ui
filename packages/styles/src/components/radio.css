@@ -1,8 +1,8 @@
 @layer components {
   .radio {
     @apply inline-flex items-start gap-3 transition-opacity duration-200 outline-none select-none;
-    --radio-bg: var(--color-field);
-    --radio-bg-hover: var(--color-field-hover);
+    --radio-bg: var(--color-control);
+    --radio-bg-hover: var(--color-control-hover);
     --radio-indicator: var(--color-accent-foreground);
     --radio-border-width: 0px;
     --radio-border-color: transparent;

@@ -35,7 +35,7 @@
   --color-control: var(--control);
   --color-control-foreground: var(--control-foreground);
 
-  --color-field: var(--control);
+  --color-field: var(--field);
   --color-field-foreground: var(--primary-text);
   --color-field-placeholder: var(--tertiary-text);
 
@@ -87,9 +87,9 @@
     var(--color-field-foreground) 1%
   );
 
-  --color-ghost-hover: color-mix(in oklab, var(--color-control-foreground) 8%, transparent);
+  --color-ghost-hover: color-mix(in oklab, var(--color-control-foreground) 4%, transparent);
 
-  --color-ghost-pressed: color-mix(in oklab, var(--color-control-foreground) 12%, transparent);
+  --color-ghost-pressed: color-mix(in oklab, var(--color-control-foreground) 16%, transparent);
 
   /* Shadows */
   --shadow-overlay: var(--overlay-shadow);

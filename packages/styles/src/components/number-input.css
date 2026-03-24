@@ -2,7 +2,7 @@
   .number-input {
     @apply relative inline-flex items-stretch w-full rounded-control overflow-hidden transition-all duration-200;
 
-    --number-input-bg: var(--color-control);
+    --number-input-bg: var(--color-field);
     --number-input-bg-hover: var(--color-field-hover);
     --number-input-fg: var(--color-field-foreground);
     --number-input-border: var(--color-border);

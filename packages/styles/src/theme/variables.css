@@ -22,10 +22,10 @@
     --eclipse: #18181b;
 
     /* Base Colors */
-    --background: #fffbfb;
+    --background: #f4f4f4;
     --surface: var(--white);
     --overlay: var(--white);
-    --separator: #e4e4e7;
+    --separator: #e2e2e3;
     --focus: var(--accent);
 
     /* Text Colors */
@@ -34,11 +34,11 @@
     --tertiary-text: #a3a7af;
     --inverted-text: var(--snow);
 
-    --control: #eaecef;
+    --control: #e9e9ea;
     --control-foreground: var(--secondary-text);
 
     /* Form Fields */
-    --field: var(--control);
+    --field: var(--surface);
     --field-foreground: var(--primary-text);
     --field-placeholder: var(--tertiary-text);
 

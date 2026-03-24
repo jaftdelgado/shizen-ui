@@ -5,7 +5,7 @@
 
     min-height: var(--spacing-field-md);
 
-    --input-bg: var(--color-control);
+    --input-bg: var(--color-field);
     --input-bg-hover: var(--color-field-hover);
     --input-fg: var(--color-field-foreground);
 
