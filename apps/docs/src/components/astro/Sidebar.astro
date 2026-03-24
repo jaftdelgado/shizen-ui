@@ -1,10 +1,19 @@
 ---
-const componentFiles = await Astro.glob("../../pages/docs/components/*.mdx");
+interface MdxModule {
+  frontmatter: { title?: string };
+  url?: string;
+}
+
+const componentFiles = Object.values(
+  import.meta.glob<MdxModule>("../../pages/docs/components/*.mdx", { eager: true })
+);
+
 const sidebarItems = componentFiles
   .map((file) => ({
-    name: file.frontmatter.title || file.url?.split("/").pop(),
+    name: file.frontmatter.title ?? file.url?.split("/").pop(),
     href: file.url
   }))
+  .filter((item): item is { name: string; href: string | undefined } => item.name !== undefined)
   .sort((a, b) => a.name.localeCompare(b.name));
 
 const { pathname } = Astro.url;

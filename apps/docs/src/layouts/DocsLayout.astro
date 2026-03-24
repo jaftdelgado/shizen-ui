@@ -4,12 +4,18 @@ import Sidebar from "@components/astro/Sidebar.astro";
 import TableOfContents from "@components/astro/TableOfContents.astro";
 import { ViewTransitions } from "astro:transitions";
 
-interface Props {
+interface Frontmatter {
   title: string;
+}
+
+interface Props {
+  frontmatter?: Frontmatter;
+  title?: string;
   headings: { depth: number; slug: string; text: string }[];
 }
 
-const { title, headings } = Astro.props;
+const { frontmatter, headings } = Astro.props;
+const title = frontmatter?.title ?? Astro.props.title ?? "Docs";
 ---
 
 <!doctype html>
