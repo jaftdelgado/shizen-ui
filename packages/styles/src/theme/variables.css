@@ -13,7 +13,7 @@
     --cursor-interactive: pointer;
     --cursor-disabled: not-allowed;
 
-    --disabled-opacity: 0.5;
+    --disabled-opacity: 0.3;
 
     /* Primitive Colors (Do not change between light and dark) */
     --white: #ffffff;
@@ -22,7 +22,7 @@
     --eclipse: #18181b;
 
     /* Base Colors */
-    --background: #f4f4f4;
+    --background: #f4f4f5;
     --surface: var(--white);
     --overlay: var(--white);
     --separator: #e2e2e3;
@@ -41,6 +41,7 @@
     --field: var(--surface);
     --field-foreground: var(--primary-text);
     --field-placeholder: var(--tertiary-text);
+    --field-secondary: var(--control);
 
     --accent: #007aff;
     --accent-foreground: var(--inverted-text);

@@ -1,7 +1,8 @@
 <script lang="ts">
-  import { Input } from "@shizen-ui/svelte";
+  import { Input, Label } from "@shizen-ui/svelte";
 </script>
 
-<div class="flex items-center max-w-xs">
-  <Input disabled placeholder="Disabled input" />
+<div class="flex flex-col gap-1.5">
+  <Label for="username">Username</Label>
+  <Input id="username" value="@johndoe" placeholder="Username" disabled={true} />
 </div>

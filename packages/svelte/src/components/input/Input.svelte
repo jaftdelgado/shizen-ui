@@ -7,6 +7,7 @@
 
   interface Props extends Omit<HTMLInputAttributes, "size"> {
     size?: InputVariants["size"];
+    variant?: InputVariants["variant"];
     value?: string;
     invalid?: boolean;
   }
@@ -14,6 +15,7 @@
   let {
     class: className,
     size = "md",
+    variant = "default",
     type = "text",
     disabled = false,
     invalid = false,
@@ -57,12 +59,7 @@
   {type}
   disabled={finalDisabled}
   bind:value
-  class={cn(
-    inputStyles({
-      size: activeSize
-    }),
-    className
-  )}
+  class={cn(inputStyles({ size: activeSize, variant }), className)}
   aria-invalid={finalInvalid}
   aria-describedby={!finalInvalid ? descriptionId : undefined}
   aria-errormessage={finalInvalid ? errorId : undefined}

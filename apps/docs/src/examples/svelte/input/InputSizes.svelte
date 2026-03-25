@@ -2,7 +2,7 @@
   import { Input } from "@shizen-ui/svelte";
 </script>
 
-<div class="flex flex-col gap-4 max-w-xs">
+<div class="flex flex-col gap-4 w-full max-w-60">
   <Input size="sm" placeholder="Small input" />
   <Input size="md" placeholder="Medium input" />
   <Input size="lg" placeholder="Large input" />

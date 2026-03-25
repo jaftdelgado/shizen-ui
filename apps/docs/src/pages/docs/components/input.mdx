@@ -7,8 +7,10 @@ import ComponentExample from "@components/astro/ComponentExample.astro";
 
 import InputUsage from "@examples/svelte/input/InputUsage.svelte";
 import InputSizes from "@examples/svelte/input/InputSizes.svelte";
-import InputDisabled from "@examples/svelte/input/InputDisabled.svelte";
+import InputVariants from "@examples/svelte/input/InputVariants.svelte";
 import InputTypes from "@examples/svelte/input/InputTypes.svelte";
+import InputDisabled from "@examples/svelte/input/InputDisabled.svelte";
+import InputInvalid from "@examples/svelte/input/InputInvalid.svelte";
 import InputControlled from "@examples/svelte/input/InputControlled.svelte";
 
 # Input
@@ -21,10 +23,22 @@ Input field that allows users to enter and edit text.
 
 ## Examples
 
+### Variants
+
+<ComponentExample src="svelte/input/InputVariants.svelte">
+  <InputVariants client:load />
+</ComponentExample>
+
 ### Sizes
 
 <ComponentExample src="svelte/input/InputSizes.svelte">
   <InputSizes client:load />
+</ComponentExample>
+
+### Types
+
+<ComponentExample src="svelte/input/InputTypes.svelte">
+  <InputTypes client:load />
 </ComponentExample>
 
 ### Disabled State
@@ -33,10 +47,10 @@ Input field that allows users to enter and edit text.
   <InputDisabled client:load />
 </ComponentExample>
 
-### Types
+### Invalid State
 
-<ComponentExample src="svelte/input/InputTypes.svelte">
-  <InputTypes client:load />
+<ComponentExample src="svelte/input/InputInvalid.svelte">
+  <InputInvalid client:load />
 </ComponentExample>
 
 ### Controlled

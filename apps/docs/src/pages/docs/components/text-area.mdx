@@ -6,6 +6,7 @@ layout: "@layouts/DocsLayout.astro"
 import ComponentExample from "@components/astro/ComponentExample.astro";
 
 import TextAreaUsage from "@examples/svelte/text-area/TextAreaUsage.svelte";
+import TextAreaVariants from "@examples/svelte/text-area/TextAreaVariants.svelte";
 import TextAreaRows from "@examples/svelte/text-area/TextAreaRows.svelte";
 import TextAreaInvalid from "@examples/svelte/text-area/TextAreaInvalid.svelte";
 import TextAreaDisabled from "@examples/svelte/text-area/TextAreaDisabled.svelte";
@@ -22,9 +23,13 @@ The `TextArea` component is a multi-line text input field. Like the `Input` comp
 
 ## Examples
 
-### Rows
+### Variants
 
-Use the `rows` property to control the initial height of the text area. The default is `3`.
+<ComponentExample src="svelte/text-area/TextAreaVariants.svelte">
+  <TextAreaVariants client:load />
+</ComponentExample>
+
+### Rows
 
 <ComponentExample src="svelte/text-area/TextAreaRows.svelte">
   <TextAreaRows client:load />

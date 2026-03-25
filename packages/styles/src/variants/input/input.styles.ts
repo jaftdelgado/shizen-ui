@@ -7,10 +7,16 @@ export const inputStyles = tv({
       sm: "input--sm",
       md: "input--md",
       lg: "input--lg"
+    },
+    variant: {
+      default: "input--default",
+      secondary: "input--secondary",
+      outline: "input--outline"
     }
   },
   defaultVariants: {
-    size: "md"
+    size: "md",
+    variant: "default"
   }
 });
 

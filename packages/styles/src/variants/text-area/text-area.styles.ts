@@ -5,10 +5,16 @@ export const textAreaStyles = tv({
   variants: {
     fullWidth: {
       true: "textarea--full-width"
+    },
+    variant: {
+      default: "textarea--default",
+      secondary: "textarea--secondary",
+      outline: "textarea--outline"
     }
   },
   defaultVariants: {
-    fullWidth: false
+    fullWidth: false,
+    variant: "default"
   }
 });
 

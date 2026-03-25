@@ -1,10 +1,13 @@
-<script>
+<script lang="ts">
   import { Input, Label, Description } from "@shizen-ui/svelte";
-  let domain = $state("");
+
+  let company = $state("");
 </script>
 
-<div class="flex flex-col w-full max-w-64 gap-1.5">
-  <Label>Domain</Label>
-  <Input bind:value={domain} placeholder="Enter your domain" />
-  <Description>https://{domain}</Description>
+<div class="flex flex-col gap-1.5 w-full max-w-60">
+  <Label for="company">Company</Label>
+  <Input id="company" bind:value={company} placeholder="e.g. Acme Corp" />
+  <Description>
+    {company ? `Inviting you to join ${company}` : "Enter your company name"}
+  </Description>
 </div>
