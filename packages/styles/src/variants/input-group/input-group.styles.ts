@@ -8,6 +8,11 @@ export const inputGroupStyles = tv({
       md: "input-group--md",
       lg: "input-group--lg"
     },
+    variant: {
+      default: "input-group--default",
+      secondary: "input-group--secondary",
+      outline: "input-group--outline"
+    },
     fullWidth: {
       true: "w-full",
       false: "max-w-xs"
@@ -18,6 +23,7 @@ export const inputGroupStyles = tv({
   },
   defaultVariants: {
     size: "md",
+    variant: "default",
     fullWidth: false,
     hasTextArea: false
   }

@@ -1,23 +1,27 @@
 @layer components {
   .number-input {
     @apply relative inline-flex items-stretch w-full rounded-control overflow-hidden transition-all duration-200;
+    @apply shadow-xs;
 
     --number-input-bg: var(--color-field);
     --number-input-bg-hover: var(--color-field-hover);
+    --number-input-bg-focus: var(--color-field-hover);
     --number-input-fg: var(--color-field-foreground);
-    --number-input-border: var(--color-border);
+    --number-input-border: transparent;
     --number-input-btn-w: 2.5rem;
 
     background-color: var(--number-input-bg);
     color: var(--number-input-fg);
+    border: 1px solid var(--number-input-border);
 
     &:hover:not(:focus-within, [data-invalid="true"], [data-disabled="true"]) {
       background-color: var(--number-input-bg-hover);
+      border-color: var(--number-input-border-hover, var(--number-input-border));
     }
 
     &:focus-within:not([data-invalid="true"]) {
       @apply status-focused-field;
-      background-color: var(--number-input-bg-hover);
+      background-color: var(--number-input-bg-focus);
     }
 
     &[data-invalid="true"] {
@@ -34,6 +38,33 @@
     }
   }
 
+  /* ── Variants ── */
+  .number-input--default {
+    --number-input-bg: var(--color-field);
+    --number-input-bg-hover: var(--color-field-hover);
+    --number-input-bg-focus: var(--color-field-hover);
+    --number-input-fg: var(--color-field-foreground);
+  }
+
+  .number-input--secondary {
+    @apply shadow-none;
+    --number-input-bg: var(--color-field-secondary);
+    --number-input-bg-hover: var(--color-field-secondary-hover);
+    --number-input-bg-focus: var(--color-field-secondary-hover);
+    --number-input-fg: var(--color-field-foreground);
+  }
+
+  .number-input--outline {
+    @apply shadow-none;
+    --number-input-bg: transparent;
+    --number-input-bg-hover: var(--color-ghost-hover);
+    --number-input-bg-focus: var(--color-ghost-hover);
+    --number-input-fg: var(--color-field-foreground);
+    --number-input-border: var(--color-separator);
+    --number-input-border-hover: var(--color-outline-hover);
+  }
+
+  /* ── Sizes ── */
   .number-input--sm {
     --number-input-btn-w: 2.25rem;
 

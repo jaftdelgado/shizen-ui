@@ -1,6 +1,7 @@
 import { getContext, setContext } from "svelte";
 
 export type NumberInputSize = "sm" | "md" | "lg";
+export type NumberInputVariant = "default" | "secondary" | "outline";
 
 export interface NumberInputContextValue {
   readonly value: number;
@@ -8,6 +9,7 @@ export interface NumberInputContextValue {
   readonly max: number | undefined;
   readonly step: number;
   readonly size: NumberInputSize;
+  readonly variant: NumberInputVariant;
   readonly disabled: boolean;
   readonly invalid: boolean;
   readonly canIncrement: boolean;
@@ -49,6 +51,9 @@ export function useNumberInputContext(): NumberInputContextResult {
       },
       get size() {
         return "md" as NumberInputSize;
+      },
+      get variant() {
+        return "default" as NumberInputVariant;
       },
       get disabled() {
         return false;
@@ -95,6 +100,9 @@ export function useNumberInputContext(): NumberInputContextResult {
     },
     get size() {
       return context.size;
+    },
+    get variant() {
+      return context.variant;
     },
     get disabled() {
       return context.disabled;

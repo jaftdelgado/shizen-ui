@@ -9,6 +9,7 @@
     children: Snippet;
     class?: string;
     size?: InputGroupVariants["size"];
+    variant?: InputGroupVariants["variant"];
     disabled?: boolean;
     fullWidth?: boolean;
     hasTextArea?: boolean;
@@ -19,6 +20,7 @@
     children,
     class: className,
     size = "md",
+    variant = "default",
     fullWidth = false,
     hasTextArea = false,
     disabled = false,
@@ -50,7 +52,7 @@
 </script>
 
 <div
-  class={cn(inputGroupStyles({ size, fullWidth, hasTextArea }), className)}
+  class={cn(inputGroupStyles({ size, variant, fullWidth, hasTextArea }), className)}
   data-invalid={finalInvalid}
   data-disabled={finalDisabled}
   data-has-textarea={hasTextArea}

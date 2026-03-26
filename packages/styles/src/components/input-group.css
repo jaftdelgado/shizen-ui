@@ -41,6 +41,24 @@
     @apply h-field-lg text-base;
   }
 
+  /* Variants */
+  .input-group--default {
+    --group-bg: var(--color-field);
+    --group-bg-hover: var(--color-field-hover);
+  }
+
+  .input-group--secondary {
+    @apply shadow-none;
+    --group-bg: var(--color-field-secondary);
+    --group-bg-hover: var(--color-field-secondary-hover);
+  }
+
+  .input-group--outline {
+    @apply border border-separator shadow-none;
+    --group-bg: transparent;
+    --group-bg-hover: var(--color-ghost-hover);
+  }
+
   .input-group--has-textarea {
     @apply items-start h-auto min-h-10;
   }

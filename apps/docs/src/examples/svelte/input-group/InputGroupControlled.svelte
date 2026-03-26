@@ -5,7 +5,7 @@
   let email = $state("");
 </script>
 
-<div class="flex items-center w-full max-w-64">
+<div class="flex flex-col gap-4 w-full max-w-60">
   <div class="flex flex-col gap-1.5">
     <Label>Email</Label>
     <InputGroup>

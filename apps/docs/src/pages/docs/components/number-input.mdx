@@ -9,6 +9,7 @@ import CodeBlock from "@components/astro/CodeBlock.astro";
 import NumberInputAnatomyCode from "@examples/svelte/number-input/NumberInputAnatomy.svelte?raw";
 
 import NumberInputUsage from "@examples/svelte/number-input/NumberInputUsage.svelte";
+import NumberInputVariants from "@examples/svelte/number-input/NumberInputVariants.svelte";
 import NumberInputDisabled from "@examples/svelte/number-input/NumberInputDisabled.svelte";
 import NumberInputInvalid from "@examples/svelte/number-input/NumberInputInvalid.svelte";
 import NumberInputSizes from "@examples/svelte/number-input/NumberInputSizes.svelte";
@@ -32,6 +33,18 @@ Composable numeric input with increment and decrement controls for bounded value
 
 ## Examples
 
+### Variants
+
+<ComponentExample src="svelte/number-input/NumberInputVariants.svelte">
+  <NumberInputVariants client:load />
+</ComponentExample>
+
+### Sizes
+
+<ComponentExample src="svelte/number-input/NumberInputSizes.svelte">
+  <NumberInputSizes client:load />
+</ComponentExample>
+
 ### Disabled State
 
 <ComponentExample src="svelte/number-input/NumberInputDisabled.svelte">
@@ -42,12 +55,6 @@ Composable numeric input with increment and decrement controls for bounded value
 
 <ComponentExample src="svelte/number-input/NumberInputInvalid.svelte">
   <NumberInputInvalid client:load />
-</ComponentExample>
-
-### Sizes
-
-<ComponentExample src="svelte/number-input/NumberInputSizes.svelte">
-  <NumberInputSizes client:load />
 </ComponentExample>
 
 ### Controlled

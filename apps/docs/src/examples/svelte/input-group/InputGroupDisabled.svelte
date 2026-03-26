@@ -1,6 +1,6 @@
 <script lang="ts">
   import { InputGroup, Label, Description } from "@shizen-ui/svelte";
-  import { CreditCard } from "@assets/icons/svelte";
+  import { CreditCardIcon } from "@assets/icons/svelte";
 
   const cardNumber = "•••• •••• •••• 4242";
 </script>
@@ -9,7 +9,7 @@
   <Label for="card-number">Card number</Label>
   <InputGroup disabled={true}>
     <InputGroup.Prefix>
-      <CreditCard class="text-secondary-text" />
+      <CreditCardIcon class="size-4" />
     </InputGroup.Prefix>
 
     <InputGroup.Input id="card-number" value={cardNumber} class="font-mono" />

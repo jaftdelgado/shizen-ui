@@ -12,13 +12,19 @@ export const numberInputStyles = tv({
       md: { base: "number-input--md" },
       lg: { base: "number-input--lg" }
     },
+    variant: {
+      default: { base: "number-input--default" },
+      secondary: { base: "number-input--secondary" },
+      outline: { base: "number-input--outline" }
+    },
     position: {
       left: { button: "number-input__button--left" },
       right: { button: "number-input__button--right" }
     }
   },
   defaultVariants: {
-    size: "md"
+    size: "md",
+    variant: "default"
   }
 });
 

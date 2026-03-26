@@ -12,7 +12,8 @@
     min?: number;
     max?: number;
     step?: number;
-    size?: "sm" | "md" | "lg";
+    size?: NumberInputVariants["size"];
+    variant?: NumberInputVariants["variant"];
     disabled?: boolean;
     invalid?: boolean;
     id?: string;
@@ -28,6 +29,7 @@
     max,
     step = 1,
     size = "md",
+    variant = "default",
     disabled = false,
     invalid = false,
     id: propId,
@@ -89,6 +91,9 @@
     get size() {
       return size ?? "md";
     },
+    get variant() {
+      return variant ?? "default";
+    },
     get disabled() {
       return state.disabled;
     },
@@ -121,7 +126,7 @@
     }
   });
 
-  const baseClass = $derived(numberInputStyles({ size }).base());
+  const baseClass = $derived(numberInputStyles({ size, variant }).base());
 </script>
 
 <div

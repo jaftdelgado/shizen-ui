@@ -1,17 +1,14 @@
 <script lang="ts">
-  import { TextField, Label } from "@shizen-ui/svelte";
-  import { InputGroup } from "@shizen-ui/svelte";
+  import { InputGroup, Label } from "@shizen-ui/svelte";
   import Icon from "@components/svelte/Icon.svelte";
 </script>
 
-<div class="flex items-center w-full max-w-76">
-  <TextField>
-    <Label>Email</Label>
-    <InputGroup>
-      <InputGroup.Prefix>
-        <Icon name="envelope" />
-      </InputGroup.Prefix>
-      <InputGroup.Input placeholder="example@mail.com" />
-    </InputGroup>
-  </TextField>
+<div class="flex flex-col gap-1.5 w-full max-w-60">
+  <Label>Email</Label>
+  <InputGroup>
+    <InputGroup.Prefix>
+      <Icon name="envelope" />
+    </InputGroup.Prefix>
+    <InputGroup.Input placeholder="example@mail.com" />
+  </InputGroup>
 </div>
