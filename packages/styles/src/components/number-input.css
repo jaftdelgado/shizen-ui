@@ -7,16 +7,13 @@
     --number-input-bg-hover: var(--color-field-hover);
     --number-input-bg-focus: var(--color-field-hover);
     --number-input-fg: var(--color-field-foreground);
-    --number-input-border: transparent;
     --number-input-btn-w: 2.5rem;
 
     background-color: var(--number-input-bg);
     color: var(--number-input-fg);
-    border: 1px solid var(--number-input-border);
 
     &:hover:not(:focus-within, [data-invalid="true"], [data-disabled="true"]) {
       background-color: var(--number-input-bg-hover);
-      border-color: var(--number-input-border-hover, var(--number-input-border));
     }
 
     &:focus-within:not([data-invalid="true"]) {
@@ -56,12 +53,21 @@
 
   .number-input--outline {
     @apply shadow-none;
+
     --number-input-bg: transparent;
     --number-input-bg-hover: var(--color-ghost-hover);
     --number-input-bg-focus: var(--color-ghost-hover);
     --number-input-fg: var(--color-field-foreground);
-    --number-input-border: var(--color-separator);
-    --number-input-border-hover: var(--color-outline-hover);
+
+    &::after {
+      content: "";
+      @apply absolute inset-0 rounded-control pointer-events-none;
+      box-shadow: inset 0 0 0 1px var(--color-separator);
+    }
+
+    &:hover:not(:focus-within, [data-invalid="true"], [data-disabled="true"])::after {
+      box-shadow: inset 0 0 0 1px var(--color-outline-hover);
+    }
   }
 
   /* ── Sizes ── */

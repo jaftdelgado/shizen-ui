@@ -6,6 +6,9 @@ layout: "@layouts/DocsLayout.astro"
 import ComponentExample from "@components/astro/ComponentExample.astro";
 
 import SurfaceUsage from "@examples/svelte/surface/SurfaceUsage.svelte";
+import SurfaceInput from "@examples/svelte/surface/SurfaceInput.svelte";
+import SurfaceInputGroup from "@examples/svelte/surface/SurfaceInputGroup.svelte";
+import SurfaceTextArea from "@examples/svelte/surface/SurfaceTextArea.svelte";
 
 # Surface
 
@@ -13,4 +16,26 @@ Container component that provides surface-level styling and context for child co
 
 <ComponentExample src="svelte/surface/SurfaceUsage.svelte">
   <SurfaceUsage client:load />
+</ComponentExample>
+
+## Examples
+
+## Contextual behavior
+
+### Input
+
+<ComponentExample src="svelte/surface/SurfaceInput.svelte">
+  <SurfaceInput client:load />
+</ComponentExample>
+
+### Input Group
+
+<ComponentExample src="svelte/surface/SurfaceInputGroup.svelte">
+  <SurfaceInputGroup client:load />
+</ComponentExample>
+
+### Text Area
+
+<ComponentExample src="svelte/surface/SurfaceTextArea.svelte">
+  <SurfaceTextArea client:load />
 </ComponentExample>

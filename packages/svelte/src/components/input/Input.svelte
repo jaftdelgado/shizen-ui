@@ -1,7 +1,7 @@
 <script lang="ts">
   import { cn } from "@shizen-ui/styles";
   import { inputStyles, type InputVariants } from "@shizen-ui/styles";
-  import { useFieldStateContext } from "../../contexts/index.js";
+  import { useFieldStateContext, useSurfaceContext } from "../../contexts/index.js";
   import { useInputGroupContext } from "../../contexts/internal/index.js";
   import type { HTMLInputAttributes } from "svelte/elements";
 
@@ -15,7 +15,7 @@
   let {
     class: className,
     size = "md",
-    variant = "default",
+    variant = undefined,
     type = "text",
     disabled = false,
     invalid = false,
@@ -26,6 +26,9 @@
 
   const fieldContext = useFieldStateContext();
   const groupContext = useInputGroupContext();
+  const surfaceContext = useSurfaceContext();
+
+  const finalVariant = $derived(variant ?? (surfaceContext.exists ? "secondary" : "default"));
 
   const finalInvalid = $derived(
     fieldContext.exists
@@ -59,7 +62,7 @@
   {type}
   disabled={finalDisabled}
   bind:value
-  class={cn(inputStyles({ size: activeSize, variant }), className)}
+  class={cn(inputStyles({ size: activeSize, variant: finalVariant }), className)}
   aria-invalid={finalInvalid}
   aria-describedby={!finalInvalid ? descriptionId : undefined}
   aria-errormessage={finalInvalid ? errorId : undefined}

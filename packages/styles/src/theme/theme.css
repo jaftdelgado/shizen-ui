@@ -16,6 +16,7 @@
   /* Radius tokens */
   --radius-control: calc(var(--radius) * 3); /* 0.75rem (12px) */
   --radius-field: calc(var(--radius) * 3); /* 0.75rem (12px) */
+  --radius-surface: calc(var(--radius) * 6); /* 1.5rem (24px) */
 
   --color-separator: var(--separator);
   --color-focus: var(--focus);

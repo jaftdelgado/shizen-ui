@@ -1,7 +1,7 @@
 <script lang="ts">
   import { cn } from "@shizen-ui/styles";
   import { inputGroupStyles, type InputGroupVariants } from "@shizen-ui/styles";
-  import { useFieldStateContext } from "../../contexts/index.js";
+  import { useFieldStateContext, useSurfaceContext } from "../../contexts/index.js";
   import { setInputGroupContext } from "../../contexts/internal/index.js";
   import type { Snippet } from "svelte";
 
@@ -20,7 +20,7 @@
     children,
     class: className,
     size = "md",
-    variant = "default",
+    variant = undefined,
     fullWidth = false,
     hasTextArea = false,
     disabled = false,
@@ -29,6 +29,9 @@
   }: Props = $props();
 
   const fieldContext = useFieldStateContext();
+  const surfaceContext = useSurfaceContext();
+
+  const finalVariant = $derived(variant ?? (surfaceContext.exists ? "secondary" : "default"));
 
   const finalInvalid = $derived(fieldContext.exists ? fieldContext.invalid : invalid);
   const finalDisabled = $derived(
@@ -52,7 +55,7 @@
 </script>
 
 <div
-  class={cn(inputGroupStyles({ size, variant, fullWidth, hasTextArea }), className)}
+  class={cn(inputGroupStyles({ size, variant: finalVariant, fullWidth, hasTextArea }), className)}
   data-invalid={finalInvalid}
   data-disabled={finalDisabled}
   data-has-textarea={hasTextArea}

@@ -1,6 +1,6 @@
 @layer components {
   .surface {
-    @apply rounded-2xl shadow-xs;
+    @apply relative rounded-surface shadow-xs;
 
     /* Default tokens */
     --surface-bg: var(--color-surface);
