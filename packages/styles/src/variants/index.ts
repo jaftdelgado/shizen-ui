@@ -13,6 +13,7 @@ export * from "./number-input";
 export * from "./popover";
 export * from "./radio";
 export * from "./radio-group";
+export * from "./scroll-area";
 export * from "./separator";
 export * from "./surface";
 export * from "./switch";

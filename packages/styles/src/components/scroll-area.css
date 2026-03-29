@@ -1,0 +1,148 @@
+@layer components {
+  .scroll-area {
+    @apply relative flex flex-col h-full w-full overflow-hidden;
+    --scroll-shadow-size: 40px;
+    --scrollbar-size: 6px;
+  }
+
+  .scroll-area__viewport {
+    @apply h-full w-full overflow-auto;
+    mask-clip: no-clip;
+    -webkit-mask-clip: no-clip;
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+  }
+
+  /* --- Scrollbar Styles --- */
+  .scroll-area__viewport::-webkit-scrollbar {
+    @apply w-[var(--scrollbar-size)] h-[var(--scrollbar-size)];
+  }
+
+  .scroll-area__viewport::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-secondary-text/30;
+    @apply hover:bg-secondary-text transition-colors;
+  }
+
+  .scroll-area__viewport::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  .scroll-area__viewport--hide-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .scroll-area__viewport--hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* --- VERTICAL ORIENTATION LOGIC --- */
+  /* Máscara: Contenido (izquierda) + Scrollbar vertical (derecha) */
+  .scroll-area__viewport[data-orientation="vertical"] {
+    mask-size:
+      calc(100% - var(--scrollbar-size)) 100%,
+      var(--scrollbar-size) 100%;
+    mask-position:
+      0 0,
+      100% 0;
+    -webkit-mask-size:
+      calc(100% - var(--scrollbar-size)) 100%,
+      var(--scrollbar-size) 100%;
+    -webkit-mask-position:
+      0 0,
+      100% 0;
+  }
+
+  .scroll-area__viewport[data-orientation="vertical"][data-scroll="both"] {
+    mask-image:
+      linear-gradient(
+        to bottom,
+        transparent,
+        black var(--scroll-shadow-size),
+        black calc(100% - var(--scroll-shadow-size)),
+        transparent
+      ),
+      linear-gradient(black, black);
+    -webkit-mask-image:
+      linear-gradient(
+        to bottom,
+        transparent,
+        black var(--scroll-shadow-size),
+        black calc(100% - var(--scroll-shadow-size)),
+        transparent
+      ),
+      linear-gradient(black, black);
+  }
+
+  .scroll-area__viewport[data-orientation="vertical"][data-scroll="start"] {
+    mask-image:
+      linear-gradient(to bottom, black calc(100% - var(--scroll-shadow-size)), transparent),
+      linear-gradient(black, black);
+    -webkit-mask-image:
+      linear-gradient(to bottom, black calc(100% - var(--scroll-shadow-size)), transparent),
+      linear-gradient(black, black);
+  }
+
+  .scroll-area__viewport[data-orientation="vertical"][data-scroll="end"] {
+    mask-image:
+      linear-gradient(to top, black calc(100% - var(--scroll-shadow-size)), transparent),
+      linear-gradient(black, black);
+    -webkit-mask-image:
+      linear-gradient(to top, black calc(100% - var(--scroll-shadow-size)), transparent),
+      linear-gradient(black, black);
+  }
+
+  .scroll-area__viewport[data-orientation="horizontal"] {
+    mask-size:
+      100% calc(100% - var(--scrollbar-size)),
+      100% var(--scrollbar-size);
+    mask-position:
+      0 0,
+      0 100%;
+    -webkit-mask-size:
+      100% calc(100% - var(--scrollbar-size)),
+      100% var(--scrollbar-size);
+    -webkit-mask-position:
+      0 0,
+      0 100%;
+  }
+
+  .scroll-area__viewport[data-orientation="horizontal"][data-scroll="both"] {
+    mask-image:
+      linear-gradient(
+        to right,
+        transparent,
+        black var(--scroll-shadow-size),
+        black calc(100% - var(--scroll-shadow-size)),
+        transparent
+      ),
+      linear-gradient(black, black);
+    -webkit-mask-image:
+      linear-gradient(
+        to right,
+        transparent,
+        black var(--scroll-shadow-size),
+        black calc(100% - var(--scroll-shadow-size)),
+        transparent
+      ),
+      linear-gradient(black, black);
+  }
+
+  .scroll-area__viewport[data-orientation="horizontal"][data-scroll="start"] {
+    mask-image:
+      linear-gradient(to right, black calc(100% - var(--scroll-shadow-size)), transparent),
+      linear-gradient(black, black);
+    -webkit-mask-image:
+      linear-gradient(to right, black calc(100% - var(--scroll-shadow-size)), transparent),
+      linear-gradient(black, black);
+  }
+
+  .scroll-area__viewport[data-orientation="horizontal"][data-scroll="end"] {
+    mask-image:
+      linear-gradient(to left, black calc(100% - var(--scroll-shadow-size)), transparent),
+      linear-gradient(black, black);
+    -webkit-mask-image:
+      linear-gradient(to left, black calc(100% - var(--scroll-shadow-size)), transparent),
+      linear-gradient(black, black);
+  }
+}
