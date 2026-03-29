@@ -1,148 +1,148 @@
 @layer components {
   .scroll-area {
-    @apply relative flex flex-col h-full w-full overflow-hidden;
+    @apply relative flex h-full w-full overflow-hidden;
     --scroll-shadow-size: 40px;
     --scrollbar-size: 6px;
+    --scrollbar-thumb-color: color-mix(in srgb, var(--color-secondary-text) 30%, transparent);
+    --scrollbar-thumb-hover-color: var(--color-secondary-text);
+    --scrollbar-radius: 9999px;
   }
 
   .scroll-area__viewport {
     @apply h-full w-full overflow-auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
     mask-clip: no-clip;
     -webkit-mask-clip: no-clip;
     mask-repeat: no-repeat;
     -webkit-mask-repeat: no-repeat;
   }
 
-  /* --- Scrollbar Styles --- */
   .scroll-area__viewport::-webkit-scrollbar {
-    @apply w-[var(--scrollbar-size)] h-[var(--scrollbar-size)];
-  }
-
-  .scroll-area__viewport::-webkit-scrollbar-thumb {
-    @apply rounded-full bg-secondary-text/30;
-    @apply hover:bg-secondary-text transition-colors;
-  }
-
-  .scroll-area__viewport::-webkit-scrollbar-track {
-    @apply bg-transparent;
-  }
-
-  .scroll-area__viewport--hide-scrollbar {
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-
-  .scroll-area__viewport--hide-scrollbar::-webkit-scrollbar {
     display: none;
   }
 
-  /* --- VERTICAL ORIENTATION LOGIC --- */
-  /* Máscara: Contenido (izquierda) + Scrollbar vertical (derecha) */
   .scroll-area__viewport[data-orientation="vertical"] {
-    mask-size:
-      calc(100% - var(--scrollbar-size)) 100%,
-      var(--scrollbar-size) 100%;
-    mask-position:
-      0 0,
-      100% 0;
-    -webkit-mask-size:
-      calc(100% - var(--scrollbar-size)) 100%,
-      var(--scrollbar-size) 100%;
-    -webkit-mask-position:
-      0 0,
-      100% 0;
-  }
-
-  .scroll-area__viewport[data-orientation="vertical"][data-scroll="both"] {
-    mask-image:
-      linear-gradient(
-        to bottom,
-        transparent,
-        black var(--scroll-shadow-size),
-        black calc(100% - var(--scroll-shadow-size)),
-        transparent
-      ),
-      linear-gradient(black, black);
-    -webkit-mask-image:
-      linear-gradient(
-        to bottom,
-        transparent,
-        black var(--scroll-shadow-size),
-        black calc(100% - var(--scroll-shadow-size)),
-        transparent
-      ),
-      linear-gradient(black, black);
-  }
-
-  .scroll-area__viewport[data-orientation="vertical"][data-scroll="start"] {
-    mask-image:
-      linear-gradient(to bottom, black calc(100% - var(--scroll-shadow-size)), transparent),
-      linear-gradient(black, black);
-    -webkit-mask-image:
-      linear-gradient(to bottom, black calc(100% - var(--scroll-shadow-size)), transparent),
-      linear-gradient(black, black);
-  }
-
-  .scroll-area__viewport[data-orientation="vertical"][data-scroll="end"] {
-    mask-image:
-      linear-gradient(to top, black calc(100% - var(--scroll-shadow-size)), transparent),
-      linear-gradient(black, black);
-    -webkit-mask-image:
-      linear-gradient(to top, black calc(100% - var(--scroll-shadow-size)), transparent),
-      linear-gradient(black, black);
+    padding-right: var(--scrollbar-size);
   }
 
   .scroll-area__viewport[data-orientation="horizontal"] {
-    mask-size:
-      100% calc(100% - var(--scrollbar-size)),
-      100% var(--scrollbar-size);
-    mask-position:
-      0 0,
-      0 100%;
-    -webkit-mask-size:
-      100% calc(100% - var(--scrollbar-size)),
-      100% var(--scrollbar-size);
-    -webkit-mask-position:
-      0 0,
-      0 100%;
+    padding-bottom: var(--scrollbar-size);
+  }
+
+  .scroll-area__viewport[data-orientation="vertical"][data-scroll="both"] {
+    mask-image: linear-gradient(
+      to bottom,
+      transparent,
+      black var(--scroll-shadow-size),
+      black calc(100% - var(--scroll-shadow-size)),
+      transparent
+    );
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent,
+      black var(--scroll-shadow-size),
+      black calc(100% - var(--scroll-shadow-size)),
+      transparent
+    );
+  }
+
+  .scroll-area__viewport[data-orientation="vertical"][data-scroll="start"] {
+    mask-image: linear-gradient(
+      to bottom,
+      black calc(100% - var(--scroll-shadow-size)),
+      transparent
+    );
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      black calc(100% - var(--scroll-shadow-size)),
+      transparent
+    );
+  }
+
+  .scroll-area__viewport[data-orientation="vertical"][data-scroll="end"] {
+    mask-image: linear-gradient(to top, black calc(100% - var(--scroll-shadow-size)), transparent);
+    -webkit-mask-image: linear-gradient(
+      to top,
+      black calc(100% - var(--scroll-shadow-size)),
+      transparent
+    );
   }
 
   .scroll-area__viewport[data-orientation="horizontal"][data-scroll="both"] {
-    mask-image:
-      linear-gradient(
-        to right,
-        transparent,
-        black var(--scroll-shadow-size),
-        black calc(100% - var(--scroll-shadow-size)),
-        transparent
-      ),
-      linear-gradient(black, black);
-    -webkit-mask-image:
-      linear-gradient(
-        to right,
-        transparent,
-        black var(--scroll-shadow-size),
-        black calc(100% - var(--scroll-shadow-size)),
-        transparent
-      ),
-      linear-gradient(black, black);
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black var(--scroll-shadow-size),
+      black calc(100% - var(--scroll-shadow-size)),
+      transparent
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      black var(--scroll-shadow-size),
+      black calc(100% - var(--scroll-shadow-size)),
+      transparent
+    );
   }
 
   .scroll-area__viewport[data-orientation="horizontal"][data-scroll="start"] {
-    mask-image:
-      linear-gradient(to right, black calc(100% - var(--scroll-shadow-size)), transparent),
-      linear-gradient(black, black);
-    -webkit-mask-image:
-      linear-gradient(to right, black calc(100% - var(--scroll-shadow-size)), transparent),
-      linear-gradient(black, black);
+    mask-image: linear-gradient(
+      to right,
+      black calc(100% - var(--scroll-shadow-size)),
+      transparent
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      black calc(100% - var(--scroll-shadow-size)),
+      transparent
+    );
   }
 
   .scroll-area__viewport[data-orientation="horizontal"][data-scroll="end"] {
-    mask-image:
-      linear-gradient(to left, black calc(100% - var(--scroll-shadow-size)), transparent),
-      linear-gradient(black, black);
-    -webkit-mask-image:
-      linear-gradient(to left, black calc(100% - var(--scroll-shadow-size)), transparent),
-      linear-gradient(black, black);
+    mask-image: linear-gradient(to left, black calc(100% - var(--scroll-shadow-size)), transparent);
+    -webkit-mask-image: linear-gradient(
+      to left,
+      black calc(100% - var(--scroll-shadow-size)),
+      transparent
+    );
+  }
+
+  /* --- Custom scrollbar track --- */
+  .scroll-area__scrollbar {
+    @apply absolute flex touch-none select-none opacity-0;
+    transition: opacity 150ms ease;
+  }
+
+  .scroll-area__scrollbar[data-orientation="vertical"] {
+    @apply top-0 right-0 h-full;
+    width: var(--scrollbar-size);
+    padding-block: var(--scrollbar-padding);
+    flex-direction: column;
+  }
+
+  .scroll-area__scrollbar[data-orientation="horizontal"] {
+    @apply bottom-0 left-0 w-full;
+    height: var(--scrollbar-size);
+    padding-inline: var(--scrollbar-padding);
+    flex-direction: row;
+  }
+
+  .scroll-area__scrollbar[data-visible="true"] {
+    @apply opacity-100;
+  }
+
+  /* --- Custom scrollbar thumb --- */
+  .scroll-area__thumb {
+    @apply relative cursor-pointer;
+    flex-shrink: 0;
+    background-color: var(--scrollbar-thumb-color);
+    border-radius: var(--scrollbar-radius);
+    transition: background-color 150ms ease;
+  }
+
+  .scroll-area__thumb:hover,
+  .scroll-area__thumb[data-dragging="true"] {
+    background-color: var(--scrollbar-thumb-hover-color);
   }
 }

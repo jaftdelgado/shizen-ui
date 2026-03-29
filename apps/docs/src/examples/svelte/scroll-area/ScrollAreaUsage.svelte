@@ -1,35 +1,27 @@
 <script lang="ts">
-  import { ScrollArea, Surface } from "@shizen-ui/svelte";
+  import { ScrollArea, Surface, Label } from "@shizen-ui/svelte";
 
   const tags = [
-    "Radix UI",
     "Tailwind CSS",
     "Svelte 5",
     "TypeScript",
     "Vite",
     "Bun",
-    "shadcn/ui",
     "tailwind-variants",
     "Motion",
-    "Zod",
-    "Drizzle ORM",
-    "Hono",
-    "tRPC",
     "Astro",
     "SvelteKit",
     "Vitest",
-    "Playwright",
-    "ESLint",
-    "Prettier",
-    "Changesets"
+    "Prettier"
   ];
 </script>
 
-<Surface class="h-48 w-64">
-  <ScrollArea class="h-full p-4">
-    <div class="pr-2 flex flex-col gap-2">
+<Surface class="h-56 w-64 flex flex-col gap-3 py-4">
+  <Label class="px-4">Releases</Label>
+  <ScrollArea class="h-full">
+    <div class="flex flex-col gap-2">
       {#each tags as tag}
-        <div class="text-sm">{tag}</div>
+        <div class="text-sm text-secondary-text px-4">{tag}</div>
       {/each}
     </div>
   </ScrollArea>
