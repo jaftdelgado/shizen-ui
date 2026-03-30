@@ -4,6 +4,7 @@ export { default as Globe } from "./Globe.svelte";
 export { default as PullRequest } from "./PullRequest.svelte";
 export { default as Tray } from "./Tray.svelte";
 
+export { default as BadgeCheckIcon } from "./BadgeCheckIcon.svelte";
 export { default as CameraIcon } from "./CameraIcon.svelte";
 export { default as CreditCardIcon } from "./CreditCardIcon.svelte";
 export { default as CloudUploadIcon } from "./CloudUploadIcon.svelte";

@@ -1,0 +1,60 @@
+@layer components {
+  .chip {
+    @apply relative overflow-hidden inline-flex items-center justify-center rounded-full font-medium leading-none text-center whitespace-nowrap;
+
+    /* Default tokens */
+    --chip-bg: transparent;
+    --chip-bg-hover: var(--chip-bg);
+    --chip-fg: currentColor;
+    --chip-border-color: transparent;
+
+    background-color: var(--chip-bg);
+    color: var(--chip-fg);
+    border: 1px solid var(--chip-border-color);
+
+    transition: background-color 200ms ease;
+
+    &:disabled,
+    &[aria-disabled="true"] {
+      @apply status-disabled;
+    }
+  }
+
+  .chip__content {
+    @apply h-full w-full flex items-center justify-center gap-(--chip-gap);
+  }
+
+  /* Variants */
+  .chip--default {
+    --chip-bg: var(--color-control);
+    --chip-fg: var(--color-secondary-text);
+    --chip-bg-hover: var(--color-control-hover);
+  }
+
+  .chip--outline {
+    --chip-fg: var(--color-control-foreground);
+    --chip-border-color: var(--color-separator);
+    --chip-bg-hover: var(--color-ghost-hover);
+  }
+
+  .chip--ghost {
+    --chip-fg: var(--color-secondary-text);
+    --chip-bg-hover: var(--color-ghost-hover);
+  }
+
+  /* Sizes */
+  .chip--sm {
+    @apply h-5 px-2 text-xs;
+    --chip-gap: 0.25rem;
+  }
+
+  .chip--md {
+    @apply h-6 px-3 text-xs;
+    --chip-gap: 0.325rem;
+  }
+
+  .chip--lg {
+    @apply h-7 px-3 text-sm;
+    --chip-gap: 0.375rem;
+  }
+}

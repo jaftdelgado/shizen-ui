@@ -1,0 +1,46 @@
+---
+title: "Chip"
+layout: "@layouts/DocsLayout.astro"
+---
+
+import ComponentExample from "@components/astro/ComponentExample.astro";
+
+import ChipUsage from "@examples/svelte/chip/ChipUsage.svelte";
+import ChipVariants from "@examples/svelte/chip/ChipVariants.svelte";
+import ChipSizes from "@examples/svelte/chip/ChipSizes.svelte";
+import ChipDisabled from "@examples/svelte/chip/ChipDisabled.svelte";
+import ChipContent from "@examples/svelte/chip/ChipContent.svelte";
+
+# Chip
+
+Chips are compact UI elements used to represent inputs, attributes, or actions. They provide an efficient way to display information or trigger actions in a condensed format.
+
+<ComponentExample src="svelte/chip/ChipUsage.svelte">
+  <ChipUsage client:load />
+</ComponentExample>
+
+## Examples
+
+### Variants
+
+<ComponentExample src="svelte/chip/ChipVariants.svelte">
+  <ChipVariants client:load />
+</ComponentExample>
+
+### Sizes
+
+<ComponentExample src="svelte/chip/ChipSizes.svelte">
+  <ChipSizes client:load />
+</ComponentExample>
+
+### Disabled State
+
+<ComponentExample src="svelte/chip/ChipDisabled.svelte">
+  <ChipDisabled client:load />
+</ComponentExample>
+
+### Start & End Content
+
+<ComponentExample src="svelte/chip/ChipContent.svelte">
+  <ChipContent client:load />
+</ComponentExample>
