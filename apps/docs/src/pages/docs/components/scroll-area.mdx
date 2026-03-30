@@ -6,9 +6,18 @@ layout: "@layouts/DocsLayout.astro"
 import ComponentExample from "@components/astro/ComponentExample.astro";
 
 import ScrollAreaUsage from "@examples/svelte/scroll-area/ScrollAreaUsage.svelte";
+import ScrollAreaHorizontal from "@examples/svelte/scroll-area/ScrollAreaHorizontal.svelte";
 
 # Scroll Area
 
 <ComponentExample src="svelte/scroll-area/ScrollAreaUsage.svelte">
   <ScrollAreaUsage client:load />
+</ComponentExample>
+
+## Examples
+
+### Horizontal Orientation
+
+<ComponentExample src="svelte/scroll-area/ScrollAreaHorizontal.svelte">
+  <ScrollAreaHorizontal client:load />
 </ComponentExample>

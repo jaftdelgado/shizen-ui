@@ -24,7 +24,8 @@
 
   const isVertical = $derived(orientation === "vertical");
 
-  const SCROLLBAR_PADDING = 2;
+  const SCROLLBAR_PADDING = 0;
+  const SCROLLBAR_INSET = 16;
 
   const viewportId = `scroll-area-viewport-${Math.random().toString(36).slice(2, 9)}`;
 
@@ -42,13 +43,25 @@
 
   const isScrollbarVisible = $derived(isHovered || isDragging);
 
-  // --- Hover logic ---
+  // --- Hover logic (desktop) ---
   function onMouseEnter() {
     clearTimeout(hideTimeout);
     isHovered = true;
   }
 
   function onMouseLeave() {
+    hideTimeout = setTimeout(() => {
+      isHovered = false;
+    }, 600);
+  }
+
+  // --- Touch logic (mobile) ---
+  function onTouchStart() {
+    clearTimeout(hideTimeout);
+    isHovered = true;
+  }
+
+  function onTouchEnd() {
     hideTimeout = setTimeout(() => {
       isHovered = false;
     }, 600);
@@ -80,11 +93,15 @@
     }
   }
 
+  // --- Thumb geometry ---
   function updateThumb() {
     if (!viewportRef || !rootRef) return;
 
+    // trackSize descuenta el padding y el inset de ambos extremos
     const trackSize =
-      (isVertical ? rootRef.clientHeight : rootRef.clientWidth) - SCROLLBAR_PADDING * 2;
+      (isVertical ? rootRef.clientHeight : rootRef.clientWidth) -
+      SCROLLBAR_PADDING * 2 -
+      SCROLLBAR_INSET * 2;
     const viewportSize = isVertical ? viewportRef.clientHeight : viewportRef.clientWidth;
     const contentSize = isVertical ? viewportRef.scrollHeight : viewportRef.scrollWidth;
     const currentScroll = isVertical ? viewportRef.scrollTop : viewportRef.scrollLeft;
@@ -101,12 +118,11 @@
     const clampedThumbSize = Math.max(trackSize * ratio, 18);
     const usableTrack = trackSize - clampedThumbSize;
 
-    const rawOffset = SCROLLBAR_PADDING + (currentScroll / maxScroll) * usableTrack;
-    const minOffset = SCROLLBAR_PADDING;
-    const maxOffset = SCROLLBAR_PADDING + usableTrack;
-
+    // thumbOffset arranca desde 0 — el inset y padding los aplica el CSS
+    // clamp para que el thumb no salga del track durante el overscroll de Safari
+    const rawOffset = (currentScroll / maxScroll) * usableTrack;
     thumbSize = clampedThumbSize;
-    thumbOffset = Math.max(minOffset, Math.min(rawOffset, maxOffset));
+    thumbOffset = Math.max(0, Math.min(rawOffset, usableTrack));
     scrollPercent = Math.round(Math.max(0, Math.min((currentScroll / maxScroll) * 100, 100)));
   }
 
@@ -115,6 +131,7 @@
     updateThumb();
   }
 
+  // --- Drag logic ---
   let dragStartPointer = 0;
   let dragStartScroll = 0;
 
@@ -133,7 +150,9 @@
 
     const pointerDelta = (isVertical ? e.clientY : e.clientX) - dragStartPointer;
     const trackSize =
-      (isVertical ? rootRef.clientHeight : rootRef.clientWidth) - SCROLLBAR_PADDING * 2;
+      (isVertical ? rootRef.clientHeight : rootRef.clientWidth) -
+      SCROLLBAR_PADDING * 2 -
+      SCROLLBAR_INSET * 2;
     const contentSize = isVertical ? viewportRef.scrollHeight : viewportRef.scrollWidth;
     const viewportSize = isVertical ? viewportRef.clientHeight : viewportRef.clientWidth;
     const usableTrack = trackSize - thumbSize;
@@ -165,10 +184,15 @@
     if (!viewportRef || !rootRef) return;
 
     const rect = rootRef.getBoundingClientRect();
-    const trackSize =
-      (isVertical ? rootRef.clientHeight : rootRef.clientWidth) - SCROLLBAR_PADDING * 2;
+    // Descuenta el inset superior para que el click sea relativo al área útil del track
     const clickPos =
-      (isVertical ? e.clientY - rect.top : e.clientX - rect.left) - SCROLLBAR_PADDING;
+      (isVertical ? e.clientY - rect.top : e.clientX - rect.left) -
+      SCROLLBAR_INSET -
+      SCROLLBAR_PADDING;
+    const trackSize =
+      (isVertical ? rootRef.clientHeight : rootRef.clientWidth) -
+      SCROLLBAR_PADDING * 2 -
+      SCROLLBAR_INSET * 2;
     const contentSize = isVertical ? viewportRef.scrollHeight : viewportRef.scrollWidth;
     const viewportSize = isVertical ? viewportRef.clientHeight : viewportRef.clientWidth;
     const maxScroll = contentSize - viewportSize;
@@ -201,6 +225,7 @@
   bind:this={rootRef}
   class={cn("scroll-area", className)}
   style:--scrollbar-padding="{SCROLLBAR_PADDING}px"
+  style:--scrollbar-inset="{SCROLLBAR_INSET}px"
   onmouseenter={onMouseEnter}
   onmouseleave={onMouseLeave}
   {...rest}
@@ -209,10 +234,14 @@
     id={viewportId}
     bind:this={viewportRef}
     class="scroll-area__viewport"
+    role="region"
+    aria-label="Scrollable content"
     data-orientation={orientation}
     data-scroll={scrollState}
     style:--scroll-shadow-size="{size}px"
     onscroll={handleScroll}
+    ontouchstart={onTouchStart}
+    ontouchend={onTouchEnd}
   >
     <div class="scroll-area__content">
       {@render children?.()}

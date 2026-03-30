@@ -3,11 +3,14 @@
     @apply relative flex h-full w-full overflow-hidden;
     --scroll-shadow-size: 40px;
     --scrollbar-size: 6px;
+    --scrollbar-inset: 4px;
     --scrollbar-thumb-color: color-mix(in srgb, var(--color-secondary-text) 30%, transparent);
     --scrollbar-thumb-hover-color: var(--color-secondary-text);
     --scrollbar-radius: 9999px;
+    /* --scrollbar-padding es inyectado desde el script como fuente de verdad */
   }
 
+  /* Oculta la scrollbar nativa en todos los browsers */
   .scroll-area__viewport {
     @apply h-full w-full overflow-auto;
     scrollbar-width: none;
@@ -22,6 +25,7 @@
     display: none;
   }
 
+  /* Padding para que el contenido no quede debajo del scrollbar */
   .scroll-area__viewport[data-orientation="vertical"] {
     padding-right: var(--scrollbar-size);
   }
@@ -30,6 +34,7 @@
     padding-bottom: var(--scrollbar-size);
   }
 
+  /* --- Scroll shadows --- */
   .scroll-area__viewport[data-orientation="vertical"][data-scroll="both"] {
     mask-image: linear-gradient(
       to bottom,
@@ -115,14 +120,18 @@
   }
 
   .scroll-area__scrollbar[data-orientation="vertical"] {
-    @apply top-0 right-0 h-full;
+    @apply right-0;
+    top: var(--scrollbar-inset);
+    bottom: var(--scrollbar-inset);
     width: var(--scrollbar-size);
     padding-block: var(--scrollbar-padding);
     flex-direction: column;
   }
 
   .scroll-area__scrollbar[data-orientation="horizontal"] {
-    @apply bottom-0 left-0 w-full;
+    @apply bottom-0;
+    left: var(--scrollbar-inset);
+    right: var(--scrollbar-inset);
     height: var(--scrollbar-size);
     padding-inline: var(--scrollbar-padding);
     flex-direction: row;
