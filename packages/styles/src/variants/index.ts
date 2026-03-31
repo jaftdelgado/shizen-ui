@@ -21,4 +21,5 @@ export * from "./switch";
 export * from "./switch-group";
 export * from "./text-area";
 export * from "./text-field";
+export * from "./time-input";
 export * from "./tooltip";

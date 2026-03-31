@@ -20,4 +20,5 @@ export * from "./components/switch-group/index.js";
 export * from "./components/switch/index.js";
 export * from "./components/text-area/index.js";
 export * from "./components/text-field/index.js";
+export * from "./components/time-input/index.js";
 export * from "./components/tooltip/index.js";
