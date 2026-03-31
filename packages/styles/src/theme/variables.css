@@ -47,8 +47,10 @@
     --accent-foreground: var(--inverted-text);
 
     --success: #22c55e;
+    --success-foreground: var(--inverted-text);
 
-    --warning: #facc15;
+    --warning: #f5a524;
+    --warning-foreground: var(--inverted-text);
 
     --danger: #ff3b30;
     --danger-foreground: var(--inverted-text);

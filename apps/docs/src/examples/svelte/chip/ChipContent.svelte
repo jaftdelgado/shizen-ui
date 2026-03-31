@@ -1,13 +1,20 @@
 <script lang="ts">
   import { Chip } from "@shizen-ui/svelte";
-  import { BadgeCheckIcon } from "@assets/icons/svelte";
+  import { StatUpIcon, StatDownIcon } from "@assets/icons/svelte";
 </script>
 
-<div class="flex flex-col gap-4">
-  <Chip>
+<div class="flex flex-row gap-3">
+  <Chip color="success" variant="soft">
     {#snippet startContent()}
-      <BadgeCheckIcon class="size-3" />
+      <StatUpIcon class="size-3" />
     {/snippet}
-    Verified
+    +12.3%
+  </Chip>
+
+  <Chip color="danger" variant="soft">
+    {#snippet endContent()}
+      <StatDownIcon class="size-3" />
+    {/snippet}
+    -5.2%
   </Chip>
 </div>

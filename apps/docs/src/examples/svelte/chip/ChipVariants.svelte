@@ -1,32 +1,49 @@
 <script lang="ts">
-  import { Chip } from "@shizen-ui/svelte";
+  import { Chip, Description } from "@shizen-ui/svelte";
 </script>
 
 <div class="flex flex-col gap-6">
   <div class="flex flex-col gap-2">
-    <p class="text-sm font-semibold">Default</p>
+    <Description>Primary</Description>
     <div class="flex gap-2">
-      <Chip variant="default">JavaScript</Chip>
-      <Chip variant="default">TypeScript</Chip>
-      <Chip variant="default">Python</Chip>
+      <Chip variant="primary" color="default">Default</Chip>
+      <Chip variant="primary" color="accent">Accent</Chip>
+      <Chip variant="primary" color="success">Success</Chip>
+      <Chip variant="primary" color="warning">Warning</Chip>
+      <Chip variant="primary" color="danger">Danger</Chip>
     </div>
   </div>
 
   <div class="flex flex-col gap-2">
-    <p class="text-sm font-semibold">Outline</p>
+    <Description>Secondary</Description>
     <div class="flex gap-2">
-      <Chip variant="outline">Node.js</Chip>
-      <Chip variant="outline">Bun</Chip>
-      <Chip variant="outline">Deno</Chip>
+      <Chip variant="secondary" color="default">Default</Chip>
+      <Chip variant="secondary" color="accent">Accent</Chip>
+      <Chip variant="secondary" color="success">Success</Chip>
+      <Chip variant="secondary" color="warning">Warning</Chip>
+      <Chip variant="secondary" color="danger">Danger</Chip>
     </div>
   </div>
 
   <div class="flex flex-col gap-2">
-    <p class="text-sm font-semibold">Ghost</p>
+    <Description>Soft</Description>
     <div class="flex gap-2">
-      <Chip variant="ghost">Frontend</Chip>
-      <Chip variant="ghost">Backend</Chip>
-      <Chip variant="ghost">DevOps</Chip>
+      <Chip variant="soft" color="default">Default</Chip>
+      <Chip variant="soft" color="accent">Accent</Chip>
+      <Chip variant="soft" color="success">Success</Chip>
+      <Chip variant="soft" color="warning">Warning</Chip>
+      <Chip variant="soft" color="danger">Danger</Chip>
+    </div>
+  </div>
+
+  <div class="flex flex-col gap-2">
+    <Description>Ghost</Description>
+    <div class="flex gap-2">
+      <Chip variant="ghost" color="default">Default</Chip>
+      <Chip variant="ghost" color="accent">Accent</Chip>
+      <Chip variant="ghost" color="success">Success</Chip>
+      <Chip variant="ghost" color="warning">Warning</Chip>
+      <Chip variant="ghost" color="danger">Danger</Chip>
     </div>
   </div>
 </div>

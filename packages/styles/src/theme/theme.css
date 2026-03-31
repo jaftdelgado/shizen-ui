@@ -30,9 +30,6 @@
   --color-secondary-text: var(--secondary-text);
   --color-tertiary-text: var(--tertiary-text);
 
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-
   --color-control: var(--control);
   --color-control-foreground: var(--control-foreground);
 
@@ -40,6 +37,15 @@
   --color-field-foreground: var(--primary-text);
   --color-field-placeholder: var(--tertiary-text);
   --color-field-secondary: var(--field-secondary);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
 
   --color-danger: var(--danger);
   --color-danger-foreground: var(--danger-foreground);
@@ -104,6 +110,12 @@
     var(--color-separator) 92%,
     var(--color-control-foreground) 8%
   );
+
+  /* Soft Colors */
+  --color-accent-soft: color-mix(in oklab, var(--accent) 15%, transparent);
+  --color-succes-soft: color-mix(in oklab, var(--success) 15%, transparent);
+  --color-warning-soft: color-mix(in oklab, var(--warning) 15%, transparent);
+  --color-danger-soft: color-mix(in oklab, var(--danger) 15%, transparent);
 
   /* Shadows */
   --shadow-overlay: var(--overlay-shadow);

@@ -1,10 +1,10 @@
 <script lang="ts">
-  import { Chip } from "@shizen-ui/svelte";
+  import { Chip, Description } from "@shizen-ui/svelte";
 </script>
 
 <div class="flex flex-col gap-6">
   <div class="flex flex-col gap-2">
-    <p class="text-sm font-semibold">Small</p>
+    <Description>Small</Description>
     <div class="flex gap-2">
       <Chip size="sm">UI</Chip>
       <Chip size="sm">UX</Chip>
@@ -13,7 +13,7 @@
   </div>
 
   <div class="flex flex-col gap-2">
-    <p class="text-sm font-semibold">Medium</p>
+    <Description>Medium</Description>
     <div class="flex gap-2">
       <Chip size="md">HTML</Chip>
       <Chip size="md">CSS</Chip>
@@ -22,7 +22,7 @@
   </div>
 
   <div class="flex flex-col gap-2">
-    <p class="text-sm font-semibold">Large</p>
+    <Description>Large</Description>
     <div class="flex gap-2">
       <Chip size="lg">Framework</Chip>
       <Chip size="lg">Library</Chip>

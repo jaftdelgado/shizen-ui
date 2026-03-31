@@ -13,36 +13,145 @@
     border: 1px solid var(--chip-border-color);
 
     transition: background-color 200ms ease;
-
-    &:disabled,
-    &[aria-disabled="true"] {
-      @apply status-disabled;
-    }
   }
 
   .chip__content {
     @apply h-full w-full flex items-center justify-center gap-(--chip-gap);
   }
 
-  /* Variants */
-  .chip--default {
+  /* =====================
+     Color: default
+  ===================== */
+  .chip--primary.chip--default {
+    --chip-bg: var(--color-surface);
+    --chip-fg: var(--color-primary-text);
+    --chip-bg-hover: color-mix(in srgb, var(--color-control-foreground) 85%, transparent);
+  }
+
+  .chip--secondary.chip--default {
     --chip-bg: var(--color-control);
     --chip-fg: var(--color-secondary-text);
     --chip-bg-hover: var(--color-control-hover);
   }
 
-  .chip--outline {
-    --chip-fg: var(--color-control-foreground);
-    --chip-border-color: var(--color-separator);
-    --chip-bg-hover: var(--color-ghost-hover);
+  .chip--soft.chip--default {
+    --chip-bg: var(--color-control);
+    --chip-fg: var(--color-secondary-text);
+    --chip-bg-hover: var(--color-ghost-pressed);
   }
 
-  .chip--ghost {
+  .chip--ghost.chip--default {
     --chip-fg: var(--color-secondary-text);
     --chip-bg-hover: var(--color-ghost-hover);
   }
 
-  /* Sizes */
+  /* =====================
+     Color: accent
+  ===================== */
+  .chip--primary.chip--accent {
+    --chip-bg: var(--color-accent);
+    --chip-fg: var(--color-accent-foreground);
+    --chip-bg-hover: var(--color-accent-hover);
+  }
+
+  .chip--secondary.chip--accent {
+    --chip-bg: var(--color-control);
+    --chip-fg: var(--color-accent);
+    --chip-bg-hover: var(--color-accent-soft-hover);
+  }
+
+  .chip--soft.chip--accent {
+    --chip-bg: color-mix(in srgb, var(--color-accent) 12%, transparent);
+    --chip-fg: var(--color-accent);
+    --chip-bg-hover: color-mix(in srgb, var(--color-accent) 18%, transparent);
+  }
+
+  .chip--ghost.chip--accent {
+    --chip-fg: var(--color-accent);
+    --chip-bg-hover: color-mix(in srgb, var(--color-accent) 10%, transparent);
+  }
+
+  /* =====================
+     Color: success
+  ===================== */
+  .chip--primary.chip--success {
+    --chip-bg: var(--color-success);
+    --chip-fg: var(--color-success-foreground);
+    --chip-bg-hover: var(--color-success-hover);
+  }
+
+  .chip--secondary.chip--success {
+    --chip-bg: var(--color-control);
+    --chip-fg: var(--color-success);
+    --chip-bg-hover: var(--color-success-soft-hover);
+  }
+
+  .chip--soft.chip--success {
+    --chip-bg: color-mix(in srgb, var(--color-success) 12%, transparent);
+    --chip-fg: var(--color-success);
+    --chip-bg-hover: color-mix(in srgb, var(--color-success) 18%, transparent);
+  }
+
+  .chip--ghost.chip--success {
+    --chip-fg: var(--color-success);
+    --chip-bg-hover: color-mix(in srgb, var(--color-success) 10%, transparent);
+  }
+
+  /* =====================
+     Color: warning
+  ===================== */
+  .chip--primary.chip--warning {
+    --chip-bg: var(--color-warning);
+    --chip-fg: var(--color-warning-foreground);
+    --chip-bg-hover: var(--color-warning-hover);
+  }
+
+  .chip--secondary.chip--warning {
+    --chip-bg: var(--color-control);
+    --chip-fg: var(--color-warning);
+    --chip-bg-hover: var(--color-warning-soft-hover);
+  }
+
+  .chip--soft.chip--warning {
+    --chip-bg: color-mix(in srgb, var(--color-warning) 12%, transparent);
+    --chip-fg: var(--color-warning);
+    --chip-bg-hover: color-mix(in srgb, var(--color-warning) 18%, transparent);
+  }
+
+  .chip--ghost.chip--warning {
+    --chip-fg: var(--color-warning);
+    --chip-bg-hover: color-mix(in srgb, var(--color-warning) 10%, transparent);
+  }
+
+  /* =====================
+     Color: danger
+  ===================== */
+  .chip--primary.chip--danger {
+    --chip-bg: var(--color-danger);
+    --chip-fg: var(--color-danger-foreground);
+    --chip-bg-hover: var(--color-danger-hover);
+  }
+
+  .chip--secondary.chip--danger {
+    --chip-bg: var(--color-control);
+    --chip-fg: var(--color-danger);
+    --chip-bg-hover: var(--color-danger-soft-hover);
+  }
+
+  .chip--soft.chip--danger {
+    --chip-bg: color-mix(in srgb, var(--color-danger) 12%, transparent);
+    --chip-fg: var(--color-danger);
+    --chip-bg-hover: color-mix(in srgb, var(--color-danger) 18%, transparent);
+  }
+
+  .chip--ghost.chip--danger {
+    --chip-fg: var(--color-danger);
+    --chip-bg-hover: color-mix(in srgb, var(--color-danger) 10%, transparent);
+  }
+
+  /* =====================
+     Sizes
+  ===================== */
   .chip--sm {
     @apply h-5 px-2 text-xs;
     --chip-gap: 0.25rem;

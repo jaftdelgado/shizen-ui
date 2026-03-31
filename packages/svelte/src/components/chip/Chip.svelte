@@ -8,8 +8,8 @@
 
   interface Props extends HTMLAttributes<HTMLDivElement> {
     variant?: ChipVariants["variant"];
+    color?: ChipVariants["color"];
     size?: ChipVariants["size"];
-    disabled?: boolean;
     children?: Snippet;
     startContent?: IconContent;
     endContent?: IconContent;
@@ -20,9 +20,9 @@
     startContent,
     endContent,
     class: className,
-    variant = "default",
+    variant = "secondary",
+    color = "default",
     size = "md",
-    disabled = false,
     ...rest
   }: Props = $props();
 </script>
@@ -37,11 +37,7 @@
   {/if}
 {/snippet}
 
-<div
-  {...rest}
-  aria-disabled={disabled || undefined}
-  class={cn(chipStyles({ variant, size }), className)}
->
+<div {...rest} class={cn(chipStyles({ variant, color, size }), className)}>
   <span class="chip__content">
     {@render renderIcon(startContent)}
 
