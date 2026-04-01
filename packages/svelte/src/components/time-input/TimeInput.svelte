@@ -6,7 +6,8 @@
     useTimeInputContext,
     useDerivedState,
     useSegments,
-    useTimeInputHandlers
+    useTimeInputHandlers,
+    buildTimeString
   } from "./time-input.svelte.js";
 
   let {
@@ -45,7 +46,7 @@
     surfaceContext
   );
 
-  const segmentState = useSegments(value);
+  const segmentState = useSegments(() => value);
 
   let hhInput = $state<HTMLInputElement | null>(null);
   let mmInput = $state<HTMLInputElement | null>(null);
@@ -64,9 +65,9 @@
   };
 
   function emit() {
-    const { hh, mm, ap } = segmentState.segments;
+    const { hh, mm } = segmentState.segments;
     if (!hh || !mm) return;
-    const next = `${hh}:${mm} ${ap}`;
+    const next = buildTimeString(segmentState.segments);
     if (next === value) return;
     value = next;
     onchange?.(value);
@@ -108,7 +109,7 @@
     type="text"
     inputmode="numeric"
     class="time-input__segment"
-    placeholder="hh"
+    placeholder="─"
     value={segmentState.segments.hh}
     size={2}
     maxlength={2}
@@ -129,7 +130,7 @@
     type="text"
     inputmode="numeric"
     class="time-input__segment"
-    placeholder="mm"
+    placeholder="─"
     value={segmentState.segments.mm}
     size={2}
     maxlength={2}

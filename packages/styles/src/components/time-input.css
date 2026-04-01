@@ -66,7 +66,6 @@
 
   .time-input__sep {
     @apply text-secondary-text;
-    padding: 0 1px;
   }
 
   .time-input__sep--space {
