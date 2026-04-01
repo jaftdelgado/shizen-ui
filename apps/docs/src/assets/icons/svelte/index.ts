@@ -6,6 +6,7 @@ export { default as Tray } from "./Tray.svelte";
 
 export { default as BadgeCheckIcon } from "./BadgeCheckIcon.svelte";
 export { default as CameraIcon } from "./CameraIcon.svelte";
+export { default as CloudCheckIcon } from "./CloudCheckIcon.svelte";
 export { default as CreditCardIcon } from "./CreditCardIcon.svelte";
 export { default as CloudUploadIcon } from "./CloudUploadIcon.svelte";
 export { default as MapPinIcon } from "./MapPinIcon.svelte";

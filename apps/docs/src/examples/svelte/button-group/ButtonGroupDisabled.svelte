@@ -6,7 +6,7 @@
   <div class="flex flex-col gap-4">
     <div class="flex flex-col items-start gap-2">
       <Description>All buttons disabled</Description>
-      <ButtonGroup disabled>
+      <ButtonGroup disabled={true}>
         <Button>Left</Button>
         <Button>Center</Button>
         <Button>Right</Button>

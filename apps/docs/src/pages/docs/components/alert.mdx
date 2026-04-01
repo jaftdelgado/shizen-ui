@@ -1,0 +1,53 @@
+---
+title: "Alert"
+layout: "@layouts/DocsLayout.astro"
+---
+
+import ComponentExample from "@components/astro/ComponentExample.astro";
+import CodeBlock from "@components/astro/CodeBlock.astro";
+
+import AlertAnatomyCode from "@examples/svelte/alert/AlertAnatomy.svelte?raw";
+
+import AlertUsage from "@examples/svelte/alert/AlertUsage.svelte";
+import AlertVariants from "@examples/svelte/alert/AlertVariants.svelte";
+import AlertStatuses from "@examples/svelte/alert/AlertStatuses.svelte";
+import AlertWithoutIndicator from "@examples/svelte/alert/AlertWithoutIndicator.svelte";
+import AlertCustomIndicator from "@examples/svelte/alert/AlertCustomIndicator.svelte";
+
+# Alert
+
+Displays important messages, updates, and status feedback in context.
+
+<ComponentExample src="svelte/alert/AlertUsage.svelte">
+  <AlertUsage client:load />
+</ComponentExample>
+
+## Anatomy
+
+<CodeBlock code={AlertAnatomyCode} lang="svelte" showLineNumbers={false} />
+
+## Examples
+
+### Variants
+
+<ComponentExample src="svelte/alert/AlertVariants.svelte">
+  <AlertVariants client:load />
+</ComponentExample>
+
+### Statuses
+
+<ComponentExample src="svelte/alert/AlertStatuses.svelte">
+  <AlertStatuses client:load />
+</ComponentExample>
+
+### Without Indicator
+
+<ComponentExample src="svelte/alert/AlertWithoutIndicator.svelte">
+  <AlertWithoutIndicator client:load />
+</ComponentExample>
+
+### Custom Indicator
+
+<ComponentExample src="svelte/alert/AlertCustomIndicator.svelte">
+  <AlertCustomIndicator client:load />
+</ComponentExample>

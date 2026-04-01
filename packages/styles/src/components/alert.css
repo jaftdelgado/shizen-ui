@@ -1,0 +1,74 @@
+@layer components {
+  .alert {
+    @apply flex gap-3 rounded-surface shadow-xs px-5 py-4;
+    --alert-color: var(--color-primary-text);
+    --alert-border: var(--color-border-secondary);
+    --alert-icon-color: var(--color-text-secondary);
+  }
+
+  /* ── Variantes: controlan estructura y bg ─────────────────── */
+
+  .alert--default {
+    background-color: var(--color-surface);
+    border: 1px solid var(--alert-border);
+    color: var(--alert-color);
+  }
+
+  .alert--secondary {
+    @apply shadow-none;
+    background-color: var(--color-control);
+    color: var(--alert-color);
+  }
+
+  /* ── Status: sobreescriben color e icono únicamente ──────── */
+
+  .alert--status-default {
+    --alert-color: var(--color-primary-text);
+    --alert-border: var(--color-border-secondary);
+    --alert-icon-color: var(--color-text-secondary);
+  }
+
+  .alert--status-accent {
+    --alert-color: var(--color-accent);
+    --alert-border: var(--color-border-info);
+    --alert-icon-color: var(--color-text-info);
+  }
+
+  .alert--status-success {
+    --alert-color: var(--color-success);
+    --alert-border: var(--color-border-success);
+    --alert-icon-color: var(--color-text-success);
+  }
+
+  .alert--status-warning {
+    --alert-color: var(--color-warning);
+    --alert-border: var(--color-border-warning);
+    --alert-icon-color: var(--color-text-warning);
+  }
+
+  .alert--status-danger {
+    --alert-color: var(--color-danger);
+    --alert-border: var(--color-border-danger);
+    --alert-icon-color: var(--color-text-danger);
+  }
+
+  /* ── Subcomponentes ───────────────────────────────────────── */
+
+  .alert__indicator {
+    @apply shrink-0 mt-0.5;
+    color: var(--alert-icon-color);
+  }
+
+  .alert__content {
+    @apply flex flex-col gap-1 min-w-0;
+  }
+
+  .alert__title {
+    @apply text-sm font-medium leading-snug text-wrap wrap-break-word;
+    color: var(--alert-color);
+  }
+
+  .alert__description {
+    @apply text-secondary-text text-sm leading-snug text-wrap wrap-break-word;
+  }
+}
