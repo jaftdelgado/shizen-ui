@@ -6,8 +6,6 @@
     --alert-icon-color: var(--color-text-secondary);
   }
 
-  /* ── Variantes: controlan estructura y bg ─────────────────── */
-
   .alert--default {
     background-color: var(--color-surface);
     border: 1px solid var(--alert-border);
@@ -19,8 +17,6 @@
     background-color: var(--color-control);
     color: var(--alert-color);
   }
-
-  /* ── Status: sobreescriben color e icono únicamente ──────── */
 
   .alert--status-default {
     --alert-color: var(--color-primary-text);
@@ -52,15 +48,13 @@
     --alert-icon-color: var(--color-text-danger);
   }
 
-  /* ── Subcomponentes ───────────────────────────────────────── */
-
   .alert__indicator {
     @apply shrink-0 mt-0.5;
     color: var(--alert-icon-color);
   }
 
   .alert__content {
-    @apply flex flex-col gap-1 min-w-0;
+    @apply flex flex-col gap-1 min-w-0 flex-1;
   }
 
   .alert__title {
@@ -70,5 +64,9 @@
 
   .alert__description {
     @apply text-secondary-text text-sm leading-snug text-wrap wrap-break-word;
+  }
+
+  .alert__actions {
+    @apply flex items-center justify-end gap-2 mt-3;
   }
 }

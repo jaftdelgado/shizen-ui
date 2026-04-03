@@ -6,7 +6,8 @@ export const alertStyles = tv({
     indicator: "alert__indicator",
     content: "alert__content",
     title: "alert__title",
-    description: "alert__description"
+    description: "alert__description",
+    actions: "alert__actions"
   },
   variants: {
     variant: {

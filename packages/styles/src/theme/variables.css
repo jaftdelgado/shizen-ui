@@ -44,7 +44,7 @@
     --field-secondary: var(--control);
 
     --accent: #007aff;
-    --accent-foreground: var(--inverted-text);
+    --accent-foreground: var(--snow);
 
     --success: #22c55e;
     --success-foreground: var(--inverted-text);
@@ -57,5 +57,22 @@
 
     /* Shadows */
     --overlay-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  }
+
+  .dark,
+  [data-theme="dark"] {
+    /* Base Colors */
+    --background: #0a0a0a;
+    --surface: #1c1c1e;
+    --overlay: var(--surface);
+
+    /* Text Colors */
+    --primary-text: var(--snow);
+    --secondary-text: #838383;
+    --tertiary-text: #5c5c5c;
+    --inverted-text: var(--eclipse);
+
+    --control: #242424;
+    --accent: #155dce;
   }
 }
