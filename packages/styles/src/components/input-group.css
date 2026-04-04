@@ -1,6 +1,6 @@
 @layer components {
   .input-group {
-    @apply relative inline-flex items-center w-full rounded-control transition-[background-color,box-shadow,ring] duration-200;
+    @apply relative inline-flex items-center w-full rounded-field transition-[background-color,box-shadow,ring] duration-200;
     @apply overflow-hidden;
 
     --group-bg: var(--color-field);

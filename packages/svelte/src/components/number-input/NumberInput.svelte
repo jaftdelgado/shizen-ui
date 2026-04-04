@@ -5,7 +5,7 @@
   import type { Snippet } from "svelte";
   import { NumberInputState } from "./NumberInput.svelte.js";
   import { setNumberInputContext } from "../../contexts/internal/index.js";
-  import { useFieldStateContext } from "../../contexts/index.js";
+  import { useFieldStateContext, useSurfaceContext } from "../../contexts/index.js";
 
   interface Props extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
     value?: number;
@@ -29,7 +29,7 @@
     max,
     step = 1,
     size = "md",
-    variant = "default",
+    variant = undefined,
     disabled = false,
     invalid = false,
     id: propId,
@@ -40,6 +40,9 @@
   }: Props = $props();
 
   const fieldContext = useFieldStateContext();
+  const surfaceContext = useSurfaceContext();
+
+  const finalVariant = $derived(variant ?? (surfaceContext.exists ? "secondary" : "default"));
 
   const state = new NumberInputState({ value });
 
@@ -92,7 +95,7 @@
       return size ?? "md";
     },
     get variant() {
-      return variant ?? "default";
+      return finalVariant;
     },
     get disabled() {
       return state.disabled;
@@ -126,7 +129,7 @@
     }
   });
 
-  const baseClass = $derived(numberInputStyles({ size, variant }).base());
+  const baseClass = $derived(numberInputStyles({ size, variant: finalVariant }).base());
 </script>
 
 <div

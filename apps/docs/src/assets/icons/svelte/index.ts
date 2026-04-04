@@ -20,6 +20,7 @@ export { default as SearchIcon } from "./SearchIcon.svelte";
 export { default as StatUpIcon } from "./StatUpIcon.svelte";
 export { default as StatDownIcon } from "./StatDownIcon.svelte";
 export { default as UnderlineIcon } from "./UnderlineIcon.svelte";
+export { default as UserIcon } from "./UserIcon.svelte";
 export { default as UserPlusIcon } from "./UserPlusIcon.svelte";
 export { default as ZoomInIcon } from "./ZoomInIcon.svelte";
 export { default as ZoomOutIcon } from "./ZoomOutIcon.svelte";

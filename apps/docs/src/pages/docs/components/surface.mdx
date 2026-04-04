@@ -9,7 +9,9 @@ import SourceLinks from "@components/svelte/SourceLinks.svelte";
 import SurfaceUsage from "@examples/svelte/surface/SurfaceUsage.svelte";
 import SurfaceInput from "@examples/svelte/surface/SurfaceInput.svelte";
 import SurfaceInputGroup from "@examples/svelte/surface/SurfaceInputGroup.svelte";
+import SurfaceNumberInput from "@examples/svelte/surface/SurfaceNumberInput.svelte";
 import SurfaceTextArea from "@examples/svelte/surface/SurfaceTextArea.svelte";
+import SurfaceTimeInput from "@examples/svelte/surface/SurfaceTimeInput.svelte";
 
 # Surface
 
@@ -20,7 +22,6 @@ Container component that provides surface-level styling and context for child co
   svelteUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/svelte/src/components/surface/Surface.svelte"
   stylesUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/styles/src/components/surface.css"
 />
-
 
 <ComponentExample src="svelte/surface/SurfaceUsage.svelte">
   <SurfaceUsage client:load />
@@ -42,8 +43,20 @@ Container component that provides surface-level styling and context for child co
   <SurfaceInputGroup client:load />
 </ComponentExample>
 
+### Number Input
+
+<ComponentExample src="svelte/surface/SurfaceNumberInput.svelte">
+  <SurfaceNumberInput client:load />
+</ComponentExample>
+
 ### Text Area
 
 <ComponentExample src="svelte/surface/SurfaceTextArea.svelte">
   <SurfaceTextArea client:load />
+</ComponentExample>
+
+### Time Input
+
+<ComponentExample src="svelte/surface/SurfaceTimeInput.svelte">
+  <SurfaceTimeInput client:load />
 </ComponentExample>
