@@ -2,7 +2,6 @@
   .button {
     @apply relative overflow-hidden inline-flex items-center justify-center rounded-control font-medium leading-none text-center whitespace-nowrap select-none;
 
-    /* Default tokens */
     --btn-bg: transparent;
     --btn-bg-hover: var(--btn-bg);
     --btn-bg-pressed: var(--btn-bg);
@@ -15,6 +14,10 @@
     transition:
       background-color 200ms ease,
       transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    will-change: transform;
 
     &:disabled,
     &[aria-disabled="true"] {
@@ -36,7 +39,15 @@
   }
 
   .button__content {
-    @apply h-full w-full flex items-center justify-center gap-(--btn-gap);
+    @apply relative z-10 h-full w-full flex items-center justify-center gap-(--btn-gap);
+  }
+
+  .button__icon {
+    @apply flex items-center justify-center shrink-0;
+  }
+
+  .button__label {
+    @apply flex items-center;
   }
 
   .button--primary {

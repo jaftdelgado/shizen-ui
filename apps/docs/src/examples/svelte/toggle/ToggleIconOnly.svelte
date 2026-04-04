@@ -8,7 +8,13 @@
     <Toggle iconOnly>
       <BoldIcon class="size-4" />
     </Toggle>
-    <Toggle variant="outline" iconOnly><ItalicIcon class="size-4" /></Toggle>
-    <Toggle variant="ghost" iconOnly><UnderlineIcon class="size-4" /></Toggle>
+
+    <Toggle iconOnly>
+      <ItalicIcon class="size-4" />
+    </Toggle>
+
+    <Toggle iconOnly>
+      <UnderlineIcon class="size-4" />
+    </Toggle>
   </div>
 </div>

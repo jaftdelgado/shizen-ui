@@ -1,11 +1,11 @@
 <script lang="ts">
   import { Button, ButtonGroup, Tooltip } from "@shizen-ui/svelte";
-  import { Book, Tray, PullRequest } from "@assets/icons/svelte";
+  import { Tray, GitPullRequestIcon, RepositoryIcon } from "@assets/icons/svelte";
   import type { Component } from "svelte";
 
   const items: { icon: Component; label: string }[] = [
-    { icon: PullRequest, label: "Pull Requests" },
-    { icon: Book, label: "Repositories" },
+    { icon: GitPullRequestIcon, label: "Pull Requests" },
+    { icon: RepositoryIcon, label: "Repositories" },
     { icon: Tray, label: "Notifications" }
   ];
 </script>

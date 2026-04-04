@@ -51,9 +51,9 @@
 
 {#snippet renderIcon(content: IconContent | undefined)}
   {#if typeof content === "string"}
-    <i class={cn("flex items-center justify-center shrink-0", content)}></i>
+    <i class={content}></i>
   {:else if content}
-    <span class="flex items-center justify-center shrink-0">
+    <span class="button__icon">
       {@render content()}
     </span>
   {/if}
@@ -73,16 +73,16 @@
     className
   )}
 >
-  <span class="button__content relative z-10">
+  <span class="button__content">
     {#if iconOnly}
-      <span class="flex items-center justify-center shrink-0">
+      <span class="button__icon">
         {@render children?.()}
       </span>
     {:else}
       {@render renderIcon(startContent)}
 
       {#if children}
-        <span class="flex items-center">
+        <span class="button__label">
           {@render children()}
         </span>
       {/if}

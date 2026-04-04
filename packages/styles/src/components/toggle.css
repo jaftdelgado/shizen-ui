@@ -1,6 +1,6 @@
 @layer components {
   .toggle {
-    @apply relative overflow-hidden inline-flex items-center justify-center rounded-control font-medium leading-none text-center whitespace-nowrap select-none;
+    @apply relative overflow-hidden inline-flex items-center origin-center justify-center rounded-control font-medium leading-none text-center whitespace-nowrap select-none;
 
     --toggle-bg: transparent;
     --toggle-bg-hover: var(--toggle-bg);
@@ -18,6 +18,10 @@
       background-color 200ms ease,
       color 200ms ease,
       transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    will-change: transform;
 
     &:disabled,
     &[aria-disabled="true"] {
@@ -48,7 +52,21 @@
     }
   }
 
-  /* Variants */
+  .button__content {
+    @apply relative z-10 flex items-center justify-center;
+    gap: var(--btn-gap, 0.5rem);
+    width: 100%;
+    height: 100%;
+  }
+
+  .button__icon {
+    @apply flex items-center justify-center shrink-0;
+  }
+
+  .button__label {
+    @apply inline-flex items-center;
+  }
+
   .toggle--default {
     --toggle-bg: var(--color-control);
     --toggle-fg: var(--color-secondary-text);
@@ -64,9 +82,9 @@
     --toggle-fg: var(--color-control-foreground);
     --toggle-bg-hover: var(--color-ghost-hover);
     --toggle-bg-pressed: var(--color-ghost-pressed);
-    --toggle-bg-on: var(--color-accent);
-    --toggle-bg-on-hover: var(--color-accent-hover);
-    --toggle-fg-on: var(--color-accent-foreground);
+    --toggle-bg-on: var(--color-accent-soft);
+    --toggle-bg-on-hover: var(--color-accent-soft-hover);
+    --toggle-fg-on: var(--color-accent);
   }
 
   .toggle--ghost {
@@ -78,7 +96,6 @@
     --toggle-fg-on: var(--color-accent);
   }
 
-  /* Sizes */
   .toggle--sm {
     @apply h-control-sm px-3 text-sm;
     --btn-gap: 0.5rem;
@@ -94,15 +111,12 @@
     --btn-gap: 0.65rem;
   }
 
-  /* Icon only */
   .toggle--icon-only {
     @apply size-control-md;
   }
-
   .toggle--icon-only--sm {
     @apply size-control-sm;
   }
-
   .toggle--icon-only--lg {
     @apply size-control-lg;
   }

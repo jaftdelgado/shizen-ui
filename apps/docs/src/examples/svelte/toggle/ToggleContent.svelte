@@ -4,14 +4,14 @@
 </script>
 
 <div class="flex items-center gap-2">
-  <Toggle variant="outline">
+  <Toggle>
     {#snippet startContent()}
       <BoldIcon class="size-4" />
     {/snippet}
     Bold
   </Toggle>
 
-  <Toggle variant="outline">
+  <Toggle>
     {#snippet endContent()}
       <ItalicIcon class="size-4" />
     {/snippet}

@@ -1,9 +1,13 @@
 <script lang="ts">
   import { Toggle } from "@shizen-ui/svelte";
+  import { UserPlusIcon } from "@assets/icons/svelte";
 </script>
 
 <div class="flex items-center gap-2">
-  <Toggle>Default</Toggle>
-  <Toggle variant="outline">Outline</Toggle>
-  <Toggle variant="ghost">Ghost</Toggle>
+  <Toggle>
+    {#snippet startContent()}
+      <UserPlusIcon />
+    {/snippet}
+    Follow
+  </Toggle>
 </div>
