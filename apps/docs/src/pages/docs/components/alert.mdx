@@ -4,6 +4,7 @@ layout: "@layouts/DocsLayout.astro"
 ---
 
 import ComponentExample from "@components/astro/ComponentExample.astro";
+import SourceLinks from "@components/svelte/SourceLinks.svelte";
 import CodeBlock from "@components/astro/CodeBlock.astro";
 
 import AlertAnatomyCode from "@examples/svelte/alert/AlertAnatomy.svelte?raw";
@@ -18,6 +19,13 @@ import AlertActions from "@examples/svelte/alert/AlertActions.svelte";
 # Alert
 
 Displays important messages, updates, and status feedback in context.
+
+<SourceLinks
+  client:load
+  svelteUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/svelte/src/components/alert/Alert.svelte"
+  stylesUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/styles/src/components/alert.css"
+/>
+
 
 <ComponentExample src="svelte/alert/AlertUsage.svelte">
   <AlertUsage client:load />

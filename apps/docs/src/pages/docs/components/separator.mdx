@@ -4,6 +4,7 @@ layout: "@layouts/DocsLayout.astro"
 ---
 
 import ComponentExample from "@components/astro/ComponentExample.astro";
+import SourceLinks from "@components/svelte/SourceLinks.svelte";
 
 import SeparatorUsage from "@examples/svelte/separator/SeparatorUsage.svelte";
 import SeparatorOrientation from "@examples/svelte/separator/SeparatorOrientation.svelte";
@@ -12,6 +13,13 @@ import SeparatorDecorative from "@examples/svelte/separator/SeparatorDecorative.
 # Separator
 
 A visual divider that separates content into distinct sections.
+
+<SourceLinks
+  client:load
+  svelteUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/svelte/src/components/separator/Separator.svelte"
+  stylesUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/styles/src/components/separator.css"
+/>
+
 
 <ComponentExample src="svelte/separator/SeparatorUsage.svelte">
   <SeparatorUsage client:load />

@@ -4,6 +4,7 @@ layout: "@layouts/DocsLayout.astro"
 ---
 
 import ComponentExample from "@components/astro/ComponentExample.astro";
+import SourceLinks from "@components/svelte/SourceLinks.svelte";
 
 import ChipUsage from "@examples/svelte/chip/ChipUsage.svelte";
 import ChipColors from "@examples/svelte/chip/ChipColors.svelte";
@@ -14,6 +15,13 @@ import ChipContent from "@examples/svelte/chip/ChipContent.svelte";
 # Chip
 
 Chips are compact UI elements used to represent inputs, attributes, or actions. They provide an efficient way to display information or trigger actions in a condensed format.
+
+<SourceLinks
+  client:load
+  svelteUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/svelte/src/components/chip/Chip.svelte"
+  stylesUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/styles/src/components/chip.css"
+/>
+
 
 <ComponentExample src="svelte/chip/ChipUsage.svelte">
   <ChipUsage client:load />

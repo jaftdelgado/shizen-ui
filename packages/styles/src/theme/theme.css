@@ -14,7 +14,7 @@
   --padding-field-lg: calc(var(--padding) * 3); /* 0.75rem (12px) */
 
   /* Radius tokens */
-  --radius-control: calc(var(--radius) * 3); /* 0.75rem (12px) */
+  --radius-control: calc(var(--radius) * 16); /* rounded-full */
   --radius-field: calc(var(--radius) * 3); /* 0.75rem (12px) */
   --radius-surface: calc(var(--radius) * 6); /* 1.5rem (24px) */
 
@@ -29,6 +29,7 @@
   --color-primary-text: var(--primary-text);
   --color-secondary-text: var(--secondary-text);
   --color-tertiary-text: var(--tertiary-text);
+  --color-control-text: var(--control-text);
 
   --color-control: var(--control);
   --color-control-foreground: var(--control-foreground);

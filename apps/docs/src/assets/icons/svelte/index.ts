@@ -10,6 +10,8 @@ export { default as CameraIcon } from "./CameraIcon.svelte";
 export { default as CloudCheckIcon } from "./CloudCheckIcon.svelte";
 export { default as CreditCardIcon } from "./CreditCardIcon.svelte";
 export { default as CloudUploadIcon } from "./CloudUploadIcon.svelte";
+export { default as CodeBracketsIcon } from "./CodeBracketsIcon.svelte";
+export { default as GithubIcon } from "./GithubIcon.svelte";
 export { default as ItalicIcon } from "./ItalicIcon.svelte";
 export { default as MapPinIcon } from "./MapPinIcon.svelte";
 export { default as SearchIcon } from "./SearchIcon.svelte";

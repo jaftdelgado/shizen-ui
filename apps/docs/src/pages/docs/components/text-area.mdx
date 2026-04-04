@@ -4,6 +4,7 @@ layout: "@layouts/DocsLayout.astro"
 ---
 
 import ComponentExample from "@components/astro/ComponentExample.astro";
+import SourceLinks from "@components/svelte/SourceLinks.svelte";
 
 import TextAreaUsage from "@examples/svelte/text-area/TextAreaUsage.svelte";
 import TextAreaVariants from "@examples/svelte/text-area/TextAreaVariants.svelte";
@@ -16,6 +17,13 @@ import TextAreaFullWidth from "@examples/svelte/text-area/TextAreaFullWidth.svel
 # Text Area
 
 The `TextArea` component is a multi-line text input field. Like the `Input` component, it is designed to be used within a `TextField` composition to provide accessible labels, descriptions, and error messages.
+
+<SourceLinks
+  client:load
+  svelteUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/svelte/src/components/text-area/TextArea.svelte"
+  stylesUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/styles/src/components/text-area.css"
+/>
+
 
 <ComponentExample src="svelte/text-area/TextAreaUsage.svelte">
   <TextAreaUsage client:load />

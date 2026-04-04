@@ -4,6 +4,7 @@ layout: "@layouts/DocsLayout.astro"
 ---
 
 import ComponentExample from "@components/astro/ComponentExample.astro";
+import SourceLinks from "@components/svelte/SourceLinks.svelte";
 import CodeBlock from "@components/astro/CodeBlock.astro";
 
 import InputGroupAnatomyCode from "@examples/svelte/input-group/InputGroupAnatomy.svelte?raw";
@@ -19,6 +20,13 @@ import InputGroupControlled from "@examples/svelte/input-group/InputGroupControl
 # Input Group
 
 Decorate inputs with prefix and suffix elements.
+
+<SourceLinks
+  client:load
+  svelteUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/svelte/src/components/input-group/InputGroup.svelte"
+  stylesUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/styles/src/components/input-group.css"
+/>
+
 
 <ComponentExample src="svelte/input-group/InputGroupUsage.svelte">
   <InputGroupUsage client:load />

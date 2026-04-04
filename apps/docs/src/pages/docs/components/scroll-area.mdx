@@ -4,11 +4,19 @@ layout: "@layouts/DocsLayout.astro"
 ---
 
 import ComponentExample from "@components/astro/ComponentExample.astro";
+import SourceLinks from "@components/svelte/SourceLinks.svelte";
 
 import ScrollAreaUsage from "@examples/svelte/scroll-area/ScrollAreaUsage.svelte";
 import ScrollAreaHorizontal from "@examples/svelte/scroll-area/ScrollAreaHorizontal.svelte";
 
 # Scroll Area
+
+<SourceLinks
+  client:load
+  svelteUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/svelte/src/components/scroll-area/ScrollArea.svelte"
+  stylesUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/styles/src/components/scroll-area.css"
+/>
+
 
 <ComponentExample src="svelte/scroll-area/ScrollAreaUsage.svelte">
   <ScrollAreaUsage client:load />

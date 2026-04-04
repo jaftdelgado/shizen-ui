@@ -4,6 +4,7 @@ layout: "@layouts/DocsLayout.astro"
 ---
 
 import ComponentExample from "@components/astro/ComponentExample.astro";
+import SourceLinks from "@components/svelte/SourceLinks.svelte";
 
 import CheckboxUsage from "@examples/svelte/checkbox/CheckboxUsage.svelte";
 import CheckboxOnlyLabel from "@examples/svelte/checkbox/CheckboxOnlyLabel.svelte";
@@ -15,6 +16,13 @@ import CheckboxIndicator from "@examples/svelte/checkbox/CheckboxIndicator.svelt
 # Checkbox
 
 Checkboxes allow users to select one or more options from a list of choices. They can be used independently or grouped together to represent related selections.
+
+<SourceLinks
+  client:load
+  svelteUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/svelte/src/components/checkbox/Checkbox.svelte"
+  stylesUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/styles/src/components/checkbox.css"
+/>
+
 
 <ComponentExample src="svelte/checkbox/CheckboxUsage.svelte">
   <CheckboxUsage client:load />

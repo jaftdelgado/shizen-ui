@@ -4,6 +4,7 @@ layout: "@layouts/DocsLayout.astro"
 ---
 
 import ComponentExample from "@components/astro/ComponentExample.astro";
+import SourceLinks from "@components/svelte/SourceLinks.svelte";
 
 import AvatarUsage from "@examples/svelte/avatar/AvatarUsage.svelte";
 import AvatarSizes from "@examples/svelte/avatar/AvatarSizes.svelte";
@@ -11,6 +12,13 @@ import AvatarSizes from "@examples/svelte/avatar/AvatarSizes.svelte";
 # Avatar
 
 Avatar displays a user image with an optional fallback content when the image is not available.
+
+<SourceLinks
+  client:load
+  svelteUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/svelte/src/components/avatar/Avatar.svelte"
+  stylesUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/styles/src/components/avatar.css"
+/>
+
 
 <ComponentExample src="svelte/avatar/AvatarUsage.svelte">
   <AvatarUsage client:load />

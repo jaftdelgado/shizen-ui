@@ -4,6 +4,7 @@ layout: "@layouts/DocsLayout.astro"
 ---
 
 import ComponentExample from "@components/astro/ComponentExample.astro";
+import SourceLinks from "@components/svelte/SourceLinks.svelte";
 import CodeBlock from "@components/astro/CodeBlock.astro";
 
 import NumberInputAnatomyCode from "@examples/svelte/number-input/NumberInputAnatomy.svelte?raw";
@@ -22,6 +23,13 @@ import NumberInputCustomIcon from "@examples/svelte/number-input/NumberInputCust
 # Number Input
 
 Composable numeric input with increment and decrement controls for bounded values.
+
+<SourceLinks
+  client:load
+  svelteUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/svelte/src/components/number-input/NumberInput.svelte"
+  stylesUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/styles/src/components/number-input.css"
+/>
+
 
 <ComponentExample src="svelte/number-input/NumberInputUsage.svelte">
   <NumberInputUsage client:load />

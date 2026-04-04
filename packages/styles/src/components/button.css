@@ -55,7 +55,7 @@
 
   .button--tertiary {
     --btn-bg: var(--color-control);
-    --btn-fg: var(--color-secondary-text);
+    --btn-fg: var(--color-control-text);
     --btn-bg-hover: var(--color-control-hover);
     --btn-bg-pressed: var(--color-control-pressed);
   }
@@ -68,14 +68,14 @@
   }
 
   .button--ghost {
-    --btn-fg: var(--color-secondary-text);
+    --btn-fg: var(--color-control-text);
     --btn-bg-hover: var(--color-ghost-hover);
     --btn-bg-pressed: var(--color-ghost-pressed);
   }
 
   .button--outline {
     @apply border border-separator;
-    --btn-fg: var(--color-control-foreground);
+    --btn-fg: var(--color-control-text);
     --btn-bg-hover: var(--color-ghost-hover);
     --btn-bg-pressed: var(--color-ghost-pressed);
   }

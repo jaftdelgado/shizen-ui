@@ -4,6 +4,7 @@ layout: "@layouts/DocsLayout.astro"
 ---
 
 import ComponentExample from "@components/astro/ComponentExample.astro";
+import SourceLinks from "@components/svelte/SourceLinks.svelte";
 
 import TimeInputUsage from "@examples/svelte/time-input/TimeInputUsage.svelte";
 import TimeInputVariants from "@examples/svelte/time-input/TimeInputVariants.svelte";
@@ -15,6 +16,13 @@ import TimeInputControlled from "@examples/svelte/time-input/TimeInputControlled
 # Time Input
 
 Segmented time field for entering 12-hour values in the format HH:MM AM/PM.
+
+<SourceLinks
+  client:load
+  svelteUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/svelte/src/components/time-input/TimeInput.svelte"
+  stylesUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/styles/src/components/time-input.css"
+/>
+
 
 <ComponentExample src="svelte/time-input/TimeInputUsage.svelte">
   <TimeInputUsage client:load />

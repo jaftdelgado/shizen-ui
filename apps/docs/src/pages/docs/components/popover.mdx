@@ -4,6 +4,7 @@ layout: "@layouts/DocsLayout.astro"
 ---
 
 import ComponentExample from "@components/astro/ComponentExample.astro";
+import SourceLinks from "@components/svelte/SourceLinks.svelte";
 import CodeBlock from "@components/astro/CodeBlock.astro";
 
 import PopoverUsage from "@examples/svelte/popover/PopoverUsage.svelte";
@@ -13,6 +14,13 @@ import PopoverOffset from "@examples/svelte/popover/PopoverOffset.svelte";
 # Popover
 
 Shows floating content overlaid on the page, activated by a trigger element.
+
+<SourceLinks
+  client:load
+  svelteUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/svelte/src/components/popover/Popover.svelte"
+  stylesUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/styles/src/components/popover.css"
+/>
+
 
 <ComponentExample src="svelte/popover/PopoverUsage.svelte">
   <PopoverUsage client:load />

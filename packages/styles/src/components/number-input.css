@@ -1,6 +1,6 @@
 @layer components {
   .number-input {
-    @apply relative inline-flex items-stretch w-full rounded-control overflow-hidden transition-all duration-200;
+    @apply relative inline-flex items-stretch w-full rounded-field overflow-hidden transition-all duration-200;
     @apply shadow-xs;
 
     --number-input-bg: var(--color-field);
@@ -61,7 +61,7 @@
 
     &::after {
       content: "";
-      @apply absolute inset-0 rounded-control pointer-events-none;
+      @apply absolute inset-0 rounded-field pointer-events-none;
       box-shadow: inset 0 0 0 1px var(--color-separator);
     }
 
@@ -137,10 +137,10 @@
   }
 
   .number-input__button--left {
-    @apply rounded-l-control rounded-r-none border-r border-current/20;
+    @apply rounded-l-field rounded-r-none border-r border-current/20;
   }
 
   .number-input__button--right {
-    @apply rounded-r-control rounded-l-none border-l border-current/20;
+    @apply rounded-r-field rounded-l-none border-l border-current/20;
   }
 }

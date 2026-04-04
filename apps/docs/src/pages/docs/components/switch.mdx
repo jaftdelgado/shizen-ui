@@ -4,6 +4,7 @@ layout: "@layouts/DocsLayout.astro"
 ---
 
 import ComponentExample from "@components/astro/ComponentExample.astro";
+import SourceLinks from "@components/svelte/SourceLinks.svelte";
 import CodeBlock from "@components/astro/CodeBlock.astro";
 
 import SwitchAnatomyCode from "@examples/svelte/switch/SwitchAnatomy.svelte?raw";
@@ -24,6 +25,13 @@ import SwitchGroupDisabled from "@examples/svelte/switch/SwitchGroupDisabled.sve
 # Switch
 
 A switch allows users to toggle between two mutually exclusive states, typically on and off. It is used for binary options that take effect immediately.
+
+<SourceLinks
+  client:load
+  svelteUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/svelte/src/components/switch/Switch.svelte"
+  stylesUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/styles/src/components/switch.css"
+/>
+
 
 <ComponentExample src="svelte/switch/SwitchUsage.svelte">
   <SwitchUsage client:load />

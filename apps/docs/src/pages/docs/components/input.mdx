@@ -4,6 +4,7 @@ layout: "@layouts/DocsLayout.astro"
 ---
 
 import ComponentExample from "@components/astro/ComponentExample.astro";
+import SourceLinks from "@components/svelte/SourceLinks.svelte";
 
 import InputUsage from "@examples/svelte/input/InputUsage.svelte";
 import InputSizes from "@examples/svelte/input/InputSizes.svelte";
@@ -16,6 +17,13 @@ import InputControlled from "@examples/svelte/input/InputControlled.svelte";
 # Input
 
 Input field that allows users to enter and edit text.
+
+<SourceLinks
+  client:load
+  svelteUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/svelte/src/components/input/Input.svelte"
+  stylesUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/styles/src/components/input.css"
+/>
+
 
 <ComponentExample src="svelte/input/InputUsage.svelte">
   <InputUsage client:load />
