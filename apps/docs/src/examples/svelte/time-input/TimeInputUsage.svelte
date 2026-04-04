@@ -1,7 +1,7 @@
 <script lang="ts">
   import { TimeInput, Label, Description } from "@shizen-ui/svelte";
 
-  let departureTime = $state("09:30 AM");
+  let departureTime = $state("09:42");
 </script>
 
 <div class="flex flex-col gap-1.5 w-full max-w-60">

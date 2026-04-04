@@ -10,15 +10,16 @@ export function useTimeInputContext() {
   return { fieldContext, groupContext, surfaceContext };
 }
 
-export function useSegments(getValue: () => string) {
-  let segments = $state<TimeSegments>(parseValue(getValue()));
+export function useSegments(getValue: () => string, getHour12: () => boolean) {
+  let segments = $state<TimeSegments>(parseValue(getValue(), getHour12()));
   let hhPending = $state("");
   let mmPending = $state("");
+  let ssPending = $state("");
 
-  const externalSegments = $derived(parseValue(getValue()));
+  const externalSegments = $derived(parseValue(getValue(), getHour12()));
 
   $effect(() => {
-    if (!hhPending && !mmPending) {
+    if (!hhPending && !mmPending && !ssPending) {
       Object.assign(segments, externalSegments);
     }
   });
@@ -33,6 +34,9 @@ export function useSegments(getValue: () => string) {
     get mmPending() {
       return mmPending;
     },
+    get ssPending() {
+      return ssPending;
+    },
     setSegments(next: Partial<TimeSegments>) {
       Object.assign(segments, next);
     },
@@ -41,6 +45,9 @@ export function useSegments(getValue: () => string) {
     },
     setMmPending(v: string) {
       mmPending = v;
+    },
+    setSsPending(v: string) {
+      ssPending = v;
     }
   };
 }

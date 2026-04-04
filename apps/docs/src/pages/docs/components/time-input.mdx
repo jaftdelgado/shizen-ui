@@ -12,6 +12,8 @@ import TimeInputSizes from "@examples/svelte/time-input/TimeInputSizes.svelte";
 import TimeInputDisabled from "@examples/svelte/time-input/TimeInputDisabled.svelte";
 import TimeInputInvalid from "@examples/svelte/time-input/TimeInputInvalid.svelte";
 import TimeInputControlled from "@examples/svelte/time-input/TimeInputControlled.svelte";
+import TimeInputFormatModes from "@examples/svelte/time-input/TimeInputFormatModes.svelte";
+import TimeInputSeconds from "@examples/svelte/time-input/TimeInputSeconds.svelte";
 
 # Time Input
 
@@ -22,7 +24,6 @@ Segmented time field for entering 12-hour values in the format HH:MM AM/PM.
   svelteUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/svelte/src/components/time-input/TimeInput.svelte"
   stylesUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/styles/src/components/time-input.css"
 />
-
 
 <ComponentExample src="svelte/time-input/TimeInputUsage.svelte">
   <TimeInputUsage client:load />
@@ -58,4 +59,16 @@ Segmented time field for entering 12-hour values in the format HH:MM AM/PM.
 
 <ComponentExample src="svelte/time-input/TimeInputControlled.svelte">
   <TimeInputControlled client:load />
+</ComponentExample>
+
+### Format Modes
+
+<ComponentExample src="svelte/time-input/TimeInputFormatModes.svelte">
+  <TimeInputFormatModes client:load />
+</ComponentExample>
+
+### Seconds Support
+
+<ComponentExample src="svelte/time-input/TimeInputSeconds.svelte">
+  <TimeInputSeconds client:load />
 </ComponentExample>

@@ -44,7 +44,7 @@
     @apply bg-transparent border-none outline-none text-center tabular-nums;
     caret-color: transparent;
 
-    width: 1.75em;
+    width: 1.5em;
     padding: 2px 0px;
     border-radius: 8px;
     transition:
@@ -58,6 +58,10 @@
     &:focus {
       @apply bg-accent-soft text-accent;
     }
+
+    [data-disabled="true"] & {
+      @apply status-disabled;
+    }
   }
 
   .time-input__segment--period {
@@ -66,6 +70,7 @@
 
   .time-input__sep {
     @apply text-secondary-text;
+    padding: 0 0px;
   }
 
   .time-input__sep--space {

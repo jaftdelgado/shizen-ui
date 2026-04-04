@@ -6,6 +6,8 @@ export interface TimeInputProps {
   value?: string;
   invalid?: boolean;
   disabled?: boolean;
+  showSeconds?: boolean;
+  hour12?: boolean;
   id?: string;
   class?: string;
   onchange?: (value: string) => void;
@@ -14,7 +16,8 @@ export interface TimeInputProps {
 export interface TimeSegments {
   hh: string;
   mm: string;
-  ap: "AM" | "PM";
+  ss: string;
+  ap: "AM" | "PM" | "";
 }
 
 export type PropsGetters = {
@@ -28,6 +31,7 @@ export type PropsGetters = {
 export type RefsGetters = {
   readonly hhInput: HTMLInputElement | null;
   readonly mmInput: HTMLInputElement | null;
+  readonly ssInput: HTMLInputElement | null;
   readonly apInput: HTMLInputElement | null;
 };
 
@@ -35,7 +39,9 @@ export type DerivedGetters = {
   readonly finalDisabled: boolean;
 };
 
-export const HH_CONFIG = { min: 1, max: 12, autoFocusThreshold: 1 } as const;
+export const HH12_CONFIG = { min: 1, max: 12, autoFocusThreshold: 1 } as const;
+export const HH24_CONFIG = { min: 0, max: 23, autoFocusThreshold: 2 } as const;
 export const MM_CONFIG = { min: 0, max: 59, autoFocusThreshold: 5 } as const;
+export const SS_CONFIG = { min: 0, max: 59, autoFocusThreshold: 5 } as const;
 export const AP_OPTIONS = ["AM", "PM"] as const;
 export const AP_KEY_MAP = { a: "AM", p: "PM" } as const;

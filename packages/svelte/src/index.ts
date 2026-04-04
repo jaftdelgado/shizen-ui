@@ -24,3 +24,6 @@ export * from "./components/text-field/index.js";
 export * from "./components/time-input/index.js";
 export * from "./components/toggle/index.js";
 export * from "./components/tooltip/index.js";
+
+// Public functions
+export * from "./shared/public/index.js";
