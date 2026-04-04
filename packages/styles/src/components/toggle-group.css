@@ -1,0 +1,148 @@
+@layer components {
+  .toggle-group {
+    @apply inline-flex isolate;
+
+    &.toggle-group--vertical {
+      @apply flex-col items-stretch;
+
+      > .toggle,
+      > :is([style*="display: contents"], [style*="display:contents"]) .toggle {
+        @apply w-full flex justify-center items-center;
+      }
+
+      > .toggle.toggle--icon-only,
+      > :is([style*="display: contents"], [style*="display:contents"]) .toggle--icon-only {
+        @apply aspect-square min-w-max w-full;
+      }
+    }
+  }
+
+  /* ── Border radius horizontal ── */
+  .toggle-group--horizontal .toggle {
+    @apply rounded-none;
+  }
+  .toggle-group--horizontal > :first-child .toggle,
+  .toggle-group--horizontal > .toggle:first-child {
+    @apply rounded-l-control;
+  }
+  .toggle-group--horizontal > :last-child .toggle,
+  .toggle-group--horizontal > .toggle:last-child {
+    @apply rounded-r-control;
+  }
+  .toggle-group--horizontal > :only-child .toggle,
+  .toggle-group--horizontal > .toggle:only-child {
+    @apply rounded-control;
+  }
+
+  /* ── Border radius vertical ── */
+  .toggle-group--vertical .toggle {
+    @apply rounded-none;
+  }
+  .toggle-group--vertical > :first-child .toggle,
+  .toggle-group--vertical > .toggle:first-child {
+    @apply rounded-t-control;
+  }
+  .toggle-group--vertical > :last-child .toggle,
+  .toggle-group--vertical > .toggle:last-child {
+    @apply rounded-b-control;
+  }
+  .toggle-group--vertical > :only-child .toggle,
+  .toggle-group--vertical > .toggle:only-child {
+    @apply rounded-control;
+  }
+
+  /* ── Outline borders ── */
+  .toggle-group--outline {
+    &.toggle-group--horizontal {
+      > :first-child .toggle,
+      > .toggle:first-child {
+        @apply border-r-0;
+      }
+      > :not(:first-child):not(:last-child) .toggle,
+      > .toggle:not(:first-child):not(:last-child) {
+        @apply border-x-0;
+      }
+      > :last-child .toggle,
+      > .toggle:last-child {
+        @apply border-l-0;
+      }
+      > :only-child .toggle,
+      > .toggle:only-child {
+        @apply border;
+      }
+    }
+
+    &.toggle-group--vertical {
+      > :first-child .toggle,
+      > .toggle:first-child {
+        @apply border-b-0;
+      }
+      > :not(:first-child):not(:last-child) .toggle,
+      > .toggle:not(:first-child):not(:last-child) {
+        @apply border-y-0;
+      }
+      > :last-child .toggle,
+      > .toggle:last-child {
+        @apply border-t-0;
+      }
+      > :only-child .toggle,
+      > .toggle:only-child {
+        @apply border;
+      }
+    }
+  }
+
+  /* ── Toggle overrides inside group ── */
+  .toggle-group .toggle {
+    @apply relative;
+
+    &:hover:not(:disabled),
+    &:focus-visible {
+      @apply z-10;
+    }
+    &:active:not(:disabled) {
+      @apply z-20;
+    }
+
+    &:active:not(:disabled),
+    &[data-pressed="true"]:not(:disabled) {
+      transform: none;
+
+      .button__content {
+        transform: scale(0.96);
+        transition: transform 100ms cubic-bezier(0.4, 0, 1, 1);
+      }
+    }
+
+    .button__content {
+      transition: transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+  }
+
+  /* ── Separators ── */
+  .toggle-group--separators {
+    > .toggle:not(:last-child)::after,
+    > :not(:last-child) .toggle::after {
+      content: "";
+      @apply absolute bg-current opacity-20 rounded-full;
+    }
+  }
+
+  .toggle-group--horizontal.toggle-group--separators {
+    > .toggle:not(:last-child)::after,
+    > :not(:last-child) .toggle::after {
+      @apply right-0 top-1/2 -translate-y-1/2;
+      width: 1px;
+      height: 60%;
+    }
+  }
+
+  .toggle-group--vertical.toggle-group--separators {
+    > .toggle:not(:last-child)::after,
+    > :not(:last-child) .toggle::after {
+      @apply bottom-0 left-1/2 -translate-x-1/2;
+      height: 1px;
+      width: 60%;
+    }
+  }
+}

@@ -1,0 +1,67 @@
+---
+title: "Toggle Group"
+layout: "@layouts/DocsLayout.astro"
+---
+
+import ComponentExample from "@components/astro/ComponentExample.astro";
+import SourceLinks from "@components/svelte/SourceLinks.svelte";
+
+import ToggleGroupUsage from "@examples/svelte/toggle-group/ToggleGroupUsage.svelte";
+import ToggleGroupVariants from "@examples/svelte/toggle-group/ToggleGroupVariants.svelte";
+import ToggleGroupSizes from "@examples/svelte/toggle-group/ToggleGroupSizes.svelte";
+import ToggleGroupDisabled from "@examples/svelte/toggle-group/ToggleGroupDisabled.svelte";
+import ToggleGroupContent from "@examples/svelte/toggle-group/ToggleGroupContent.svelte";
+import ToggleGroupIconOnly from "@examples/svelte/toggle-group/ToggleGroupIconOnly.svelte";
+import ToggleGroupControlled from "@examples/svelte/toggle-group/ToggleGroupControlled.svelte";
+
+# Toggle Group
+
+Groups multiple toggles into a single, coordinated control for single or multiple selections.
+
+<SourceLinks
+  client:load
+  svelteUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/svelte/src/components/toggle-group/ToggleGroup.svelte"
+  stylesUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/styles/src/components/toggle-group.css"
+/>
+
+<ComponentExample src="svelte/toggle-group/ToggleGroupUsage.svelte">
+  <ToggleGroupUsage client:load />
+</ComponentExample>
+
+## Examples
+
+### Variants
+
+<ComponentExample src="svelte/toggle-group/ToggleGroupVariants.svelte">
+  <ToggleGroupVariants client:load />
+</ComponentExample>
+
+### Sizes
+
+<ComponentExample src="svelte/toggle-group/ToggleGroupSizes.svelte">
+  <ToggleGroupSizes client:load />
+</ComponentExample>
+
+### Disabled State
+
+<ComponentExample src="svelte/toggle-group/ToggleGroupDisabled.svelte">
+  <ToggleGroupDisabled client:load />
+</ComponentExample>
+
+### Start Content
+
+<ComponentExample src="svelte/toggle-group/ToggleGroupContent.svelte">
+  <ToggleGroupContent client:load />
+</ComponentExample>
+
+### Icon Only
+
+<ComponentExample src="svelte/toggle-group/ToggleGroupIconOnly.svelte">
+  <ToggleGroupIconOnly client:load />
+</ComponentExample>
+
+### Controlled
+
+<ComponentExample src="svelte/toggle-group/ToggleGroupControlled.svelte">
+  <ToggleGroupControlled client:load />
+</ComponentExample>

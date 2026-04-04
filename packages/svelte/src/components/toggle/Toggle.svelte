@@ -3,11 +3,13 @@
   import { toggleStyles, type ToggleVariants } from "@shizen-ui/styles";
   import type { HTMLButtonAttributes } from "svelte/elements";
   import type { Snippet } from "svelte";
+  import { useToggleGroupContext } from "../../contexts/internal/index.js";
 
   type IconContent = Snippet<[]> | string;
   type ButtonClickEvent = MouseEvent & { currentTarget: EventTarget & HTMLButtonElement };
 
   interface BaseProps extends HTMLButtonAttributes {
+    value?: string;
     variant?: ToggleVariants["variant"];
     size?: ToggleVariants["size"];
     pressed?: boolean;
@@ -42,13 +44,31 @@
     iconOnly = false,
     pressed = $bindable(false),
     onPressedChange,
+    value,
     ...rest
   }: Props = $props();
 
+  const group = useToggleGroupContext();
+
+  // Si estamos en un grupo, el estado de pressed lo manda el grupo
+  const isPressed = $derived(
+    group.exists && value !== undefined ? group.isPressed(value) : pressed
+  );
+
+  const isDisabled = $derived(disabled || (group.exists && group.disabled));
+  const resolvedVariant = $derived(variant ?? group.variant ?? "default");
+  const resolvedSize = $derived(size ?? group.size ?? "md");
+
   function handleClick(event: ButtonClickEvent) {
-    if (disabled) return;
-    pressed = !pressed;
-    onPressedChange?.(pressed);
+    if (isDisabled) return;
+
+    if (group.exists && value !== undefined) {
+      group.toggle(value);
+    } else {
+      pressed = !pressed;
+      onPressedChange?.(pressed);
+    }
+
     onclick?.(event);
   }
 </script>
@@ -65,14 +85,14 @@
 
 <button
   type="button"
-  {disabled}
-  aria-pressed={pressed}
+  disabled={isDisabled}
+  aria-pressed={isPressed}
   onclick={handleClick}
   {...rest}
   class={cn(
     toggleStyles({
-      variant: variant ?? "default",
-      size: size ?? "md",
+      variant: resolvedVariant,
+      size: resolvedSize,
       iconOnly
     }),
     className

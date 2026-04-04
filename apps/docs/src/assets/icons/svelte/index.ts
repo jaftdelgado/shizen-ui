@@ -2,6 +2,9 @@ export { default as CircleXMark } from "./CircleXMark.svelte";
 export { default as Globe } from "./Globe.svelte";
 export { default as Tray } from "./Tray.svelte";
 
+export { default as AlignCenterIcon } from "./AlignCenterIcon.svelte";
+export { default as AlignLeftIcon } from "./AlignLeftIcon.svelte";
+export { default as AlignRightIcon } from "./AlignRightIcon.svelte";
 export { default as BadgeCheckIcon } from "./BadgeCheckIcon.svelte";
 export { default as BoldIcon } from "./BoldIcon.svelte";
 export { default as BookmarkIcon } from "./BookmarkIcon.svelte";

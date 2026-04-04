@@ -24,4 +24,5 @@ export * from "./text-area";
 export * from "./text-field";
 export * from "./time-input";
 export * from "./toggle";
+export * from "./toggle-group";
 export * from "./tooltip";
