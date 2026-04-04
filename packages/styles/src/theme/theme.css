@@ -117,6 +117,12 @@
   --color-warning-soft: color-mix(in oklab, var(--warning) 15%, transparent);
   --color-danger-soft: color-mix(in oklab, var(--danger) 15%, transparent);
 
+  --color-accent-soft-hover: color-mix(
+    in oklab,
+    var(--color-accent-soft) 94%,
+    var(--color-accent) 6%
+  );
+
   /* Shadows */
   --shadow-overlay: var(--overlay-shadow);
 }
