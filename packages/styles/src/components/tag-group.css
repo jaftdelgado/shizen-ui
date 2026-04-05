@@ -1,3 +1,9 @@
-.tag-group {
-  display: block;
+@layer components {
+  .tag-group {
+    @apply flex;
+  }
+
+  .tag-group__list {
+    @apply flex flex-wrap items-center gap-2;
+  }
 }

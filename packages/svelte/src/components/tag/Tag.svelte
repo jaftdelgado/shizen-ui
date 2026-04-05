@@ -1,6 +1,7 @@
 <script lang="ts">
   import { cn } from "@shizen-ui/styles";
   import { tagStyles, type TagVariants } from "@shizen-ui/styles";
+  import { useTagGroupContext } from "../../contexts/internal/index.js";
   import type { HTMLAttributes } from "svelte/elements";
   import type { Snippet } from "svelte";
 
@@ -10,6 +11,7 @@
   interface Props extends HTMLAttributes<HTMLDivElement> {
     variant?: TagVariants["variant"];
     size?: TagVariants["size"];
+    value?: string;
     children?: Snippet;
     startContent?: IconContent;
     endContent?: IconContent;
@@ -29,6 +31,7 @@
     class: className,
     variant = "secondary",
     size = "md",
+    value,
     selectionMode = "none",
     selected = $bindable(false),
     onSelectedChange,
@@ -38,13 +41,27 @@
     ...rest
   }: Props = $props();
 
-  const isInteractive = $derived(selectionMode !== "none");
+  const group = useTagGroupContext();
+
+  const resolvedVariant = $derived(group.exists ? (group.variant ?? variant) : variant);
+  const resolvedSize = $derived(group.exists ? (group.size ?? size) : size);
+  const resolvedMode = $derived(group.exists ? group.selectionMode : selectionMode);
+
+  const isSelected = $derived(
+    group.exists && value != null ? group.selectedValues.includes(value) : selected
+  );
+
+  const isInteractive = $derived(resolvedMode !== "none");
 
   function handleClick(event: MouseEvent) {
     if (isInteractive) {
-      const next = !selected;
-      selected = next;
-      onSelectedChange?.(next);
+      if (group.exists && value != null) {
+        group.toggleValue(value);
+      } else {
+        const next = !selected;
+        selected = next;
+        onSelectedChange?.(next);
+      }
     }
     if (typeof onclick === "function") onclick(event);
   }
@@ -57,9 +74,13 @@
   function handleKeyDown(event: KeyboardEvent) {
     if (isInteractive && (event.key === "Enter" || event.key === " ")) {
       event.preventDefault();
-      const next = !selected;
-      selected = next;
-      onSelectedChange?.(next);
+      if (group.exists && value != null) {
+        group.toggleValue(value);
+      } else {
+        const next = !selected;
+        selected = next;
+        onSelectedChange?.(next);
+      }
     }
   }
 </script>
@@ -77,14 +98,16 @@
 <div
   {...rest}
   class={cn(
-    tagStyles({ variant, size }),
+    tagStyles({ variant: resolvedVariant, size: resolvedSize }),
     isInteractive && "tag--interactive",
-    selected && "tag--selected",
+    isSelected && "tag--selected",
+    group.exists && group.disabled && "tag--disabled",
     className
   )}
   role={isInteractive ? "checkbox" : undefined}
-  aria-checked={isInteractive ? selected : undefined}
-  tabindex={isInteractive ? 0 : undefined}
+  aria-checked={isInteractive ? isSelected : undefined}
+  aria-disabled={group.exists && group.disabled ? true : undefined}
+  tabindex={isInteractive && !(group.exists && group.disabled) ? 0 : undefined}
   onclick={handleClick}
   onkeydown={handleKeyDown}
 >
