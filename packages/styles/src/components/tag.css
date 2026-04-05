@@ -108,9 +108,9 @@
     --tag-bg: var(--color-field);
     --tag-fg: var(--color-control-foreground);
     --tag-bg-hover: var(--color-field-hover);
-    --tag-bg-selected: var(--color-accent);
-    --tag-bg-selected-hover: var(--color-accent-hover);
-    --tag-fg-selected: var(--color-accent-foreground);
+    --tag-bg-selected: var(--color-accent-soft);
+    --tag-bg-selected-hover: var(--color-accent-soft-hover);
+    --tag-fg-selected: var(--color-accent);
   }
 
   .tag--secondary {

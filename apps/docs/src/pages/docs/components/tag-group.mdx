@@ -1,0 +1,46 @@
+---
+title: "Tag Group"
+layout: "@layouts/DocsLayout.astro"
+---
+
+import ComponentExample from "@components/astro/ComponentExample.astro";
+import SourceLinks from "@components/svelte/SourceLinks.svelte";
+
+import TagGroupUsage from "@examples/svelte/tag-group/TagGroupUsage.svelte";
+import TagVariants from "@examples/svelte/tag-group/TagVariants.svelte";
+import TagSelection from "@examples/svelte/tag-group/TagSelection.svelte";
+import TagClosable from "@examples/svelte/tag-group/TagClosable.svelte";
+
+# Tag Group
+
+Tag groups are containers for organizing and displaying multiple tags together.
+
+<SourceLinks
+  client:load
+  svelteUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/svelte/src/components/tag-group/TagGroup.svelte"
+  stylesUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/styles/src/components/tag-group.css"
+/>
+
+<ComponentExample src="svelte/tag-group/TagGroupUsage.svelte">
+  <TagGroupUsage client:load />
+</ComponentExample>
+
+## Examples
+
+### Variants
+
+<ComponentExample src="svelte/tag-group/TagVariants.svelte">
+  <TagVariants client:load />
+</ComponentExample>
+
+### Selectable Filters
+
+<ComponentExample src="svelte/tag-group/TagSelection.svelte">
+  <TagSelection client:load />
+</ComponentExample>
+
+### Closable Tags
+
+<ComponentExample src="svelte/tag-group/TagClosable.svelte">
+  <TagClosable client:load />
+</ComponentExample>
