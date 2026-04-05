@@ -1,0 +1,75 @@
+.code-block-root[data-collapsed="true"] [data-code-content] {
+  max-height: 8rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 0;
+  -webkit-mask-image: linear-gradient(to bottom, black 30%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 30%, transparent 100%);
+}
+
+.code-block-root[data-collapsed="false"] [data-code-content] {
+  max-height: none;
+  overflow-x: auto;
+  overflow-y: visible;
+  padding-bottom: 1rem;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+.code-block-root:not([data-collapsed]) [data-code-content] {
+  max-height: none;
+  overflow-x: auto;
+  overflow-y: visible;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+.code-block-footer {
+  @apply flex justify-center w-full py-3;
+}
+
+.code-block-root[data-collapsed="true"] .code-block-footer {
+  @apply -mt-8 relative z-10;
+}
+
+.code-block-root[data-collapsed="false"] .code-block-footer {
+  @apply -mt-12 relative z-10;
+}
+
+.shiki-container {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.shiki-container::-webkit-scrollbar {
+  display: none;
+}
+
+.shiki-container pre {
+  @apply bg-transparent! m-0 p-0 block text-sm;
+  line-height: 1.6;
+}
+
+.shiki-container code {
+  @apply block w-fit min-w-full py-4;
+  counter-reset: step;
+}
+
+.line {
+  @apply inline-block w-full px-6 box-border;
+}
+
+.line span {
+  line-height: inherit;
+}
+
+.line-numbers .line {
+  @apply pl-1;
+}
+
+.line-numbers .line::before {
+  @apply w-12 inline-block text-right select-none pr-4 text-sm;
+  content: counter(step);
+  counter-increment: step;
+  color: var(--color-secondary-text);
+}

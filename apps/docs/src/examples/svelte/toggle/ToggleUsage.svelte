@@ -3,7 +3,7 @@
   import { UserPlusIcon } from "@assets/icons/svelte";
 </script>
 
-<div class="flex items-center gap-2">
+<div class="flex items-center">
   <Toggle>
     {#snippet startContent()}
       <UserPlusIcon />

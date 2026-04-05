@@ -10,21 +10,32 @@ interface Props {
 
 const { src, lang = "svelte", theme, showLineNumbers = true } = Astro.props;
 
+/**
+ * Usamos eager: true para cargar los strings de código en memoria
+ * al iniciar el servidor/build. Esto evita latencia de I/O de disco
+ * en cada petición de página.
+ */
+const examples = import.meta.glob<string>("/src/examples/**/*.svelte", {
+  query: "?raw",
+  import: "default",
+  eager: true
+});
+
 let code = "";
 
 if (src) {
-  const examples = import.meta.glob("/src/examples/**/*.svelte", {
-    query: "?raw",
-    import: "default"
-  });
-
+  // Construimos el path absoluto dentro del proyecto
   const fullPath = `/src/examples/${src}`;
-  const loadCode = (await examples[fullPath]?.()) as string;
+
+  // Acceso directo al objeto en memoria (O(1) de complejidad)
+  const loadCode = examples[fullPath];
 
   if (loadCode) {
     code = loadCode.trim();
   } else {
-    console.warn(`[ComponentExample] No se encontró: ${fullPath}`);
+    // Útil para depurar rutas mal escritas en el MDX de Shizen UI
+    console.warn(`[ComponentExample] No se encontró el archivo en: ${fullPath}`);
+    console.warn(`Rutas disponibles:`, Object.keys(examples).slice(0, 3), "...");
   }
 }
 ---

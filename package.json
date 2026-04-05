@@ -10,6 +10,7 @@
   "scripts": {
     "dev": "bun --filter \"*\" dev",
     "build": "bun --filter \"*\" build",
+    "preview": "bun --filter \"*\" preview",
     "lint": "eslint .",
     "format": "prettier --write .",
     "version": "changeset version",

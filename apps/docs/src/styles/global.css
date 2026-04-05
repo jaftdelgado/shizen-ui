@@ -3,6 +3,7 @@
 @import "@shizen-ui/styles/styles";
 @import "./theme.css";
 @import "./typography.css";
+@import "./code-block.css";
 
 @font-face {
   font-family: "Geist";
