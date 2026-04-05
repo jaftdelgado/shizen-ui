@@ -1,1 +1,15 @@
-export { default as TagGroup } from "./TagGroup.svelte";
+import TagGroupRoot from "./TagGroup.svelte";
+import Items from "./compound/Items.svelte";
+import TagRoot from "../tag/Tag.svelte";
+
+export type { TagSelectionMode } from "../../contexts/internal/index.js";
+
+export const TagGroup = Object.assign(TagGroupRoot, {
+  Items,
+  Item: TagRoot,
+  Tag: TagRoot
+});
+
+export { TagGroupRoot };
+
+export default TagGroup;

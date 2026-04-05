@@ -22,7 +22,7 @@
     class: className,
     variant,
     size,
-    selectionMode = "none",
+    selectionMode = "single",
     selectedValues = $bindable<string[]>([]),
     onSelectedValuesChange,
     disabled = false,
@@ -65,11 +65,9 @@
     toggleValue
   });
 
-  const styles = $derived(tagGroupStyles());
+  const styles = tagGroupStyles();
 </script>
 
 <div class={cn(styles.base(), className)} role="group" data-disabled={disabled} {...rest}>
-  <div class={styles.list()}>
-    {@render children()}
-  </div>
+  {@render children()}
 </div>

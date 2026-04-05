@@ -32,7 +32,7 @@
     variant = "secondary",
     size = "md",
     value,
-    selectionMode = "none",
+    selectionMode = "single",
     selected = $bindable(false),
     onSelectedChange,
     closable = false,

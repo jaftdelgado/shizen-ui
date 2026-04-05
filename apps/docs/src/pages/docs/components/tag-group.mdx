@@ -8,7 +8,8 @@ import SourceLinks from "@components/svelte/SourceLinks.svelte";
 
 import TagGroupUsage from "@examples/svelte/tag-group/TagGroupUsage.svelte";
 import TagVariants from "@examples/svelte/tag-group/TagVariants.svelte";
-import TagSelection from "@examples/svelte/tag-group/TagSelection.svelte";
+import TagGroupSizes from "@examples/svelte/tag-group/TagGroupSizes.svelte";
+import TagGroupSelection from "@examples/svelte/tag-group/TagGroupSelection.svelte";
 import TagClosable from "@examples/svelte/tag-group/TagClosable.svelte";
 
 # Tag Group
@@ -33,10 +34,16 @@ Tag groups are containers for organizing and displaying multiple tags together.
   <TagVariants client:load />
 </ComponentExample>
 
-### Selectable Filters
+### Sizes
 
-<ComponentExample src="svelte/tag-group/TagSelection.svelte">
-  <TagSelection client:load />
+<ComponentExample src="svelte/tag-group/TagGroupSizes.svelte">
+  <TagGroupSizes client:load />
+</ComponentExample>
+
+### Selection Modes
+
+<ComponentExample src="svelte/tag-group/TagGroupSelection.svelte">
+  <TagGroupSelection client:load />
 </ComponentExample>
 
 ### Closable Tags

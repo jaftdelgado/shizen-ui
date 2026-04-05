@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Tag, TagGroup } from "@shizen-ui/svelte";
+  import { Tag, TagGroup, Label, Description } from "@shizen-ui/svelte";
   import { BasketballIcon, BycicleIcon, GolfIcon, TvIcon, CameraIcon } from "@assets/icons/svelte";
 
   import type { Component } from "svelte";
@@ -23,13 +23,18 @@
 
 <div class="flex max-w-xs">
   <TagGroup selectionMode="multiple" bind:selectedValues={selected}>
-    {#each interests as { label, value, icon: Icon }}
-      <Tag {value}>
-        {#snippet startContent()}
-          <Icon class="size-3" />
-        {/snippet}
-        {label}
-      </Tag>
-    {/each}
+    <Label>Choose Interests</Label>
+    <Description>Select all interests that apply.</Description>
+
+    <TagGroup.Items>
+      {#each interests as { label, value, icon: Icon }}
+        <Tag {value}>
+          {#snippet startContent()}
+            <Icon class="size-3" />
+          {/snippet}
+          {label}
+        </Tag>
+      {/each}
+    </TagGroup.Items>
   </TagGroup>
 </div>

@@ -1,9 +1,9 @@
 @layer components {
   .tag-group {
-    @apply flex;
+    @apply flex flex-col w-fit;
   }
 
   .tag-group__list {
-    @apply flex flex-wrap items-center gap-2;
+    @apply flex flex-wrap items-center gap-2 mt-4;
   }
 }
