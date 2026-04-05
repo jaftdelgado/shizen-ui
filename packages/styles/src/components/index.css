@@ -19,6 +19,8 @@
 @import "./surface.css";
 @import "./switch-group.css";
 @import "./switch.css";
+@import "./tag-group.css";
+@import "./tag.css";
 @import "./text-area.css";
 @import "./text-field.css";
 @import "./time-input.css";

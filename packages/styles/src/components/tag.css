@@ -1,0 +1,142 @@
+@layer components {
+  .tag {
+    @apply relative overflow-hidden inline-flex items-center justify-center rounded-full font-medium leading-none text-center whitespace-nowrap;
+
+    --tag-bg: transparent;
+    --tag-bg-hover: var(--tag-bg);
+    --tag-bg-selected: var(--tag-bg);
+    --tag-bg-selected-hover: var(--tag-bg-selected);
+    --tag-fg: currentColor;
+    --tag-fg-selected: var(--tag-fg);
+    --tag-border-color: transparent;
+    --tag-border-selected: var(--tag-border-color);
+
+    background-color: var(--tag-bg);
+    color: var(--tag-fg);
+    border: 1px solid var(--tag-border-color);
+
+    transition:
+      background-color 200ms ease,
+      border-color 200ms ease,
+      color 200ms ease;
+  }
+
+  .tag__content {
+    @apply h-full w-full flex items-center justify-center gap-(--tag-gap);
+  }
+
+  /* =====================
+     Close button
+  ===================== */
+  .tag__close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: currentColor;
+    opacity: 0.5;
+    border-radius: 9999px;
+    transition:
+      opacity 150ms ease,
+      background-color 150ms ease;
+    width: var(--tag-close-size);
+    height: var(--tag-close-size);
+  }
+
+  .tag__close:hover {
+    opacity: 1;
+    background-color: color-mix(in srgb, currentColor 15%, transparent);
+  }
+
+  /* =====================
+     Interactive (selectable)
+  ===================== */
+  .tag--interactive {
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .tag--interactive:hover {
+    background-color: var(--tag-bg-hover);
+    border-color: var(--tag-border-hover, var(--tag-border-color));
+  }
+
+  .tag--interactive:focus-visible {
+    outline: 2px solid var(--tag-fg);
+    outline-offset: 2px;
+  }
+
+  .tag--interactive.tag--selected {
+    background-color: var(--tag-bg-selected);
+    color: var(--tag-fg-selected);
+    border-color: var(--tag-border-selected);
+
+    &:hover {
+      background-color: var(--tag-bg-selected-hover);
+    }
+  }
+
+  /* =====================
+     Sizes
+  ===================== */
+  .tag--sm {
+    @apply h-5 px-2 text-xs;
+    --tag-gap: 0.25rem;
+    --tag-close-size: 0.75rem;
+  }
+
+  .tag--md {
+    @apply h-6 px-3 text-xs;
+    --tag-gap: 0.325rem;
+    --tag-close-size: 0.875rem;
+  }
+
+  .tag--lg {
+    @apply h-7 px-3 text-sm;
+    --tag-gap: 0.375rem;
+    --tag-close-size: 1rem;
+  }
+
+  /* =====================
+     Variants
+  ===================== */
+  .tag--default {
+    --tag-bg: var(--color-field);
+    --tag-fg: var(--color-control-foreground);
+    --tag-bg-hover: var(--color-field-hover);
+    --tag-bg-selected: var(--color-accent);
+    --tag-bg-selected-hover: var(--color-accent-hover);
+    --tag-fg-selected: var(--color-accent-foreground);
+  }
+
+  .tag--secondary {
+    --tag-bg: var(--color-control);
+    --tag-fg: var(--color-secondary-text);
+    --tag-bg-hover: var(--color-ghost-pressed);
+    --tag-bg-selected: var(--color-accent-soft);
+    --tag-bg-selected-hover: var(--color-accent-soft-hover);
+    --tag-fg-selected: var(--color-accent);
+  }
+
+  .tag--outline {
+    --tag-fg: var(--color-secondary-text);
+    --tag-border-color: var(--color-control-foreground);
+    --tag-bg-hover: var(--color-control);
+    --tag-bg-selected: var(--color-accent-soft);
+    --tag-bg-selected-hover: var(--color-accent-soft-hover);
+    --tag-fg-selected: var(--color-accent);
+    --tag-border-selected: var(--color-accent);
+  }
+
+  .tag--ghost {
+    --tag-fg: var(--color-secondary-text);
+    --tag-bg-hover: var(--color-ghost-hover);
+    --tag-bg-selected: var(--color-control);
+    --tag-bg-selected-hover: var(--color-control-hover);
+    --tag-fg-selected: var(--color-accent);
+  }
+}

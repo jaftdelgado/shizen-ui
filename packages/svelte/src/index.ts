@@ -20,6 +20,8 @@ export * from "./components/separator/index.js";
 export * from "./components/surface/index.js";
 export * from "./components/switch-group/index.js";
 export * from "./components/switch/index.js";
+export * from "./components/tag-group/index.js";
+export * from "./components/tag/index.js";
 export * from "./components/text-area/index.js";
 export * from "./components/text-field/index.js";
 export * from "./components/time-input/index.js";
