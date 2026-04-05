@@ -1,7 +1,5 @@
 import type { TimeSegments } from "./time-input.types.js";
 
-// ─── Conversión ISO → segmentos de display ────────────────────────────────────
-
 function isoToSegments12h(hh24: number, mm: string, ss: string): TimeSegments {
   const ap = hh24 >= 12 ? "PM" : "AM";
   const hh12 = hh24 % 12 === 0 ? 12 : hh24 % 12;
@@ -11,8 +9,6 @@ function isoToSegments12h(hh24: number, mm: string, ss: string): TimeSegments {
 function isoToSegments24h(hh24: number, mm: string, ss: string): TimeSegments {
   return { hh: String(hh24).padStart(2, "0"), mm, ss, ap: "" };
 }
-
-// ─── Conversión segmentos de display → ISO ────────────────────────────────────
 
 function segments12hToIso(segments: TimeSegments, showSeconds: boolean): string {
   const hh = parseInt(segments.hh);
@@ -34,10 +30,7 @@ function segments24hToIso(segments: TimeSegments, showSeconds: boolean): string 
   return showSeconds ? `${base}:${segments.ss}` : base;
 }
 
-// ─── API pública ──────────────────────────────────────────────────────────────
-
 export function parseValue(v: string, hour12: boolean): TimeSegments {
-  // ISO con segundos: "14:30:45"
   const isoS = v.match(/^(\d{1,2}):(\d{2}):(\d{2})$/);
   if (isoS) {
     const [, hh, mm, ss] = isoS as [string, string, string, string];
@@ -45,7 +38,6 @@ export function parseValue(v: string, hour12: boolean): TimeSegments {
     return hour12 ? isoToSegments12h(hh24, mm, ss) : isoToSegments24h(hh24, mm, ss);
   }
 
-  // ISO sin segundos: "14:30"
   const iso = v.match(/^(\d{1,2}):(\d{2})$/);
   if (iso) {
     const [, hh, mm] = iso as [string, string, string];

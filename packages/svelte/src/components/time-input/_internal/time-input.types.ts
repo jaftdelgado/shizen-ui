@@ -29,10 +29,10 @@ export type PropsGetters = {
 };
 
 export type RefsGetters = {
-  readonly hhInput: HTMLInputElement | null;
-  readonly mmInput: HTMLInputElement | null;
-  readonly ssInput: HTMLInputElement | null;
-  readonly apInput: HTMLInputElement | null;
+  readonly hhInput: HTMLElement | null;
+  readonly mmInput: HTMLElement | null;
+  readonly ssInput: HTMLElement | null;
+  readonly apInput: HTMLElement | null;
 };
 
 export type DerivedGetters = {

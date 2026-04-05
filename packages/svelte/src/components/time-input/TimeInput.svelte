@@ -53,10 +53,10 @@
     () => hour12
   );
 
-  let hhInput = $state<HTMLInputElement | null>(null);
-  let mmInput = $state<HTMLInputElement | null>(null);
-  let ssInput = $state<HTMLInputElement | null>(null);
-  let apInput = $state<HTMLInputElement | null>(null);
+  let hhInput = $state<HTMLElement | null>(null);
+  let mmInput = $state<HTMLElement | null>(null);
+  let ssInput = $state<HTMLElement | null>(null);
+  let apInput = $state<HTMLElement | null>(null);
 
   const resolvedSsInput = $derived(showSeconds ? ssInput : null);
   const resolvedApInput = $derived(hour12 ? apInput : null);
@@ -75,6 +75,14 @@
       return resolvedApInput;
     }
   };
+
+  $effect(() => {
+    const { hh, mm, ss, ap } = segmentState.segments;
+    if (hhInput) hhInput.textContent = hh || "─";
+    if (mmInput) mmInput.textContent = mm || "─";
+    if (showSeconds && ssInput) ssInput.textContent = ss || "─";
+    if (hour12 && apInput) apInput.textContent = ap || "─";
+  });
 
   function emit() {
     const { hh, mm, ss, ap } = segmentState.segments;
@@ -115,8 +123,8 @@
   function onWrapperMousedown(e: MouseEvent) {
     if (computedProps.finalDisabled) return;
     const target = e.target as HTMLElement;
-    if (target.classList.contains("time-input__segment")) {
-      onSegmentMousedown(e as MouseEvent & { target: HTMLInputElement });
+    if (target.dataset.segment !== undefined) {
+      onSegmentMousedown(e as MouseEvent & { target: HTMLElement });
       return;
     }
     e.preventDefault();
@@ -133,77 +141,90 @@
   onmousedown={onWrapperMousedown}
 >
   <input
-    bind:this={hhInput}
     id={computedProps.finalId}
-    type="text"
+    style="position:absolute; width:1px; height:1px; opacity:0; pointer-events:none;"
+    tabindex="-1"
+    aria-hidden="true"
+    onfocus={() => hhInput?.focus()}
+  />
+
+  <span
+    bind:this={hhInput}
+    role="spinbutton"
+    contenteditable="true"
     inputmode="numeric"
+    data-segment
     class="time-input__segment"
-    placeholder="─"
-    value={segmentState.segments.hh}
-    size={2}
-    maxlength={2}
-    disabled={computedProps.finalDisabled}
     aria-label="Hours"
+    aria-valuenow={segmentState.segments.hh ? Number(segmentState.segments.hh) : undefined}
+    aria-valuemin={hour12 ? 1 : 0}
+    aria-valuemax={hour12 ? 12 : 23}
     aria-invalid={computedProps.finalInvalid}
     aria-errormessage={computedProps.finalInvalid ? computedProps.errorId : undefined}
     aria-describedby={!computedProps.finalInvalid ? computedProps.descriptionId : undefined}
+    aria-disabled={computedProps.finalDisabled}
+    tabindex={computedProps.finalDisabled ? -1 : 0}
     onkeydown={onHhKeydown}
     onblur={onHhBlur}
-    readonly
-  />
+    onbeforeinput={(e) => e.preventDefault()}>{segmentState.segments.hh || "─"}</span
+  >
 
   <span class="time-input__sep" aria-hidden="true">:</span>
 
-  <input
+  <span
     bind:this={mmInput}
-    type="text"
+    role="spinbutton"
+    contenteditable="true"
     inputmode="numeric"
+    data-segment
     class="time-input__segment"
-    placeholder="─"
-    value={segmentState.segments.mm}
-    size={2}
-    maxlength={2}
-    disabled={computedProps.finalDisabled}
     aria-label="Minutes"
+    aria-valuenow={segmentState.segments.mm ? Number(segmentState.segments.mm) : undefined}
+    aria-valuemin={0}
+    aria-valuemax={59}
+    aria-disabled={computedProps.finalDisabled}
+    tabindex={computedProps.finalDisabled ? -1 : 0}
     onkeydown={onMmKeydown}
     onblur={onMmBlur}
-    readonly
-  />
+    onbeforeinput={(e) => e.preventDefault()}>{segmentState.segments.mm || "─"}</span
+  >
 
   {#if showSeconds}
     <span class="time-input__sep" aria-hidden="true">.</span>
 
-    <input
+    <span
       bind:this={ssInput}
-      type="text"
+      role="spinbutton"
+      contenteditable="true"
       inputmode="numeric"
+      data-segment
       class="time-input__segment"
-      placeholder="─"
-      value={segmentState.segments.ss}
-      size={2}
-      maxlength={2}
-      disabled={computedProps.finalDisabled}
       aria-label="Seconds"
+      aria-valuenow={segmentState.segments.ss ? Number(segmentState.segments.ss) : undefined}
+      aria-valuemin={0}
+      aria-valuemax={59}
+      aria-disabled={computedProps.finalDisabled}
+      tabindex={computedProps.finalDisabled ? -1 : 0}
       onkeydown={onSsKeydown}
       onblur={onSsBlur}
-      readonly
-    />
+      onbeforeinput={(e) => e.preventDefault()}>{segmentState.segments.ss || "─"}</span
+    >
   {/if}
 
   {#if hour12}
     <span class="time-input__sep time-input__sep--space" aria-hidden="true"> </span>
 
-    <input
+    <span
       bind:this={apInput}
-      type="text"
+      role="spinbutton"
+      contenteditable="true"
+      data-segment
       class="time-input__segment time-input__segment--period"
-      value={segmentState.segments.ap}
-      size={2}
-      maxlength={2}
-      disabled={computedProps.finalDisabled}
       aria-label="AM or PM"
+      aria-disabled={computedProps.finalDisabled}
+      tabindex={computedProps.finalDisabled ? -1 : 0}
       onkeydown={onApKeydown}
-      readonly
-    />
+      onbeforeinput={(e) => e.preventDefault()}>{segmentState.segments.ap || "─"}</span
+    >
   {/if}
 </div>

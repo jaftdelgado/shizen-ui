@@ -2,8 +2,8 @@ import { getNextCyclicValue, processSegmentInput } from "./numeric-segment-helpe
 import type { SegmentConfig } from "./numeric-segment-helpers.js";
 
 export interface SegmentRefs {
-  prev: () => HTMLInputElement | null;
-  next: () => HTMLInputElement | null;
+  prev: () => HTMLElement | null;
+  next: () => HTMLElement | null;
 }
 
 interface NumericSegmentOptions {
@@ -41,6 +41,19 @@ export function createSegmentKeydownHandler(opts: SegmentNavigationOptions) {
     const isEmpty = opts.type === "numeric" ? !opts.getPending() && !opts.getValue() : false;
 
     if (e.key === "ArrowLeft" || (e.key === "Backspace" && isEmpty)) {
+      opts.refs.prev()?.focus();
+      return;
+    }
+
+    if (e.key === "Delete") {
+      if (opts.type === "numeric") {
+        opts.setValue("");
+        opts.setPending("");
+      } else {
+        // options segment (AM/PM): reset al primer valor
+        opts.setValue(opts.options[0] as string);
+      }
+      opts.onCommit();
       opts.refs.prev()?.focus();
       return;
     }
@@ -99,7 +112,7 @@ export function createSegmentBlurHandler(opts: {
 export function createSegmentMousedownHandler(isDisabled: () => boolean) {
   return (e: MouseEvent) => {
     if (isDisabled()) return;
-    const target = e.target as HTMLInputElement;
+    const target = e.target as HTMLElement;
     if (document.activeElement === target) return;
     e.preventDefault();
     target.focus();
