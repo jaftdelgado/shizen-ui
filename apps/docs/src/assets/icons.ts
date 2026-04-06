@@ -5,7 +5,7 @@ type IconoirKey = keyof typeof iconoirSet.icons;
 function getIcon(name: IconoirKey) {
   const { body } = iconoirSet.icons[name];
   return {
-    body: body.replaceAll('stroke-width="1.5"', 'stroke-width="2.2"'),
+    body: body.replaceAll('stroke-width="1.5"', 'stroke-width="2.3"'),
     width: iconoirSet.width,
     height: iconoirSet.height
   };
@@ -31,3 +31,20 @@ export const BadgeCheck = getIcon("badge-check");
 export const MapPin = getIcon("map-pin");
 export const StatDownIcon = getIcon("stat-down");
 export const StatUpIcon = getIcon("stat-up");
+
+export const AlignCenter = getIcon("align-center");
+export const AlignLeft = getIcon("align-left");
+export const AlignRight = getIcon("align-right");
+export const Bold = getIcon("bold");
+export const Italic = getIcon("italic");
+export const Underline = getIcon("underline");
+export const Bookmark = getIcon("bookmark");
+export const BookmarkSolid = getIcon("bookmark-solid");
+export const UserPlus = getIcon("user-plus");
+
+export const ZoomIn = getIcon("zoom-in");
+export const ZoomOut = getIcon("zoom-out");
+export const CreditCard = getIcon("credit-card");
+export const MessageText = getIcon("message-text");
+export const Repository = getIcon("repository");
+export const GitPullRequest = getIcon("git-pull-request");

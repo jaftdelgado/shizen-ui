@@ -1,24 +1,7 @@
 export { default as CircleXMark } from "./CircleXMark.svelte";
 export { default as Globe } from "./Globe.svelte";
-export { default as Tray } from "./Tray.svelte";
 
-export { default as AlignCenterIcon } from "./AlignCenterIcon.svelte";
-export { default as AlignLeftIcon } from "./AlignLeftIcon.svelte";
-export { default as AlignRightIcon } from "./AlignRightIcon.svelte";
-export { default as BoldIcon } from "./BoldIcon.svelte";
-export { default as BookmarkIcon } from "./BookmarkIcon.svelte";
-export { default as BookmarkSolidIcon } from "./BookmarkSolidIcon.svelte";
-export { default as CloudCheckIcon } from "./CloudCheckIcon.svelte";
-export { default as CreditCardIcon } from "./CreditCardIcon.svelte";
 export { default as CodeBracketsIcon } from "./CodeBracketsIcon.svelte";
 export { default as GithubIcon } from "./GithubIcon.svelte";
-export { default as GitPullRequestIcon } from "./GitPullRequestIcon.svelte";
-export { default as ItalicIcon } from "./ItalicIcon.svelte";
-export { default as RepositoryIcon } from "./RepositoryIcon.svelte";
 export { default as SearchIcon } from "./SearchIcon.svelte";
-export { default as UnderlineIcon } from "./UnderlineIcon.svelte";
 export { default as UserIcon } from "./UserIcon.svelte";
-export { default as UserPlusIcon } from "./UserPlusIcon.svelte";
-export { default as VideoCameraIcon } from "./VideoCameraIcon.svelte";
-export { default as ZoomInIcon } from "./ZoomInIcon.svelte";
-export { default as ZoomOutIcon } from "./ZoomOutIcon.svelte";

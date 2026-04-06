@@ -1,6 +1,8 @@
 <script lang="ts">
   import { Toggle, Description } from "@shizen-ui/svelte";
-  import { BookmarkIcon, BookmarkSolidIcon } from "@assets/icons/svelte";
+
+  import Icon from "@assets/Icon.svelte";
+  import { Bookmark, BookmarkSolid } from "@assets/icons";
 
   let isActive = $state(false);
 </script>
@@ -9,9 +11,9 @@
   <Toggle bind:pressed={isActive}>
     {#snippet startContent()}
       {#if isActive}
-        <BookmarkSolidIcon />
+        <Icon icon={BookmarkSolid} class="size-4" />
       {:else}
-        <BookmarkIcon />
+        <Icon icon={Bookmark} class="size-4" />
       {/if}
     {/snippet}
     {isActive ? "Saved" : "Save"}

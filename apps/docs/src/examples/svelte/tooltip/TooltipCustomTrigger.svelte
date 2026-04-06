@@ -1,22 +1,23 @@
 <script lang="ts">
   import { Button, ButtonGroup, Tooltip } from "@shizen-ui/svelte";
-  import { Tray, GitPullRequestIcon, RepositoryIcon } from "@assets/icons/svelte";
-  import type { Component } from "svelte";
 
-  const items: { icon: Component; label: string }[] = [
-    { icon: GitPullRequestIcon, label: "Pull Requests" },
-    { icon: RepositoryIcon, label: "Repositories" },
-    { icon: Tray, label: "Notifications" }
+  import Icon from "@assets/Icon.svelte";
+  import { MessageText, GitPullRequest, Repository } from "@assets/icons";
+
+  const items = [
+    { icon: GitPullRequest, label: "Pull Requests" },
+    { icon: Repository, label: "Repositories" },
+    { icon: MessageText, label: "Messages" }
   ];
 </script>
 
 <div class="flex items-center justify-center gap-2">
   <ButtonGroup variant="secondary">
-    {#each items as { icon: Icon, label } (label)}
+    {#each items as { icon, label } (label)}
       <Tooltip>
         <Tooltip.Trigger>
           <Button iconOnly>
-            <Icon />
+            <Icon {icon} class="size-4" />
           </Button>
         </Tooltip.Trigger>
         <Tooltip.Content>{label}</Tooltip.Content>
