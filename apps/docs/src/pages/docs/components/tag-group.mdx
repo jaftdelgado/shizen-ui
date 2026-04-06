@@ -10,7 +10,8 @@ import TagGroupUsage from "@examples/svelte/tag-group/TagGroupUsage.svelte";
 import TagVariants from "@examples/svelte/tag-group/TagVariants.svelte";
 import TagGroupSizes from "@examples/svelte/tag-group/TagGroupSizes.svelte";
 import TagGroupSelection from "@examples/svelte/tag-group/TagGroupSelection.svelte";
-import TagClosable from "@examples/svelte/tag-group/TagClosable.svelte";
+import TagGroupControlled from "@examples/svelte/tag-group/TagGroupControlled.svelte";
+import TagGroupClosable from "@examples/svelte/tag-group/TagGroupClosable.svelte";
 
 # Tag Group
 
@@ -46,8 +47,14 @@ Selectable and closable tag for filtering, categorizing, or marking content.
   <TagGroupSelection client:load />
 </ComponentExample>
 
+### Controlled
+
+<ComponentExample src="svelte/tag-group/TagGroupControlled.svelte">
+  <TagGroupControlled client:load />
+</ComponentExample>
+
 ### Closable Tags
 
-<ComponentExample src="svelte/tag-group/TagClosable.svelte">
-  <TagClosable client:load />
+<ComponentExample src="svelte/tag-group/TagGroupClosable.svelte">
+  <TagGroupClosable client:load />
 </ComponentExample>

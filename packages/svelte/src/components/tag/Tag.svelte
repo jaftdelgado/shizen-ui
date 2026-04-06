@@ -1,9 +1,10 @@
 <script lang="ts">
   import { cn } from "@shizen-ui/styles";
   import { tagStyles, type TagVariants } from "@shizen-ui/styles";
-  import { useTagGroupContext } from "../../contexts/internal/index.js";
+  import { useTagGroupContext, setTagContext } from "../../contexts/internal/index.js";
   import type { HTMLAttributes } from "svelte/elements";
   import type { Snippet } from "svelte";
+  import RemoveButton from "./compound/RemoveButton.svelte";
 
   type IconContent = Snippet<[]> | string;
   type SelectionMode = "none" | "single" | "multiple";
@@ -19,8 +20,7 @@
     selectionMode?: SelectionMode;
     selected?: boolean;
     onSelectedChange?: (selected: boolean) => void;
-    // Closable
-    closable?: boolean;
+    // Remove
     onClose?: () => void;
   }
 
@@ -35,7 +35,6 @@
     selectionMode = "single",
     selected = $bindable(false),
     onSelectedChange,
-    closable = false,
     onClose,
     onclick,
     ...rest
@@ -53,7 +52,9 @@
 
   const isInteractive = $derived(resolvedMode !== "none");
 
-  function handleClick(event: MouseEvent) {
+  setTagContext({ onClose: () => onClose?.() });
+
+  function handleClick(event: MouseEvent & { currentTarget: EventTarget & HTMLDivElement }) {
     if (isInteractive) {
       if (group.exists && value != null) {
         group.toggleValue(value);
@@ -66,12 +67,7 @@
     if (typeof onclick === "function") onclick(event);
   }
 
-  function handleClose(event: MouseEvent) {
-    event.stopPropagation();
-    onClose?.();
-  }
-
-  function handleKeyDown(event: KeyboardEvent) {
+  function handleKeyDown(event: KeyboardEvent & { currentTarget: EventTarget & HTMLDivElement }) {
     if (isInteractive && (event.key === "Enter" || event.key === " ")) {
       event.preventDefault();
       if (group.exists && value != null) {
@@ -95,22 +91,7 @@
   {/if}
 {/snippet}
 
-<div
-  {...rest}
-  class={cn(
-    tagStyles({ variant: resolvedVariant, size: resolvedSize }),
-    isInteractive && "tag--interactive",
-    isSelected && "tag--selected",
-    group.exists && group.disabled && "tag--disabled",
-    className
-  )}
-  role={isInteractive ? "checkbox" : undefined}
-  aria-checked={isInteractive ? isSelected : undefined}
-  aria-disabled={group.exists && group.disabled ? true : undefined}
-  tabindex={isInteractive && !(group.exists && group.disabled) ? 0 : undefined}
-  onclick={handleClick}
-  onkeydown={handleKeyDown}
->
+{#snippet tagContent()}
   <span class="tag__content">
     {@render renderIcon(startContent)}
 
@@ -121,24 +102,38 @@
     {/if}
 
     {@render renderIcon(endContent)}
-
-    {#if closable}
-      <button class="tag__close" onclick={handleClose} aria-label="Remove tag" tabindex={-1}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          width="100%"
-          height="100%"
-        >
-          <line x1="18" y1="6" x2="6" y2="18" />
-          <line x1="6" y1="6" x2="18" y2="18" />
-        </svg>
-      </button>
-    {/if}
   </span>
-</div>
+{/snippet}
+
+{#if isInteractive}
+  <div
+    {...rest}
+    class={cn(
+      tagStyles({ variant: resolvedVariant, size: resolvedSize }),
+      "tag--interactive",
+      isSelected && "tag--selected",
+      group.exists && group.disabled && "tag--disabled",
+      className
+    )}
+    role="checkbox"
+    aria-checked={isSelected}
+    aria-disabled={group.exists && group.disabled ? true : undefined}
+    tabindex={!(group.exists && group.disabled) ? 0 : undefined}
+    onclick={handleClick}
+    onkeydown={handleKeyDown}
+  >
+    {@render tagContent()}
+  </div>
+{:else}
+  <div
+    {...rest}
+    class={cn(
+      tagStyles({ variant: resolvedVariant, size: resolvedSize }),
+      isSelected && "tag--selected",
+      group.exists && group.disabled && "tag--disabled",
+      className
+    )}
+  >
+    {@render tagContent()}
+  </div>
+{/if}
