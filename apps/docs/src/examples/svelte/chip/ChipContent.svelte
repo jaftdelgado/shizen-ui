@@ -1,19 +1,21 @@
 <script lang="ts">
   import { Chip } from "@shizen-ui/svelte";
-  import { StatUpIcon, StatDownIcon } from "@assets/icons/svelte";
+
+  import Icon from "@assets/Icon.svelte";
+  import { StatUpIcon, StatDownIcon } from "@assets/icons";
 </script>
 
 <div class="flex flex-row gap-3">
-  <Chip color="success" variant="soft">
+  <Chip color="success">
     {#snippet startContent()}
-      <StatUpIcon class="size-3" />
+      <Icon icon={StatUpIcon} class="size-3" />
     {/snippet}
     +12.3%
   </Chip>
 
-  <Chip color="danger" variant="soft">
+  <Chip color="danger">
     {#snippet endContent()}
-      <StatDownIcon class="size-3" />
+      <Icon icon={StatDownIcon} class="size-3" />
     {/snippet}
     -5.2%
   </Chip>

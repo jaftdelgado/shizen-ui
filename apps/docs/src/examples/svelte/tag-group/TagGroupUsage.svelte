@@ -1,21 +1,15 @@
 <script lang="ts">
   import { Tag, TagGroup, Label, Description } from "@shizen-ui/svelte";
-  import { BasketballIcon, BycicleIcon, GolfIcon, TvIcon, CameraIcon } from "@assets/icons/svelte";
 
-  import type { Component } from "svelte";
+  import Icon from "@assets/Icon.svelte";
+  import { Basketball, Bicycle, Golf, Tv, Camera } from "@assets/icons";
 
-  interface Interest {
-    label: string;
-    value: string;
-    icon: Component<{ class?: string }>;
-  }
-
-  const interests: Interest[] = [
-    { label: "Basketball", value: "basketball", icon: BasketballIcon },
-    { label: "Cycling", value: "cycling", icon: BycicleIcon },
-    { label: "Golf", value: "golf", icon: GolfIcon },
-    { label: "Movies & TV", value: "movies-and-tv", icon: TvIcon },
-    { label: "Photography", value: "photography", icon: CameraIcon }
+  const interests = [
+    { label: "Basketball", value: "basketball", icon: Basketball },
+    { label: "Bike", value: "cycling", icon: Bicycle },
+    { label: "Golf", value: "golf", icon: Golf },
+    { label: "Movies & TV", value: "movies-and-tv", icon: Tv },
+    { label: "Photography", value: "photography", icon: Camera }
   ];
 
   let selected: string[] = $state([]);
@@ -27,10 +21,10 @@
     <Description>Select all interests that apply.</Description>
 
     <TagGroup.Items>
-      {#each interests as { label, value, icon: Icon }}
+      {#each interests as { label, value, icon }}
         <Tag {value}>
           {#snippet startContent()}
-            <Icon class="size-3" />
+            <Icon {icon} class="size-3" />
           {/snippet}
           {label}
         </Tag>

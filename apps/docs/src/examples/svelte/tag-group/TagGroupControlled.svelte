@@ -1,27 +1,15 @@
 <script lang="ts">
   import { Tag, TagGroup, Label, Description } from "@shizen-ui/svelte";
-  import {
-    FacebookIcon,
-    InstagramIcon,
-    SnapchatIcon,
-    ThreadsIcon,
-    TikTokIcon
-  } from "@assets/icons/svelte";
 
-  import type { Component } from "svelte";
+  import Icon from "@assets/Icon.svelte";
+  import { Facebook, Instagram, Snapchat, Threads, TikTok } from "@assets/icons";
 
-  interface Platform {
-    label: string;
-    value: string;
-    icon: Component<{ class?: string }>;
-  }
-
-  const platforms: Platform[] = [
-    { label: "Facebook", value: "facebook", icon: FacebookIcon },
-    { label: "Instagram", value: "instagram", icon: InstagramIcon },
-    { label: "Snapchat", value: "snapchat", icon: SnapchatIcon },
-    { label: "Threads", value: "threads", icon: ThreadsIcon },
-    { label: "TikTok", value: "tiktok", icon: TikTokIcon }
+  const platforms = [
+    { label: "Facebook", value: "facebook", icon: Facebook },
+    { label: "Instagram", value: "instagram", icon: Instagram },
+    { label: "Snapchat", value: "snapchat", icon: Snapchat },
+    { label: "Threads", value: "threads", icon: Threads },
+    { label: "TikTok", value: "tiktok", icon: TikTok }
   ];
 
   let selectedValues: string[] = $state(["instagram", "tiktok"]);
@@ -39,10 +27,10 @@
     <Description>Select the platforms where this post will be published.</Description>
 
     <TagGroup.Items>
-      {#each platforms as { label, value, icon: Icon }}
+      {#each platforms as { label, value, icon }}
         <Tag {value}>
           {#snippet startContent()}
-            <Icon class="size-3" />
+            <Icon {icon} class="size-3" />
           {/snippet}
           {label}
         </Tag>
