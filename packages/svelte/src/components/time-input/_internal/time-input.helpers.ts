@@ -30,11 +30,24 @@ function segments24hToIso(segments: TimeSegments, showSeconds: boolean): string 
   return showSeconds ? `${base}:${segments.ss}` : base;
 }
 
+const EMPTY: TimeSegments = { hh: "", mm: "", ss: "", ap: "" };
+
+function emptyFor(hour12: boolean): TimeSegments {
+  return { ...EMPTY, ap: hour12 ? "AM" : "" };
+}
+
+function isValidTime(hh24: number, mm: number, ss: number): boolean {
+  return hh24 >= 0 && hh24 <= 23 && mm >= 0 && mm <= 59 && ss >= 0 && ss <= 59;
+}
+
 export function parseValue(v: string, hour12: boolean): TimeSegments {
   const isoS = v.match(/^(\d{1,2}):(\d{2}):(\d{2})$/);
   if (isoS) {
     const [, hh, mm, ss] = isoS as [string, string, string, string];
     const hh24 = parseInt(hh);
+    const mmN = parseInt(mm);
+    const ssN = parseInt(ss);
+    if (!isValidTime(hh24, mmN, ssN)) return emptyFor(hour12);
     return hour12 ? isoToSegments12h(hh24, mm, ss) : isoToSegments24h(hh24, mm, ss);
   }
 
@@ -42,10 +55,12 @@ export function parseValue(v: string, hour12: boolean): TimeSegments {
   if (iso) {
     const [, hh, mm] = iso as [string, string, string];
     const hh24 = parseInt(hh);
+    const mmN = parseInt(mm);
+    if (!isValidTime(hh24, mmN, 0)) return emptyFor(hour12);
     return hour12 ? isoToSegments12h(hh24, mm, "") : isoToSegments24h(hh24, mm, "");
   }
 
-  return { hh: "", mm: "", ss: "", ap: hour12 ? "AM" : "" };
+  return emptyFor(hour12);
 }
 
 export function buildTimeString(

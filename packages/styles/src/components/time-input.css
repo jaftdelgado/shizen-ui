@@ -39,7 +39,7 @@
     }
   }
 
-  /* Segmentos internos */
+  /* Time segments */
   .time-input__segment {
     @apply bg-transparent border-none outline-none text-center tabular-nums;
     caret-color: transparent;
@@ -62,6 +62,10 @@
     [data-disabled="true"] & {
       @apply status-disabled;
     }
+
+    &[data-empty="true"] {
+      @apply text-field-placeholder;
+    }
   }
 
   .time-input__segment--period {
@@ -77,7 +81,7 @@
     padding: 0 0px;
   }
 
-  /* Variantes */
+  /* Variants */
   .time-input--default {
     --input-bg: var(--color-field);
     --input-bg-hover: var(--color-field-hover);
@@ -98,7 +102,7 @@
     --input-border: var(--color-separator);
   }
 
-  /* Tamaños */
+  /* Sizes */
   .time-input--sm {
     @apply h-field-sm px-field-sm text-sm;
   }

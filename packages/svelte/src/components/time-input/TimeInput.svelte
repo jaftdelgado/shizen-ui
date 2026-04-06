@@ -84,15 +84,25 @@
     if (hour12 && apInput) apInput.textContent = ap || "─";
   });
 
-  function emit() {
+  function emit(): boolean {
     const { hh, mm, ss, ap } = segmentState.segments;
-    if (!hh || !mm) return;
-    if (showSeconds && !ss) return;
-    if (hour12 && !ap) return;
+    const incomplete = !hh || !mm || (showSeconds && !ss) || (hour12 && !ap);
+
+    if (incomplete) {
+      if (value !== "") {
+        segmentState.markSelfEmit();
+        value = "";
+        onchange?.("");
+      }
+      return false;
+    }
+
     const next = buildTimeString(segmentState.segments, showSeconds, hour12);
-    if (next === value) return;
+    if (next === value) return true;
+    segmentState.markSelfEmit();
     value = next;
     onchange?.(value);
+    return true;
   }
 
   const {
@@ -121,7 +131,10 @@
   );
 
   function onWrapperMousedown(e: MouseEvent) {
-    if (computedProps.finalDisabled) return;
+    if (computedProps.finalDisabled) {
+      e.preventDefault();
+      return;
+    }
     const target = e.target as HTMLElement;
     if (target.dataset.segment !== undefined) {
       onSegmentMousedown(e as MouseEvent & { target: HTMLElement });
@@ -129,6 +142,18 @@
     }
     e.preventDefault();
     hhInput?.focus();
+  }
+
+  function onWrapperFocusout(e: FocusEvent) {
+    const wrapper = e.currentTarget as HTMLElement;
+    const relatedTarget = e.relatedTarget as Node | null;
+    if (!relatedTarget || !wrapper.contains(relatedTarget)) {
+      segmentState.setEditing(false);
+      if (segmentState.wasEdited) {
+        segmentState.setWasEdited(false);
+        emit();
+      }
+    }
   }
 </script>
 
@@ -139,19 +164,23 @@
   data-in-group={groupContext.inGroup}
   class={wrapperClass}
   onmousedown={onWrapperMousedown}
+  onfocusout={onWrapperFocusout}
 >
   <input
-    id={computedProps.finalId}
+    id={!computedProps.finalDisabled ? computedProps.finalId : undefined}
     style="position:absolute; width:1px; height:1px; opacity:0; pointer-events:none;"
     tabindex="-1"
+    disabled={computedProps.finalDisabled}
     aria-hidden="true"
-    onfocus={() => hhInput?.focus()}
+    onfocus={() => {
+      if (!computedProps.finalDisabled) hhInput?.focus();
+    }}
   />
 
   <span
     bind:this={hhInput}
     role="spinbutton"
-    contenteditable="true"
+    contenteditable={!computedProps.finalDisabled}
     inputmode="numeric"
     data-segment
     class="time-input__segment"
@@ -163,6 +192,7 @@
     aria-errormessage={computedProps.finalInvalid ? computedProps.errorId : undefined}
     aria-describedby={!computedProps.finalInvalid ? computedProps.descriptionId : undefined}
     aria-disabled={computedProps.finalDisabled}
+    data-empty={!segmentState.segments.hh}
     tabindex={computedProps.finalDisabled ? -1 : 0}
     onkeydown={onHhKeydown}
     onblur={onHhBlur}
@@ -174,7 +204,7 @@
   <span
     bind:this={mmInput}
     role="spinbutton"
-    contenteditable="true"
+    contenteditable={!computedProps.finalDisabled}
     inputmode="numeric"
     data-segment
     class="time-input__segment"
@@ -183,6 +213,7 @@
     aria-valuemin={0}
     aria-valuemax={59}
     aria-disabled={computedProps.finalDisabled}
+    data-empty={!segmentState.segments.mm}
     tabindex={computedProps.finalDisabled ? -1 : 0}
     onkeydown={onMmKeydown}
     onblur={onMmBlur}
@@ -195,7 +226,7 @@
     <span
       bind:this={ssInput}
       role="spinbutton"
-      contenteditable="true"
+      contenteditable={!computedProps.finalDisabled}
       inputmode="numeric"
       data-segment
       class="time-input__segment"
@@ -204,6 +235,7 @@
       aria-valuemin={0}
       aria-valuemax={59}
       aria-disabled={computedProps.finalDisabled}
+      data-empty={!segmentState.segments.ss}
       tabindex={computedProps.finalDisabled ? -1 : 0}
       onkeydown={onSsKeydown}
       onblur={onSsBlur}
@@ -217,11 +249,12 @@
     <span
       bind:this={apInput}
       role="spinbutton"
-      contenteditable="true"
+      contenteditable={!computedProps.finalDisabled}
       data-segment
       class="time-input__segment time-input__segment--period"
       aria-label="AM or PM"
       aria-disabled={computedProps.finalDisabled}
+      data-empty={!segmentState.segments.ap}
       tabindex={computedProps.finalDisabled ? -1 : 0}
       onkeydown={onApKeydown}
       onbeforeinput={(e) => e.preventDefault()}>{segmentState.segments.ap || "─"}</span

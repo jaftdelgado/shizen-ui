@@ -1,16 +1,8 @@
 <script lang="ts">
   import { TimeInput, Label, Description, Button } from "@shizen-ui/svelte";
+  import { formatTime } from "@shizen-ui/svelte";
 
-  let reminderTime = $state("08:30");
-
-  function formatDisplay(iso: string): string {
-    if (!iso) return "";
-    const [h, m] = iso.split(":").map(Number);
-    return new Intl.DateTimeFormat(undefined, {
-      hour: "numeric",
-      minute: "2-digit"
-    }).format(new Date(0, 0, 0, h, m));
-  }
+  let reminderTime = $state("09:42");
 </script>
 
 <div class="flex flex-col gap-4 w-full max-w-60">
@@ -18,8 +10,8 @@
     <Label for="reminder-time">Reminder time</Label>
     <TimeInput id="reminder-time" bind:value={reminderTime} />
     <Description>
-      {reminderTime
-        ? `Notifications will be sent at ${formatDisplay(reminderTime)}`
+      {formatTime(reminderTime)
+        ? `Notifications will be sent at ${formatTime(reminderTime)}`
         : "Pick a reminder time."}
     </Description>
   </div>

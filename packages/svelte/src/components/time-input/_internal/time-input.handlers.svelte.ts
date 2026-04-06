@@ -18,10 +18,23 @@ export function useTimeInputHandlers(
   state: ReturnType<typeof useSegments>,
   refs: RefsGetters,
   derived: DerivedGetters,
-  emitFn: () => void,
+  emitFn: () => boolean,
   getShowSeconds: () => boolean,
   getHour12: () => boolean
 ) {
+  function commitAndFinish() {
+    const emitted = emitFn();
+    if (emitted) {
+      state.setEditing(false);
+      state.setDirty(false);
+    }
+  }
+
+  function markDirty() {
+    state.setDirty(true);
+    state.setWasEdited(true);
+  }
+
   const onHhKeydown = createSegmentKeydownHandler({
     type: "numeric",
     get config() {
@@ -30,16 +43,23 @@ export function useTimeInputHandlers(
     refs: { prev: () => null, next: () => refs.mmInput },
     getValue: () => state.segments.hh,
     getPending: () => state.hhPending,
-    setValue: (v) => state.setSegments({ hh: v }),
+    setValue: (v) => {
+      state.setEditing(true);
+      state.setWasEdited(true);
+      state.setSegments({ hh: v });
+    },
     setPending: (v) => state.setHhPending(v),
-    onCommit: emitFn
+    onCommit: commitAndFinish,
+    onDirty: markDirty
   });
 
   const onHhBlur = createSegmentBlurHandler({
     getValue: () => state.segments.hh,
     setValue: (v) => state.setSegments({ hh: v }),
     getPending: () => state.hhPending,
-    setPending: (v) => state.setHhPending(v)
+    setPending: (v) => state.setHhPending(v),
+    onCommit: commitAndFinish,
+    onDirty: markDirty
   });
 
   const onMmKeydown = createSegmentKeydownHandler({
@@ -51,16 +71,23 @@ export function useTimeInputHandlers(
     },
     getValue: () => state.segments.mm,
     getPending: () => state.mmPending,
-    setValue: (v) => state.setSegments({ mm: v }),
+    setValue: (v) => {
+      state.setEditing(true);
+      state.setWasEdited(true);
+      state.setSegments({ mm: v });
+    },
     setPending: (v) => state.setMmPending(v),
-    onCommit: emitFn
+    onCommit: commitAndFinish,
+    onDirty: markDirty
   });
 
   const onMmBlur = createSegmentBlurHandler({
     getValue: () => state.segments.mm,
     setValue: (v) => state.setSegments({ mm: v }),
     getPending: () => state.mmPending,
-    setPending: (v) => state.setMmPending(v)
+    setPending: (v) => state.setMmPending(v),
+    onCommit: commitAndFinish,
+    onDirty: markDirty
   });
 
   const onSsKeydown = createSegmentKeydownHandler({
@@ -72,16 +99,23 @@ export function useTimeInputHandlers(
     },
     getValue: () => state.segments.ss,
     getPending: () => state.ssPending,
-    setValue: (v) => state.setSegments({ ss: v }),
+    setValue: (v) => {
+      state.setEditing(true);
+      state.setWasEdited(true);
+      state.setSegments({ ss: v });
+    },
     setPending: (v) => state.setSsPending(v),
-    onCommit: emitFn
+    onCommit: commitAndFinish,
+    onDirty: markDirty
   });
 
   const onSsBlur = createSegmentBlurHandler({
     getValue: () => state.segments.ss,
     setValue: (v) => state.setSegments({ ss: v }),
     getPending: () => state.ssPending,
-    setPending: (v) => state.setSsPending(v)
+    setPending: (v) => state.setSsPending(v),
+    onCommit: commitAndFinish,
+    onDirty: markDirty
   });
 
   const onApKeydown = createSegmentKeydownHandler({
@@ -93,8 +127,13 @@ export function useTimeInputHandlers(
       next: () => null
     },
     getValue: () => state.segments.ap,
-    setValue: (v) => state.setSegments({ ap: v as "AM" | "PM" }),
-    onCommit: emitFn
+    setValue: (v) => {
+      state.setEditing(true);
+      state.setWasEdited(true);
+      state.setSegments({ ap: v as "AM" | "PM" });
+    },
+    onCommit: commitAndFinish,
+    onDirty: markDirty
   });
 
   const onSegmentMousedown = createSegmentMousedownHandler(() => derived.finalDisabled);
