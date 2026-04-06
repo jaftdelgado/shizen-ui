@@ -20,12 +20,10 @@
   }
 </script>
 
-<div class="flex max-w-sm">
+<div class="flex flex-col gap-4 w-full max-w-xs">
   <TagGroup selectionMode="none">
     <Label>Favorite Genres</Label>
-    <Description
-      >Remove genres you're no longer interested in to refine your recommendations.</Description
-    >
+    <Description>Remove genres to keep recommendations relevant.</Description>
 
     <TagGroup.Items>
       {#each genres as { label, value } (value)}

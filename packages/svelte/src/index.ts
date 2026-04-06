@@ -6,6 +6,7 @@ export * from "./components/button/index.js";
 export * from "./components/checkbox-group/index.js";
 export * from "./components/checkbox/index.js";
 export * from "./components/chip/index.js";
+export * from "./components/close-button/index.js";
 export * from "./components/description/index.js";
 export * from "./components/field-error/index.js";
 export * from "./components/input-group/index.js";

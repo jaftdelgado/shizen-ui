@@ -4,7 +4,6 @@
   import { useTagGroupContext, setTagContext } from "../../contexts/internal/index.js";
   import type { HTMLAttributes } from "svelte/elements";
   import type { Snippet } from "svelte";
-  import RemoveButton from "./compound/RemoveButton.svelte";
 
   type IconContent = Snippet<[]> | string;
   type SelectionMode = "none" | "single" | "multiple";
@@ -16,11 +15,9 @@
     children?: Snippet;
     startContent?: IconContent;
     endContent?: IconContent;
-    // Selection
     selectionMode?: SelectionMode;
     selected?: boolean;
     onSelectedChange?: (selected: boolean) => void;
-    // Remove
     onClose?: () => void;
   }
 
@@ -52,7 +49,14 @@
 
   const isInteractive = $derived(resolvedMode !== "none");
 
-  setTagContext({ onClose: () => onClose?.() });
+  let removeButtonSnippet = $state<Snippet | undefined>(undefined);
+
+  setTagContext({
+    onClose: () => onClose?.(),
+    registerRemoveButton: (snippet: Snippet) => {
+      removeButtonSnippet = snippet;
+    }
+  });
 
   function handleClick(event: MouseEvent & { currentTarget: EventTarget & HTMLDivElement }) {
     if (isInteractive) {
@@ -83,9 +87,9 @@
 
 {#snippet renderIcon(content: IconContent | undefined)}
   {#if typeof content === "string"}
-    <i class={cn("flex items-center justify-center shrink-0", content)}></i>
+    <i class={cn("tag__icon", content)}></i>
   {:else if content}
-    <span class="flex items-center justify-center shrink-0">
+    <span class="tag__icon">
       {@render content()}
     </span>
   {/if}
@@ -96,12 +100,16 @@
     {@render renderIcon(startContent)}
 
     {#if children}
-      <span class="flex items-center">
+      <span class="tag__label">
         {@render children()}
       </span>
     {/if}
 
     {@render renderIcon(endContent)}
+
+    {#if removeButtonSnippet}
+      {@render removeButtonSnippet()}
+    {/if}
   </span>
 {/snippet}
 

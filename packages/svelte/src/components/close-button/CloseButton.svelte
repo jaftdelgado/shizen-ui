@@ -1,0 +1,23 @@
+<script lang="ts">
+  import { cn } from "@shizen-ui/styles";
+  import { closeButtonStyles } from "@shizen-ui/styles";
+  import type { HTMLButtonAttributes } from "svelte/elements";
+  import type { Snippet } from "svelte";
+  import XmarkIcon from "../../shared/icons/XmarkIcon.svelte";
+
+  interface Props extends HTMLButtonAttributes {
+    children?: Snippet;
+  }
+
+  let { children, class: className, ...rest }: Props = $props();
+</script>
+
+<button type="button" aria-label="Close" {...rest} class={cn(closeButtonStyles(), className)}>
+  <span class="close-button__icon">
+    {#if children}
+      {@render children()}
+    {:else}
+      <XmarkIcon width="80%" height="80%" />
+    {/if}
+  </span>
+</button>

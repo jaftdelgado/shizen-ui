@@ -6,6 +6,7 @@ export * from "./button-group";
 export * from "./checkbox";
 export * from "./checkbox-group";
 export * from "./chip";
+export * from "./close-button";
 export * from "./description";
 export * from "./field-error";
 export * from "./input";
