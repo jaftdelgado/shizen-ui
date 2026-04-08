@@ -1,21 +1,7 @@
 <script lang="ts">
-  import { type Snippet } from "svelte";
   import { cn } from "@shizen-ui/styles";
-  import { checkboxStyles } from "@shizen-ui/styles";
-  import type { HTMLInputAttributes } from "svelte/elements";
-  import { setCheckboxContext, type CheckboxCheckedState } from "../../contexts/internal/index.js";
-  import { useCheckboxGroupContext } from "../../contexts/internal/index.js";
-  import { setFieldStateContext, useFieldStateContext } from "../../contexts/index.js";
-
-  interface Props extends Omit<HTMLInputAttributes, "type" | "checked"> {
-    value?: string;
-    invalid?: boolean;
-    disabled?: boolean;
-    checked?: CheckboxCheckedState;
-    children: Snippet;
-    class?: string;
-    name?: string;
-  }
+  import type { CheckboxCheckedState, CheckboxProps } from "./checkbox.svelte.js";
+  import { createCheckboxState, createCheckboxHandlers } from "./checkbox.svelte.js";
 
   let {
     class: className,
@@ -27,128 +13,59 @@
     checked = $bindable<CheckboxCheckedState>(false),
     children,
     ...rest
-  }: Props = $props();
+  }: CheckboxProps = $props();
 
-  let inputElement = $state<HTMLInputElement | null>(null);
-
-  const groupCtx = useCheckboxGroupContext();
-  const parentFieldContext = useFieldStateContext();
-
-  const finalDisabled = $derived(
-    parentFieldContext.exists
-      ? parentFieldContext.disabled
-      : groupCtx.exists
-        ? groupCtx.disabled
-        : disabled
-  );
-  const finalInvalid = $derived(
-    parentFieldContext.exists
-      ? parentFieldContext.invalid
-      : groupCtx.exists
-        ? groupCtx.invalid
-        : invalid
-  );
-  const activeName = $derived(groupCtx.exists ? groupCtx.name : name);
-
-  const isChecked = $derived.by<CheckboxCheckedState>(() => {
-    if (groupCtx.exists && value !== undefined) {
-      return groupCtx.value.includes(value);
-    }
-    return checked;
-  });
-
-  setCheckboxContext({
+  const state = createCheckboxState({
+    get value() {
+      return value;
+    },
+    get disabled() {
+      return disabled;
+    },
+    get invalid() {
+      return invalid;
+    },
+    get name() {
+      return name;
+    },
+    get id() {
+      return id;
+    },
     get checked() {
-      return isChecked;
-    },
-    get disabled() {
-      return finalDisabled;
-    },
-    get invalid() {
-      return finalInvalid;
-    },
-    get id() {
-      return id as string;
+      return checked;
     }
   });
 
-  setFieldStateContext({
-    get invalid() {
-      return finalInvalid;
-    },
-    get disabled() {
-      return finalDisabled;
-    },
-    get required() {
-      return false;
-    },
-    get id() {
-      return id as string;
-    },
-    get keepDescription() {
-      return true;
+  const handlers = createCheckboxHandlers(
+    state,
+    () => checked,
+    (val) => {
+      checked = val;
     }
-  });
-
-  const styles = $derived(checkboxStyles());
-
-  $effect(() => {
-    if (inputElement) {
-      inputElement.indeterminate = isChecked === "mixed";
-    }
-  });
-
-  function handleChange() {
-    if (finalDisabled) return;
-    if (groupCtx.exists) {
-      if (value === undefined) return;
-      groupCtx.toggleValue(value);
-    } else {
-      checked = isChecked === true ? false : true;
-    }
-  }
-
-  function handleKeyDown(e: KeyboardEvent) {
-    if (e.key === " " || e.key === "Enter") {
-      e.preventDefault();
-      handleChange();
-    }
-  }
-
-  function handleContainerClick(e: MouseEvent) {
-    const target = e.target as HTMLElement;
-
-    if (target.tagName === "INPUT" || target.closest("label")) return;
-
-    handleChange();
-
-    const container = e.currentTarget as HTMLDivElement;
-    const input = container.querySelector("input");
-    input?.focus();
-  }
+  );
 </script>
 
 <div
-  class={cn(styles.base(), className)}
-  data-disabled={finalDisabled}
-  data-invalid={finalInvalid}
-  data-checked={isChecked}
-  onclick={handleContainerClick}
+  class={cn(state.styles.base(), className)}
+  data-disabled={state.finalDisabled}
+  data-invalid={state.finalInvalid}
+  data-checked={state.isChecked}
+  onclick={handlers.handleContainerClick}
   role="none"
 >
   <input
-    bind:this={inputElement}
+    bind:this={state.inputElement}
     type="checkbox"
     {value}
-    name={activeName}
+    name={state.activeName}
     {id}
-    aria-checked={isChecked === "mixed" ? "mixed" : isChecked}
-    checked={isChecked === true}
-    disabled={finalDisabled}
-    onchange={handleChange}
+    aria-checked={state.isChecked === "mixed" ? "mixed" : state.isChecked}
+    checked={state.isChecked === true}
+    disabled={state.finalDisabled}
+    onchange={handlers.handleChange}
     class="checkbox__input"
-    tabindex={!finalDisabled ? 0 : -1}
-    onkeydown={handleKeyDown}
+    tabindex={!state.finalDisabled ? 0 : -1}
+    onkeydown={handlers.handleKeyDown}
     onmousedown={(e) => e.preventDefault()}
     {...rest}
   />
