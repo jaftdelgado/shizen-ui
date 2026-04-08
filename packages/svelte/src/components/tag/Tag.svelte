@@ -72,6 +72,8 @@
   }
 
   function handleKeyDown(event: KeyboardEvent & { currentTarget: EventTarget & HTMLDivElement }) {
+    if (event.target !== event.currentTarget) return;
+
     if (isInteractive && (event.key === "Enter" || event.key === " ")) {
       event.preventDefault();
       if (group.exists && value != null) {

@@ -44,6 +44,12 @@
         opacity 200ms ease,
         transform 100ms cubic-bezier(0.4, 0, 1, 1);
     }
+
+    &:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 2px currentColor;
+      opacity: 1;
+    }
   }
 
   .close-button__icon {

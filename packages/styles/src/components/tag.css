@@ -85,18 +85,18 @@
     & .close-button {
       width: 0.875rem;
       height: 0.875rem;
-      margin-right: -0.25rem;
+      margin-right: -0.375rem;
     }
   }
 
   .tag--lg {
     @apply h-7 px-3 text-sm;
-    --tag-gap: 0.375rem;
+    --tag-gap: 0.25rem;
 
     & .close-button {
       width: 1rem;
       height: 1rem;
-      margin-right: -0.25rem;
+      margin-right: -0.375rem;
     }
   }
 

@@ -8,7 +8,7 @@
     children?: Snippet;
   }
 
-  let { children, class: className, ...rest }: Props = $props();
+  let { children, class: className, tabindex = 0, ...rest }: Props = $props();
 
   const tag = useTagContext();
 
@@ -20,10 +20,17 @@
     {...rest}
     class={className}
     aria-label="Remove tag"
-    tabindex={-1}
+    {tabindex}
     onclick={(e) => {
       e.stopPropagation();
       tag.onClose?.();
+    }}
+    onkeydown={(e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        e.stopPropagation();
+        tag.onClose?.();
+      }
     }}
     {children}
   />

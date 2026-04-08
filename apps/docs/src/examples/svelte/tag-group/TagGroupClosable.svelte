@@ -21,7 +21,7 @@
 </script>
 
 <div class="flex flex-col gap-4 w-full max-w-xs">
-  <TagGroup selectionMode="none">
+  <TagGroup>
     <Label>Favorite Genres</Label>
     <Description>Remove genres to keep recommendations relevant.</Description>
 
