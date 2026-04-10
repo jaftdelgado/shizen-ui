@@ -26,6 +26,16 @@ export function createTagHandlers(
 
   function handleKeyDown(event: KeyboardEvent & { currentTarget: EventTarget & HTMLDivElement }) {
     if (event.target !== event.currentTarget) return;
+
+    if (
+      (event.key === "Backspace" || event.key === "Delete") &&
+      state.removeButtonSnippet != null
+    ) {
+      event.preventDefault();
+      state.onClose?.();
+      return;
+    }
+
     if (state.isInteractive && (event.key === "Enter" || event.key === " ")) {
       event.preventDefault();
       toggle();

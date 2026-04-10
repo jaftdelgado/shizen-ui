@@ -55,6 +55,9 @@ export function createTagState(props: TagStateProps) {
     },
     get value() {
       return props.value;
+    },
+    get onClose() {
+      return props.onClose;
     }
   };
 }

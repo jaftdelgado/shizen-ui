@@ -17,7 +17,7 @@
     {#if children}
       {@render children()}
     {:else}
-      <XmarkIcon size="90%" />
+      <XmarkIcon size="80%" />
     {/if}
   </span>
 </button>

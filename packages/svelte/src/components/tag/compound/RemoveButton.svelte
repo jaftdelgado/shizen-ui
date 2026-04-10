@@ -4,6 +4,8 @@
   import { useTagContext } from "../../../contexts/internal/index.js";
   import CloseButton from "../../close-button/CloseButton.svelte";
 
+  const keys = ["Enter", " ", "Backspace", "Delete"];
+
   interface Props extends HTMLButtonAttributes {
     children?: Snippet;
   }
@@ -26,7 +28,7 @@
       tag.onClose?.();
     }}
     onkeydown={(e) => {
-      if (e.key === "Enter" || e.key === " ") {
+      if (keys.includes(e.key)) {
         e.preventDefault();
         e.stopPropagation();
         tag.onClose?.();
