@@ -1,20 +1,7 @@
 <script lang="ts">
-  import { type Snippet } from "svelte";
   import { cn } from "@shizen-ui/styles";
-  import { radioStyles } from "@shizen-ui/styles";
-  import type { HTMLAttributes } from "svelte/elements";
-  import { setRadioContext, useRadioGroupContext } from "../../contexts/internal/index.js";
-  import { setFieldStateContext, useFieldStateContext } from "../../contexts/index.js";
-
-  interface Props extends Omit<HTMLAttributes<HTMLDivElement>, "checked"> {
-    value: string;
-    invalid?: boolean;
-    disabled?: boolean;
-    checked?: boolean;
-    children: Snippet;
-    class?: string;
-    name?: string;
-  }
+  import type { RadioProps } from "./radio.svelte.js";
+  import { createRadioState, createRadioHandlers } from "./radio.svelte.js";
 
   let {
     class: className,
@@ -26,107 +13,53 @@
     checked = $bindable(false),
     children,
     ...rest
-  }: Props = $props();
+  }: RadioProps = $props();
 
-  const groupCtx = useRadioGroupContext();
-  const parentFieldContext = useFieldStateContext();
-
-  const finalDisabled = $derived(
-    parentFieldContext.exists
-      ? parentFieldContext.disabled
-      : groupCtx.exists
-        ? groupCtx.disabled
-        : disabled
-  );
-  const finalInvalid = $derived(
-    parentFieldContext.exists
-      ? parentFieldContext.invalid
-      : groupCtx.exists
-        ? groupCtx.invalid
-        : invalid
-  );
-  const activeName = $derived(groupCtx.exists ? groupCtx.name : name);
-  const isChecked = $derived(groupCtx.exists ? groupCtx.value === value : checked);
-
-  setRadioContext({
+  const state = createRadioState({
+    get value() {
+      return value;
+    },
+    get disabled() {
+      return disabled;
+    },
+    get invalid() {
+      return invalid;
+    },
+    get name() {
+      return name;
+    },
+    get id() {
+      return id;
+    },
     get checked() {
-      return isChecked;
-    },
-    get disabled() {
-      return finalDisabled;
-    },
-    get invalid() {
-      return finalInvalid;
-    },
-    get id() {
-      return id as string;
+      return checked;
     }
   });
 
-  setFieldStateContext({
-    get invalid() {
-      return finalInvalid;
-    },
-    get disabled() {
-      return finalDisabled;
-    },
-    get required() {
-      return false;
-    },
-    get id() {
-      return id as string;
-    },
-    get keepDescription() {
-      return true;
-    }
+  const handlers = createRadioHandlers(state, (val) => {
+    checked = val;
   });
-
-  const styles = $derived(radioStyles());
-
-  function handleChange() {
-    if (finalDisabled) return;
-    if (groupCtx.exists) {
-      groupCtx.setValue(value);
-    } else {
-      checked = true;
-    }
-  }
-
-  function handleKeyDown(e: KeyboardEvent) {
-    if (e.key === " " || e.key === "Enter") {
-      e.preventDefault();
-      handleChange();
-    }
-  }
-
-  function handleContainerClick(e: MouseEvent & { currentTarget: HTMLDivElement }) {
-    const target = e.target as HTMLElement;
-    if (target.closest("label")) return;
-    handleChange();
-    const input = e.currentTarget.querySelector('input[type="radio"]') as HTMLInputElement | null;
-    input?.focus();
-  }
 </script>
 
 <div
-  class={cn(styles.base(), className)}
-  data-disabled={finalDisabled}
-  data-invalid={finalInvalid}
-  data-checked={isChecked}
-  onclick={handleContainerClick}
+  class={cn(state.styles.base(), className)}
+  data-disabled={state.finalDisabled}
+  data-invalid={state.finalInvalid}
+  data-checked={state.isChecked}
+  onclick={handlers.handleContainerClick}
   role="none"
 >
   <input
     type="radio"
     {value}
-    name={activeName}
+    name={state.activeName}
     {id}
-    checked={isChecked}
-    disabled={finalDisabled}
-    onchange={handleChange}
+    checked={state.isChecked}
+    disabled={state.finalDisabled}
+    onchange={handlers.handleChange}
     class="radio__input"
-    tabindex={isChecked || !groupCtx.exists ? 0 : -1}
-    onkeydown={handleKeyDown}
+    tabindex={state.isChecked || !state.groupCtx.exists ? 0 : -1}
+    onkeydown={handlers.handleKeyDown}
     onmousedown={(e) => e.preventDefault()}
     {...rest}
   />
