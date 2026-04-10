@@ -1,9 +1,16 @@
 import TagRoot from "./Tag.svelte";
 import RemoveButton from "./compound/RemoveButton.svelte";
 
-const Tag = Object.assign(TagRoot, {
+export type { TagProps, IconContent, SelectionMode } from "./tag.svelte.js";
+export type { TagVariants } from "@shizen-ui/styles";
+export { createTagState, createTagHandlers } from "./tag.svelte.js";
+
+export const Tag = Object.assign(TagRoot, {
   RemoveButton
 });
 
-export { Tag };
-export type { TagVariants } from "@shizen-ui/styles";
+export { TagRoot };
+
+export default {
+  Tag
+};

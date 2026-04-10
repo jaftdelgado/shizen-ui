@@ -1,25 +1,9 @@
 <script lang="ts">
   import { cn } from "@shizen-ui/styles";
-  import { tagStyles, type TagVariants } from "@shizen-ui/styles";
-  import { useTagGroupContext, setTagContext } from "../../contexts/internal/index.js";
-  import type { HTMLAttributes } from "svelte/elements";
+  import { tagStyles } from "@shizen-ui/styles";
+  import type { TagProps, IconContent } from "./tag.svelte.js";
+  import { createTagState, createTagHandlers } from "./tag.svelte.js";
   import type { Snippet } from "svelte";
-
-  type IconContent = Snippet<[]> | string;
-  type SelectionMode = "none" | "single" | "multiple";
-
-  interface Props extends HTMLAttributes<HTMLDivElement> {
-    variant?: TagVariants["variant"];
-    size?: TagVariants["size"];
-    value?: string;
-    children?: Snippet;
-    startContent?: IconContent;
-    endContent?: IconContent;
-    selectionMode?: SelectionMode;
-    selected?: boolean;
-    onSelectedChange?: (selected: boolean) => void;
-    onClose?: () => void;
-  }
 
   let {
     children,
@@ -35,56 +19,46 @@
     onClose,
     onclick,
     ...rest
-  }: Props = $props();
+  }: TagProps = $props();
 
-  const group = useTagGroupContext();
-
-  const resolvedVariant = $derived(group.exists ? (group.variant ?? variant) : variant);
-  const resolvedSize = $derived(group.exists ? (group.size ?? size) : size);
-  const resolvedMode = $derived(group.exists ? group.selectionMode : selectionMode);
-
-  const isSelected = $derived(
-    group.exists && value != null ? group.selectedValues.includes(value) : selected
-  );
-
-  const isInteractive = $derived(resolvedMode !== "none");
-
-  let removeButtonSnippet = $state<Snippet | undefined>(undefined);
-
-  setTagContext({
-    onClose: () => onClose?.(),
-    registerRemoveButton: (snippet: Snippet) => {
-      removeButtonSnippet = snippet;
+  const state = createTagState({
+    get variant() {
+      return variant;
+    },
+    get size() {
+      return size;
+    },
+    get value() {
+      return value;
+    },
+    get selectionMode() {
+      return selectionMode;
+    },
+    get selected() {
+      return selected;
+    },
+    get onSelectedChange() {
+      return onSelectedChange;
+    },
+    get onClose() {
+      return onClose;
     }
   });
 
-  function handleClick(event: MouseEvent & { currentTarget: EventTarget & HTMLDivElement }) {
-    if (isInteractive) {
-      if (group.exists && value != null) {
-        group.toggleValue(value);
-      } else {
-        const next = !selected;
-        selected = next;
-        onSelectedChange?.(next);
-      }
-    }
-    if (typeof onclick === "function") onclick(event);
-  }
-
-  function handleKeyDown(event: KeyboardEvent & { currentTarget: EventTarget & HTMLDivElement }) {
-    if (event.target !== event.currentTarget) return;
-
-    if (isInteractive && (event.key === "Enter" || event.key === " ")) {
-      event.preventDefault();
-      if (group.exists && value != null) {
-        group.toggleValue(value);
-      } else {
-        const next = !selected;
-        selected = next;
-        onSelectedChange?.(next);
-      }
-    }
-  }
+  const handlers = createTagHandlers(
+    state,
+    () => selected,
+    (val) => {
+      selected = val;
+    },
+    (val) => onSelectedChange?.(val),
+    (event) =>
+      (
+        onclick as
+          | ((e: MouseEvent & { currentTarget: EventTarget & HTMLDivElement }) => void)
+          | undefined
+      )?.(event)
+  );
 </script>
 
 {#snippet renderIcon(content: IconContent | undefined)}
@@ -109,28 +83,28 @@
 
     {@render renderIcon(endContent)}
 
-    {#if removeButtonSnippet}
-      {@render removeButtonSnippet()}
+    {#if state.removeButtonSnippet}
+      {@render (state.removeButtonSnippet as Snippet)()}
     {/if}
   </span>
 {/snippet}
 
-{#if isInteractive}
+{#if state.isInteractive}
   <div
     {...rest}
     class={cn(
-      tagStyles({ variant: resolvedVariant, size: resolvedSize }),
+      tagStyles({ variant: state.resolvedVariant, size: state.resolvedSize }),
       "tag--interactive",
-      isSelected && "tag--selected",
-      group.exists && group.disabled && "tag--disabled",
+      state.isSelected && "tag--selected",
+      state.isDisabled && "tag--disabled",
       className
     )}
     role="checkbox"
-    aria-checked={isSelected}
-    aria-disabled={group.exists && group.disabled ? true : undefined}
-    tabindex={!(group.exists && group.disabled) ? 0 : undefined}
-    onclick={handleClick}
-    onkeydown={handleKeyDown}
+    aria-checked={state.isSelected}
+    aria-disabled={state.isDisabled ? true : undefined}
+    tabindex={!state.isDisabled ? 0 : undefined}
+    onclick={handlers.handleClick}
+    onkeydown={handlers.handleKeyDown}
   >
     {@render tagContent()}
   </div>
@@ -138,9 +112,9 @@
   <div
     {...rest}
     class={cn(
-      tagStyles({ variant: resolvedVariant, size: resolvedSize }),
-      isSelected && "tag--selected",
-      group.exists && group.disabled && "tag--disabled",
+      tagStyles({ variant: state.resolvedVariant, size: state.resolvedSize }),
+      state.isSelected && "tag--selected",
+      state.isDisabled && "tag--disabled",
       className
     )}
   >
