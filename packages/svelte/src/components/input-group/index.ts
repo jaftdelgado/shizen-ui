@@ -11,6 +11,9 @@ export const InputGroup = Object.assign(Root, {
   Suffix
 });
 
+export type { InputGroupProps } from "./input-group.svelte.js";
+export { InputGroupState } from "./input-group.svelte.js";
+
 export {
   type InputGroupContextValue,
   useInputGroupContext

@@ -1,19 +1,8 @@
 <script lang="ts">
   import { cn } from "@shizen-ui/styles";
-  import { inputGroupStyles, type InputGroupVariants } from "@shizen-ui/styles";
-  import { useFieldStateContext, useSurfaceContext } from "../../contexts/index.js";
-  import { setInputGroupContext } from "../../contexts/internal/index.js";
-  import type { Snippet } from "svelte";
-
-  interface Props {
-    children: Snippet;
-    class?: string;
-    size?: InputGroupVariants["size"];
-    variant?: InputGroupVariants["variant"];
-    disabled?: boolean;
-    fullWidth?: boolean;
-    invalid?: boolean;
-  }
+  import { inputGroupStyles } from "@shizen-ui/styles";
+  import { InputGroupState } from "./input-group.svelte.js";
+  import type { InputGroupProps } from "./input-group.svelte.js";
 
   let {
     children,
@@ -24,38 +13,22 @@
     disabled = false,
     invalid = false,
     ...rest
-  }: Props = $props();
+  }: InputGroupProps = $props();
 
-  const fieldContext = useFieldStateContext();
-  const surfaceContext = useSurfaceContext();
-
-  const finalVariant = $derived(variant ?? (surfaceContext.exists ? "secondary" : "default"));
-
-  const finalInvalid = $derived(fieldContext.exists ? fieldContext.invalid : invalid);
-  const finalDisabled = $derived(
-    fieldContext.exists ? fieldContext.disabled || disabled : disabled
-  );
-
-  setInputGroupContext({
-    get size() {
-      return size;
-    },
-    get inGroup() {
-      return true;
-    },
-    get disabled() {
-      return finalDisabled;
-    },
-    get invalid() {
-      return finalInvalid;
-    }
-  });
+  const state = new InputGroupState(() => ({
+    children,
+    size,
+    variant,
+    fullWidth,
+    disabled,
+    invalid
+  }));
 </script>
 
 <div
-  class={cn(inputGroupStyles({ size, variant: finalVariant, fullWidth }), className)}
-  data-invalid={finalInvalid}
-  data-disabled={finalDisabled}
+  class={cn(inputGroupStyles({ size, variant: state.finalVariant, fullWidth }), className)}
+  data-invalid={state.finalInvalid}
+  data-disabled={state.finalDisabled}
   {...rest}
 >
   {@render children()}
