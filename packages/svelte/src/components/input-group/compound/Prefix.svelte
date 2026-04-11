@@ -10,6 +10,6 @@
   let { children, class: className }: Props = $props();
 </script>
 
-<div class={cn("input-group__prefix", className)}>
+<div data-slot="input-group-prefix" class={cn("input-group__prefix", className)}>
   {@render children()}
 </div>

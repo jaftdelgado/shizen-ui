@@ -13,7 +13,10 @@
       background-color: var(--group-bg-hover);
     }
 
-    &:focus-within:not([data-disabled="true"], [data-invalid="true"]) {
+    &:has([data-slot="input-group-input"]:focus, [data-slot="input-group-textarea"]:focus):not(
+        [data-disabled="true"],
+        [data-invalid="true"]
+      ) {
       @apply status-focused-field;
       background-color: var(--group-bg-hover);
     }
@@ -28,6 +31,13 @@
 
     &[data-disabled="true"] {
       @apply status-disabled;
+    }
+
+    /* ----------------------------------------
+       Modo textarea — layout vertical
+    ---------------------------------------- */
+    &:has([data-slot="input-group-textarea"]) {
+      @apply flex-col h-auto;
     }
   }
 
@@ -59,31 +69,29 @@
     --group-bg-hover: var(--color-ghost-hover);
   }
 
-  .input-group--has-textarea {
-    @apply items-start h-auto min-h-10;
-  }
-
-  .input-group__prefix,
-  .input-group__suffix {
+  /* Prefix / Suffix — horizontal */
+  [data-slot="input-group-prefix"],
+  [data-slot="input-group-suffix"] {
     @apply flex items-center justify-center px-3 text-secondary-text shrink-0 self-stretch;
     @apply transition-colors duration-200 select-none;
   }
 
-  .input-group--has-textarea .input-group__prefix,
-  .input-group--has-textarea .input-group__suffix {
-    @apply pt-3 items-start;
+  /* Prefix / Suffix — text-area */
+  .input-group:has([data-slot="input-group-textarea"]) [data-slot="input-group-prefix"],
+  .input-group:has([data-slot="input-group-textarea"]) [data-slot="input-group-suffix"] {
+    @apply w-full p-3 self-auto shrink-0 items-center justify-start;
   }
 
-  .input-group .input,
-  .input-group .textarea {
+  .input-group [data-slot="input-group-input"],
+  .input-group [data-slot="input-group-textarea"] {
     @apply bg-transparent border-none ring-0 shadow-none h-full w-full flex-1;
     @apply focus:ring-0 focus:outline-none;
   }
 
-  .input-group:has(.input-group__prefix) .input {
+  .input-group:has([data-slot="input-group-prefix"]) [data-slot="input-group-input"] {
     @apply pl-0;
   }
-  .input-group:has(.input-group__suffix) .input {
+  .input-group:has([data-slot="input-group-suffix"]) [data-slot="input-group-input"] {
     @apply pr-1;
   }
 }

@@ -67,5 +67,6 @@
   aria-errormessage={finalInvalid ? errorId : undefined}
   data-invalid={finalInvalid}
   data-in-group={groupContext.inGroup}
+  data-slot={groupContext.inGroup ? "input-group-textarea" : undefined}
   {...rest}
 ></textarea>

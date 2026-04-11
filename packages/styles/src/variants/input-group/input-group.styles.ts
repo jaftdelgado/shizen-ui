@@ -16,16 +16,12 @@ export const inputGroupStyles = tv({
     fullWidth: {
       true: "w-full",
       false: "max-w-xs"
-    },
-    hasTextArea: {
-      true: "input-group--has-textarea"
     }
   },
   defaultVariants: {
     size: "md",
     variant: "default",
-    fullWidth: false,
-    hasTextArea: false
+    fullWidth: false
   }
 });
 

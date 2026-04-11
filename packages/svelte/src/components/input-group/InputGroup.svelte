@@ -12,7 +12,6 @@
     variant?: InputGroupVariants["variant"];
     disabled?: boolean;
     fullWidth?: boolean;
-    hasTextArea?: boolean;
     invalid?: boolean;
   }
 
@@ -22,7 +21,6 @@
     size = "md",
     variant = undefined,
     fullWidth = false,
-    hasTextArea = false,
     disabled = false,
     invalid = false,
     ...rest
@@ -55,10 +53,9 @@
 </script>
 
 <div
-  class={cn(inputGroupStyles({ size, variant: finalVariant, fullWidth, hasTextArea }), className)}
+  class={cn(inputGroupStyles({ size, variant: finalVariant, fullWidth }), className)}
   data-invalid={finalInvalid}
   data-disabled={finalDisabled}
-  data-has-textarea={hasTextArea}
   {...rest}
 >
   {@render children()}

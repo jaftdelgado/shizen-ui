@@ -48,3 +48,6 @@ export const CreditCard = getIcon("credit-card");
 export const MessageText = getIcon("message-text");
 export const Repository = getIcon("repository");
 export const GitPullRequest = getIcon("git-pull-request");
+export const NavArrowDown = getIcon("nav-arrow-down");
+export const Plus = getIcon("plus");
+export const Code = getIcon("code");
