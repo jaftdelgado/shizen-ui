@@ -1,3 +1,4 @@
+export { default as CaretDownIcon } from "./CaretDownIcon.svelte";
 export { default as CheckCircleIcon } from "./CheckCircleIcon.svelte";
 export { default as InfoCircleIcon } from "./InfoCircleIcon.svelte";
 export { default as PlusIcon } from "./PlusIcon.svelte";

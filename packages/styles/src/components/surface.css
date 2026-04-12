@@ -4,6 +4,7 @@
 
     /* Default tokens */
     --surface-bg: var(--color-surface);
+    --surface-radius: var(--radius-surface);
 
     background-color: var(--surface-bg);
   }

@@ -1,7 +1,6 @@
 @layer components {
   .accordion {
     @apply flex flex-col w-full;
-    contain: layout style;
   }
 
   .accordion--splitted {
@@ -9,27 +8,38 @@
   }
 
   .accordion-item {
-    @apply relative flex flex-col border-none p-4;
+    @apply relative flex flex-col;
+    border-bottom: 1px solid var(--color-separator);
+    transition: background-color 150ms ease-out;
 
-    &::after {
-      content: "";
-      @apply absolute bottom-0 left-0 h-px w-full bg-separator;
+    &:first-child {
+      border-start-start-radius: var(--surface-radius, var(--radius-md, 8px));
+      border-start-end-radius: var(--surface-radius, var(--radius-md, 8px));
     }
 
-    &:last-child::after {
-      content: none;
+    &:last-child {
+      border-bottom: none;
+      border-end-start-radius: var(--surface-radius, var(--radius-md, 8px));
+      border-end-end-radius: var(--surface-radius, var(--radius-md, 8px));
     }
 
-    &[data-hide-separator="true"]::after {
-      display: none;
+    &[data-hide-separator="true"] {
+      border-bottom: none;
+    }
+
+    @media (hover: hover) {
+      &:hover:not(:disabled):not([data-disabled="true"]) {
+        background-color: color-mix(in oklab, var(--color-primary-text) 3%, transparent 90%);
+      }
     }
   }
 
   .accordion-item--splitted {
     @apply rounded-xl border border-separator overflow-hidden;
+    border-bottom: revert;
 
-    &::after {
-      content: none;
+    &:last-child {
+      border-bottom: revert;
     }
   }
 
@@ -38,19 +48,25 @@
   }
 
   .accordion-trigger {
-    @apply flex flex-1 items-center justify-between gap-3;
+    @apply flex flex-1 items-center justify-between gap-3 w-full;
     @apply text-left text-sm font-medium text-primary-text;
     @apply bg-transparent cursor-pointer select-none;
     @apply outline-none border-none;
+    @apply px-4 py-4;
 
     transition:
       opacity 150ms ease-out,
+      background-color 150ms ease-out,
       box-shadow 150ms ease-out;
 
-    @media (hover: hover) {
-      &:hover:not([aria-expanded="true"]):not(:disabled):not([data-disabled="true"]) {
-        background-color: color-mix(in oklab, var(--color-foreground) 3%, transparent 90%);
-      }
+    .accordion-item:first-child & {
+      border-start-start-radius: var(--surface-radius, var(--radius-md, 8px));
+      border-start-end-radius: var(--surface-radius, var(--radius-md, 8px));
+    }
+
+    .accordion-item:last-child &:not([aria-expanded="true"]) {
+      border-end-start-radius: var(--surface-radius, var(--radius-md, 8px));
+      border-end-end-radius: var(--surface-radius, var(--radius-md, 8px));
     }
 
     &:disabled,
@@ -90,11 +106,15 @@
 
   .accordion-body {
     @apply text-sm text-secondary-text overflow-hidden;
+    @apply px-4;
     padding-top: 0;
-    transition: padding-top 200ms ease-out;
+    padding-bottom: 0;
+    transition:
+      padding-top 200ms ease-out,
+      padding-bottom 200ms ease-out;
   }
 
   .accordion-panel[data-open="true"] > .accordion-body {
-    padding-top: 8px;
+    padding-bottom: 16px;
   }
 }

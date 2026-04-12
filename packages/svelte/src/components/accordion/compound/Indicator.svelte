@@ -4,6 +4,8 @@
   import { useAccordionItemContext } from "../../../contexts/internal/index.js";
   import type { HTMLAttributes } from "svelte/elements";
 
+  import CaretDownIcon from "../../../shared/icons/CaretDownIcon.svelte";
+
   interface Props extends HTMLAttributes<HTMLSpanElement> {}
 
   let { class: className, children, ...rest }: Props = $props();
@@ -17,5 +19,9 @@
   data-open={itemContext.isOpen}
   {...rest}
 >
-  {@render children?.()}
+  {#if children}
+    {@render children()}
+  {:else}
+    <CaretDownIcon class="size-4" />
+  {/if}
 </span>

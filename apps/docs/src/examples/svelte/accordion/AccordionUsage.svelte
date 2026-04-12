@@ -1,9 +1,6 @@
 <script lang="ts">
   import { Accordion, Surface } from "@shizen-ui/svelte";
 
-  import Icon from "@assets/Icon.svelte";
-  import { NavArrowDown } from "@assets/icons";
-
   const items = [
     {
       value: "getting-started",
@@ -39,9 +36,7 @@
         <Accordion.Heading>
           <Accordion.Trigger>
             {item.title}
-            <Accordion.Indicator>
-              <Icon icon={NavArrowDown} class="size-4" />
-            </Accordion.Indicator>
+            <Accordion.Indicator />
           </Accordion.Trigger>
         </Accordion.Heading>
         <Accordion.Panel>
