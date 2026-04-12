@@ -1,0 +1,23 @@
+---
+title: "Accordion"
+layout: "@layouts/DocsLayout.astro"
+---
+
+import ComponentExample from "@components/astro/ComponentExample.astro";
+import SourceLinks from "@components/svelte/SourceLinks.svelte";
+
+import AccordionUsage from "@examples/svelte/accordion/AccordionUsage.svelte";
+
+# Accordion
+
+Organizes related content into expandable sections to keep interfaces compact and scannable.
+
+<SourceLinks
+  client:load
+  svelteUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/svelte/src/components/accordion/Accordion.svelte"
+  stylesUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/styles/src/components/accordion.css"
+/>
+
+<ComponentExample src="svelte/accordion/AccordionUsage.svelte">
+  <AccordionUsage client:load />
+</ComponentExample>

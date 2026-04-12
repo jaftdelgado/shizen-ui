@@ -14,3 +14,4 @@ export * from "./alert.context.js";
 export * from "./toggle-group.context.js";
 export * from "./tag.context.js";
 export * from "./tag-group.context.js";
+export * from "./accordion.context.js";
