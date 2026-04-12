@@ -1,31 +1,11 @@
-import { tv, type VariantProps } from "tailwind-variants";
+import { tv } from "tailwind-variants";
 
 export const accordionStyles = tv({
-  base: "accordion",
-  variants: {
-    variant: {
-      default: "accordion--default",
-      surface: "accordion--surface",
-      splitted: "accordion--splitted"
-    }
-  },
-  defaultVariants: {
-    variant: "default"
-  }
+  base: "accordion"
 });
 
 export const accordionItemStyles = tv({
-  base: "accordion-item",
-  variants: {
-    variant: {
-      default: "accordion-item--default",
-      surface: "accordion-item--surface",
-      splitted: "accordion-item--splitted"
-    }
-  },
-  defaultVariants: {
-    variant: "default"
-  }
+  base: "accordion-item"
 });
 
 export const accordionHeadingStyles = tv({
@@ -47,6 +27,3 @@ export const accordionPanelStyles = tv({
 export const accordionBodyStyles = tv({
   base: "accordion-body"
 });
-
-export type AccordionStyleVariants = VariantProps<typeof accordionStyles>;
-export type AccordionItemStyleVariants = VariantProps<typeof accordionItemStyles>;

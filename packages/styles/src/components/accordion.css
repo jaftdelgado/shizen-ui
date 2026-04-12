@@ -3,10 +3,6 @@
     @apply flex flex-col w-full;
   }
 
-  .accordion--splitted {
-    @apply flex flex-col gap-2;
-  }
-
   .accordion-item {
     @apply relative flex flex-col;
     border-bottom: 1px solid var(--color-separator);
@@ -31,15 +27,6 @@
       &:hover:not(:disabled):not([data-disabled="true"]) {
         background-color: color-mix(in oklab, var(--color-primary-text) 3%, transparent 90%);
       }
-    }
-  }
-
-  .accordion-item--splitted {
-    @apply rounded-xl border border-separator overflow-hidden;
-    border-bottom: revert;
-
-    &:last-child {
-      border-bottom: revert;
     }
   }
 

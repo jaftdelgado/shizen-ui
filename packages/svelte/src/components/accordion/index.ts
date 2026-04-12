@@ -8,7 +8,6 @@ import Body from "./compound/Body.svelte";
 
 export type {
   AccordionType,
-  AccordionVariant,
   AccordionContextValue,
   AccordionContextResult,
   AccordionItemContextValue,

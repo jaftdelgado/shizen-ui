@@ -48,6 +48,19 @@ export const CreditCard = getIcon("credit-card");
 export const MessageText = getIcon("message-text");
 export const Repository = getIcon("repository");
 export const GitPullRequest = getIcon("git-pull-request");
+export const NavArrowUp = getIcon("nav-arrow-up");
 export const NavArrowDown = getIcon("nav-arrow-down");
 export const Plus = getIcon("plus");
+export const Minus = getIcon("minus");
 export const Code = getIcon("code");
+export const Xmark = getIcon("xmark");
+
+export const Terminal = getIcon("terminal");
+export const Palette = getIcon("palette");
+export const Accessibility = getIcon("accessibility");
+export const CodeBrackets = getIcon("code-brackets");
+
+export const Bell = getIcon("bell");
+export const EyeEmpty = getIcon("eye-empty");
+export const ProfileCircle = getIcon("profile-circle");
+export const WarningTriangle = getIcon("warning-triangle");

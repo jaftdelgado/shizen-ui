@@ -3,13 +3,11 @@ import { getContext, setContext } from "svelte";
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 export type AccordionType = "single" | "multiple";
-export type AccordionVariant = "default" | "surface" | "splitted";
 
 // ─── Accordion Root Context ───────────────────────────────────────────────────
 
 export interface AccordionContextValue {
   readonly type: AccordionType;
-  readonly variant: AccordionVariant;
   readonly disabled: boolean;
   readonly openItems: Set<string>;
   readonly toggleItem: (id: string) => void;
@@ -17,7 +15,6 @@ export interface AccordionContextValue {
 
 export interface AccordionContextResult {
   readonly type: AccordionType;
-  readonly variant: AccordionVariant;
   readonly disabled: boolean;
   readonly openItems: Set<string>;
   readonly toggleItem: (id: string) => void;
@@ -38,9 +35,6 @@ export function useAccordionContext(): AccordionContextResult {
       get type() {
         return "single" as AccordionType;
       },
-      get variant() {
-        return "default" as AccordionVariant;
-      },
       get disabled() {
         return false;
       },
@@ -59,9 +53,6 @@ export function useAccordionContext(): AccordionContextResult {
   return {
     get type() {
       return context.type;
-    },
-    get variant() {
-      return context.variant;
     },
     get disabled() {
       return context.disabled;

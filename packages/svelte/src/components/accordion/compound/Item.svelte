@@ -44,7 +44,7 @@
 </script>
 
 <div
-  class={cn(accordionItemStyles({ variant: accordionContext.variant }), className)}
+  class={cn(accordionItemStyles(), className)}
   data-open={isOpen}
   data-disabled={isDisabled}
   {...rest}
