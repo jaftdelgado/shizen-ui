@@ -36,8 +36,8 @@
   ];
 </script>
 
-<Surface>
-  <Accordion class="w-full max-w-xs">
+<Surface class="w-full max-w-xs">
+  <Accordion>
     {#each items as item}
       <Accordion.Item value={item.value}>
         <Accordion.Heading>

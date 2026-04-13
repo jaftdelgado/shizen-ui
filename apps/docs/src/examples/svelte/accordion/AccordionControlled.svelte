@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Accordion, Surface, Button, ButtonGroup } from "@shizen-ui/svelte";
+  import { Accordion, Surface, Description, Button, ButtonGroup } from "@shizen-ui/svelte";
 
   import Icon from "@assets/Icon.svelte";
   import { NavArrowUp, NavArrowDown, Xmark } from "@assets/icons";
@@ -55,9 +55,9 @@
 
 <div class="flex flex-col gap-4 w-full max-w-xs">
   <div class="flex items-center justify-between gap-2">
-    <p class="text-sm text-secondary-text">
+    <Description>
       Expanded: <span class="text-primary-text">{selectedValue || "none"}</span>
-    </p>
+    </Description>
     <div class="flex items-center gap-2">
       <ButtonGroup size="sm" variant="tertiary">
         <Button iconOnly onclick={selectPrevious} disabled={isPrevDisabled}>
@@ -75,7 +75,7 @@
   </div>
 
   <Surface>
-    <Accordion value={selectedValue}>
+    <Accordion value={selectedValue} onValueChange={(v) => (selectedValue = v as string)}>
       {#each items as item}
         <Accordion.Item value={item.value}>
           <Accordion.Heading>

@@ -64,3 +64,7 @@ export const Bell = getIcon("bell");
 export const EyeEmpty = getIcon("eye-empty");
 export const ProfileCircle = getIcon("profile-circle");
 export const WarningTriangle = getIcon("warning-triangle");
+
+export const Delivery = getIcon("delivery");
+export const UndoCircle = getIcon("undo-circle");
+export const ShieldAlert = getIcon("shield-alert");

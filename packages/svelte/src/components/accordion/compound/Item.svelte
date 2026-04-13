@@ -1,52 +1,27 @@
 <script lang="ts">
   import { cn } from "@shizen-ui/styles";
   import { accordionItemStyles } from "@shizen-ui/styles";
-  import {
-    useAccordionContext,
-    setAccordionItemContext
-  } from "../../../contexts/internal/index.js";
-  import type { HTMLAttributes } from "svelte/elements";
+  import type { AccordionItemProps } from "../_internal/item.types.js";
+  import { AccordionItemState } from "../_internal/item.state.svelte.js";
 
-  interface Props extends HTMLAttributes<HTMLDivElement> {
-    value?: string;
-    disabled?: boolean;
-  }
+  let {
+    class: className,
+    value,
+    disabled = false,
+    children,
+    ...rest
+  }: AccordionItemProps = $props();
 
-  let { class: className, value, disabled = false, children, ...rest }: Props = $props();
-
-  const accordionContext = useAccordionContext();
-
-  const itemId = $derived(value ?? crypto.randomUUID());
-
-  const isOpen = $derived(accordionContext.openItems.has(itemId));
-  const isDisabled = $derived(accordionContext.disabled || disabled);
-
-  function toggle(): void {
-    if (!isDisabled) {
-      accordionContext.toggleItem(itemId);
-    }
-  }
-
-  setAccordionItemContext({
-    get itemId() {
-      return itemId;
-    },
-    get isOpen() {
-      return isOpen;
-    },
-    get isDisabled() {
-      return isDisabled;
-    },
-    get toggle() {
-      return toggle;
-    }
+  const state = new AccordionItemState({
+    value: () => value,
+    disabled: () => disabled
   });
 </script>
 
 <div
   class={cn(accordionItemStyles(), className)}
-  data-open={isOpen}
-  data-disabled={isDisabled}
+  data-open={state.isOpen}
+  data-disabled={state.isDisabled}
   {...rest}
 >
   {@render children?.()}
