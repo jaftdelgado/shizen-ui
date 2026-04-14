@@ -3,6 +3,7 @@ title: "Chip"
 layout: "@layouts/DocsLayout.astro"
 ---
 
+import CodeImport from "@components/astro/CodeImport.astro";
 import ComponentExample from "@components/astro/ComponentExample.astro";
 import SourceLinks from "@components/svelte/SourceLinks.svelte";
 
@@ -21,6 +22,10 @@ Compact label used to display tags, categories, or status indicators.
   svelteUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/svelte/src/components/chip/Chip.svelte"
   stylesUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/styles/src/components/chip.css"
 />
+
+## Import
+
+<CodeImport code={`import { Chip } from "@shizen-ui/svelte";`} />
 
 <ComponentExample src="svelte/chip/ChipUsage.svelte">
   <ChipUsage client:load />

@@ -3,6 +3,7 @@ title: "Checkbox"
 layout: "@layouts/DocsLayout.astro"
 ---
 
+import CodeImport from "@components/astro/CodeImport.astro";
 import ComponentExample from "@components/astro/ComponentExample.astro";
 import SourceLinks from "@components/svelte/SourceLinks.svelte";
 
@@ -22,6 +23,10 @@ Control that lets users select or deselect a single option in a form.
   svelteUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/svelte/src/components/checkbox/Checkbox.svelte"
   stylesUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/styles/src/components/checkbox.css"
 />
+
+## Import
+
+<CodeImport code={`import { Checkbox } from "@shizen-ui/svelte";`} />
 
 <ComponentExample src="svelte/checkbox/CheckboxUsage.svelte">
   <CheckboxUsage client:load />

@@ -3,6 +3,7 @@ title: "Popover"
 layout: "@layouts/DocsLayout.astro"
 ---
 
+import CodeImport from "@components/astro/CodeImport.astro";
 import ComponentExample from "@components/astro/ComponentExample.astro";
 import SourceLinks from "@components/svelte/SourceLinks.svelte";
 import CodeBlock from "@components/astro/CodeBlock.astro";
@@ -20,6 +21,10 @@ Shows floating content overlaid on the page, activated by a trigger element.
   svelteUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/svelte/src/components/popover/Popover.svelte"
   stylesUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/styles/src/components/popover.css"
 />
+
+## Import
+
+<CodeImport code={`import { Popover } from "@shizen-ui/svelte";`} />
 
 
 <ComponentExample src="svelte/popover/PopoverUsage.svelte">

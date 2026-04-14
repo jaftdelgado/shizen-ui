@@ -3,6 +3,7 @@ title: "Button Group"
 layout: "@layouts/DocsLayout.astro"
 ---
 
+import CodeImport from "@components/astro/CodeImport.astro";
 import ComponentExample from "@components/astro/ComponentExample.astro";
 import SourceLinks from "@components/svelte/SourceLinks.svelte";
 
@@ -22,6 +23,10 @@ Groups multiple buttons sharing properties and state between them.
   svelteUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/svelte/src/components/button-group/ButtonGroup.svelte"
   stylesUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/styles/src/components/button-group.css"
 />
+
+## Import
+
+<CodeImport code={`import { ButtonGroup } from "@shizen-ui/svelte";`} />
 
 <ComponentExample src="svelte/button-group/ButtonGroupUsage.svelte">
   <ButtonGroupUsage client:load />

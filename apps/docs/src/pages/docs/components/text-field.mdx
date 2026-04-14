@@ -3,6 +3,7 @@ title: "Text Field"
 layout: "@layouts/DocsLayout.astro"
 ---
 
+import CodeImport from "@components/astro/CodeImport.astro";
 import ComponentExample from "@components/astro/ComponentExample.astro";
 import SourceLinks from "@components/svelte/SourceLinks.svelte";
 
@@ -22,6 +23,10 @@ Propagates validation state and accessibility context to its child form elements
   svelteUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/svelte/src/components/text-field/TextField.svelte"
   stylesUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/styles/src/components/text-field.css"
 />
+
+## Import
+
+<CodeImport code={`import { TextField } from "@shizen-ui/svelte";`} />
 
 <ComponentExample src="svelte/text-field/TextFieldUsage.svelte">
   <TextFieldUsage client:load />

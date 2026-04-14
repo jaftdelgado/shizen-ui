@@ -3,6 +3,7 @@ title: "Checkbox Group"
 layout: "@layouts/DocsLayout.astro"
 ---
 
+import CodeImport from "@components/astro/CodeImport.astro";
 import ComponentExample from "@components/astro/ComponentExample.astro";
 import SourceLinks from "@components/svelte/SourceLinks.svelte";
 
@@ -20,6 +21,10 @@ Groups multiple checkboxes sharing state and validation context between them.
   svelteUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/svelte/src/components/checkbox-group/CheckboxGroup.svelte"
   stylesUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/styles/src/components/checkbox-group.css"
 />
+
+## Import
+
+<CodeImport code={`import { CheckboxGroup } from "@shizen-ui/svelte";`} />
 
 <ComponentExample src="svelte/checkbox-group/CheckboxGroupUsage.svelte">
   <CheckboxGroupUsage client:load />

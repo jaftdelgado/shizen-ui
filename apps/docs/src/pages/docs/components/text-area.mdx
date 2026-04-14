@@ -3,6 +3,7 @@ title: "Text Area"
 layout: "@layouts/DocsLayout.astro"
 ---
 
+import CodeImport from "@components/astro/CodeImport.astro";
 import ComponentExample from "@components/astro/ComponentExample.astro";
 import SourceLinks from "@components/svelte/SourceLinks.svelte";
 
@@ -23,6 +24,10 @@ Multi-line text input for capturing longer or open-ended user input.
   svelteUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/svelte/src/components/text-area/TextArea.svelte"
   stylesUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/styles/src/components/text-area.css"
 />
+
+## Import
+
+<CodeImport code={`import { TextArea } from "@shizen-ui/svelte";`} />
 
 <ComponentExample src="svelte/text-area/TextAreaUsage.svelte">
   <TextAreaUsage client:load />

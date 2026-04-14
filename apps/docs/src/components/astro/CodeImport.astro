@@ -1,0 +1,27 @@
+---
+import { codeToHtml } from "shiki";
+
+interface Props {
+  code?: string;
+  lang?: string;
+  theme?: string;
+}
+
+const { code: codeProp = "", lang = "tsx", theme = "github-light" } = Astro.props;
+
+const rawSlot = Astro.slots.has("default") ? await Astro.slots.render("default") : null;
+
+const code = rawSlot ? rawSlot.replace(/<[^>]*>/g, "").trim() : codeProp;
+
+const highlightedCode = await codeToHtml(code, {
+  lang,
+  theme,
+  structure: "classic"
+});
+---
+
+<div class="bg-component code-import-root border border-slate-200 rounded-xl shadow-xs my-4">
+  <div class="overflow-x-auto font-mono shiki-container code-import-content">
+    <Fragment set:html={highlightedCode} />
+  </div>
+</div>

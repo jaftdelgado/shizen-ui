@@ -73,3 +73,17 @@
   counter-increment: step;
   color: var(--color-secondary-text);
 }
+
+/* CodeImport — single-line variant */
+.code-import-content pre {
+  @apply bg-transparent! m-0 p-0 block text-sm;
+  line-height: 1.6;
+}
+
+.code-import-content code {
+  @apply block w-fit min-w-full py-3 px-6;
+}
+
+.code-import-content .line {
+  @apply inline-block w-full px-0;
+}

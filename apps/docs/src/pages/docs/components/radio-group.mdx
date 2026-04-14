@@ -3,6 +3,7 @@ title: "Radio Group"
 layout: "@layouts/DocsLayout.astro"
 ---
 
+import CodeImport from "@components/astro/CodeImport.astro";
 import ComponentExample from "@components/astro/ComponentExample.astro";
 import SourceLinks from "@components/svelte/SourceLinks.svelte";
 import CodeBlock from "@components/astro/CodeBlock.astro";
@@ -26,6 +27,10 @@ Lets users pick a single option from a set of mutually exclusive choices.
   svelteUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/svelte/src/components/radio-group/RadioGroup.svelte"
   stylesUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/styles/src/components/radio-group.css"
 />
+
+## Import
+
+<CodeImport code={`import { Radio, RadioGroup } from "@shizen-ui/svelte";`} />
 
 <ComponentExample src="svelte/radio/RadioUsage.svelte">
   <RadioUsage client:load />

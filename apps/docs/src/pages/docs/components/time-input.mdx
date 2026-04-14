@@ -3,6 +3,7 @@ title: "Time Input"
 layout: "@layouts/DocsLayout.astro"
 ---
 
+import CodeImport from "@components/astro/CodeImport.astro";
 import ComponentExample from "@components/astro/ComponentExample.astro";
 import SourceLinks from "@components/svelte/SourceLinks.svelte";
 
@@ -24,6 +25,10 @@ Segmented input with separate fields for hours, minutes, seconds, and AM/PM.
   svelteUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/svelte/src/components/time-input/TimeInput.svelte"
   stylesUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/styles/src/components/time-input.css"
 />
+
+## Import
+
+<CodeImport code={`import { TimeInput } from "@shizen-ui/svelte";`} />
 
 <ComponentExample src="svelte/time-input/TimeInputUsage.svelte">
   <TimeInputUsage client:load />

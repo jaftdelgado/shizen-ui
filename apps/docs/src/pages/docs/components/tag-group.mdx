@@ -3,6 +3,7 @@ title: "Tag Group"
 layout: "@layouts/DocsLayout.astro"
 ---
 
+import CodeImport from "@components/astro/CodeImport.astro";
 import ComponentExample from "@components/astro/ComponentExample.astro";
 import SourceLinks from "@components/svelte/SourceLinks.svelte";
 
@@ -22,6 +23,10 @@ Selectable and closable tag for filtering, categorizing, or marking content.
   svelteUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/svelte/src/components/tag-group/TagGroup.svelte"
   stylesUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/styles/src/components/tag-group.css"
 />
+
+## Import
+
+<CodeImport code={`import { Tag, TagGroup } from "@shizen-ui/svelte";`} />
 
 <ComponentExample src="svelte/tag-group/TagGroupUsage.svelte">
   <TagGroupUsage client:load />

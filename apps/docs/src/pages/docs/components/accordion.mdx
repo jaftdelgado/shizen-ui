@@ -3,6 +3,7 @@ title: "Accordion"
 layout: "@layouts/DocsLayout.astro"
 ---
 
+import CodeImport from "@components/astro/CodeImport.astro";
 import ComponentExample from "@components/astro/ComponentExample.astro";
 import SourceLinks from "@components/svelte/SourceLinks.svelte";
 import CodeBlock from "@components/astro/CodeBlock.astro";
@@ -18,13 +19,17 @@ import AccordionIndicator from "@examples/svelte/accordion/AccordionIndicator.sv
 
 # Accordion
 
-Organizes related content into expandable sections to keep interfaces compact and scannable.
+Collapsible content panel for organizing information in a compact space
 
 <SourceLinks
   client:load
   svelteUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/svelte/src/components/accordion/Accordion.svelte"
   stylesUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/styles/src/components/accordion.css"
 />
+
+## Import
+
+<CodeImport code={`import { Accordion } from "@shizen-ui/svelte";`} />
 
 <ComponentExample src="svelte/accordion/AccordionUsage.svelte">
   <AccordionUsage client:load />
