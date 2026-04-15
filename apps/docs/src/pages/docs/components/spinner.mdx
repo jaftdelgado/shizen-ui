@@ -1,0 +1,37 @@
+---
+title: "Spinner"
+layout: "@layouts/DocsLayout.astro"
+---
+
+import CodeImport from "@components/astro/CodeImport.astro";
+import ComponentExample from "@components/astro/ComponentExample.astro";
+import SourceLinks from "@components/svelte/SourceLinks.svelte";
+
+import SpinnerUsage from "@examples/svelte/spinner/SpinnerUsage.svelte";
+import SpinnerColor from "@examples/svelte/spinner/SpinnerColor.svelte";
+
+# Spinner
+
+Loading indicator component to show pending states
+
+<SourceLinks
+  client:load
+  svelteUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/svelte/src/components/spinner/Spinner.svelte"
+  stylesUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/styles/src/components/spinner.css"
+/>
+
+## Import
+
+<CodeImport code={`import { Spinner } from "@shizen-ui/svelte";`} />
+
+<ComponentExample src="svelte/spinner/SpinnerUsage.svelte">
+  <SpinnerUsage client:load />
+</ComponentExample>
+
+## Examples
+
+### Colors
+
+<ComponentExample src="svelte/spinner/SpinnerColor.svelte">
+  <SpinnerColor client:load />
+</ComponentExample>

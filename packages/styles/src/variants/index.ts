@@ -19,6 +19,7 @@ export * from "./radio";
 export * from "./radio-group";
 export * from "./scroll-area";
 export * from "./separator";
+export * from "./spinner";
 export * from "./surface";
 export * from "./switch";
 export * from "./switch-group";
