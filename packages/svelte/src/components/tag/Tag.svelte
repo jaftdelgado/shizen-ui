@@ -59,6 +59,10 @@
           | undefined
       )?.(event)
   );
+
+  function mountAction(el: HTMLElement) {
+    return state.mountTag(el);
+  }
 </script>
 
 {#snippet renderIcon(content: IconContent | undefined)}
@@ -102,9 +106,10 @@
     role="checkbox"
     aria-checked={state.isSelected}
     aria-disabled={state.isDisabled ? true : undefined}
-    tabindex={!state.isDisabled ? 0 : undefined}
+    tabindex={state.tabIndex}
     onclick={handlers.handleClick}
     onkeydown={handlers.handleKeyDown}
+    use:mountAction
   >
     {@render tagContent()}
   </div>
@@ -117,6 +122,7 @@
       state.isDisabled && "tag--disabled",
       className
     )}
+    use:mountAction
   >
     {@render tagContent()}
   </div>

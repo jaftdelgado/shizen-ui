@@ -6,6 +6,7 @@ export function createTagState(props: TagStateProps) {
   const group = useTagGroupContext();
 
   let removeButtonSnippet = $state<Snippet | undefined>(undefined);
+  let tagEl = $state<HTMLElement | null>(null);
 
   const resolvedVariant = $derived(group.exists ? (group.variant ?? props.variant) : props.variant);
   const resolvedSize = $derived(group.exists ? (group.size ?? props.size) : props.size);
@@ -18,8 +19,35 @@ export function createTagState(props: TagStateProps) {
   );
 
   const isInteractive = $derived(resolvedMode !== "none");
-
   const isDisabled = $derived(group.exists && group.disabled);
+
+  const tabIndex = $derived((): number => {
+    if (!group.exists) return isDisabled ? -1 : 0;
+    if (isDisabled) return -1;
+    if (tagEl && group.isFirstTag(tagEl)) return 0;
+    return -1;
+  });
+
+  function unmountTag(): void {
+    if (tagEl) group.unregisterTag(tagEl);
+    tagEl = null;
+  }
+
+  function mountTag(el: HTMLElement): { destroy: () => void } {
+    tagEl = el;
+    group.registerTag({ tagEl: el, removeButtonEl: null });
+
+    // Una vez montado el tag, buscar el remove button en el DOM
+    // en el siguiente microtask para dar tiempo al snippet a renderizarse
+    Promise.resolve().then(() => {
+      const removeBtn = el.querySelector<HTMLElement>("[data-remove-button]");
+      if (removeBtn) {
+        group.registerRemoveButton(el, removeBtn);
+      }
+    });
+
+    return { destroy: unmountTag };
+  }
 
   setTagContext({
     onClose: () => props.onClose?.(),
@@ -58,7 +86,12 @@ export function createTagState(props: TagStateProps) {
     },
     get onClose() {
       return props.onClose;
-    }
+    },
+    get tabIndex() {
+      return tabIndex();
+    },
+    mountTag,
+    unmountTag
   };
 }
 

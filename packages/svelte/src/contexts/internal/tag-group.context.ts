@@ -3,6 +3,11 @@ import type { TagVariants } from "@shizen-ui/styles";
 
 export type TagSelectionMode = "none" | "single" | "multiple";
 
+export interface TagFocusEntry {
+  tagEl: HTMLElement;
+  removeButtonEl: HTMLElement | null;
+}
+
 export interface TagGroupContextValue {
   readonly variant: TagVariants["variant"];
   readonly size: TagVariants["size"];
@@ -10,6 +15,12 @@ export interface TagGroupContextValue {
   readonly selectedValues: string[];
   readonly disabled: boolean;
   readonly toggleValue: (val: string) => void;
+  readonly registerTag: (entry: TagFocusEntry) => void;
+  readonly unregisterTag: (tagEl: HTMLElement) => void;
+  readonly registerRemoveButton: (tagEl: HTMLElement, removeButtonEl: HTMLElement) => void;
+  readonly focusNext: (from: HTMLElement) => void;
+  readonly focusPrev: (from: HTMLElement) => void;
+  readonly isFirstTag: (tagEl: HTMLElement) => boolean;
 }
 
 export interface TagGroupContextResult extends TagGroupContextValue {
@@ -45,6 +56,24 @@ export function useTagGroupContext(): TagGroupContextResult {
       get toggleValue() {
         return () => {};
       },
+      get registerTag() {
+        return () => {};
+      },
+      get unregisterTag() {
+        return () => {};
+      },
+      get registerRemoveButton() {
+        return () => {};
+      },
+      get focusNext() {
+        return () => {};
+      },
+      get focusPrev() {
+        return () => {};
+      },
+      get isFirstTag() {
+        return () => false;
+      },
       get exists() {
         return false;
       }
@@ -69,6 +98,24 @@ export function useTagGroupContext(): TagGroupContextResult {
     },
     get toggleValue() {
       return context.toggleValue;
+    },
+    get registerTag() {
+      return context.registerTag;
+    },
+    get unregisterTag() {
+      return context.unregisterTag;
+    },
+    get registerRemoveButton() {
+      return context.registerRemoveButton;
+    },
+    get focusNext() {
+      return context.focusNext;
+    },
+    get focusPrev() {
+      return context.focusPrev;
+    },
+    get isFirstTag() {
+      return context.isFirstTag;
     },
     get exists() {
       return true;

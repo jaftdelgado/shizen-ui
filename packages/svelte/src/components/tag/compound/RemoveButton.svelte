@@ -10,7 +10,7 @@
     children?: Snippet;
   }
 
-  let { children, class: className, tabindex = 0, ...rest }: Props = $props();
+  let { children, class: className, tabindex = -1, ...rest }: Props = $props();
 
   const tag = useTagContext();
 
@@ -23,6 +23,7 @@
     class={className}
     aria-label="Remove tag"
     {tabindex}
+    data-remove-button
     onclick={(e) => {
       e.stopPropagation();
       tag.onClose?.();
@@ -32,6 +33,14 @@
         e.preventDefault();
         e.stopPropagation();
         tag.onClose?.();
+        return;
+      }
+
+      if (e.key === "Tab" && e.shiftKey) {
+        e.preventDefault();
+        const tagEl = (e.currentTarget as HTMLElement).closest<HTMLElement>("[role='checkbox']");
+        tagEl?.focus();
+        return;
       }
     }}
     {children}
