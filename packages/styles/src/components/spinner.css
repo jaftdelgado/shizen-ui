@@ -1,10 +1,22 @@
 .spinner {
   --spinner-color: currentColor;
-
   position: relative;
-  width: 1.25rem;
-  height: 1.25rem;
-  translate: 10% 3.9%;
+}
+
+.spinner--sm {
+  @apply size-4;
+}
+
+.spinner--md {
+  @apply size-6;
+}
+
+.spinner--lg {
+  @apply size-8;
+}
+
+.spinner--xl {
+  @apply size-10;
 }
 
 .spinner__bar {
@@ -14,8 +26,8 @@
   position: absolute;
   width: 24%;
   height: 8%;
-  left: -10%;
-  top: -3.9%;
+  left: 38%;
+  top: 46%;
 }
 
 .spinner--current {

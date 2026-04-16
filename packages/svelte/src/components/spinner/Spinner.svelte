@@ -4,13 +4,14 @@
   import type { HTMLAttributes } from "svelte/elements";
 
   interface Props extends HTMLAttributes<HTMLDivElement> {
+    size?: SpinnerVariants["size"];
     color?: SpinnerVariants["color"];
   }
 
-  let { class: className, color = "current", ...rest }: Props = $props();
+  let { class: className, size = "md", color = "current", ...rest }: Props = $props();
 </script>
 
-<div class={cn(spinnerStyles({ color }), className)} {...rest}>
+<div class={cn(spinnerStyles({ size, color }), className)} {...rest}>
   {#each Array(12) as _, i}
     <div class="spinner__bar spinner__bar--{i + 1}"></div>
   {/each}

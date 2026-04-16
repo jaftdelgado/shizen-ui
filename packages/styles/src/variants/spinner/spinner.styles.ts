@@ -3,6 +3,12 @@ import { tv, type VariantProps } from "tailwind-variants";
 export const spinnerStyles = tv({
   base: "spinner",
   variants: {
+    size: {
+      sm: "spinner--sm",
+      md: "spinner--md",
+      lg: "spinner--lg",
+      xl: "spinner--xl"
+    },
     color: {
       current: "spinner--current",
       secondary: "spinner--secondary",
@@ -13,6 +19,7 @@ export const spinnerStyles = tv({
     }
   },
   defaultVariants: {
+    size: "md",
     color: "current"
   }
 });
