@@ -7,21 +7,22 @@
 
   type IconContent = Snippet<[]> | string;
 
-  interface BaseProps extends HTMLButtonAttributes {
+  interface BaseProps extends Omit<HTMLButtonAttributes, "children"> {
     variant?: ButtonVariants["variant"];
     size?: ButtonVariants["size"];
+    loading?: boolean;
   }
 
   interface NormalProps extends BaseProps {
     iconOnly?: false;
-    children?: Snippet;
+    children?: Snippet<[boolean]>;
     startContent?: IconContent;
     endContent?: IconContent;
   }
 
   interface IconOnlyProps extends BaseProps {
     iconOnly: true;
-    children: Snippet;
+    children: Snippet<[boolean]>;
     startContent?: never;
     endContent?: never;
   }
@@ -38,6 +39,7 @@
     variant,
     size,
     disabled,
+    loading = false,
     iconOnly = false,
     ...rest
   }: Props = $props();
@@ -46,7 +48,7 @@
 
   const finalVariant = $derived(group.variant ?? variant ?? "primary");
   const finalSize = $derived(group.size ?? size ?? "md");
-  const isCurrentlyDisabled = $derived(group.disabled || (disabled ?? false));
+  const isCurrentlyDisabled = $derived(group.disabled || (disabled ?? false) || loading);
 </script>
 
 {#snippet renderIcon(content: IconContent | undefined)}
@@ -63,6 +65,7 @@
   {type}
   {onclick}
   disabled={isCurrentlyDisabled}
+  aria-busy={loading}
   {...rest}
   class={cn(
     buttonStyles({
@@ -76,14 +79,14 @@
   <span class="button__content">
     {#if iconOnly}
       <span class="button__icon">
-        {@render children?.()}
+        {@render children?.(loading)}
       </span>
     {:else}
       {@render renderIcon(startContent)}
 
       {#if children}
         <span class="button__label">
-          {@render children()}
+          {@render children(loading)}
         </span>
       {/if}
 

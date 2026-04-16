@@ -1,18 +1,20 @@
 <script lang="ts">
   import { Button } from "@shizen-ui/svelte";
-  import Icon from "@components/svelte/Icon.svelte";
+
+  import Icon from "@assets/Icon.svelte";
+  import { Trash, PagePlusIn, MoreVert } from "@assets/icons";
 </script>
 
 <div class="flex items-center gap-2">
   <Button iconOnly>
-    <Icon name="paper_plane" />
+    <Icon icon={PagePlusIn} />
   </Button>
 
   <Button variant="tertiary" iconOnly>
-    <Icon name="ellipsis" />
+    <Icon icon={MoreVert} />
   </Button>
 
   <Button variant="danger" iconOnly>
-    <Icon name="trash_bin" />
+    <Icon icon={Trash} />
   </Button>
 </div>

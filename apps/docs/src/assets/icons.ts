@@ -68,3 +68,7 @@ export const WarningTriangle = getIcon("warning-triangle");
 export const Delivery = getIcon("delivery");
 export const UndoCircle = getIcon("undo-circle");
 export const ShieldAlert = getIcon("shield-alert");
+export const RefreshDouble = getIcon("refresh-double");
+export const Trash = getIcon("trash");
+export const PagePlusIn = getIcon("page-plus-in");
+export const MoreVert = getIcon("more-vert");
