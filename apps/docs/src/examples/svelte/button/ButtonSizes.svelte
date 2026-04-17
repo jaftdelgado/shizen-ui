@@ -13,19 +13,13 @@
 
   <div class="flex items-center gap-3">
     <Button size="sm" iconOnly aria-label="Small">
-      {#snippet children()}
-        <Icon icon={Plus} />
-      {/snippet}
+      <Icon icon={Plus} />
     </Button>
     <Button size="md" iconOnly aria-label="Medium">
-      {#snippet children()}
-        <Icon icon={Plus} />
-      {/snippet}
+      <Icon icon={Plus} />
     </Button>
     <Button size="lg" iconOnly aria-label="Large">
-      {#snippet children()}
-        <Icon icon={Plus} />
-      {/snippet}
+      <Icon icon={Plus} />
     </Button>
   </div>
 </div>

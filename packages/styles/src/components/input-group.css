@@ -33,9 +33,7 @@
       @apply status-disabled;
     }
 
-    /* ----------------------------------------
-       Modo textarea — layout vertical
-    ---------------------------------------- */
+    /* TextArea mode */
     &:has([data-slot="input-group-textarea"]) {
       @apply flex-col h-auto;
     }
