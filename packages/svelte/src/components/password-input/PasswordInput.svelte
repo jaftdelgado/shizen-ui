@@ -10,7 +10,6 @@
   interface Props extends Omit<HTMLInputAttributes, "size" | "type"> {
     size?: PasswordInputVariants["size"];
     variant?: PasswordInputVariants["variant"];
-    value?: string;
     invalid?: boolean;
     children?: Snippet;
   }
@@ -91,6 +90,5 @@
     aria-errormessage={finalInvalid ? errorId : undefined}
     {...rest}
   />
-
   {@render children?.()}
 </div>

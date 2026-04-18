@@ -10,6 +10,6 @@
 
   <div class="flex flex-col gap-1.5">
     <Label for="pin-code">PIN code</Label>
-    <PasswordInput id="pin-code" placeholder="Enter PIN" showToggle={false} />
+    <PasswordInput id="pin-code" placeholder="Enter PIN" />
   </div>
 </div>

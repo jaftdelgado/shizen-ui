@@ -72,3 +72,5 @@ export const RefreshDouble = getIcon("refresh-double");
 export const Trash = getIcon("trash");
 export const PagePlusIn = getIcon("page-plus-in");
 export const MoreVert = getIcon("more-vert");
+export const Lock = getIcon("lock");
+export const InfoCircle = getIcon("info-circle");
