@@ -7,12 +7,10 @@
   interface Props extends TabsVariants {
     children: Snippet;
     class?: string;
-    value?: string;
+    value: string;
   }
 
   let { children, class: className, value = $bindable(), ...rest }: Props = $props();
-
-  const registeredTabs: string[] = [];
 
   setTabsContext({
     get activeTab() {
@@ -20,14 +18,6 @@
     },
     setActiveTab(id: string) {
       value = id;
-    },
-    registerTab(id: string) {
-      if (!registeredTabs.includes(id)) {
-        registeredTabs.push(id);
-        if (value === undefined) {
-          value = id;
-        }
-      }
     }
   });
 

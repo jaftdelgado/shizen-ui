@@ -6,14 +6,14 @@
 
   /* List Container */
   .tabs__list-container {
-    @apply relative;
+    @apply relative flex h-control-md;
   }
 
   /* List */
   .tabs__list {
-    @apply inline-flex w-full bg-control p-1;
+    @apply inline-flex h-full bg-control p-1;
 
-    border-radius: calc(var(--radius-2xl) + 0.25rem);
+    border-radius: calc(var(--radius-control) + 0.25rem);
   }
 
   /* Tab */
@@ -22,7 +22,7 @@
     z-index: 1;
     cursor: var(--cursor-interactive);
 
-    @apply flex h-8 w-full items-center justify-center rounded-3xl px-4;
+    @apply flex h-full items-center justify-center rounded-control px-4 gap-1.5;
     @apply text-center text-sm font-medium text-secondary-text outline-none;
 
     /**
@@ -34,8 +34,13 @@
       opacity 150ms var(--ease-smooth);
     @apply motion-reduce:transition-none;
 
+    &:not(.tabs__tab--icon-only) {
+      flex: 1;
+      min-width: 0;
+    }
+
     &[data-active="true"] {
-      @apply text-control-foreground;
+      @apply text-primary-text;
     }
 
     /* Hide separator when this tab is active */
@@ -58,6 +63,20 @@
         @apply opacity-70;
       }
     }
+  }
+
+  .tabs__tab-icon {
+    @apply flex items-center justify-center shrink-0;
+  }
+
+  .tabs__tab-label {
+    @apply flex items-center;
+  }
+
+  /* Icon only modifier */
+  .tabs__tab--icon-only {
+    @apply aspect-square px-0 shrink-0;
+    flex: none;
   }
 
   /* Separator */

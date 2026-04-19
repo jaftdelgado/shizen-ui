@@ -3,25 +3,24 @@
 </script>
 
 <div class="w-full max-w-xs">
-  <Tabs>
+  <Tabs value="overview">
     <Tabs.ListContainer>
       <Tabs.List aria-label="Project sections">
         <Tabs.Tab value="overview">
           Overview
           <Tabs.Indicator />
-          <Tabs.Separator />
         </Tabs.Tab>
 
         <Tabs.Tab value="activity">
+          <Tabs.Separator />
           Activity
           <Tabs.Indicator />
-          <Tabs.Separator />
         </Tabs.Tab>
 
         <Tabs.Tab value="members">
+          <Tabs.Separator />
           Members
           <Tabs.Indicator />
-          <Tabs.Separator />
         </Tabs.Tab>
       </Tabs.List>
     </Tabs.ListContainer>

@@ -1,21 +1,53 @@
 <script lang="ts">
-  import { type Snippet, onMount } from "svelte";
+  import { type Snippet } from "svelte";
   import { cn } from "@shizen-ui/styles";
   import type { HTMLButtonAttributes } from "svelte/elements";
   import { tabsStyles } from "@shizen-ui/styles";
-  import { useTabsContext, setTabContext } from "../../../contexts/internal/index.js";
+  import {
+    useTabsContext,
+    useTabsListContext,
+    setTabContext
+  } from "../../../contexts/internal/index.js";
 
-  interface Props extends Omit<HTMLButtonAttributes, "role"> {
-    children: Snippet;
+  type IconContent = Snippet<[]> | string;
+
+  interface BaseProps extends Omit<HTMLButtonAttributes, "role" | "children"> {
     value: string;
     disabled?: boolean;
   }
 
-  let { children, class: className, value, disabled = false, ...rest }: Props = $props();
+  interface NormalProps extends BaseProps {
+    iconOnly?: false;
+    children?: Snippet;
+    startContent?: IconContent;
+    endContent?: IconContent;
+  }
+
+  interface IconOnlyProps extends BaseProps {
+    iconOnly: true;
+    children: Snippet;
+    startContent?: never;
+    endContent?: never;
+  }
+
+  type Props = NormalProps | IconOnlyProps;
+
+  let {
+    children,
+    class: className,
+    value,
+    disabled = false,
+    iconOnly: localIconOnly = false,
+    startContent,
+    endContent,
+    ...rest
+  }: Props = $props();
 
   const tabsCtx = useTabsContext();
+  const listCtx = useTabsListContext();
 
   const isActive = $derived(tabsCtx.activeTab === value);
+  const iconOnly = $derived(listCtx.iconOnly || localIconOnly);
 
   setTabContext({
     get tabId() {
@@ -24,10 +56,6 @@
     get isActive() {
       return isActive;
     }
-  });
-
-  onMount(() => {
-    tabsCtx.registerTab(value);
   });
 
   function handleClick() {
@@ -43,8 +71,18 @@
     }
   }
 
-  const styles = tabsStyles();
+  const styles = $derived(tabsStyles({ iconOnly }));
 </script>
+
+{#snippet renderIcon(content: IconContent | undefined)}
+  {#if typeof content === "string"}
+    <i class={content}></i>
+  {:else if content}
+    <span class="tabs__tab-icon">
+      {@render content()}
+    </span>
+  {/if}
+{/snippet}
 
 <button
   role="tab"
@@ -58,5 +96,17 @@
   onkeydown={handleKeydown}
   {...rest}
 >
-  {@render children()}
+  {#if iconOnly}
+    {@render children?.()}
+  {:else}
+    {@render renderIcon(startContent)}
+
+    {#if children}
+      <span class="tabs__tab-label">
+        {@render children()}
+      </span>
+    {/if}
+
+    {@render renderIcon(endContent)}
+  {/if}
 </button>

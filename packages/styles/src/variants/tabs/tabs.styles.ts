@@ -9,6 +9,13 @@ export const tabsStyles = tv({
     separator: "tabs__separator",
     indicator: "tabs__indicator",
     panel: "tabs__panel"
+  },
+  variants: {
+    iconOnly: {
+      true: {
+        tab: "tabs__tab--icon-only"
+      }
+    }
   }
 });
 

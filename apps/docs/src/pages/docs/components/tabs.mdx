@@ -8,6 +8,9 @@ import ComponentExample from "@components/astro/ComponentExample.astro";
 import SourceLinks from "@components/svelte/SourceLinks.svelte";
 
 import TabsUsage from "@examples/svelte/tabs/TabsUsage.svelte";
+import TabsDisabled from "@examples/svelte/tabs/TabsDisabled.svelte";
+import TabsContent from "@examples/svelte/tabs/TabsContent.svelte";
+import TabsIconOnly from "@examples/svelte/tabs/TabsIconOnly.svelte";
 
 # Tabs
 
@@ -25,4 +28,24 @@ Organize related content into sections and switch views quickly.
 
 <ComponentExample src="svelte/tabs/TabsUsage.svelte">
   <TabsUsage client:load />
+</ComponentExample>
+
+## Examples
+
+### Disabled State
+
+<ComponentExample src="svelte/tabs/TabsDisabled.svelte">
+  <TabsDisabled client:load />
+</ComponentExample>
+
+### Start & End content
+
+<ComponentExample src="svelte/tabs/TabsContent.svelte">
+  <TabsContent client:load />
+</ComponentExample>
+
+### Icon Only
+
+<ComponentExample src="svelte/tabs/TabsIconOnly.svelte">
+  <TabsIconOnly client:load />
 </ComponentExample>

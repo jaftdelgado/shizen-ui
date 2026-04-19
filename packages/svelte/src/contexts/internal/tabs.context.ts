@@ -3,7 +3,6 @@ import { getContext, setContext } from "svelte";
 export interface TabsContextValue {
   readonly activeTab: string | undefined;
   readonly setActiveTab: (id: string) => void;
-  readonly registerTab: (id: string) => void;
 }
 
 export interface TabsContextResult extends TabsContextValue {
@@ -19,8 +18,17 @@ export interface TabContextResult extends TabContextValue {
   readonly exists: boolean;
 }
 
+export interface TabsListContextValue {
+  readonly iconOnly: boolean;
+}
+
+export interface TabsListContextResult extends TabsListContextValue {
+  readonly exists: boolean;
+}
+
 const TABS_CONTEXT_KEY = Symbol("shizen:tabs");
 const TAB_CONTEXT_KEY = Symbol("shizen:tab");
+const TABS_LIST_CONTEXT_KEY = Symbol("shizen:tabs-list");
 
 export function setTabsContext(value: TabsContextValue): void {
   setContext(TABS_CONTEXT_KEY, value);
@@ -37,9 +45,6 @@ export function useTabsContext(): TabsContextResult {
       get setActiveTab() {
         return () => {};
       },
-      get registerTab() {
-        return () => {};
-      },
       get exists() {
         return false;
       }
@@ -52,9 +57,6 @@ export function useTabsContext(): TabsContextResult {
     },
     get setActiveTab() {
       return context.setActiveTab;
-    },
-    get registerTab() {
-      return context.registerTab;
     },
     get exists() {
       return true;
@@ -94,4 +96,32 @@ export function useTabContext(): TabContextResult {
       return true;
     }
   } satisfies TabContextResult;
+}
+
+export function setTabsListContext(value: TabsListContextValue): void {
+  setContext(TABS_LIST_CONTEXT_KEY, value);
+}
+
+export function useTabsListContext(): TabsListContextResult {
+  const context = getContext<TabsListContextValue | undefined>(TABS_LIST_CONTEXT_KEY);
+
+  if (!context) {
+    return {
+      get iconOnly() {
+        return false;
+      },
+      get exists() {
+        return false;
+      }
+    } satisfies TabsListContextResult;
+  }
+
+  return {
+    get iconOnly() {
+      return context.iconOnly;
+    },
+    get exists() {
+      return true;
+    }
+  } satisfies TabsListContextResult;
 }
