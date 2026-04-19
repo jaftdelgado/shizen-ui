@@ -1,7 +1,10 @@
 ---
 import "../styles/global.css";
 import Sidebar from "@components/astro/Sidebar.astro";
+
+import ThemeScript from "@components/astro/ThemeScript.astro";
 import TableOfContents from "@components/astro/TableOfContents.astro";
+import ThemeTabs from "@components/svelte/ThemeTabs.svelte";
 import { ViewTransitions } from "astro:transitions";
 
 interface Frontmatter {
@@ -21,6 +24,7 @@ const title = frontmatter?.title ?? Astro.props.title ?? "Docs";
 <!doctype html>
 <html lang="es" class="scroll-smooth">
   <head>
+    <ThemeScript />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <title>{title} | Shizen UI</title>
@@ -42,7 +46,11 @@ const title = frontmatter?.title ?? Astro.props.title ?? "Docs";
           </article>
         </main>
 
-        <div transition:persist="toc">
+        <div
+          transition:persist="toc"
+          class="hidden lg:flex flex-col items-end gap-3 fixed top-8 right-[max(0px,calc(50%-45rem))] w-64 pr-14 z-30"
+        >
+          <ThemeTabs client:load />
           <TableOfContents headings={headings} />
         </div>
       </div>

@@ -1,0 +1,12 @@
+---
+// ThemeScript.astro
+// Inject this in <head> BEFORE any other scripts to prevent flash of wrong theme.
+---
+
+<script is:inline>
+  const saved = localStorage.getItem("shizen-ui-theme") ?? "system";
+  const isDark =
+    saved === "dark" ||
+    (saved === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+  document.documentElement.classList.toggle("dark", isDark);
+</script>
