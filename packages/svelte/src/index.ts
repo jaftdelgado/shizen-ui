@@ -24,6 +24,7 @@ export * from "./components/spinner/index.js";
 export * from "./components/surface/index.js";
 export * from "./components/switch-group/index.js";
 export * from "./components/switch/index.js";
+export * from "./components/tabs/index.js";
 export * from "./components/tag-group/index.js";
 export * from "./components/tag/index.js";
 export * from "./components/text-area/index.js";

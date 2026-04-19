@@ -1,0 +1,126 @@
+@layer components {
+  /* Root */
+  .tabs {
+    @apply flex flex-col gap-2 w-full;
+  }
+
+  /* List Container */
+  .tabs__list-container {
+    @apply relative;
+  }
+
+  /* List */
+  .tabs__list {
+    @apply inline-flex w-full bg-control p-1;
+
+    border-radius: calc(var(--radius-2xl) + 0.25rem);
+  }
+
+  /* Tab */
+  .tabs__tab {
+    position: relative;
+    z-index: 1;
+    cursor: var(--cursor-interactive);
+
+    @apply flex h-8 w-full items-center justify-center rounded-3xl px-4;
+    @apply text-center text-sm font-medium text-secondary-text outline-none;
+
+    /**
+     * Transitions
+     * CRITICAL: motion-reduce must be AFTER transition for correct override specificity
+     */
+    transition:
+      color 150ms var(--ease-smooth),
+      opacity 150ms var(--ease-smooth);
+    @apply motion-reduce:transition-none;
+
+    &[data-active="true"] {
+      @apply text-control-foreground;
+    }
+
+    /* Hide separator when this tab is active */
+    &[data-active="true"] .tabs__separator {
+      opacity: 0;
+    }
+
+    /* Hide separator when previous sibling is active */
+    &[data-active="true"] + .tabs__tab .tabs__separator {
+      opacity: 0;
+    }
+
+    &[data-disabled="true"],
+    &[aria-disabled="true"] {
+      @apply status-disabled;
+    }
+
+    @media (hover: hover) {
+      &:not([data-active="true"]):not([data-disabled="true"]):hover {
+        @apply opacity-70;
+      }
+    }
+  }
+
+  /* Separator */
+  .tabs__separator {
+    @apply bg-secondary-text/25;
+
+    border-radius: 4px;
+    position: absolute;
+    pointer-events: none;
+    left: 0;
+    top: 25%;
+    width: 1px;
+    height: 50%;
+
+    /**
+     * Transitions
+     * CRITICAL: motion-reduce must be AFTER transition for correct override specificity
+     */
+    transition: opacity 150ms var(--ease-smooth);
+    @apply motion-reduce:transition-none;
+
+    .tabs__tab:last-child & {
+      display: none;
+    }
+  }
+
+  /* Indicator */
+  .tabs__indicator {
+    box-shadow: var(--shadow-surface);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    border-radius: var(--radius-3xl);
+    width: 100%;
+    height: 100%;
+
+    @apply bg-surface;
+
+    /**
+     * Transitions
+     * CRITICAL: motion-reduce must be AFTER transition for correct override specificity
+     */
+    transition-duration: 250ms;
+    transition-property: translate, width, height;
+    transition-timing-function: var(--ease-out-fluid);
+    @apply motion-reduce:transition-none;
+
+    .tabs__tab:not([data-active="true"]) & {
+      @apply hidden;
+    }
+  }
+
+  /* Panel */
+  .tabs__panel {
+    @apply w-full outline-none;
+
+    &[data-hidden="true"] {
+      @apply hidden;
+    }
+
+    &[data-hidden="false"] {
+      @apply block;
+    }
+  }
+}

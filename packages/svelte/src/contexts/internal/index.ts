@@ -16,3 +16,4 @@ export * from "./tag.context.js";
 export * from "./tag-group.context.js";
 export * from "./accordion.context.js";
 export * from "./password-input.context.js";
+export * from "./tabs.context.js";
