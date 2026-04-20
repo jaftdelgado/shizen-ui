@@ -7,6 +7,8 @@
     <Tabs.ListContainer>
       <Tabs.List aria-label="Project sections">
         <Tabs.Tab value="overview">
+          <Tabs.Separator />
+
           Overview
           <Tabs.Indicator />
         </Tabs.Tab>

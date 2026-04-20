@@ -58,6 +58,18 @@
     }
   });
 
+  // Action — runs synchronously when the node is attached to the DOM,
+  // before any $effect, guaranteeing the element is registered before
+  // List.svelte tries to calculate the indicator position.
+  function registerTab(node: HTMLElement) {
+    tabsCtx.registerTabElement(value, node);
+    return {
+      destroy() {
+        // cleanup if needed in the future
+      }
+    };
+  }
+
   function handleClick() {
     if (!disabled) {
       tabsCtx.setActiveTab(value);
@@ -92,6 +104,7 @@
   data-disabled={disabled}
   tabindex={isActive ? 0 : -1}
   class={cn(styles.tab(), className)}
+  use:registerTab
   onclick={handleClick}
   onkeydown={handleKeydown}
   {...rest}

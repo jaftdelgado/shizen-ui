@@ -11,9 +11,23 @@
 
   /* List */
   .tabs__list {
-    @apply inline-flex h-full bg-control p-1;
+    @apply inline-flex h-full p-1;
 
-    border-radius: calc(var(--radius-control) + 0.25rem);
+    /* Base tokens */
+    --tabs-list-bg: var(--color-control);
+    --tabs-list-radius: calc(var(--radius-control) + 0.25rem);
+
+    --tabs-tab-fg: var(--color-secondary-text);
+    --tabs-tab-fg-active: var(--color-primary-text);
+
+    --tabs-separator-color: color-mix(in srgb, var(--color-secondary-text) 25%, transparent);
+
+    --tabs-indicator-bg: var(--color-surface);
+    --tabs-indicator-shadow: var(--shadow-surface);
+    --tabs-indicator-radius: var(--radius-control);
+
+    background-color: var(--tabs-list-bg);
+    border-radius: var(--tabs-list-radius);
   }
 
   /* Tab */
@@ -22,16 +36,19 @@
     z-index: 1;
     cursor: var(--cursor-interactive);
 
-    @apply flex h-full items-center justify-center rounded-control px-4 gap-1.5;
-    @apply text-center text-sm font-medium text-secondary-text outline-none;
+    @apply flex h-full items-center justify-center px-4 gap-1.5;
+    @apply text-center text-sm font-medium outline-none;
+
+    border-radius: calc(var(--tabs-list-radius) - 0.25rem);
+    color: var(--tabs-tab-fg);
 
     /**
      * Transitions
      * CRITICAL: motion-reduce must be AFTER transition for correct override specificity
      */
     transition:
-      color 150ms var(--ease-smooth),
-      opacity 150ms var(--ease-smooth);
+      color 200ms var(--ease-smooth) 0ms,
+      opacity 150ms var(--ease-smooth) 0ms;
     @apply motion-reduce:transition-none;
 
     &:not(.tabs__tab--icon-only) {
@@ -40,7 +57,9 @@
     }
 
     &[data-active="true"] {
-      @apply text-primary-text;
+      color: var(--tabs-tab-fg-active);
+      transition-delay: 100ms;
+      transition-duration: 150ms;
     }
 
     /* Hide separator when this tab is active */
@@ -60,8 +79,26 @@
 
     @media (hover: hover) {
       &:not([data-active="true"]):not([data-disabled="true"]):hover {
-        @apply opacity-70;
+        color: color-mix(in srgb, var(--tabs-tab-fg), var(--tabs-tab-fg-active) 40%);
+        opacity: 1;
       }
+    }
+
+    /* SSR fallback indicator — visible until JS sets data-ready on the list */
+    &[data-active="true"]::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      border-radius: var(--tabs-indicator-radius);
+      box-shadow: var(--tabs-indicator-shadow);
+      pointer-events: none;
+      background-color: var(--tabs-indicator-bg);
+    }
+
+    /* Hide ::before once the real indicator is ready */
+    .tabs__list[data-ready="true"] &[data-active="true"]::before {
+      display: none;
     }
   }
 
@@ -81,8 +118,6 @@
 
   /* Separator */
   .tabs__separator {
-    @apply bg-secondary-text/25;
-
     border-radius: 4px;
     position: absolute;
     pointer-events: none;
@@ -90,6 +125,7 @@
     top: 25%;
     width: 1px;
     height: 50%;
+    background-color: var(--tabs-separator-color);
 
     /**
      * Transitions
@@ -98,36 +134,31 @@
     transition: opacity 150ms var(--ease-smooth);
     @apply motion-reduce:transition-none;
 
-    .tabs__tab:last-child & {
+    .tabs__tab:first-child & {
       display: none;
     }
   }
 
   /* Indicator */
   .tabs__indicator {
-    box-shadow: var(--shadow-surface);
     position: absolute;
     top: 0;
     left: 0;
-    z-index: -1;
-    border-radius: var(--radius-3xl);
-    width: 100%;
-    height: 100%;
-
-    @apply bg-surface;
+    z-index: 0;
+    pointer-events: none;
+    will-change: translate, width, height, opacity;
+    background-color: var(--tabs-indicator-bg);
+    box-shadow: var(--tabs-indicator-shadow);
+    border-radius: var(--tabs-indicator-radius);
 
     /**
      * Transitions
      * CRITICAL: motion-reduce must be AFTER transition for correct override specificity
      */
     transition-duration: 250ms;
-    transition-property: translate, width, height;
+    transition-property: translate, width, height, opacity;
     transition-timing-function: var(--ease-out-fluid);
     @apply motion-reduce:transition-none;
-
-    .tabs__tab:not([data-active="true"]) & {
-      @apply hidden;
-    }
   }
 
   /* Panel */

@@ -3,6 +3,8 @@ import { getContext, setContext } from "svelte";
 export interface TabsContextValue {
   readonly activeTab: string | undefined;
   readonly setActiveTab: (id: string) => void;
+  readonly registerTabElement: (value: string, el: HTMLElement) => void;
+  readonly getTabElement: (value: string) => HTMLElement | undefined;
 }
 
 export interface TabsContextResult extends TabsContextValue {
@@ -45,6 +47,12 @@ export function useTabsContext(): TabsContextResult {
       get setActiveTab() {
         return () => {};
       },
+      get registerTabElement() {
+        return () => {};
+      },
+      get getTabElement() {
+        return () => undefined;
+      },
       get exists() {
         return false;
       }
@@ -57,6 +65,12 @@ export function useTabsContext(): TabsContextResult {
     },
     get setActiveTab() {
       return context.setActiveTab;
+    },
+    get registerTabElement() {
+      return context.registerTabElement;
+    },
+    get getTabElement() {
+      return context.getTabElement;
     },
     get exists() {
       return true;

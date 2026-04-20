@@ -1,13 +1,5 @@
 <script lang="ts">
-  import { cn } from "@shizen-ui/styles";
-  import type { HTMLAttributes } from "svelte/elements";
-  import { tabsStyles } from "@shizen-ui/styles";
-
-  interface Props extends HTMLAttributes<HTMLSpanElement> {}
-
-  let { class: className, ...rest }: Props = $props();
-
-  const styles = tabsStyles();
+  // Indicator is now a registration mechanism only.
+  // The visible indicator is rendered once inside List.svelte.
+  // This component intentionally renders nothing.
 </script>
-
-<span aria-hidden="true" class={cn(styles.indicator(), className)} {...rest}></span>
