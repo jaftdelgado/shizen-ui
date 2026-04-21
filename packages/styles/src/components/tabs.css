@@ -42,13 +42,11 @@
     border-radius: calc(var(--tabs-list-radius) - 0.25rem);
     color: var(--tabs-tab-fg);
 
-    /**
-     * Transitions
-     * CRITICAL: motion-reduce must be AFTER transition for correct override specificity
-     */
-    transition:
-      color 200ms var(--ease-smooth) 0ms,
-      opacity 150ms var(--ease-smooth) 0ms;
+    /* Transition property lives here only — states override duration/delay, never property */
+    transition-property: color, opacity;
+    transition-timing-function: var(--ease-smooth);
+
+    /* CRITICAL: motion-reduce must be AFTER transition for correct override specificity */
     @apply motion-reduce:transition-none;
 
     &:not(.tabs__tab--icon-only) {
@@ -56,20 +54,31 @@
       min-width: 0;
     }
 
+    /* Entry timings (inactive → active) — delay lets the indicator arrive before the color shifts */
     &[data-active="true"] {
       color: var(--tabs-tab-fg-active);
-      transition-delay: 100ms;
-      transition-duration: 150ms;
+      transition-duration: 200ms;
+      transition-delay: 50ms;
     }
 
-    /* Hide separator when this tab is active */
+    /* Exit timings (active → inactive) — browser reads these when [data-active] is removed */
+    &:not([data-active="true"]):not([data-disabled="true"]):not([aria-disabled="true"]) {
+      transition-duration: 120ms;
+      transition-delay: 20ms;
+    }
+
+    /* Hide separator when this tab is active — entry timings match tab color entry */
     &[data-active="true"] .tabs__separator {
       opacity: 0;
+      transition-duration: 100ms;
+      transition-delay: 20ms;
     }
 
     /* Hide separator when previous sibling is active */
     &[data-active="true"] + .tabs__tab .tabs__separator {
       opacity: 0;
+      transition-duration: 100ms;
+      transition-delay: 100ms;
     }
 
     &[data-disabled="true"],
@@ -127,12 +136,15 @@
     height: 50%;
     background-color: var(--tabs-separator-color);
 
-    /**
-     * Transitions
-     * CRITICAL: motion-reduce must be AFTER transition for correct override specificity
-     */
-    transition: opacity 150ms var(--ease-smooth);
+    /* Transition property lives here only — parent tab states override duration/delay */
+    transition-property: opacity;
+    transition-timing-function: var(--ease-smooth);
+    /* CRITICAL: motion-reduce must be AFTER transition for correct override specificity */
     @apply motion-reduce:transition-none;
+
+    /* Exit timings (visible → hidden) — matches tab color exit */
+    transition-duration: 150ms;
+    transition-delay: 70ms;
 
     .tabs__tab:first-child & {
       display: none;
