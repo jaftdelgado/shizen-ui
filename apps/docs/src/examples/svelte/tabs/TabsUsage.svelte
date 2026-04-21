@@ -8,21 +8,17 @@
       <Tabs.List aria-label="Project sections">
         <Tabs.Tab value="overview">
           <Tabs.Separator />
-
           Overview
-          <Tabs.Indicator />
         </Tabs.Tab>
 
         <Tabs.Tab value="activity">
           <Tabs.Separator />
           Activity
-          <Tabs.Indicator />
         </Tabs.Tab>
 
         <Tabs.Tab value="members">
           <Tabs.Separator />
           Members
-          <Tabs.Indicator />
         </Tabs.Tab>
       </Tabs.List>
     </Tabs.ListContainer>

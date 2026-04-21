@@ -6,21 +6,16 @@
   <Tabs value="active">
     <Tabs.ListContainer>
       <Tabs.List aria-label="Tab states">
-        <Tabs.Tab value="active">
-          Active
-          <Tabs.Indicator />
-        </Tabs.Tab>
+        <Tabs.Tab value="active">Active</Tabs.Tab>
 
         <Tabs.Tab value="disabled" disabled>
           <Tabs.Separator />
           Disabled
-          <Tabs.Indicator />
         </Tabs.Tab>
 
         <Tabs.Tab value="available">
           <Tabs.Separator />
           Available
-          <Tabs.Indicator />
         </Tabs.Tab>
       </Tabs.List>
     </Tabs.ListContainer>

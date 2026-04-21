@@ -27,27 +27,34 @@
     }
   });
 
+  const styles = tabsStyles();
+
   let listReady = $state(false);
   let indicatorEl: HTMLSpanElement | undefined;
   let listEl: HTMLElement | undefined;
 
-  function applyStyle(list: HTMLElement, indicator: HTMLSpanElement, immediate = false) {
-    const activeEl = list.querySelector<HTMLElement>('[data-active="true"]');
-    if (!activeEl) return;
+  const activeTabEl = $derived(
+    tabsCtx.activeTab ? tabsCtx.getTabElement(tabsCtx.activeTab) : undefined
+  );
 
-    const listRect = list.getBoundingClientRect();
-    const tabRect = activeEl.getBoundingClientRect();
+  const indicatorClass = $derived(
+    cn(styles.indicator(), !listReady ? "opacity-0 transition-none" : "opacity-100")
+  );
+
+  function applyStyle(activeTab: HTMLElement, immediate = false) {
+    const listRect = listEl!.getBoundingClientRect();
+    const tabRect = activeTab.getBoundingClientRect();
 
     if (immediate) {
-      indicator.style.transition = "none";
+      indicatorEl!.style.transition = "none";
     }
 
-    indicator.style.translate = `${tabRect.left - listRect.left}px ${tabRect.top - listRect.top}px`;
-    indicator.style.width = `${tabRect.width}px`;
-    indicator.style.height = `${tabRect.height}px`;
+    indicatorEl!.style.translate = `${tabRect.left - listRect.left}px ${tabRect.top - listRect.top}px`;
+    indicatorEl!.style.width = `${tabRect.width}px`;
+    indicatorEl!.style.height = `${tabRect.height}px`;
 
     if (immediate) {
-      void indicator.offsetHeight;
+      void indicatorEl!.offsetHeight;
     }
   }
 
@@ -55,11 +62,12 @@
     indicatorEl = node;
     listEl = node.parentElement as HTMLElement;
 
-    applyStyle(listEl, node, true);
+    if (activeTabEl) {
+      applyStyle(activeTabEl, true);
+    }
 
     requestAnimationFrame(() => {
       node.style.transition = "";
-      // Mark list as ready — CSS will hide ::before and show real indicator
       listEl!.dataset.ready = "true";
       listReady = true;
     });
@@ -68,12 +76,9 @@
   }
 
   $effect(() => {
-    const _ = tabsCtx.activeTab;
-    if (!listReady || !listEl || !indicatorEl) return;
-    applyStyle(listEl, indicatorEl);
+    if (!listReady || !listEl || !indicatorEl || !activeTabEl) return;
+    applyStyle(activeTabEl);
   });
-
-  const styles = tabsStyles();
 </script>
 
 <div
@@ -84,9 +89,5 @@
 >
   {@render children()}
 
-  <span
-    aria-hidden="true"
-    use:initIndicator
-    class={cn(styles.indicator(), !listReady ? "opacity-0 transition-none" : "opacity-100")}
-  ></span>
+  <span aria-hidden="true" use:initIndicator class={indicatorClass}></span>
 </div>

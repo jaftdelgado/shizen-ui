@@ -3,7 +3,6 @@ import ListContainer from "./compound/ListContainer.svelte";
 import List from "./compound/List.svelte";
 import Tab from "./compound/Tab.svelte";
 import Separator from "./compound/Separator.svelte";
-import Indicator from "./compound/Indicator.svelte";
 import Panel from "./compound/Panel.svelte";
 
 export const Tabs = Object.assign(TabsRoot, {
@@ -11,7 +10,6 @@ export const Tabs = Object.assign(TabsRoot, {
   List,
   Tab,
   Separator,
-  Indicator,
   Panel
 });
 

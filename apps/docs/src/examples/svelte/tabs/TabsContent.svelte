@@ -14,7 +14,6 @@
             <Icon icon={DesignPencil} class="size-4" />
           {/snippet}
           Canvas
-          <Tabs.Indicator />
         </Tabs.Tab>
 
         <Tabs.Tab value="assets">
@@ -23,7 +22,6 @@
             <Icon icon={MediaImage} class="size-4" />
           {/snippet}
           Assets
-          <Tabs.Indicator />
         </Tabs.Tab>
 
         <Tabs.Tab value="typography">
@@ -32,7 +30,6 @@
             <Icon icon={Text} class="size-4" />
           {/snippet}
           Fonts
-          <Tabs.Indicator />
         </Tabs.Tab>
       </Tabs.List>
     </Tabs.ListContainer>

@@ -3,11 +3,7 @@
   import { cn } from "@shizen-ui/styles";
   import type { HTMLButtonAttributes } from "svelte/elements";
   import { tabsStyles } from "@shizen-ui/styles";
-  import {
-    useTabsContext,
-    useTabsListContext,
-    setTabContext
-  } from "../../../contexts/internal/index.js";
+  import { useTabsContext, useTabsListContext } from "../../../contexts/internal/index.js";
 
   type IconContent = Snippet<[]> | string;
 
@@ -49,25 +45,8 @@
   const isActive = $derived(tabsCtx.activeTab === value);
   const iconOnly = $derived(listCtx.iconOnly || localIconOnly);
 
-  setTabContext({
-    get tabId() {
-      return value;
-    },
-    get isActive() {
-      return isActive;
-    }
-  });
-
-  // Action — runs synchronously when the node is attached to the DOM,
-  // before any $effect, guaranteeing the element is registered before
-  // List.svelte tries to calculate the indicator position.
   function registerTab(node: HTMLElement) {
     tabsCtx.registerTabElement(value, node);
-    return {
-      destroy() {
-        // cleanup if needed in the future
-      }
-    };
   }
 
   function handleClick() {
