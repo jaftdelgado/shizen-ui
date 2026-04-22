@@ -1,32 +1,24 @@
 <script lang="ts">
-  import { type Snippet } from "svelte";
   import { cn } from "@shizen-ui/styles";
-  import { tabsStyles, type TabsVariants } from "@shizen-ui/styles";
-  import { setTabsContext } from "../../contexts/internal/index.js";
+  import { tabsStyles } from "@shizen-ui/styles";
+  import { TabsState } from "./_internal/index.js";
+  import type { TabsProps } from "./_internal/index.js";
 
-  interface Props extends TabsVariants {
-    children: Snippet;
-    class?: string;
-    value: string;
-  }
+  let {
+    children,
+    class: className,
+    value = $bindable(""),
+    onValueChange,
+    ...rest
+  }: TabsProps & { children: import("svelte").Snippet } = $props();
 
-  let { children, class: className, value = $bindable(), ...rest }: Props = $props();
+  const state = new TabsState(
+    () => value,
+    () => onValueChange
+  );
 
-  const tabElements = new Map<string, HTMLElement>();
-
-  setTabsContext({
-    get activeTab() {
-      return value;
-    },
-    setActiveTab(id: string) {
-      value = id;
-    },
-    registerTabElement(tabValue: string, el: HTMLElement) {
-      tabElements.set(tabValue, el);
-    },
-    getTabElement(tabValue: string) {
-      return tabElements.get(tabValue);
-    }
+  $effect(() => {
+    state.syncFromProp();
   });
 
   const styles = tabsStyles();

@@ -1,32 +1,9 @@
 <script lang="ts">
-  import { type Snippet } from "svelte";
+  import type { Snippet } from "svelte";
   import { cn } from "@shizen-ui/styles";
-  import type { HTMLButtonAttributes } from "svelte/elements";
   import { tabsStyles } from "@shizen-ui/styles";
-  import { useTabsContext, useTabsListContext } from "../../../contexts/internal/index.js";
-
-  type IconContent = Snippet<[]> | string;
-
-  interface BaseProps extends Omit<HTMLButtonAttributes, "role" | "children"> {
-    value: string;
-    disabled?: boolean;
-  }
-
-  interface NormalProps extends BaseProps {
-    iconOnly?: false;
-    children?: Snippet;
-    startContent?: IconContent;
-    endContent?: IconContent;
-  }
-
-  interface IconOnlyProps extends BaseProps {
-    iconOnly: true;
-    children: Snippet;
-    startContent?: never;
-    endContent?: never;
-  }
-
-  type Props = NormalProps | IconOnlyProps;
+  import { TabState } from "../_internal/index.js";
+  import type { TabProps, IconContent } from "../_internal/index.js";
 
   let {
     children,
@@ -37,32 +14,15 @@
     startContent,
     endContent,
     ...rest
-  }: Props = $props();
+  }: TabProps = $props();
 
-  const tabsCtx = useTabsContext();
-  const listCtx = useTabsListContext();
+  const state = new TabState(
+    () => value,
+    () => disabled,
+    () => (localIconOnly as boolean) ?? false
+  );
 
-  const isActive = $derived(tabsCtx.activeTab === value);
-  const iconOnly = $derived(listCtx.iconOnly || localIconOnly);
-
-  function registerTab(node: HTMLElement) {
-    tabsCtx.registerTabElement(value, node);
-  }
-
-  function handleClick() {
-    if (!disabled) {
-      tabsCtx.setActiveTab(value);
-    }
-  }
-
-  function handleKeydown(event: KeyboardEvent) {
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-      handleClick();
-    }
-  }
-
-  const styles = $derived(tabsStyles({ iconOnly }));
+  const styles = $derived(tabsStyles({ iconOnly: state.iconOnly }));
 </script>
 
 {#snippet renderIcon(content: IconContent | undefined)}
@@ -70,35 +30,35 @@
     <i class={content}></i>
   {:else if content}
     <span class="tabs__tab-icon">
-      {@render content()}
+      {@render (content as Snippet)()}
     </span>
   {/if}
 {/snippet}
 
 <button
   role="tab"
-  aria-selected={isActive}
-  aria-disabled={disabled}
-  data-active={isActive}
-  data-disabled={disabled}
-  tabindex={isActive ? 0 : -1}
+  aria-selected={state.isActive}
+  aria-disabled={state.isDisabled || undefined}
+  data-active={state.isActive || undefined}
+  data-disabled={state.isDisabled || undefined}
+  tabindex={state.isActive ? 0 : -1}
   class={cn(styles.tab(), className)}
-  use:registerTab
-  onclick={handleClick}
-  onkeydown={handleKeydown}
+  use:state.register
+  onclick={state.onclick}
+  onkeydown={state.onkeydown}
   {...rest}
 >
-  {#if iconOnly}
-    {@render children?.()}
+  {#if state.iconOnly}
+    {@render (children as Snippet)?.()}
   {:else}
-    {@render renderIcon(startContent)}
+    {@render renderIcon(startContent as IconContent | undefined)}
 
     {#if children}
       <span class="tabs__tab-label">
-        {@render children()}
+        {@render (children as Snippet)()}
       </span>
     {/if}
 
-    {@render renderIcon(endContent)}
+    {@render renderIcon(endContent as IconContent | undefined)}
   {/if}
 </button>
