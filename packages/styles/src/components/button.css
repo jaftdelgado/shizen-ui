@@ -19,6 +19,10 @@
     backface-visibility: hidden;
     will-change: transform;
 
+    &:focus-visible {
+      @apply status-focused;
+    }
+
     &:disabled,
     &[aria-disabled="true"] {
       @apply status-disabled;

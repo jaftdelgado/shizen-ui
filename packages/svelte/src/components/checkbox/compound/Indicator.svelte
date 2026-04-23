@@ -2,7 +2,7 @@
   import { type Snippet } from "svelte";
   import { cn } from "@shizen-ui/styles";
   import { checkboxStyles } from "@shizen-ui/styles";
-  import { useCheckboxContext } from "../../../contexts/internal/index.js";
+  import { useCheckboxContext } from "../_internal/index.js";
 
   let { children, class: className }: { children?: Snippet; class?: string } = $props();
 
@@ -11,15 +11,17 @@
   const isCustom = $derived(Boolean(children));
 </script>
 
-{#if ctx.checked === true || ctx.checked === "mixed"}
+{#if ctx.checkboxState === "checked" || ctx.checkboxState === "indeterminate"}
   <span
     class={cn(!isCustom && styles.indicator(), className)}
-    data-checked={ctx.checked}
-    data-custom={isCustom}
+    data-state={ctx.checkboxState}
+    data-disabled={ctx.disabled ? "" : undefined}
+    data-invalid={ctx.invalid ? "" : undefined}
+    data-custom={isCustom ? "" : undefined}
   >
     {#if children}
       {@render children()}
-    {:else if ctx.checked === "mixed"}
+    {:else if ctx.checkboxState === "indeterminate"}
       <svg
         width="10"
         height="10"

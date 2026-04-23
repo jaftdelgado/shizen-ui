@@ -1,8 +1,8 @@
 import { checkboxStyles } from "@shizen-ui/styles";
-import { setCheckboxContext } from "../../../contexts/internal/index.js";
+import { setCheckboxContext } from "./checkbox.context.js";
 import { useCheckboxGroupContext } from "../../../contexts/internal/index.js";
 import { setFieldStateContext, useFieldStateContext } from "../../../contexts/index.js";
-import type { CheckboxCheckedState } from "./checkbox.types.js";
+import type { CheckboxState } from "./checkbox.types.js";
 
 export interface CheckboxStateProps {
   readonly value: string | undefined;
@@ -10,7 +10,8 @@ export interface CheckboxStateProps {
   readonly invalid: boolean;
   readonly name: string | undefined;
   readonly id: string;
-  readonly checked: CheckboxCheckedState;
+  readonly checked: boolean;
+  readonly indeterminate: boolean;
 }
 
 export function createCheckboxState(props: CheckboxStateProps) {
@@ -37,11 +38,22 @@ export function createCheckboxState(props: CheckboxStateProps) {
 
   const activeName = $derived(groupCtx.exists ? groupCtx.name : props.name);
 
-  const isChecked = $derived.by<CheckboxCheckedState>(() => {
+  const isChecked = $derived.by<boolean>(() => {
     if (groupCtx.exists && props.value !== undefined) {
       return groupCtx.value.includes(props.value);
     }
     return props.checked;
+  });
+
+  const isIndeterminate = $derived.by<boolean>(() => {
+    if (groupCtx.exists) return false;
+    return props.indeterminate;
+  });
+
+  const checkboxState = $derived.by<CheckboxState>(() => {
+    if (isIndeterminate) return "indeterminate";
+    if (isChecked) return "checked";
+    return "unchecked";
   });
 
   const styles = $derived(checkboxStyles());
@@ -49,6 +61,12 @@ export function createCheckboxState(props: CheckboxStateProps) {
   setCheckboxContext({
     get checked() {
       return isChecked;
+    },
+    get indeterminate() {
+      return isIndeterminate;
+    },
+    get checkboxState() {
+      return checkboxState;
     },
     get disabled() {
       return finalDisabled;
@@ -81,7 +99,7 @@ export function createCheckboxState(props: CheckboxStateProps) {
 
   $effect(() => {
     if (inputElement) {
-      inputElement.indeterminate = isChecked === "mixed";
+      inputElement.indeterminate = isIndeterminate;
     }
   });
 
@@ -103,6 +121,12 @@ export function createCheckboxState(props: CheckboxStateProps) {
     },
     get isChecked() {
       return isChecked;
+    },
+    get isIndeterminate() {
+      return isIndeterminate;
+    },
+    get checkboxState() {
+      return checkboxState;
     },
     get styles() {
       return styles;

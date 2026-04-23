@@ -3,7 +3,7 @@
   import { cn } from "@shizen-ui/styles";
   import { checkboxStyles } from "@shizen-ui/styles";
   import Indicator from "./Indicator.svelte";
-  import { useCheckboxContext } from "../../../contexts/internal/index.js";
+  import { useCheckboxContext } from "../_internal/index.js";
 
   let { children, class: className }: { children?: Snippet; class?: string } = $props();
 
@@ -13,9 +13,9 @@
 
 <div
   class={cn(styles.control(), className)}
-  data-checked={ctx.checked}
-  data-disabled={ctx.disabled}
-  data-invalid={ctx.invalid}
+  data-state={ctx.checkboxState}
+  data-disabled={ctx.disabled ? "" : undefined}
+  data-invalid={ctx.invalid ? "" : undefined}
 >
   {#if children}
     {@render children()}

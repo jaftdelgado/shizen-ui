@@ -1,5 +1,10 @@
+/* === Focus Ring === */
+@utility focus-ring {
+  @apply ring-3 ring-focus/30 ring-offset-1 ring-offset-focus outline-none;
+}
+
 @utility focus-field-ring {
-  @apply ring-2 ring-focus ring-offset-0 outline-none;
+  @apply ring-3 ring-focus/30 ring-offset-1 ring-offset-focus outline-none;
 }
 
 @utility invalid-field-ring {
@@ -10,6 +15,10 @@
 @utility status-disabled {
   opacity: var(--disabled-opacity);
   cursor: var(--cursor-disabled);
+}
+
+@utility status-focused {
+  @apply focus-ring;
 }
 
 @utility status-focused-field {

@@ -1,20 +1,28 @@
 import type { Snippet } from "svelte";
 import type { HTMLInputAttributes } from "svelte/elements";
 
-export type CheckboxCheckedState = boolean | "mixed";
+export type CheckboxState = "checked" | "unchecked" | "indeterminate";
 
-export interface CheckboxProps extends Omit<HTMLInputAttributes, "type" | "checked"> {
+export interface CheckboxProps extends Omit<
+  HTMLInputAttributes,
+  "type" | "checked" | "indeterminate"
+> {
   value?: string;
   invalid?: boolean;
   disabled?: boolean;
-  checked?: CheckboxCheckedState;
+  checked?: boolean;
+  indeterminate?: boolean;
+  onCheckedChange?: (checked: boolean) => void;
+  onIndeterminateChange?: (indeterminate: boolean) => void;
   children: Snippet;
   name?: string;
   id?: string;
 }
 
 export interface CheckboxContext {
-  readonly checked: CheckboxCheckedState;
+  readonly checked: boolean;
+  readonly indeterminate: boolean;
+  readonly checkboxState: CheckboxState;
   readonly disabled: boolean;
   readonly invalid: boolean;
   readonly id: string;

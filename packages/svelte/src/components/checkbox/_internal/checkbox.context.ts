@@ -1,22 +1,16 @@
 import { getContext, setContext } from "svelte";
-
-export type CheckboxCheckedState = boolean | "mixed";
-export type CheckboxState = "checked" | "unchecked" | "indeterminate";
+import type { CheckboxState } from "./checkbox.types.js";
 
 export interface CheckboxContextValue {
-  readonly checked: CheckboxCheckedState;
+  readonly checked: boolean;
+  readonly indeterminate: boolean;
   readonly checkboxState: CheckboxState;
   readonly disabled: boolean;
   readonly invalid: boolean;
   readonly id: string;
 }
 
-export interface CheckboxContextResult {
-  readonly checked: CheckboxCheckedState;
-  readonly checkboxState: CheckboxState;
-  readonly disabled: boolean;
-  readonly invalid: boolean;
-  readonly id: string;
+export interface CheckboxContextResult extends CheckboxContextValue {
   readonly exists: boolean;
 }
 
@@ -32,6 +26,9 @@ export function useCheckboxContext(): CheckboxContextResult {
   if (!context) {
     return {
       get checked() {
+        return false;
+      },
+      get indeterminate() {
         return false;
       },
       get checkboxState() {
@@ -55,6 +52,9 @@ export function useCheckboxContext(): CheckboxContextResult {
   return {
     get checked() {
       return context.checked;
+    },
+    get indeterminate() {
+      return context.indeterminate;
     },
     get checkboxState() {
       return context.checkboxState;
