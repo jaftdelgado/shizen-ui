@@ -31,11 +31,10 @@ export function createCheckboxHandlers(
     onCheckedChange?.(next);
   }
 
-  function handleKeyDown(e: KeyboardEvent) {
-    if (e.key === " " || e.key === "Enter") {
-      e.preventDefault();
-      handleChange();
-    }
+  function handleKeyEnter(e: KeyboardEvent) {
+    if (e.key !== "Enter") return;
+    e.preventDefault();
+    if (e.type === "keyup") handleChange();
   }
 
   function handleContainerClick(e: MouseEvent) {
@@ -47,7 +46,7 @@ export function createCheckboxHandlers(
     input?.focus();
   }
 
-  return { handleChange, handleKeyDown, handleContainerClick };
+  return { handleChange, handleKeyEnter, handleContainerClick };
 }
 
 export type CheckboxHandlers = ReturnType<typeof createCheckboxHandlers>;

@@ -1,4 +1,5 @@
 export { default as CaretDownIcon } from "./CaretDownIcon.svelte";
+export { default as CheckIcon } from "./CheckIcon.svelte";
 export { default as CheckCircleIcon } from "./CheckCircleIcon.svelte";
 export { default as EyeIcon } from "./EyeIcon.svelte";
 export { default as EyeSlashIcon } from "./EyeSlashIcon.svelte";

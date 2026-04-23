@@ -9,7 +9,7 @@
     <Checkbox.Control />
     <Checkbox.Content>
       <Label>Newsletter</Label>
-      <Description>Receive the latest updates and product news.</Description>
+      <Description>Get the latest updates and product news.</Description>
     </Checkbox.Content>
   </Checkbox>
 

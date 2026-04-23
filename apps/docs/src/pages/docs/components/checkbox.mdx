@@ -6,6 +6,9 @@ layout: "@layouts/DocsLayout.astro"
 import CodeImport from "@components/astro/CodeImport.astro";
 import ComponentExample from "@components/astro/ComponentExample.astro";
 import SourceLinks from "@components/svelte/SourceLinks.svelte";
+import CodeBlock from "@components/astro/CodeBlock.astro";
+
+import CheckboxAnatomyCode from "@examples/svelte/checkbox/CheckboxAnatomy.svelte?raw";
 
 import CheckboxUsage from "@examples/svelte/checkbox/CheckboxUsage.svelte";
 import CheckboxOnlyLabel from "@examples/svelte/checkbox/CheckboxOnlyLabel.svelte";
@@ -32,6 +35,10 @@ Control that lets users select or deselect a single option in a form.
 <ComponentExample src="svelte/checkbox/CheckboxUsage.svelte">
   <CheckboxUsage client:load />
 </ComponentExample>
+
+## Anatomy
+
+<CodeBlock code={CheckboxAnatomyCode} lang="svelte" showLineNumbers={false} collapsible={false} />
 
 ## Examples
 

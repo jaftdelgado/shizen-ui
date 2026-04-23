@@ -3,6 +3,7 @@
   import { cn } from "@shizen-ui/styles";
   import { checkboxStyles } from "@shizen-ui/styles";
   import { useCheckboxContext } from "../_internal/index.js";
+  import { CheckIcon } from "../../../shared/icons/index.js";
 
   let { children, class: className }: { children?: Snippet; class?: string } = $props();
 
@@ -23,8 +24,8 @@
       {@render children()}
     {:else if ctx.checkboxState === "indeterminate"}
       <svg
-        width="10"
-        height="10"
+        width="100%"
+        height="100%"
         viewBox="0 0 10 10"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -38,21 +39,7 @@
         />
       </svg>
     {:else}
-      <svg
-        width="10"
-        height="10"
-        viewBox="0 0 10 10"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M1.5 5L4 7.5L8.5 2.5"
-          stroke="currentColor"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-      </svg>
+      <CheckIcon />
     {/if}
   </span>
 {/if}

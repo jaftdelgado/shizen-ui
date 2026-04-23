@@ -3,12 +3,12 @@
 
   let items = $state([
     {
-      checked: false,
+      checked: true,
       label: "Add email notifications",
       description: "Receive email updates and alerts"
     },
     {
-      checked: false,
+      checked: true,
       label: "Add calendar reminders",
       description: "Get calendar reminders for events"
     },

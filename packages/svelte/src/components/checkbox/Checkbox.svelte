@@ -88,10 +88,8 @@
     class="checkbox__input"
     tabindex={!cbState.finalDisabled ? 0 : -1}
     onchange={handlers.handleChange}
-    onkeydown={(e) => {
-      focus.onInputKeyDown();
-      handlers.handleKeyDown(e);
-    }}
+    onkeydown={handlers.handleKeyEnter}
+    onkeyup={handlers.handleKeyEnter}
     onmousedown={focus.onInputMouseDown}
     onfocus={focus.onFocus}
     onblur={focus.onBlur}

@@ -46,11 +46,6 @@
     cursor: var(--cursor-interactive);
   }
 
-  .checkbox--bordered {
-    --checkbox-border-width: 2px;
-    --checkbox-border-color: var(--color-separator);
-  }
-
   .checkbox__control {
     @apply relative flex items-center justify-center transition-all duration-200 shrink-0;
     @apply size-4 rounded-md mt-0.5;
@@ -77,6 +72,8 @@
   .checkbox__indicator {
     @apply flex items-center justify-center text-current scale-0 transition-transform duration-200;
     color: var(--checkbox-indicator);
+    width: 75%;
+    height: 75%;
 
     &[data-state="checked"],
     &[data-state="indeterminate"] {
@@ -84,7 +81,7 @@
     }
 
     &[data-custom] {
-      @apply scale-100 size-full bg-transparent flex items-center justify-center;
+      @apply scale-100 size-full bg-transparent;
     }
   }
 
