@@ -26,5 +26,16 @@
     "noUnusedParameters": false,
     "noPropertyAccessFromIndexSignature": false
   },
-  "exclude": ["node_modules", ".svelte-kit", "dist", "build", "**/*.spec.ts", "**/*.test.ts"]
+  "exclude": [
+    "node_modules",
+    ".svelte-kit",
+    "dist",
+    "build",
+    "**/*.spec.ts",
+    "**/*.test.ts",
+    "apps/docs/src/content/**",
+    "apps/docs/src/pages/**",
+    "apps/docs/public/**",
+    "packages/styles/**"
+  ]
 }

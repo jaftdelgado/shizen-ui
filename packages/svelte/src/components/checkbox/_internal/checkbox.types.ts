@@ -1,7 +1,7 @@
 import type { Snippet } from "svelte";
 import type { HTMLInputAttributes } from "svelte/elements";
 
-export type CheckboxState = "checked" | "unchecked" | "indeterminate";
+export type CheckboxState = "checked" | "unchecked" | "indeterminate" | "onclick";
 
 export interface CheckboxProps extends Omit<
   HTMLInputAttributes,
@@ -17,6 +17,8 @@ export interface CheckboxProps extends Omit<
   children: Snippet;
   name?: string;
   id?: string;
+
+  onclick?: (e: MouseEvent) => void;
 }
 
 export interface CheckboxContext {

@@ -7,7 +7,7 @@
 
 @font-face {
   font-family: "Geist";
-  src: url("../assets/fonts/Geist.ttf") format("truetype");
+  src: url("../assets/fonts/Geist.woff2") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -15,7 +15,7 @@
 
 @font-face {
   font-family: "Geist Mono";
-  src: url("../assets/fonts/GeistMono.ttf") format("truetype");
+  src: url("../assets/fonts/GeistMono.woff2") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;

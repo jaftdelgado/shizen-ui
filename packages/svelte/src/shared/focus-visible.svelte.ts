@@ -14,7 +14,9 @@ export function createFocusVisible() {
     }
 
     function onMouseUp() {
-      isMouseInteraction = false;
+      setTimeout(() => {
+        isMouseInteraction = false;
+      }, 0);
     }
 
     document.addEventListener("visibilitychange", onVisibilityChange);
