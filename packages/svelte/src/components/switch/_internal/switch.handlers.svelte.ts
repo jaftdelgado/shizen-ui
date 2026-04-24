@@ -1,42 +1,38 @@
 import type { SwitchState } from "./switch.state.svelte.js";
 
-export class SwitchHandlers {
-  #state: SwitchState;
-  #getChecked: () => boolean;
-  #setChecked: (value: boolean) => void;
-
-  constructor(state: SwitchState, getChecked: () => boolean, setChecked: (value: boolean) => void) {
-    this.#state = state;
-    this.#getChecked = getChecked;
-    this.#setChecked = setChecked;
+export function createSwitchHandlers(
+  state: SwitchState,
+  getChecked: () => boolean,
+  setChecked: (value: boolean) => void,
+  onCheckedChange?: (value: boolean) => void
+) {
+  function handleChange(): void {
+    if (state.finalDisabled) return;
+    const next = !getChecked();
+    setChecked(next);
+    onCheckedChange?.(next);
   }
 
-  handleChange = (): void => {
-    if (this.#state.finalDisabled) return;
-    this.#setChecked(!this.#getChecked());
-  };
+  function handleKey(e: KeyboardEvent): void {
+    if (e.key !== " " && e.key !== "Enter") return;
+    e.preventDefault();
+    if (e.type === "keyup") handleChange();
+  }
 
-  handleKeyDown = (e: KeyboardEvent): void => {
-    if (e.key === " " || e.key === "Enter") {
-      e.preventDefault();
-      this.handleChange();
-    }
-  };
-
-  handleContainerClick = (e: MouseEvent & { currentTarget: HTMLDivElement }): void => {
-    if (this.#state.finalDisabled) return;
+  function handleContainerClick(e: MouseEvent): void {
+    if (state.finalDisabled) return;
 
     const target = e.target as HTMLElement;
+    if (target.tagName === "INPUT" || target.closest("label")) return;
 
-    if (target.tagName === "INPUT" || target.closest("label")) {
-      return;
-    }
+    handleChange();
 
-    this.handleChange();
-
-    const input = e.currentTarget.querySelector(
-      'input[type="checkbox"]'
-    ) as HTMLInputElement | null;
+    const container = e.currentTarget as HTMLDivElement;
+    const input = container.querySelector<HTMLInputElement>('input[type="checkbox"]');
     input?.focus();
-  };
+  }
+
+  return { handleChange, handleKey, handleContainerClick };
 }
+
+export type SwitchHandlers = ReturnType<typeof createSwitchHandlers>;

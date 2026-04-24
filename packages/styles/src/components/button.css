@@ -89,7 +89,7 @@
   }
 
   .button--outline {
-    @apply border border-separator;
+    @apply shadow-border;
     --btn-fg: var(--color-control-text);
     --btn-bg-hover: var(--color-ghost-hover);
     --btn-bg-pressed: var(--color-ghost-pressed);

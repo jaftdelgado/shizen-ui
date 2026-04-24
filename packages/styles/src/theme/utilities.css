@@ -4,7 +4,7 @@
 }
 
 @utility focus-field-ring {
-  @apply ring-3 ring-focus/30 ring-offset-1 ring-offset-focus outline-none;
+  @apply ring-2 ring-focus outline-none;
 }
 
 @utility invalid-field-ring {

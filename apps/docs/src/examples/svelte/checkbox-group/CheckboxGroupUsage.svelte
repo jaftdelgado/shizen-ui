@@ -1,6 +1,8 @@
 <script lang="ts">
   import { Checkbox, CheckboxGroup, Label, Description } from "@shizen-ui/svelte";
 
+  let selectedIntegrations = $state<string[]>(["slack", "github"]);
+
   const integrations = [
     { id: "slack", name: "Slack", info: "Sync messages and alerts." },
     { id: "github", name: "GitHub", info: "Connect repositories and PRs." },
@@ -9,7 +11,7 @@
 </script>
 
 <div class="flex flex-col">
-  <CheckboxGroup>
+  <CheckboxGroup bind:value={selectedIntegrations}>
     <Label>App Integrations</Label>
     <Description>Connect your workflow tools.</Description>
 

@@ -2,7 +2,8 @@
   import { cn } from "@shizen-ui/styles";
   import { switchStyles } from "@shizen-ui/styles";
   import type { SwitchProps } from "./switch.svelte.js";
-  import { SwitchState, SwitchHandlers } from "./switch.svelte.js";
+  import { SwitchState, createSwitchHandlers } from "./_internal/index.js";
+  import { createFocusVisible } from "../../shared/focus-visible.svelte.js";
 
   let {
     class: className,
@@ -13,6 +14,8 @@
     id = crypto.randomUUID(),
     checked = $bindable(false),
     size = "md",
+    onCheckedChange,
+    onclick,
     children,
     ...rest
   }: SwitchProps = $props();
@@ -25,21 +28,33 @@
     checked: () => checked
   });
 
-  const handlers = new SwitchHandlers(
+  const handlers = createSwitchHandlers(
     state,
     () => checked,
-    (val) => (checked = val)
+    (val) => {
+      checked = val;
+    },
+    (val) => onCheckedChange?.(val)
   );
 
+  const focus = createFocusVisible();
+
   const styles = $derived(switchStyles({ size: state.finalSize }));
+
+  function handleClick(e: MouseEvent) {
+    handlers.handleContainerClick(e);
+    onclick?.(e);
+  }
 </script>
 
 <div
   class={cn(styles.base(), className)}
-  data-disabled={state.finalDisabled}
-  data-invalid={state.finalInvalid}
-  data-checked={checked}
-  onclick={handlers.handleContainerClick}
+  data-disabled={state.finalDisabled ? "" : undefined}
+  data-invalid={state.finalInvalid ? "" : undefined}
+  data-checked={checked ? "" : undefined}
+  data-focus-visible={focus.isFocusVisible ? "" : undefined}
+  onmousedown={focus.onWrapperMouseDown}
+  onclick={handleClick}
   role="none"
 >
   <input
@@ -50,12 +65,15 @@
     {id}
     {checked}
     disabled={state.finalDisabled}
-    onchange={handlers.handleChange}
     class="switch__input"
     tabindex={!state.finalDisabled ? 0 : -1}
-    onkeydown={handlers.handleKeyDown}
-    onmousedown={(e) => e.preventDefault()}
     aria-checked={checked}
+    onchange={handlers.handleChange}
+    onkeydown={handlers.handleKey}
+    onkeyup={handlers.handleKey}
+    onmousedown={focus.onInputMouseDown}
+    onfocus={focus.onFocus}
+    onblur={focus.onBlur}
     {...rest}
   />
   {@render children()}

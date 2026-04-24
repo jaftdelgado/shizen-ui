@@ -1,10 +1,63 @@
 @layer components {
   .switch {
     @apply inline-flex items-center gap-3 transition-opacity duration-200 outline-none select-none;
+
+    /* Base tokens */
     --switch-bg: var(--color-control);
     --switch-bg-hover: var(--color-control-hover);
     --switch-thumb-bg: var(--color-accent-foreground);
     --switch-thumb-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+
+    /* Layout tokens — md defaults */
+    --switch-padding: 0.125rem;
+    --switch-height: 1.25rem;
+    --switch-width: 2.5rem;
+    --switch-thumb-ratio: 1.375;
+
+    /* Derived — do not override */
+    --switch-thumb-size: calc(var(--switch-height) - var(--switch-padding) * 2);
+    --switch-thumb-width: calc(var(--switch-thumb-size) * var(--switch-thumb-ratio));
+    --switch-thumb-translate: calc(
+      var(--switch-width) - var(--switch-thumb-width) - var(--switch-padding) * 2
+    );
+
+    &[data-disabled] {
+      @apply status-disabled;
+
+      &,
+      & * {
+        cursor: var(--cursor-disabled);
+      }
+    }
+
+    &[data-checked] {
+      --switch-bg: var(--color-accent);
+      --switch-bg-hover: var(--color-accent-hover);
+      --switch-thumb-bg: var(--color-accent-foreground);
+    }
+
+    &[data-invalid] {
+      & .switch__control {
+        @apply status-invalid-field ring-1;
+      }
+
+      &[data-checked] {
+        & .switch__control {
+          @apply status-invalid-field ring-1;
+          background-color: var(--color-danger);
+        }
+      }
+    }
+
+    &.switch--sm {
+      --switch-height: 1rem;
+      --switch-width: 2rem;
+    }
+
+    &.switch--lg {
+      --switch-height: 1.5rem;
+      --switch-width: 3rem;
+    }
   }
 
   .switch,
@@ -12,53 +65,23 @@
     cursor: var(--cursor-interactive);
   }
 
-  .switch[data-disabled="true"] {
-    @apply status-disabled;
-  }
-
-  .switch[data-disabled="true"],
-  .switch[data-disabled="true"] * {
-    cursor: var(--cursor-disabled);
-  }
-
-  .switch[data-checked="true"] {
-    --switch-bg: var(--color-accent);
-    --switch-bg-hover: var(--color-accent-hover);
-    --switch-thumb-bg: var(--color-accent-foreground);
-  }
-
   .switch__control {
     @apply relative flex items-center shrink-0 rounded-full;
     box-sizing: border-box;
-    height: 1.25rem;
-    width: 2.5rem;
+    height: var(--switch-height);
+    width: var(--switch-width);
     background-color: var(--switch-bg);
     transition:
       background-color 250ms var(--ease-smooth, cubic-bezier(0.4, 0, 0.2, 1)),
       box-shadow 150ms var(--ease-out, cubic-bezier(0, 0, 0.2, 1));
-  }
 
-  .switch--sm .switch__control {
-    height: 1rem;
-    width: 2rem;
-  }
+    &:hover:not([data-disabled]) {
+      background-color: var(--switch-bg-hover);
+    }
 
-  .switch--lg .switch__control {
-    height: 1.5rem;
-    width: 3rem;
-  }
-
-  .switch__control:hover:not([data-disabled="true"]) {
-    background-color: var(--switch-bg-hover);
-  }
-
-  .switch[data-invalid="true"] .switch__control {
-    @apply status-invalid-field ring-1;
-  }
-
-  .switch[data-invalid="true"][data-checked="true"] .switch__control {
-    @apply status-invalid-field ring-1;
-    background-color: var(--color-danger);
+    .switch[data-focus-visible] & {
+      @apply status-focused ring-offset-0;
+    }
   }
 
   .switch__input {
@@ -67,9 +90,9 @@
 
   .switch__thumb {
     @apply absolute rounded-full;
-    left: 0.125rem;
-    height: 1rem;
-    width: 1.375rem;
+    left: var(--switch-padding);
+    height: var(--switch-thumb-size);
+    width: var(--switch-thumb-width);
     background-color: var(--switch-thumb-bg);
     box-shadow: var(--switch-thumb-shadow);
     transform: translateX(0);
@@ -77,30 +100,10 @@
     transition:
       transform 300ms var(--ease-out-fluid, cubic-bezier(0.3, 1, 0.3, 1)),
       background-color 200ms var(--ease-out, cubic-bezier(0, 0, 0.2, 1));
-  }
 
-  .switch[data-checked="true"] .switch__thumb {
-    transform: translateX(0.875rem);
-  }
-
-  .switch--sm .switch__thumb {
-    height: 0.75rem;
-    width: 1.03125rem;
-  }
-
-  .switch--sm.switch[data-checked="true"] .switch__thumb,
-  .switch--sm[data-checked="true"] .switch__thumb {
-    transform: translateX(0.71875rem);
-  }
-
-  .switch--lg .switch__thumb {
-    height: 1.25rem;
-    width: 1.7rem;
-  }
-
-  .switch--lg.switch[data-checked="true"] .switch__thumb,
-  .switch--lg[data-checked="true"] .switch__thumb {
-    transform: translateX(1.03125rem);
+    .switch[data-checked] & {
+      transform: translateX(var(--switch-thumb-translate));
+    }
   }
 
   .switch__thumb-content {
