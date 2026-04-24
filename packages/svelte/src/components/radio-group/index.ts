@@ -1,8 +1,6 @@
 import RadioGroupRoot from "./RadioGroup.svelte";
 import Items from "./compound/Items.svelte";
 
-export type { RadioOrientation } from "./radio-group.context";
-
 export const RadioGroup = Object.assign(RadioGroupRoot, {
   Items
 });

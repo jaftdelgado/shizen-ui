@@ -11,13 +11,7 @@ export interface RadioGroupContextValue {
   readonly setValue: (value: string) => void;
 }
 
-export interface RadioGroupContextResult {
-  readonly value: string | undefined;
-  readonly name: string;
-  readonly disabled: boolean;
-  readonly invalid: boolean;
-  readonly orientation: RadioOrientation;
-  readonly setValue: (value: string) => void;
+export interface RadioGroupContextResult extends RadioGroupContextValue {
   readonly exists: boolean;
 }
 
@@ -32,27 +26,13 @@ export function useRadioGroupContext(): RadioGroupContextResult {
 
   if (!context) {
     return {
-      get value() {
-        return undefined;
-      },
-      get name() {
-        return "";
-      },
-      get disabled() {
-        return false;
-      },
-      get invalid() {
-        return false;
-      },
-      get orientation() {
-        return "vertical" as RadioOrientation;
-      },
-      get setValue() {
-        return () => {};
-      },
-      get exists() {
-        return false;
-      }
+      value: undefined,
+      name: "",
+      disabled: false,
+      invalid: false,
+      orientation: "vertical",
+      setValue: (_: string) => {},
+      exists: false
     } satisfies RadioGroupContextResult;
   }
 
@@ -72,11 +52,7 @@ export function useRadioGroupContext(): RadioGroupContextResult {
     get orientation() {
       return context.orientation;
     },
-    get setValue() {
-      return context.setValue;
-    },
-    get exists() {
-      return true;
-    }
+    setValue: context.setValue,
+    exists: true
   } satisfies RadioGroupContextResult;
 }

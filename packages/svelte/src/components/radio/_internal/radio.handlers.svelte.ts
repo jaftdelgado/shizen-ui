@@ -1,6 +1,12 @@
 import type { RadioStateInstance } from "./radio.state.svelte.js";
 
-export function createRadioHandlers(state: RadioStateInstance, setChecked: (val: boolean) => void) {
+export function createRadioHandlers(
+  state: RadioStateInstance,
+  setChecked: (val: boolean) => void,
+  getOnClick: () =>
+    | ((e: MouseEvent & { currentTarget: EventTarget & HTMLDivElement }) => void)
+    | undefined
+) {
   function handleChange() {
     if (state.finalDisabled) return;
     if (state.groupCtx.exists) {
@@ -10,14 +16,13 @@ export function createRadioHandlers(state: RadioStateInstance, setChecked: (val:
     }
   }
 
-  function handleKeyDown(e: KeyboardEvent) {
-    if (e.key === " " || e.key === "Enter") {
-      e.preventDefault();
-      handleChange();
-    }
+  function handleKeyEnter(e: KeyboardEvent) {
+    if (e.key !== "Enter") return;
+    e.preventDefault();
+    if (e.type === "keyup") handleChange();
   }
 
-  function handleContainerClick(e: MouseEvent & { currentTarget: HTMLDivElement }) {
+  function handleContainerClick(e: MouseEvent & { currentTarget: EventTarget & HTMLDivElement }) {
     const target = e.target as HTMLElement;
     if (target.closest("label")) return;
     handleChange();
@@ -25,10 +30,15 @@ export function createRadioHandlers(state: RadioStateInstance, setChecked: (val:
     input?.focus();
   }
 
+  function handleClick(e: MouseEvent & { currentTarget: EventTarget & HTMLDivElement }) {
+    handleContainerClick(e);
+    getOnClick()?.(e);
+  }
+
   return {
     handleChange,
-    handleKeyDown,
-    handleContainerClick
+    handleKeyEnter,
+    handleClick
   };
 }
 

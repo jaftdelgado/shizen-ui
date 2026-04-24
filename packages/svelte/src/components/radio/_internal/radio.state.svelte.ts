@@ -2,93 +2,103 @@ import { radioStyles } from "@shizen-ui/styles";
 import { setRadioContext } from "../../../contexts/internal/index.js";
 import { useRadioGroupContext } from "../../../contexts/internal/index.js";
 import { setFieldStateContext, useFieldStateContext } from "../../../contexts/index.js";
-import type { RadioStateProps } from "./radio.types.js";
 
-export function createRadioState(props: RadioStateProps) {
-  const groupCtx = useRadioGroupContext();
-  const parentFieldContext = useFieldStateContext();
+export class RadioState {
+  #disabled: () => boolean;
+  #invalid: () => boolean;
+  #name: () => string | undefined;
+  #id: () => string;
+  #checked: () => boolean;
+  #value: () => string;
 
-  const finalDisabled = $derived(
-    parentFieldContext.exists
-      ? parentFieldContext.disabled
-      : groupCtx.exists
-        ? groupCtx.disabled
-        : props.disabled
-  );
+  readonly groupCtx: ReturnType<typeof useRadioGroupContext>;
+  readonly #parentFieldCtx: ReturnType<typeof useFieldStateContext>;
 
-  const finalInvalid = $derived(
-    parentFieldContext.exists
-      ? parentFieldContext.invalid
-      : groupCtx.exists
-        ? groupCtx.invalid
-        : props.invalid
-  );
+  get finalDisabled(): boolean {
+    if (this.#parentFieldCtx.exists) return this.#parentFieldCtx.disabled;
+    if (this.groupCtx.exists) return this.groupCtx.disabled;
+    return this.#disabled();
+  }
 
-  const activeName = $derived(groupCtx.exists ? groupCtx.name : props.name);
+  get finalInvalid(): boolean {
+    if (this.#parentFieldCtx.exists) return this.#parentFieldCtx.invalid;
+    if (this.groupCtx.exists) return this.groupCtx.invalid;
+    return this.#invalid();
+  }
 
-  const isChecked = $derived(groupCtx.exists ? groupCtx.value === props.value : props.checked);
+  get activeName(): string | undefined {
+    return this.groupCtx.exists ? this.groupCtx.name : this.#name();
+  }
 
-  const styles = $derived(radioStyles());
+  get isChecked(): boolean {
+    return this.groupCtx.exists ? this.groupCtx.value === this.#value() : this.#checked();
+  }
 
-  setRadioContext({
-    get checked() {
-      return isChecked;
-    },
-    get disabled() {
-      return finalDisabled;
-    },
-    get invalid() {
-      return finalInvalid;
-    },
-    get id() {
-      return props.id;
-    }
-  });
+  get styles() {
+    return radioStyles();
+  }
 
-  setFieldStateContext({
-    get invalid() {
-      return finalInvalid;
-    },
-    get disabled() {
-      return finalDisabled;
-    },
-    get required() {
-      return false;
-    },
-    get id() {
-      return props.id;
-    },
-    get keepDescription() {
-      return true;
-    }
-  });
+  get value(): string {
+    return this.#value();
+  }
 
-  return {
-    get finalDisabled() {
-      return finalDisabled;
-    },
-    get finalInvalid() {
-      return finalInvalid;
-    },
-    get activeName() {
-      return activeName;
-    },
-    get isChecked() {
-      return isChecked;
-    },
-    get styles() {
-      return styles;
-    },
-    get groupCtx() {
-      return groupCtx;
-    },
-    get value() {
-      return props.value;
-    },
-    get id() {
-      return props.id;
-    }
-  };
+  get id(): string {
+    return this.#id();
+  }
+
+  constructor(props: {
+    value: () => string;
+    disabled: () => boolean;
+    invalid: () => boolean;
+    name: () => string | undefined;
+    id: () => string;
+    checked: () => boolean;
+  }) {
+    this.#value = props.value;
+    this.#disabled = props.disabled;
+    this.#invalid = props.invalid;
+    this.#name = props.name;
+    this.#id = props.id;
+    this.#checked = props.checked;
+
+    this.groupCtx = useRadioGroupContext();
+    this.#parentFieldCtx = useFieldStateContext();
+
+    const self = this;
+
+    setRadioContext({
+      get checked() {
+        return self.isChecked;
+      },
+      get disabled() {
+        return self.finalDisabled;
+      },
+      get invalid() {
+        return self.finalInvalid;
+      },
+      get id() {
+        return self.#id();
+      }
+    });
+
+    setFieldStateContext({
+      get invalid() {
+        return self.finalInvalid;
+      },
+      get disabled() {
+        return self.finalDisabled;
+      },
+      get required() {
+        return false;
+      },
+      get id() {
+        return self.#id();
+      },
+      get keepDescription() {
+        return true;
+      }
+    });
+  }
 }
 
-export type RadioStateInstance = ReturnType<typeof createRadioState>;
+export type RadioStateInstance = InstanceType<typeof RadioState>;

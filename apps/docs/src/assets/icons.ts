@@ -80,3 +80,4 @@ export const ReportColumns = getIcon("report-columns");
 export const DesignPencil = getIcon("design-pencil");
 export const Text = getIcon("text");
 export const MediaImage = getIcon("media-image");
+export const Check = getIcon("check");

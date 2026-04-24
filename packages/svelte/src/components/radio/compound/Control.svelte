@@ -13,9 +13,9 @@
 
 <div
   class={cn(styles.control(), className)}
-  data-checked={ctx.checked}
-  data-disabled={ctx.disabled}
-  data-invalid={ctx.invalid}
+  data-state={ctx.checked ? "checked" : "unchecked"}
+  data-disabled={ctx.disabled ? "" : undefined}
+  data-invalid={ctx.invalid ? "" : undefined}
 >
   {#if children}
     {@render children()}

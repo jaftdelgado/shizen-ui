@@ -1,21 +1,8 @@
 <script lang="ts">
-  import { type Snippet } from "svelte";
   import { cn } from "@shizen-ui/styles";
-  import { radioGroupStyles, type RadioGroupVariants } from "@shizen-ui/styles";
-  import { setRadioGroupContext } from "../../contexts/internal/index.js";
-
-  import { setFieldStateContext } from "../../contexts/index.js";
-
-  interface Props extends RadioGroupVariants {
-    children: Snippet;
-    class?: string;
-    value?: string;
-    name?: string;
-    invalid?: boolean;
-    disabled?: boolean;
-    required?: boolean;
-    id?: string;
-  }
+  import { radioGroupStyles } from "@shizen-ui/styles";
+  import type { RadioGroupProps } from "./_internal/index.js";
+  import { RadioGroupState } from "./_internal/index.js";
 
   let {
     children,
@@ -28,44 +15,18 @@
     orientation = "vertical",
     id = crypto.randomUUID(),
     ...rest
-  }: Props = $props();
+  }: RadioGroupProps = $props();
 
-  setFieldStateContext({
-    get invalid() {
-      return invalid;
-    },
-    get disabled() {
-      return disabled;
-    },
-    get required() {
-      return required;
-    },
-    get id() {
-      return id;
-    },
-    get keepDescription() {
-      return false;
-    }
-  });
-
-  setRadioGroupContext({
-    get value() {
-      return value;
-    },
-    setValue(v) {
+  new RadioGroupState({
+    value: () => value,
+    name: () => name,
+    disabled: () => disabled,
+    invalid: () => invalid,
+    required: () => required,
+    orientation: () => orientation,
+    id: () => id,
+    setValue: (v) => {
       value = v;
-    },
-    get name() {
-      return name;
-    },
-    get disabled() {
-      return disabled;
-    },
-    get invalid() {
-      return invalid;
-    },
-    get orientation() {
-      return orientation;
     }
   });
 

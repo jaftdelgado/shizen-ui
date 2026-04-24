@@ -3,8 +3,8 @@ import Control from "./compound/Control.svelte";
 import Indicator from "./compound/Indicator.svelte";
 import Content from "./compound/Content.svelte";
 
-export type { RadioProps, RadioContext } from "./radio.svelte.js";
-export { createRadioState, createRadioHandlers } from "./radio.svelte.js";
+export type { RadioProps, RadioContext } from "./_internal/index.js";
+export { RadioState, createRadioHandlers } from "./_internal/index.js";
 
 export const Radio = Object.assign(RadioRoot, {
   Control,

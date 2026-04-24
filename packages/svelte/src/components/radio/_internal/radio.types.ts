@@ -1,7 +1,7 @@
 import type { Snippet } from "svelte";
 import type { HTMLAttributes } from "svelte/elements";
 
-export interface RadioProps extends Omit<HTMLAttributes<HTMLDivElement>, "checked"> {
+export interface RadioProps extends Omit<HTMLAttributes<HTMLDivElement>, "checked" | "onclick"> {
   value: string;
   invalid?: boolean;
   disabled?: boolean;
@@ -9,6 +9,7 @@ export interface RadioProps extends Omit<HTMLAttributes<HTMLDivElement>, "checke
   children: Snippet;
   name?: string;
   id?: string;
+  onclick?: (e: MouseEvent & { currentTarget: EventTarget & HTMLDivElement }) => void;
 }
 
 export interface RadioContext {
@@ -16,13 +17,4 @@ export interface RadioContext {
   readonly disabled: boolean;
   readonly invalid: boolean;
   readonly id: string;
-}
-
-export interface RadioStateProps {
-  readonly value: string;
-  readonly disabled: boolean;
-  readonly invalid: boolean;
-  readonly name: string | undefined;
-  readonly id: string;
-  readonly checked: boolean;
 }

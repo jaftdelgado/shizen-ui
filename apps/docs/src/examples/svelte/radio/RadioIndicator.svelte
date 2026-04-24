@@ -1,6 +1,8 @@
 <script lang="ts">
   import { RadioGroup, Radio, Label, Description } from "@shizen-ui/svelte";
-  import Icon from "@components/svelte/Icon.svelte";
+
+  import Icon from "@assets/Icon.svelte";
+  import { Check } from "@assets/icons";
 
   let selectedMethod = $state("credit_card");
 
@@ -33,7 +35,7 @@
         <Radio value={method.value}>
           <Radio.Control>
             <Radio.Indicator>
-              <Icon name="check" strokeWidth={1.6} class="size-2.5 text-accent-foreground" />
+              <Icon icon={Check} class="size-2 text-accent-foreground" />
             </Radio.Indicator>
           </Radio.Control>
           <Radio.Content>

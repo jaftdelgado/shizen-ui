@@ -1,16 +1,29 @@
 export function createFocusVisible() {
-  let lastMouseDownTime = 0;
-  let lastVisibleTime = 0;
+  let isMouseInteraction = false;
+  let isRecentlyVisible = false;
   let isFocusVisible = $state(false);
 
   $effect(() => {
     function onVisibilityChange() {
       if (document.visibilityState === "visible") {
-        lastVisibleTime = Date.now();
+        isRecentlyVisible = true;
+        setTimeout(() => {
+          isRecentlyVisible = false;
+        }, 500);
       }
     }
+
+    function onMouseUp() {
+      isMouseInteraction = false;
+    }
+
     document.addEventListener("visibilitychange", onVisibilityChange);
-    return () => document.removeEventListener("visibilitychange", onVisibilityChange);
+    document.addEventListener("mouseup", onMouseUp);
+
+    return () => {
+      document.removeEventListener("visibilitychange", onVisibilityChange);
+      document.removeEventListener("mouseup", onMouseUp);
+    };
   });
 
   return {
@@ -18,18 +31,17 @@ export function createFocusVisible() {
       return isFocusVisible;
     },
     onWrapperMouseDown() {
-      lastMouseDownTime = Date.now();
+      isMouseInteraction = true;
     },
-    onInputMouseDown(e: MouseEvent) {
-      lastMouseDownTime = Date.now();
+    onInputMouseDown(_e: MouseEvent) {
+      isMouseInteraction = true;
     },
     onInputKeyDown() {
-      lastMouseDownTime = 0;
+      isMouseInteraction = false;
     },
     onFocus() {
-      const now = Date.now();
-      if (now - lastVisibleTime < 500) return;
-      isFocusVisible = now - lastMouseDownTime > 500;
+      if (isRecentlyVisible) return;
+      isFocusVisible = !isMouseInteraction;
     },
     onBlur() {
       isFocusVisible = false;

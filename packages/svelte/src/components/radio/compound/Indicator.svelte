@@ -15,8 +15,8 @@
 {#if ctx.checked}
   <span
     class={cn(!isCustom && styles.indicator(), className)}
-    data-checked={ctx.checked}
-    data-custom={isCustom}
+    data-state={ctx.checked ? "checked" : "unchecked"}
+    data-custom={isCustom ? "" : undefined}
   >
     {#if children}
       {@render children()}
