@@ -23,29 +23,33 @@
       </Tabs.List>
     </Tabs.ListContainer>
 
-    <Tabs.Panel value="overview">
-      <div class="space-y-1">
-        <p class="text-sm font-medium text-primary-text">Project summary</p>
-        <p class="text-sm text-secondary-text">Launch is on track. Final QA starts next Monday.</p>
-      </div>
-    </Tabs.Panel>
+    <Tabs.Content>
+      <Tabs.View value="overview">
+        <div class="space-y-1">
+          <p class="text-sm font-medium text-primary-text">Project summary</p>
+          <p class="text-sm text-secondary-text">
+            Launch is on track. Final QA starts next Monday.
+          </p>
+        </div>
+      </Tabs.View>
 
-    <Tabs.Panel value="activity">
-      <div class="space-y-1">
-        <p class="text-sm font-medium text-primary-text">Recent activity</p>
-        <p class="text-sm text-secondary-text">
-          3 tasks completed today. 1 item is pending review.
-        </p>
-      </div>
-    </Tabs.Panel>
+      <Tabs.View value="activity">
+        <div class="space-y-1">
+          <p class="text-sm font-medium text-primary-text">Recent activity</p>
+          <p class="text-sm text-secondary-text">
+            3 tasks completed today. 1 item is pending review.
+          </p>
+        </div>
+      </Tabs.View>
 
-    <Tabs.Panel value="members">
-      <div class="space-y-1">
-        <p class="text-sm font-medium text-primary-text">Team members</p>
-        <p class="text-sm text-secondary-text">
-          5 contributors assigned to design, docs, and frontend.
-        </p>
-      </div>
-    </Tabs.Panel>
+      <Tabs.View value="members">
+        <div class="space-y-1">
+          <p class="text-sm font-medium text-primary-text">Team members</p>
+          <p class="text-sm text-secondary-text">
+            5 contributors assigned to design, docs, and frontend.
+          </p>
+        </div>
+      </Tabs.View>
+    </Tabs.Content>
   </Tabs>
 </div>

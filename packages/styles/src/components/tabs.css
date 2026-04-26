@@ -1,10 +1,9 @@
 @layer components {
-  /* Root */
   .tabs {
-    @apply flex flex-col gap-2 w-full;
+    @apply relative flex flex-col gap-2 w-full;
   }
 
-  /* List Container */
+  /* List container */
   .tabs__list-container {
     @apply relative flex h-control-md;
   }
@@ -74,7 +73,7 @@
       transition-delay: 20ms;
     }
 
-    /* Hide separator when previous sibling is active */
+    /* Hide separator when the previous sibling is active */
     &[data-active="true"] + .tabs__tab .tabs__separator {
       opacity: 0;
       transition-duration: 100ms;
@@ -119,7 +118,7 @@
     @apply flex items-center;
   }
 
-  /* Icon only modifier */
+  /* Icon-only modifier */
   .tabs__tab--icon-only {
     @apply aspect-square px-0 shrink-0;
     flex: none;
@@ -173,16 +172,82 @@
     @apply motion-reduce:transition-none;
   }
 
-  /* Panel */
-  .tabs__panel {
+  /* Content */
+  .tabs__content {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .tabs__content:has(> .tabs__view[data-active])
+    > .tabs__view[data-hidden="true"]:has(~ .tabs__view[data-active]) {
+    translate: calc(var(--tabs-view-offset) * -1) 0;
+  }
+
+  .tabs__content:has(> .tabs__view[data-active])
+    > .tabs__view[data-active]
+    ~ .tabs__view[data-hidden="true"] {
+    translate: var(--tabs-view-offset) 0;
+  }
+
+  /* View */
+  .tabs__view {
     @apply w-full outline-none;
 
-    &[data-hidden="true"] {
-      @apply hidden;
+    --tabs-view-offset: 60px;
+
+    transition-property: opacity, translate, filter;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    transition-duration: 400ms;
+    @apply motion-reduce:transition-none;
+
+    /* Active — in flow */
+    &[data-active] {
+      position: relative;
+      pointer-events: auto;
+      opacity: 1;
+      translate: 0 0;
+      filter: blur(0);
     }
 
-    &[data-hidden="false"] {
-      @apply block;
+    /* Inactive base */
+    &[data-hidden="true"] {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0;
+      filter: blur(2px);
+    }
+
+    /* Entering from the right (forward) */
+    &[data-hidden="true"][data-enter="forward"] {
+      translate: var(--tabs-view-offset) 0;
+    }
+
+    /* Entering from the left (backward) */
+    &[data-hidden="true"][data-enter="backward"] {
+      translate: calc(var(--tabs-view-offset) * -1) 0;
+    }
+
+    /* Exiting to the left (was active, forward movement) */
+    &[data-hidden="true"][data-exit="backward"] {
+      translate: calc(var(--tabs-view-offset) * -1) 0;
+    }
+
+    /* Exiting to the right (was active, backward movement) */
+    &[data-hidden="true"][data-exit="forward"] {
+      translate: var(--tabs-view-offset) 0;
+    }
+
+    /* No direction yet (initial state) */
+    &[data-hidden="true"]:not([data-enter]):not([data-exit]) {
+      translate: 0 0;
+      filter: blur(0);
+      opacity: 0;
+    }
+
+    /* idle — no animation */
+    &[data-enter="idle"] {
+      translate: 0 0;
     }
   }
 }

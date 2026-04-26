@@ -8,6 +8,8 @@ export const tabsStyles = tv({
     tab: "tabs__tab",
     separator: "tabs__separator",
     indicator: "tabs__indicator",
+    content: "tabs__content",
+    view: "tabs__view",
     panel: "tabs__panel"
   },
   variants: {

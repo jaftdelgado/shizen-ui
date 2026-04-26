@@ -48,19 +48,16 @@
     <Tabs.List aria-label="Theme mode" iconOnly>
       <Tabs.Tab value="light" aria-label="Light mode">
         <SunIcon />
-        <Tabs.Indicator />
       </Tabs.Tab>
 
       <Tabs.Tab value="dark" aria-label="Dark mode">
         <Tabs.Separator />
         <MoonIcon />
-        <Tabs.Indicator />
       </Tabs.Tab>
 
       <Tabs.Tab value="system" aria-label="System mode">
         <Tabs.Separator />
         <MonitorIcon />
-        <Tabs.Indicator />
       </Tabs.Tab>
     </Tabs.List>
   </Tabs.ListContainer>

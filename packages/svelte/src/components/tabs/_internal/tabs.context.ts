@@ -1,10 +1,16 @@
 import { getContext, setContext } from "svelte";
 
+export type TabsDirection = "forward" | "backward" | "idle";
+
 export interface TabsContextValue {
   readonly activeTab: string;
+  readonly previousTab: string;
+  readonly direction: TabsDirection;
   readonly setActiveTab: (id: string) => void;
+  readonly registerTabValue: (value: string) => void;
   readonly registerTabElement: (value: string, el: HTMLElement) => void;
   readonly getTabElement: (value: string) => HTMLElement | undefined;
+  readonly getTabIndex: (value: string) => number;
 }
 
 export interface TabsContextResult extends TabsContextValue {
@@ -34,7 +40,16 @@ export function useTabsContext(): TabsContextResult {
       get activeTab() {
         return "";
       },
+      get previousTab() {
+        return "";
+      },
+      get direction() {
+        return "idle" as TabsDirection;
+      },
       get setActiveTab() {
+        return () => {};
+      },
+      get registerTabValue() {
         return () => {};
       },
       get registerTabElement() {
@@ -42,6 +57,9 @@ export function useTabsContext(): TabsContextResult {
       },
       get getTabElement() {
         return () => undefined;
+      },
+      get getTabIndex() {
+        return () => -1;
       },
       get exists() {
         return false;
@@ -53,14 +71,26 @@ export function useTabsContext(): TabsContextResult {
     get activeTab() {
       return context.activeTab;
     },
+    get previousTab() {
+      return context.previousTab;
+    },
+    get direction() {
+      return context.direction;
+    },
     get setActiveTab() {
       return context.setActiveTab;
+    },
+    get registerTabValue() {
+      return context.registerTabValue;
     },
     get registerTabElement() {
       return context.registerTabElement;
     },
     get getTabElement() {
       return context.getTabElement;
+    },
+    get getTabIndex() {
+      return context.getTabIndex;
     },
     get exists() {
       return true;

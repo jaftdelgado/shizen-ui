@@ -3,6 +3,7 @@
   import { tabsStyles } from "@shizen-ui/styles";
   import { TabsState } from "./_internal/index.js";
   import type { TabsProps } from "./_internal/index.js";
+  import { setTabsContext } from "../../contexts/internal/index.js";
 
   let {
     children,
@@ -14,12 +15,15 @@
 
   const state = new TabsState(
     () => value,
-    () => onValueChange
+    () => onValueChange,
+    (v) => (value = v)
   );
 
   $effect(() => {
     state.syncFromProp();
   });
+
+  setTabsContext(state);
 
   const styles = tabsStyles();
 </script>

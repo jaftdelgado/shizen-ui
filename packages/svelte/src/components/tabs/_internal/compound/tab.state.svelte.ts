@@ -12,6 +12,8 @@ export class TabState {
     this.#getValue = getValue;
     this.#getDisabled = getDisabled;
     this.#getLocalIconOnly = getLocalIconOnly;
+
+    this.#tabsCtx.registerTabValue(this.#getValue());
   }
 
   get isActive(): boolean {
@@ -27,6 +29,7 @@ export class TabState {
   }
 
   register = (node: HTMLElement) => {
+    this.#tabsCtx.registerTabValue(this.#getValue());
     this.#tabsCtx.registerTabElement(this.#getValue(), node);
   };
 
