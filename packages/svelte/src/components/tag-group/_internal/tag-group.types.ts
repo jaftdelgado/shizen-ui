@@ -1,23 +1,23 @@
 import type { Snippet } from "svelte";
 import type { HTMLAttributes } from "svelte/elements";
 import type { TagVariants } from "@shizen-ui/styles";
-import type { TagSelectionMode } from "../../../contexts/internal/index.js";
+import type { SelectionMode } from "../../tag/_internal/tag.types.js";
 
 export interface TagGroupProps extends HTMLAttributes<HTMLDivElement> {
   children: Snippet;
   variant?: TagVariants["variant"];
   size?: TagVariants["size"];
-  selectionMode?: TagSelectionMode;
+  selectionMode?: SelectionMode;
   selectedValues?: string[];
   onSelectedValuesChange?: (values: string[]) => void;
   disabled?: boolean;
 }
 
 export interface TagGroupStateProps {
-  readonly variant: TagVariants["variant"] | undefined;
-  readonly size: TagVariants["size"] | undefined;
-  readonly selectionMode: TagSelectionMode;
+  readonly variant?: TagVariants["variant"];
+  readonly size?: TagVariants["size"];
+  readonly selectionMode: SelectionMode;
   readonly selectedValues: string[];
-  readonly onSelectedValuesChange: ((values: string[]) => void) | undefined;
+  readonly onSelectedValuesChange?: (values: string[]) => void;
   readonly disabled: boolean;
 }

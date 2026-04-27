@@ -1,7 +1,6 @@
 import { getContext, setContext } from "svelte";
 import type { TagVariants } from "@shizen-ui/styles";
-
-export type TagSelectionMode = "none" | "single" | "multiple";
+import type { SelectionMode } from "../../components/tag/_internal/tag.types.js";
 
 export interface TagFocusEntry {
   tagEl: HTMLElement;
@@ -9,9 +8,9 @@ export interface TagFocusEntry {
 }
 
 export interface TagGroupContextValue {
-  readonly variant: TagVariants["variant"];
-  readonly size: TagVariants["size"];
-  readonly selectionMode: TagSelectionMode;
+  readonly variant: TagVariants["variant"] | undefined;
+  readonly size: TagVariants["size"] | undefined;
+  readonly selectionMode: SelectionMode;
   readonly selectedValues: string[];
   readonly disabled: boolean;
   readonly toggleValue: (val: string) => void;
@@ -20,7 +19,8 @@ export interface TagGroupContextValue {
   readonly registerRemoveButton: (tagEl: HTMLElement, removeButtonEl: HTMLElement) => void;
   readonly focusNext: (from: HTMLElement) => void;
   readonly focusPrev: (from: HTMLElement) => void;
-  readonly isFirstTag: (tagEl: HTMLElement) => boolean;
+  readonly isFirstTag: (el: HTMLElement) => boolean;
+  readonly getSortedEntries: () => TagFocusEntry[];
 }
 
 export interface TagGroupContextResult extends TagGroupContextValue {
@@ -39,16 +39,16 @@ export function useTagGroupContext(): TagGroupContextResult {
   if (!context) {
     return {
       get variant() {
-        return undefined as TagVariants["variant"];
+        return undefined;
       },
       get size() {
-        return undefined as TagVariants["size"];
+        return undefined;
       },
-      get selectionMode() {
-        return "none" as TagSelectionMode;
+      get selectionMode(): SelectionMode {
+        return "none";
       },
       get selectedValues() {
-        return [] as string[];
+        return [];
       },
       get disabled() {
         return false;
@@ -73,6 +73,9 @@ export function useTagGroupContext(): TagGroupContextResult {
       },
       get isFirstTag() {
         return () => false;
+      },
+      get getSortedEntries() {
+        return () => [];
       },
       get exists() {
         return false;
@@ -116,6 +119,9 @@ export function useTagGroupContext(): TagGroupContextResult {
     },
     get isFirstTag() {
       return context.isFirstTag;
+    },
+    get getSortedEntries() {
+      return context.getSortedEntries;
     },
     get exists() {
       return true;

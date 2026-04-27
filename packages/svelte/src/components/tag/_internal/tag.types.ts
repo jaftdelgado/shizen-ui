@@ -17,13 +17,3 @@ export interface TagProps extends HTMLAttributes<HTMLDivElement> {
   onSelectedChange?: (selected: boolean) => void;
   onClose?: () => void;
 }
-
-export interface TagStateProps {
-  readonly variant: TagVariants["variant"];
-  readonly size: TagVariants["size"];
-  readonly value: string | undefined;
-  readonly selectionMode: SelectionMode;
-  readonly selected: boolean;
-  readonly onSelectedChange: ((selected: boolean) => void) | undefined;
-  readonly onClose: (() => void) | undefined;
-}

@@ -39,7 +39,7 @@
     --inverted-text: var(--snow);
 
     --control: #e9e9ea;
-    --control-foreground: var(--secondary-text);
+    --control-foreground: var(--control-text);
 
     /* Form Fields */
     --field: var(--surface);

@@ -1,10 +1,8 @@
 <script lang="ts">
   import type { HTMLButtonAttributes } from "svelte/elements";
   import type { Snippet } from "svelte";
-  import { useTagContext } from "../../../contexts/internal/index.js";
+  import { useTagContext } from "../_internal/index.js";
   import CloseButton from "../../close-button/CloseButton.svelte";
-
-  const keys = ["Enter", " ", "Backspace", "Delete"];
 
   interface Props extends HTMLButtonAttributes {
     children?: Snippet;
@@ -24,25 +22,8 @@
     aria-label="Remove tag"
     {tabindex}
     data-remove-button
-    onclick={(e) => {
-      e.stopPropagation();
-      tag.onClose?.();
-    }}
-    onkeydown={(e) => {
-      if (keys.includes(e.key)) {
-        e.preventDefault();
-        e.stopPropagation();
-        tag.onClose?.();
-        return;
-      }
-
-      if (e.key === "Tab" && e.shiftKey) {
-        e.preventDefault();
-        const tagEl = (e.currentTarget as HTMLElement).closest<HTMLElement>("[role='checkbox']");
-        tagEl?.focus();
-        return;
-      }
-    }}
+    onclick={tag.onRemoveButtonClick}
+    onkeydown={tag.onRemoveButtonKeyDown}
     {children}
   />
 {/snippet}

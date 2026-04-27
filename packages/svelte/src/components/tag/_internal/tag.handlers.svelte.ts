@@ -1,7 +1,7 @@
-import type { TagStateInstance } from "./tag.state.svelte.js";
+import type { TagState } from "./tag.state.svelte.js";
 
 export function createTagHandlers(
-  state: TagStateInstance,
+  state: TagState,
   getSelected: () => boolean,
   setSelected: (val: boolean) => void,
   notifyChange: (val: boolean) => void,
@@ -24,53 +24,125 @@ export function createTagHandlers(
     notifyClick(event);
   }
 
-  function handleKeyDown(event: KeyboardEvent & { currentTarget: EventTarget & HTMLDivElement }) {
-    // Ignorar eventos que vienen del remove button (bubbling)
-    if (event.target !== event.currentTarget) return;
+  function handleConfirmKey(el: HTMLElement, key: string, type: string): boolean {
+    if (key !== "Enter" && key !== " ") return false;
 
+    if (type === "keydown") {
+      el.dataset.pressed = "true";
+    } else if (type === "keyup") {
+      delete el.dataset.pressed;
+
+      if (el.dataset.skipKeyUp) {
+        delete el.dataset.skipKeyUp;
+        return true;
+      }
+
+      if (state.isInteractive) toggle();
+    }
+
+    return true;
+  }
+
+  function handleRemoveKey(key: string): boolean {
+    if ((key !== "Backspace" && key !== "Delete") || state.removeButtonSnippet == null)
+      return false;
+
+    state.close();
+    return true;
+  }
+
+  function handleNavigationKey(el: HTMLElement, key: string): boolean {
+    if (!state.group.exists) return false;
+
+    if (key === "ArrowRight" || key === "ArrowDown") {
+      state.group.focusNext(el);
+      return true;
+    }
+
+    if (key === "ArrowLeft" || key === "ArrowUp") {
+      state.group.focusPrev(el);
+      return true;
+    }
+
+    return false;
+  }
+
+  function handleTabKey(el: HTMLElement, event: KeyboardEvent): boolean {
+    if (event.key !== "Tab" || event.shiftKey || state.removeButtonSnippet == null) return false;
+
+    const removeBtn = el.querySelector<HTMLElement>("[data-remove-button]");
+    removeBtn?.focus();
+    return true;
+  }
+
+  function handleKey(event: KeyboardEvent & { currentTarget: EventTarget & HTMLDivElement }) {
+    const el = event.currentTarget as HTMLElement;
+    if (event.target !== el) return;
+
+    const handlers = [
+      () => handleConfirmKey(el, event.key, event.type),
+      ...(event.type === "keydown"
+        ? [
+            () => handleRemoveKey(event.key),
+            () => handleNavigationKey(el, event.key),
+            () => handleTabKey(el, event)
+          ]
+        : [])
+    ];
+
+    if (handlers.some((handler) => handler())) {
+      event.preventDefault();
+    }
+  }
+
+  // ─── RemoveButton handlers ────────────────────────────────────────
+
+  function handleRemoveButtonClick(event: MouseEvent): void {
+    event.stopPropagation();
+    state.close();
+  }
+
+  function handleRemoveButtonKeyDown(event: KeyboardEvent): void {
     const { key } = event;
 
-    // Backspace / Delete en tag con remove button → cerrar
-    if ((key === "Backspace" || key === "Delete") && state.removeButtonSnippet != null) {
+    // Cerrar tag
+    if (key === "Enter" || key === " " || key === "Backspace" || key === "Delete") {
       event.preventDefault();
-      state.onClose?.();
+      event.stopPropagation();
+      state.close();
       return;
     }
 
-    // Navegación entre tags con flechas
+    // Shift+Tab → volver al tag padre
+    if (key === "Tab" && event.shiftKey) {
+      event.preventDefault();
+      const tagEl = (event.currentTarget as HTMLElement).closest<HTMLElement>("[role='checkbox']");
+      tagEl?.focus();
+      return;
+    }
+
+    // Flechas → navegar entre tags
     if (state.group.exists) {
+      const el = event.currentTarget as HTMLElement;
+
       if (key === "ArrowRight" || key === "ArrowDown") {
         event.preventDefault();
-        state.group.focusNext(event.currentTarget as HTMLElement);
+        state.group.focusNext(el);
         return;
       }
+
       if (key === "ArrowLeft" || key === "ArrowUp") {
         event.preventDefault();
-        state.group.focusPrev(event.currentTarget as HTMLElement);
-        return;
+        state.group.focusPrev(el);
       }
-    }
-
-    // Tab con remove button → enfocar el remove button en lugar de salir del grupo
-    if (key === "Tab" && !event.shiftKey && state.removeButtonSnippet != null) {
-      event.preventDefault();
-      // El remove button se busca dentro del propio tag element
-      const tagEl = event.currentTarget as HTMLElement;
-      const removeBtn = tagEl.querySelector<HTMLElement>("[data-remove-button]");
-      removeBtn?.focus();
-      return;
-    }
-
-    // Enter / Space → toggle selección
-    if (state.isInteractive && (key === "Enter" || key === " ")) {
-      event.preventDefault();
-      toggle();
     }
   }
 
   return {
     handleClick,
-    handleKeyDown
+    handleKey,
+    handleRemoveButtonClick,
+    handleRemoveButtonKeyDown
   };
 }
 

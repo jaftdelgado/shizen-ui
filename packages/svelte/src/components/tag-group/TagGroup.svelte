@@ -1,8 +1,8 @@
 <script lang="ts">
   import { cn } from "@shizen-ui/styles";
   import { tagGroupStyles } from "@shizen-ui/styles";
-  import type { TagGroupProps } from "./tag-group.svelte.js";
-  import { createTagGroupState } from "./tag-group.svelte.js";
+  import type { TagGroupProps } from "./_internal/index.js";
+  import { TagGroupState } from "./_internal/index.js";
 
   let {
     children,
@@ -16,7 +16,7 @@
     ...rest
   }: TagGroupProps = $props();
 
-  const state = createTagGroupState(
+  const state = new TagGroupState(
     {
       get variant() {
         return variant;
@@ -45,6 +45,12 @@
   const styles = tagGroupStyles();
 </script>
 
-<div class={cn(styles.base(), className)} role="group" data-disabled={state.disabled} {...rest}>
+<div
+  class={cn(styles.base(), className)}
+  role="group"
+  aria-disabled={state.disabled ? true : undefined}
+  data-disabled={state.disabled || undefined}
+  {...rest}
+>
   {@render children()}
 </div>

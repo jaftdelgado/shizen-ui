@@ -12,7 +12,6 @@ export * from "./number-input.context.js";
 export * from "./avatar.context.js";
 export * from "./alert.context.js";
 export * from "./toggle-group.context.js";
-export * from "./tag.context.js";
 export * from "./tag-group.context.js";
 export * from "./accordion.context.js";
 export * from "./password-input.context.js";

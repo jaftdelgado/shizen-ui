@@ -4,11 +4,15 @@ import type { Snippet } from "svelte";
 export interface TagContextValue {
   readonly onClose: (() => void) | undefined;
   readonly registerRemoveButton: (snippet: Snippet) => void;
+  readonly onRemoveButtonClick: (event: MouseEvent) => void;
+  readonly onRemoveButtonKeyDown: (event: KeyboardEvent) => void;
 }
 
 export interface TagContextResult {
   readonly onClose: (() => void) | undefined;
   readonly registerRemoveButton: (snippet: Snippet) => void;
+  readonly onRemoveButtonClick: (event: MouseEvent) => void;
+  readonly onRemoveButtonKeyDown: (event: KeyboardEvent) => void;
   readonly exists: boolean;
 }
 
@@ -27,6 +31,8 @@ export function useTagContext(): TagContextResult {
         return undefined;
       },
       registerRemoveButton: () => {},
+      onRemoveButtonClick: () => {},
+      onRemoveButtonKeyDown: () => {},
       get exists() {
         return false;
       }
@@ -39,6 +45,12 @@ export function useTagContext(): TagContextResult {
     },
     get registerRemoveButton() {
       return context.registerRemoveButton;
+    },
+    get onRemoveButtonClick() {
+      return context.onRemoveButtonClick;
+    },
+    get onRemoveButtonKeyDown() {
+      return context.onRemoveButtonKeyDown;
     },
     get exists() {
       return true;

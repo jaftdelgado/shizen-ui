@@ -13,7 +13,10 @@ export const tagStyles = tv({
       sm: "tag--sm",
       md: "tag--md",
       lg: "tag--lg"
-    }
+    },
+    interactive: { true: "tag--interactive" },
+    selected: { true: "tag--selected" },
+    disabled: { true: "tag--disabled" }
   },
   defaultVariants: {
     variant: "secondary",

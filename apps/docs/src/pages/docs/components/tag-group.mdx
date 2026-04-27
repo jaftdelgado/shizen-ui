@@ -6,6 +6,9 @@ layout: "@layouts/DocsLayout.astro"
 import CodeImport from "@components/astro/CodeImport.astro";
 import ComponentExample from "@components/astro/ComponentExample.astro";
 import SourceLinks from "@components/svelte/SourceLinks.svelte";
+import CodeBlock from "@components/astro/CodeBlock.astro";
+
+import TagGroupAnatomyCode from "@examples/svelte/tag-group/TagGroupAnatomy.svelte?raw";
 
 import TagGroupUsage from "@examples/svelte/tag-group/TagGroupUsage.svelte";
 import TagVariants from "@examples/svelte/tag-group/TagVariants.svelte";
@@ -31,6 +34,10 @@ Selectable and closable tag for filtering, categorizing, or marking content.
 <ComponentExample src="svelte/tag-group/TagGroupUsage.svelte">
   <TagGroupUsage client:load />
 </ComponentExample>
+
+## Anatomy
+
+<CodeBlock code={TagGroupAnatomyCode} lang="svelte" showLineNumbers={false} collapsible={false} />
 
 ## Examples
 
