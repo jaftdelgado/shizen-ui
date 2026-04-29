@@ -19,16 +19,13 @@ const examples = import.meta.glob<string>("/src/examples/**/*.svelte", {
 let code = "";
 
 if (src) {
-  // Construimos el path absoluto dentro del proyecto
   const fullPath = `/src/examples/${src}`;
 
-  // Acceso directo al objeto en memoria (O(1) de complejidad)
   const loadCode = examples[fullPath];
 
   if (loadCode) {
     code = loadCode.trim();
   } else {
-    // Útil para depurar rutas mal escritas en el MDX de Shizen UI
     console.warn(`[ComponentExample] No se encontró el archivo en: ${fullPath}`);
     console.warn(`Rutas disponibles:`, Object.keys(examples).slice(0, 3), "...");
   }
@@ -38,6 +35,7 @@ if (src) {
 <section
   class="my-8 border border-separator rounded-3xl overflow-hidden bg-transparent"
   aria-label="Component Example"
+  data-example-container
 >
   <div class="p-8 flex items-center justify-center min-h-96">
     <slot />

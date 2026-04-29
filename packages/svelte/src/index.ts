@@ -4,6 +4,7 @@ export * from "./components/alert/index.js";
 export * from "./components/avatar/index.js";
 export * from "./components/button-group/index.js";
 export * from "./components/button/index.js";
+export * from "./components/card/index.js";
 export * from "./components/checkbox-group/index.js";
 export * from "./components/checkbox/index.js";
 export * from "./components/chip/index.js";

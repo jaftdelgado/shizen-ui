@@ -1,0 +1,37 @@
+---
+title: "Card"
+layout: "@layouts/DocsLayout.astro"
+---
+
+import CodeImport from "@components/astro/CodeImport.astro";
+import ComponentExample from "@components/astro/ComponentExample.astro";
+import SourceLinks from "@components/svelte/SourceLinks.svelte";
+
+import CardUsage from "@examples/svelte/card/CardUsage.svelte";
+import CardVariants from "@examples/svelte/card/CardVariants.svelte";
+
+# Card
+
+Flexible container for grouping related content, metrics, and actions inside a shared surface.
+
+<SourceLinks
+  client:load
+  svelteUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/svelte/src/components/card/Card.svelte"
+  stylesUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/styles/src/components/card.css"
+/>
+
+## Import
+
+<CodeImport code={`import { Card } from "@shizen-ui/svelte";`} />
+
+<ComponentExample src="svelte/card/CardUsage.svelte">
+  <CardUsage client:load />
+</ComponentExample>
+
+## Examples
+
+### Variants
+
+<ComponentExample src="svelte/card/CardVariants.svelte">
+  <CardVariants client:load />
+</ComponentExample>

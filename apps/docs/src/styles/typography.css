@@ -1,35 +1,35 @@
 @layer base {
   .prose-content {
-    & h1:not([class*="text--"]) {
+    & h1:not([data-example-container] *):not([class*="text--"]) {
       @apply text-primary-text text-3xl font-semibold mb-4 tracking-tighter;
     }
 
-    & h2:not([class*="text--"]) {
+    & h2:not([data-example-container] *):not([class*="text--"]) {
       @apply text-primary-text text-xl font-medium mt-16 tracking-tight;
     }
 
-    & h3:not([class*="text--"]) {
+    & h3:not([data-example-container] *):not([class*="text--"]) {
       @apply text-primary-text text-lg font-medium mb-2 mt-10 tracking-tight;
     }
 
-    & p:not([class*="text--"]) {
+    & p:not([data-example-container] *):not([class*="text--"]) {
       @apply text-secondary-text leading-relaxed text-base;
     }
 
-    & code:not(pre code) {
+    & code:not(pre code):not([data-example-container] *) {
       @apply bg-component text-secondary-text px-1.5 py-0.5 rounded-md text-sm font-mono;
     }
 
-    & ul,
-    & ol {
+    & ul:not([data-example-container] *),
+    & ol:not([data-example-container] *) {
       @apply mb-5 ml-6 text-zinc-400 space-y-2;
     }
 
-    & ul {
+    & ul:not([data-example-container] *) {
       @apply list-disc;
     }
 
-    & li strong {
+    & li:not([data-example-container] *) strong {
       @apply text-zinc-200;
     }
   }
@@ -38,5 +38,15 @@
 @layer components {
   [class*="text--"] {
     margin: 0;
+  }
+
+  [data-example-container] {
+    font-size: revert;
+    color: revert;
+    line-height: revert;
+    font-weight: revert;
+    letter-spacing: revert;
+    list-style: revert;
+    margin: revert;
   }
 }

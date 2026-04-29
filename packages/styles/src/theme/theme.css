@@ -17,6 +17,7 @@
   --radius-control: calc(var(--radius) * 16); /* rounded-full */
   --radius-field: calc(var(--radius) * 3); /* 0.75rem (12px) */
   --radius-surface: calc(var(--radius) * 6); /* 1.5rem (24px) */
+  --radius-card: calc(var(--radius) * 8); /* 1.5rem (24px) */
 
   --color-separator: var(--separator);
   --color-focus: var(--focus);

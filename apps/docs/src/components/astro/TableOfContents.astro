@@ -31,7 +31,9 @@ const toc = headings.filter((h) => h.depth > 1 && h.depth < 4);
 
   function initTocObserver() {
     const links = document.querySelectorAll(".toc-link");
-    const headings = document.querySelectorAll("article h2, article h3");
+    const headings = document.querySelectorAll(
+      "article h2:not([data-example-container] h2), article h3:not([data-example-container] h3)"
+    );
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -61,7 +63,11 @@ const toc = headings.filter((h) => h.depth > 1 && h.depth < 4);
     const article = document.querySelector("article");
     if (!article) return;
 
-    const headings = Array.from(article.querySelectorAll("h2, h3"))
+    const headings = Array.from(
+      article.querySelectorAll(
+        "h2:not([data-example-container] *), h3:not([data-example-container] *)"
+      )
+    )
       .map((heading) => ({
         depth: parseInt(heading.tagName.charAt(1)),
         slug: heading.id,
