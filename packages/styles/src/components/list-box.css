@@ -1,0 +1,83 @@
+@layer components {
+  /* ─── Container ──────────────────────────────────────────── */
+  .list-box {
+    @apply outline-none select-none;
+    @apply flex flex-col;
+  }
+
+  /* ─── Item ───────────────────────────────────────────────── */
+  .list-box-item {
+    @apply relative flex items-center gap-2;
+    @apply px-2 py-1.5 rounded-lg;
+    @apply transition-colors duration-150 outline-none;
+    @apply cursor-pointer;
+
+    --listbox-item-bg: transparent;
+    --listbox-item-bg-hover: var(--color-control-hover);
+    --listbox-item-fg: var(--color-foreground);
+
+    background-color: var(--listbox-item-bg);
+    color: var(--listbox-item-fg);
+
+    &:hover:not([data-disabled]) {
+      background-color: var(--listbox-item-bg-hover);
+    }
+
+    &[data-focus-visible] {
+      @apply status-focused;
+    }
+
+    &[data-selected] {
+      --listbox-item-bg: var(--color-accent-subtle);
+      --listbox-item-fg: var(--color-accent-foreground);
+    }
+
+    &[data-disabled] {
+      @apply status-disabled;
+      cursor: var(--cursor-disabled);
+    }
+
+    &[data-pressed] {
+      @apply scale-[0.99];
+    }
+  }
+
+  /* ─── Item variants ──────────────────────────────────────── */
+  .list-box-item--danger {
+    --listbox-item-fg: var(--color-danger);
+
+    &:hover:not([data-disabled]) {
+      --listbox-item-bg-hover: var(--color-danger-subtle);
+    }
+
+    &[data-selected] {
+      --listbox-item-bg: var(--color-danger-subtle);
+      --listbox-item-fg: var(--color-danger);
+    }
+  }
+
+  /* ─── Item indicator ─────────────────────────────────────── */
+  .list-box-item__indicator {
+    @apply ms-auto flex items-center justify-center;
+    @apply size-4 shrink-0;
+    @apply opacity-0 transition-opacity duration-150;
+    color: var(--color-accent);
+
+    &[data-visible] {
+      @apply opacity-100;
+    }
+
+    .list-box-item--danger & {
+      color: var(--color-danger);
+    }
+  }
+
+  /* ─── Section ────────────────────────────────────────────── */
+  .list-box-section {
+    @apply flex flex-col;
+
+    & + .list-box-section {
+      @apply mt-1;
+    }
+  }
+}
