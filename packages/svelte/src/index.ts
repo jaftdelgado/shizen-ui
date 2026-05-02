@@ -21,6 +21,7 @@ export * from "./components/popover/index.js";
 export * from "./components/radio-group/index.js";
 export * from "./components/radio/index.js";
 export * from "./components/scroll-area/index.js";
+export * from "./components/select/index.js";
 export * from "./components/separator/index.js";
 export * from "./components/spinner/index.js";
 export * from "./components/surface/index.js";

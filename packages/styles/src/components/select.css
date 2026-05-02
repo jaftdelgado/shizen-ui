@@ -1,0 +1,155 @@
+@layer components {
+  .select {
+    @apply flex flex-col gap-1.5 w-full;
+  }
+
+  .select__trigger {
+    @apply relative inline-flex items-center justify-between gap-2 w-full;
+    @apply px-3 min-h-control-md rounded-control;
+    @apply outline-none cursor-pointer select-none;
+    @apply transition-colors duration-200;
+
+    --select-bg: var(--color-control);
+    --select-bg-hover: var(--color-control-hover);
+    --select-fg: var(--color-control-foreground);
+    --select-border: transparent;
+
+    background-color: var(--select-bg);
+    color: var(--select-fg);
+    border: 1px solid var(--select-border);
+
+    &:hover:not([data-disabled]) {
+      background-color: var(--select-bg-hover);
+    }
+
+    &:focus-visible,
+    &[data-focus-visible] {
+      @apply status-focused;
+    }
+
+    &[data-disabled] {
+      @apply status-disabled;
+      cursor: var(--cursor-disabled);
+    }
+
+    &[data-invalid] {
+      @apply status-invalid-field;
+    }
+
+    &[data-open] {
+      background-color: var(--select-bg-hover);
+    }
+  }
+
+  .select__value {
+    @apply flex flex-wrap gap-1 flex-1 text-sm text-start;
+  }
+
+  .select__placeholder {
+    @apply text-sm text-muted;
+  }
+
+  .select__indicator {
+    @apply flex items-center justify-center shrink-0 size-4;
+    @apply transition-transform duration-200;
+    color: var(--color-muted);
+
+    &[data-open] {
+      transform: rotate(180deg);
+    }
+  }
+
+  .select__content {
+    @apply flex flex-col outline-none;
+    @apply min-w-(--select-content-min-width,180px);
+    @apply p-1 rounded-control;
+    background-color: var(--color-surface);
+    box-shadow: var(--shadow-surface);
+  }
+
+  .select__item {
+    @apply relative flex items-center gap-2;
+    @apply px-3 py-1.5 min-h-control-md rounded-control;
+    @apply outline-none cursor-pointer select-none;
+
+    transition:
+      background-color 200ms ease,
+      transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    --select-item-bg: transparent;
+    --select-item-bg-hover: var(--color-ghost-hover);
+    --select-item-fg: var(--color-control-foreground);
+
+    background-color: var(--select-item-bg);
+    color: var(--select-item-fg);
+
+    &:hover:not([data-disabled]) {
+      background-color: var(--select-item-bg-hover);
+    }
+
+    &[data-focus-visible] {
+      @apply status-focused;
+    }
+
+    &[data-selected] {
+      --select-item-bg: var(--color-accent-subtle);
+    }
+
+    &[data-disabled] {
+      @apply status-disabled;
+      cursor: var(--cursor-disabled);
+    }
+
+    &[data-pressed] {
+      transform: scale(0.98);
+      transition:
+        background-color 200ms ease,
+        transform 100ms cubic-bezier(0.4, 0, 1, 1);
+    }
+  }
+
+  .select__item--danger {
+    --select-item-fg: var(--color-danger);
+
+    &:hover:not([data-disabled]) {
+      --select-item-bg-hover: var(--color-danger-subtle);
+    }
+
+    &[data-selected] {
+      --select-item-bg: var(--color-danger-subtle);
+    }
+  }
+
+  .select__item__label {
+    @apply inline-flex items-center transition-colors duration-200;
+    @apply text-sm font-medium;
+    color: var(--select-item-fg);
+  }
+
+  .select__item__indicator {
+    @apply ms-auto flex items-center justify-center;
+    @apply size-4 shrink-0;
+    @apply opacity-0 transition-opacity duration-150;
+    color: var(--color-accent);
+
+    &[data-visible] {
+      @apply opacity-100;
+    }
+
+    .select__item--danger & {
+      color: var(--color-danger);
+    }
+  }
+
+  .select__group {
+    @apply flex flex-col;
+
+    & + .select__group {
+      @apply mt-1;
+    }
+  }
+
+  .select__group-header {
+    @apply px-3 py-1 text-xs font-semibold text-muted uppercase tracking-wide;
+  }
+}
