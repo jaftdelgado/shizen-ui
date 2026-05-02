@@ -1,12 +1,12 @@
 import { getContext, setContext } from "svelte";
+import { ItemRegistryBehavior } from "../../../shared/collections/item-registry.svelte.js";
 import type {
   ListBoxContextValue,
   ListBoxContextResult,
   ListBoxItemContextValue,
-  ListBoxItemContextResult
+  ListBoxItemContextResult,
+  Key
 } from "./list-box.types.js";
-
-// ─── ListBox root context ─────────────────────────────────────────────────────
 
 const LISTBOX_CONTEXT_KEY = Symbol("shizen:list-box");
 
@@ -19,14 +19,20 @@ export function useListBoxContext(): ListBoxContextResult {
 
   if (!ctx) {
     return {
+      variant: "default",
+      focusStrategy: "roving",
+      focusedKey: null,
+      registry: new ItemRegistryBehavior<Key>(),
       selectionMode: "single",
       selectedKeys: new Set(),
       disabledKeys: new Set(),
-      variant: "default",
       isSelected: () => false,
       isDisabled: () => false,
       selectKey: () => {},
       activateKey: () => {},
+      registerItem: () => {},
+      unregisterItem: () => {},
+      setFocusedKey: () => {},
       get exists() {
         return false;
       }
@@ -34,6 +40,18 @@ export function useListBoxContext(): ListBoxContextResult {
   }
 
   return {
+    get variant() {
+      return ctx.variant;
+    },
+    get focusStrategy() {
+      return ctx.focusStrategy;
+    },
+    get focusedKey() {
+      return ctx.focusedKey;
+    },
+    get registry() {
+      return ctx.registry;
+    },
     get selectionMode() {
       return ctx.selectionMode;
     },
@@ -43,20 +61,18 @@ export function useListBoxContext(): ListBoxContextResult {
     get disabledKeys() {
       return ctx.disabledKeys;
     },
-    get variant() {
-      return ctx.variant;
-    },
     isSelected: ctx.isSelected,
     isDisabled: ctx.isDisabled,
     selectKey: ctx.selectKey,
     activateKey: ctx.activateKey,
+    registerItem: ctx.registerItem,
+    unregisterItem: ctx.unregisterItem,
+    setFocusedKey: ctx.setFocusedKey,
     get exists() {
       return true;
     }
   } satisfies ListBoxContextResult;
 }
-
-// ─── ListBox item context ─────────────────────────────────────────────────────
 
 const LISTBOX_ITEM_CONTEXT_KEY = Symbol("shizen:list-box-item");
 

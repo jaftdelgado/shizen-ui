@@ -1,5 +1,6 @@
 <script lang="ts">
   import { cn } from "@shizen-ui/styles";
+  import { untrack } from "svelte";
   import { createFocusVisible } from "../../../shared/focus-visible.svelte.js";
   import { ListBoxItemState, createListBoxItemHandlers } from "../_internal/index.js";
   import type { ListBoxItemProps } from "../_internal/index.js";
@@ -21,8 +22,14 @@
   });
 
   const handlers = createListBoxItemHandlers(state);
-
   const focus = createFocusVisible();
+
+  $effect(() => {
+    const currentId = id;
+    const currentTextValue = textValue ?? String(id);
+    untrack(() => state.listBoxCtx.registerItem(currentId, currentTextValue));
+    return () => untrack(() => state.listBoxCtx.unregisterItem(currentId));
+  });
 </script>
 
 <li
@@ -30,7 +37,11 @@
   data-key={id}
   aria-selected={state.isSelected}
   aria-disabled={state.isDisabled || undefined}
-  tabindex={state.isDisabled ? -1 : 0}
+  tabindex={state.listBoxCtx.focusStrategy === "activedescendant"
+    ? undefined
+    : state.isDisabled
+      ? -1
+      : 0}
   class={cn(state.styles.item(), className)}
   data-selected={state.isSelected ? "" : undefined}
   data-disabled={state.isDisabled ? "" : undefined}
@@ -51,6 +62,7 @@
     focus.onBlur();
   }}
   onkeydown={handlers.handleKeyDown}
+  onkeyup={handlers.handleKeyUp}
   onmousedown={focus.onWrapperMouseDown}
   {...rest}
 >

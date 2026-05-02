@@ -48,16 +48,16 @@
     }
   }
 
-  /* ─── Item variants ──────────────────────────────────────── */
+  /* Item variants */
   .list-box-item--danger {
     --listbox-item-fg: var(--color-danger);
 
     &:hover:not([data-disabled]) {
-      --listbox-item-bg-hover: var(--color-danger-subtle);
+      --listbox-item-bg-hover: var(--color-ghost-hover);
     }
 
     &[data-selected] {
-      --listbox-item-bg: var(--color-danger-subtle);
+      --listbox-item-bg: var(--color-transparent);
       --listbox-item-fg: var(--color-danger);
     }
   }
@@ -92,5 +92,12 @@
     & + .list-box-section {
       @apply mt-1;
     }
+  }
+
+  /* ─── Section ────────────────────────────────────────────── */
+  .list-box-section__header {
+    @apply inline-flex items-center transition-colors duration-200;
+    @apply text-xs font-medium text-secondary-text;
+    @apply px-3;
   }
 }

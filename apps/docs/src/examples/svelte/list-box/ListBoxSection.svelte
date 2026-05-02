@@ -8,6 +8,7 @@
   <Surface class="w-full p-2">
     <ListBox aria-label="File actions" selectionMode="none">
       <ListBox.Section>
+        <ListBox.SectionHeader>File actions</ListBox.SectionHeader>
         <ListBox.Item id="new-file" textValue="New file">
           <Icon icon={PagePlus} class="size-4 shrink-0 self-start mt-1 text-secondary-text" />
           <div class="flex flex-col ml-1">

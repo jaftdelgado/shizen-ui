@@ -1,6 +1,6 @@
 <script lang="ts">
   import { cn } from "@shizen-ui/styles";
-  import { ListBoxState, createListBoxHandlers } from "./_internal/index.js";
+  import { ListBoxState, createListBoxKeyboardNav } from "./_internal/index.js";
   import type { ListBoxProps, Key, Selection } from "./_internal/index.js";
 
   let {
@@ -11,6 +11,7 @@
     selectedKeys = $bindable(new Set<Key>()),
     disabledKeys,
     variant = "default",
+    focusStrategy = "roving",
     onaction,
     children,
     ...rest
@@ -21,47 +22,34 @@
     selectedKeys: () => selectedKeys,
     disabledKeys: () => new Set<Key>(disabledKeys ?? []),
     variant: () => variant,
+    focusStrategy: () => focusStrategy,
     setSelectedKeys: (keys: Selection) => {
       selectedKeys = keys;
     },
     onaction: () => onaction
   });
 
-  const { handleKeyDown } = createListBoxHandlers(listBox);
-
   let listEl = $state<HTMLUListElement | undefined>();
 
-  function getOptionEls(): HTMLLIElement[] {
-    if (!listEl) return [];
-    return Array.from<HTMLLIElement>(listEl.querySelectorAll("[role='option'][data-key]"));
+  function focusItemEl(key: Key): void {
+    if (focusStrategy !== "roving" || !listEl) return;
+    listEl.querySelector<HTMLLIElement>(`[data-key="${key}"]`)?.focus();
   }
 
-  function getItemKeys(): Key[] {
-    return getOptionEls().map((el) => {
-      const raw = el.dataset.key!;
-      return isNaN(Number(raw)) ? raw : Number(raw);
-    });
-  }
-
-  function getTextValueMap(): { key: Key; textValue: string }[] {
-    return getOptionEls().map((el) => ({
-      key: isNaN(Number(el.dataset.key!)) ? el.dataset.key! : Number(el.dataset.key!),
-      textValue: el.dataset.textvalue ?? ""
-    }));
-  }
+  const nav = createListBoxKeyboardNav(listBox, focusItemEl);
 
   function onKeyDown(e: KeyboardEvent & { currentTarget: HTMLUListElement }) {
     if (e.key.length === 1 && !e.ctrlKey && !e.metaKey) {
-      const matched = listBox.handleTypeahead(e.key, getTextValueMap());
+      const matched = listBox.handleTypeahead(e.key);
       if (matched !== null) {
         listBox.setFocusedKey(matched);
-        const el = e.currentTarget.querySelector<HTMLLIElement>(`[data-key="${matched}"]`);
-        el?.focus();
+        focusItemEl(matched);
       }
       return;
     }
 
-    handleKeyDown(e, getItemKeys());
+    const handled = nav.handleKeyDown(e);
+    if (handled) e.preventDefault();
   }
 </script>
 
@@ -71,6 +59,9 @@
   aria-label={ariaLabel}
   aria-labelledby={ariaLabelledBy}
   aria-multiselectable={selectionMode === "multiple" || undefined}
+  aria-activedescendant={focusStrategy === "activedescendant" && listBox.focusedKey !== null
+    ? String(listBox.focusedKey)
+    : undefined}
   class={cn(listBox.styles.base(), className)}
   onkeydown={onKeyDown}
   {...rest}

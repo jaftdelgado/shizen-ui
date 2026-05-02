@@ -1,36 +1,33 @@
 import { listBoxStyles } from "@shizen-ui/styles";
 import { setListBoxContext } from "./list-box.context.svelte.js";
-import type { Key, Selection, SelectionMode, ListBoxVariant } from "./list-box.types.js";
+import { ItemRegistryBehavior } from "../../../shared/collections/item-registry.svelte.js";
+import { TypeaheadBehavior } from "../../../shared/collections/typeahead.svelte.js";
+import { SelectionBehavior } from "../../../shared/collections/selection.svelte.js";
+import type {
+  Key,
+  Selection,
+  SelectionMode,
+  ListBoxVariant,
+  FocusStrategy
+} from "./list-box.types.js";
 
 export class ListBoxState {
-  #selectionMode: () => SelectionMode;
-  #selectedKeys: () => Selection;
-  #disabledKeys: () => Set<Key>;
   #variant: () => ListBoxVariant;
-  #setSelectedKeys: (keys: Selection) => void;
-  #onaction: () => ((key: Key) => void) | undefined;
+  #focusStrategy: () => FocusStrategy;
+  #disabledKeys: () => Set<Key>;
 
-  // ─── Typeahead ──────────────────────────────────────────────
-  #typeaheadBuffer = $state("");
-  #typeaheadTimer: ReturnType<typeof setTimeout> | null = null;
-
-  // ─── Roving tabindex ────────────────────────────────────────
   #focusedKey = $state<Key | null>(null);
 
-  get selectionMode(): SelectionMode {
-    return this.#selectionMode();
-  }
-
-  get selectedKeys(): Selection {
-    return this.#selectedKeys();
-  }
-
-  get disabledKeys(): Set<Key> {
-    return this.#disabledKeys();
-  }
+  readonly registry: ItemRegistryBehavior<Key>;
+  readonly typeahead: TypeaheadBehavior<Key>;
+  readonly selection: SelectionBehavior<Key>;
 
   get variant(): ListBoxVariant {
     return this.#variant();
+  }
+
+  get focusStrategy(): FocusStrategy {
+    return this.#focusStrategy();
   }
 
   get focusedKey(): Key | null {
@@ -41,70 +38,32 @@ export class ListBoxState {
     return listBoxStyles({ variant: this.#variant() });
   }
 
-  isSelected(key: Key): boolean {
-    const keys = this.#selectedKeys();
-    if (keys === "all") return true;
-    return keys.has(key);
-  }
-
   isDisabled(key: Key): boolean {
     return this.#disabledKeys().has(key);
-  }
-
-  selectKey(key: Key): void {
-    if (this.isDisabled(key)) return;
-
-    const mode = this.#selectionMode();
-    if (mode === "none") return;
-
-    const current = this.#selectedKeys();
-
-    if (mode === "single") {
-      // toggle off if already selected, otherwise select
-      const next = new Set<Key>();
-      if (!(current !== "all" && current.has(key))) next.add(key);
-      this.#setSelectedKeys(next);
-      return;
-    }
-
-    // multiple
-    if (current === "all") {
-      // "all" → deselect this one (impractical without item list, so just keep "all")
-      return;
-    }
-
-    const next = new Set<Key>(current);
-    if (next.has(key)) {
-      next.delete(key);
-    } else {
-      next.add(key);
-    }
-    this.#setSelectedKeys(next);
-  }
-
-  activateKey(key: Key): void {
-    if (this.isDisabled(key)) return;
-    this.#onaction()?.(key);
   }
 
   setFocusedKey(key: Key | null): void {
     this.#focusedKey = key;
   }
 
-  /** Typeahead: accumulate characters and match against provided item textValues */
-  handleTypeahead(char: string, items: { key: Key; textValue: string }[]): Key | null {
-    this.#typeaheadBuffer += char.toLowerCase();
+  getRegisteredKeys(): Key[] {
+    return this.registry.orderedKeys();
+  }
 
-    if (this.#typeaheadTimer) clearTimeout(this.#typeaheadTimer);
-    this.#typeaheadTimer = setTimeout(() => {
-      this.#typeaheadBuffer = "";
-    }, 500);
+  handleTypeahead(char: string): Key | null {
+    return this.typeahead.handle(char);
+  }
 
-    const match = items.find(
-      (i) => !this.isDisabled(i.key) && i.textValue.toLowerCase().startsWith(this.#typeaheadBuffer)
-    );
+  isSelected(key: Key): boolean {
+    return this.selection.isSelected(key);
+  }
 
-    return match?.key ?? null;
+  selectKey(key: Key): void {
+    this.selection.select(key);
+  }
+
+  activateKey(key: Key): void {
+    this.selection.activate(key);
   }
 
   constructor(props: {
@@ -112,35 +71,60 @@ export class ListBoxState {
     selectedKeys: () => Selection;
     disabledKeys: () => Set<Key>;
     variant: () => ListBoxVariant;
+    focusStrategy?: () => FocusStrategy;
     setSelectedKeys: (keys: Selection) => void;
     onaction: () => ((key: Key) => void) | undefined;
   }) {
-    this.#selectionMode = props.selectionMode;
-    this.#selectedKeys = props.selectedKeys;
-    this.#disabledKeys = props.disabledKeys;
     this.#variant = props.variant;
-    this.#setSelectedKeys = props.setSelectedKeys;
-    this.#onaction = props.onaction;
+    this.#focusStrategy = props.focusStrategy ?? (() => "roving");
+    this.#disabledKeys = props.disabledKeys;
+
+    this.registry = new ItemRegistryBehavior<Key>();
+
+    this.typeahead = new TypeaheadBehavior<Key>({
+      getEntries: () => this.registry.entries(),
+      isDisabled: (key) => this.isDisabled(key)
+    });
+
+    this.selection = new SelectionBehavior<Key>({
+      getMode: props.selectionMode,
+      getSelected: props.selectedKeys,
+      isDisabled: (key) => this.isDisabled(key),
+      onSelectionChange: props.setSelectedKeys,
+      onActivate: (key) => props.onaction()?.(key)
+    });
 
     const self = this;
 
     setListBoxContext({
-      get selectionMode() {
-        return self.selectionMode;
-      },
-      get selectedKeys() {
-        return self.selectedKeys;
-      },
-      get disabledKeys() {
-        return self.disabledKeys;
-      },
       get variant() {
         return self.variant;
       },
-      isSelected: (key) => self.isSelected(key),
+      get focusStrategy() {
+        return self.focusStrategy;
+      },
+      get focusedKey() {
+        return self.focusedKey;
+      },
+      get registry() {
+        return self.registry;
+      },
+      get selectionMode() {
+        return self.selection.mode;
+      },
+      get selectedKeys() {
+        return self.selection.selected;
+      },
+      get disabledKeys() {
+        return self.#disabledKeys();
+      },
+      isSelected: (key) => self.selection.isSelected(key),
       isDisabled: (key) => self.isDisabled(key),
-      selectKey: (key) => self.selectKey(key),
-      activateKey: (key) => self.activateKey(key)
+      selectKey: (key) => self.selection.select(key),
+      activateKey: (key) => self.selection.activate(key),
+      registerItem: (key, textValue) => self.registry.register(key, textValue),
+      unregisterItem: (key) => self.registry.unregister(key),
+      setFocusedKey: (key) => self.setFocusedKey(key)
     });
   }
 }

@@ -1,76 +1,62 @@
 import type { Snippet } from "svelte";
 import type { HTMLAttributes, HTMLLiAttributes } from "svelte/elements";
+import type {
+  ItemRegistryBehavior,
+  Key
+} from "../../../shared/collections/item-registry.svelte.js";
+import type { SelectionMode, Selection } from "../../../shared/collections/selection.svelte.js";
 
-export type Key = string | number;
-
-export type SelectionMode = "none" | "single" | "multiple";
-
-export type Selection = Set<Key> | "all";
+export type { Key } from "../../../shared/collections/item-registry.svelte.js";
+export type { SelectionMode, Selection } from "../../../shared/collections/selection.svelte.js";
 
 export type ListBoxVariant = "default" | "danger";
-
-// ─── ListBox (root) ───────────────────────────────────────────────────────────
+export type FocusStrategy = "roving" | "activedescendant";
 
 export interface ListBoxProps extends Omit<HTMLAttributes<HTMLUListElement>, "children"> {
   "aria-label"?: string;
   "aria-labelledby"?: string;
-
   selectionMode?: SelectionMode;
-
-  /** Controlled selected keys */
   selectedKeys?: Selection;
-
   disabledKeys?: Iterable<Key>;
-
   variant?: ListBoxVariant;
-
-  /** Called when an item is activated (clicked / Enter) in selectionMode="none" */
+  focusStrategy?: FocusStrategy;
   onaction?: (key: Key) => void;
-
   children?: Snippet;
 }
-
-// ─── Item ─────────────────────────────────────────────────────────────────────
 
 export interface ListBoxItemProps extends Omit<HTMLLiAttributes, "id" | "children"> {
   id: Key;
-
-  /** Plain-text value used for typeahead search and accessibility */
   textValue?: string;
-
   disabled?: boolean;
-
   variant?: ListBoxVariant;
-
   children?: Snippet;
 }
 
-// ─── ItemIndicator ────────────────────────────────────────────────────────────
-
 export interface ListBoxItemIndicatorProps {
   class?: string;
-  /** Custom render: receives isSelected, returns Snippet result */
   children?: Snippet<[{ isSelected: boolean }]>;
 }
-
-// ─── Section ─────────────────────────────────────────────────────────────────
 
 export interface ListBoxSectionProps {
   class?: string;
   children?: Snippet;
 }
 
-// ─── Context shapes ───────────────────────────────────────────────────────────
-
 export interface ListBoxContextValue {
+  readonly variant: ListBoxVariant;
+  readonly focusStrategy: FocusStrategy;
+  readonly focusedKey: Key | null;
+  readonly registry: ItemRegistryBehavior<Key>;
   readonly selectionMode: SelectionMode;
   readonly selectedKeys: Selection;
   readonly disabledKeys: Set<Key>;
-  readonly variant: ListBoxVariant;
   isSelected: (key: Key) => boolean;
   isDisabled: (key: Key) => boolean;
   selectKey: (key: Key) => void;
   activateKey: (key: Key) => void;
+  registerItem: (key: Key, textValue: string) => void;
+  unregisterItem: (key: Key) => void;
+  setFocusedKey: (key: Key | null) => void;
 }
 
 export interface ListBoxContextResult extends ListBoxContextValue {
