@@ -8,13 +8,16 @@
   /* ─── Item ───────────────────────────────────────────────── */
   .list-box-item {
     @apply relative flex items-center gap-2;
-    @apply px-2 py-1.5 rounded-lg;
-    @apply transition-colors duration-150 outline-none;
-    @apply cursor-pointer;
+    @apply px-3 py-1.5 min-h-control-md rounded-control;
+    @apply outline-none cursor-pointer;
+
+    transition:
+      background-color 200ms ease,
+      transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
 
     --listbox-item-bg: transparent;
-    --listbox-item-bg-hover: var(--color-control-hover);
-    --listbox-item-fg: var(--color-foreground);
+    --listbox-item-bg-hover: var(--color-ghost-hover);
+    --listbox-item-fg: var(--color-control-foreground);
 
     background-color: var(--listbox-item-bg);
     color: var(--listbox-item-fg);
@@ -29,7 +32,7 @@
 
     &[data-selected] {
       --listbox-item-bg: var(--color-accent-subtle);
-      --listbox-item-fg: var(--color-accent-foreground);
+      --listbox-item-fg: var(--color-control-foreground);
     }
 
     &[data-disabled] {
@@ -38,7 +41,10 @@
     }
 
     &[data-pressed] {
-      @apply scale-[0.99];
+      transform: scale(0.98);
+      transition:
+        background-color 200ms ease,
+        transform 100ms cubic-bezier(0.4, 0, 1, 1);
     }
   }
 
