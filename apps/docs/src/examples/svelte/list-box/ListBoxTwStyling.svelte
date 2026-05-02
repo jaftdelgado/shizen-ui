@@ -18,17 +18,17 @@
     selectedKeys={new Set(["balanced"])}
   >
     <ListBox.Item id="minimal" textValue="Minimal">
-      <span>Minimal</span>
+      <ListBox.ItemLabel>Minimal</ListBox.ItemLabel>
       <ListBox.ItemIndicator />
     </ListBox.Item>
 
     <ListBox.Item id="balanced" textValue="Balanced">
-      <span>Balanced</span>
+      <ListBox.ItemLabel>Balanced</ListBox.ItemLabel>
       <ListBox.ItemIndicator />
     </ListBox.Item>
 
     <ListBox.Item id="bold" textValue="Bold">
-      <span>Bold</span>
+      <ListBox.ItemLabel>Bold</ListBox.ItemLabel>
       <ListBox.ItemIndicator />
     </ListBox.Item>
   </ListBox>

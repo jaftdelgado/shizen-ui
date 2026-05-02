@@ -84,3 +84,6 @@ export const Check = getIcon("check");
 
 export const SoundOffSolid = getIcon("sound-off-solid");
 export const SoundHighSolid = getIcon("sound-high-solid");
+export const EditPencil = getIcon("edit-pencil");
+export const Bin = getIcon("bin");
+export const PagePlus = getIcon("page-plus");

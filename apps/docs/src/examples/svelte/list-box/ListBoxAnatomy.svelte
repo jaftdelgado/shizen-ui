@@ -4,17 +4,17 @@
 
 <ListBox aria-label="Project status">
   <ListBox.Item id="todo" textValue="To do">
-    <span>To do</span>
+    <ListBox.ItemLabel>To do</ListBox.ItemLabel>
     <ListBox.ItemIndicator />
   </ListBox.Item>
 
   <ListBox.Item id="in-progress" textValue="In progress">
-    <span>In progress</span>
+    <ListBox.ItemLabel>In progress</ListBox.ItemLabel>
     <ListBox.ItemIndicator />
   </ListBox.Item>
 
   <ListBox.Item id="done" textValue="Done">
-    <span>Done</span>
+    <ListBox.ItemLabel>Done</ListBox.ItemLabel>
     <ListBox.ItemIndicator />
   </ListBox.Item>
 </ListBox>

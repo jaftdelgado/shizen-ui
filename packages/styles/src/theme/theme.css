@@ -103,7 +103,7 @@
     var(--color-field-foreground) 2%
   );
 
-  --color-ghost-hover: color-mix(in oklab, var(--color-control-foreground) 3%, transparent);
+  --color-ghost-hover: color-mix(in oklab, var(--color-control-foreground) 6%, transparent);
 
   --color-ghost-pressed: color-mix(in oklab, var(--color-control-foreground) 10%, transparent);
 

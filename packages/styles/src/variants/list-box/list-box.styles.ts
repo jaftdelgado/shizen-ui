@@ -4,6 +4,7 @@ export const listBoxStyles = tv({
   slots: {
     base: "list-box",
     item: "list-box-item",
+    itemLabel: "list-box-item__label",
     itemIndicator: "list-box-item__indicator",
     section: "list-box-section"
   },

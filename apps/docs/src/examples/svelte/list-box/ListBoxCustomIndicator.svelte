@@ -7,7 +7,7 @@
 <div class="w-full max-w-sm rounded-xl border border-separator p-1">
   <ListBox aria-label="Notification channel" selectedKeys={new Set(["email"])}>
     <ListBox.Item id="email" textValue="Email">
-      <span>Email</span>
+      <ListBox.ItemLabel>Email</ListBox.ItemLabel>
       <ListBox.ItemIndicator>
         {#snippet children({ isSelected }: { isSelected: boolean })}
           {#if isSelected}
@@ -27,7 +27,7 @@
     </ListBox.Item>
 
     <ListBox.Item id="push" textValue="Push">
-      <span>Push</span>
+      <ListBox.ItemLabel>Push</ListBox.ItemLabel>
       <ListBox.ItemIndicator>
         {#snippet children({ isSelected }: { isSelected: boolean })}
           {#if isSelected}
@@ -38,7 +38,7 @@
     </ListBox.Item>
 
     <ListBox.Item id="slack" textValue="Slack">
-      <span>Slack</span>
+      <ListBox.ItemLabel>Slack</ListBox.ItemLabel>
       <ListBox.ItemIndicator>
         {#snippet children({ isSelected }: { isSelected: boolean })}
           {#if isSelected}

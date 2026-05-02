@@ -62,6 +62,13 @@
     }
   }
 
+  /* ─── Item label ─────────────────────────────────────────── */
+  .list-box-item__label {
+    @apply inline-flex items-center transition-colors duration-200;
+    @apply text-sm font-medium;
+    color: var(--listbox-item-fg);
+  }
+
   /* ─── Item indicator ─────────────────────────────────────── */
   .list-box-item__indicator {
     @apply ms-auto flex items-center justify-center;
