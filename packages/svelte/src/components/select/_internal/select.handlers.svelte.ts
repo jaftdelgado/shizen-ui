@@ -66,8 +66,8 @@ export function createSelectTriggerHandlers(ctx: SelectContextResult) {
 
   function handleBlur(e: FocusEvent): void {
     const related = e.relatedTarget as Node | null;
-    const contentEl = document.querySelector("[data-state='open'].select__content");
-    if (contentEl?.contains(related)) return;
+    const popoverEl = document.querySelector("[data-state='open'].select__popover");
+    if (popoverEl?.contains(related)) return;
     ctx.close();
   }
 

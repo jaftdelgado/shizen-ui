@@ -1,9 +1,13 @@
 import { selectStyles } from "@shizen-ui/styles";
-import { OverlayState, type OverlayPlacement } from "../../../shared/overlay.svelte.js";
 import { ItemRegistryBehavior } from "../../../shared/collections/item-registry.svelte.js";
 import { TypeaheadBehavior } from "../../../shared/collections/typeahead.svelte.js";
 import { SelectionBehavior } from "../../../shared/collections/selection.svelte.js";
-import type { Strategy } from "@floating-ui/dom";
+import { OpenStateBehavior } from "../../../shared/overlays/open-state.svelte.js";
+import { PositionBehavior } from "../../../shared/overlays/position.svelte.js";
+import { ClickOutsideBehavior } from "../../../shared/overlays/click-outside.svelte.js";
+import { KeyboardBehavior } from "../../../shared/overlays/keyboard.svelte.js";
+import { ScrollCloseBehavior } from "../../../shared/overlays/scroll.svelte.js";
+import { MountBehavior } from "../../../shared/overlays/mount.svelte.js";
 import { setSelectContext } from "./select.context.svelte.js";
 import type { Key, Selection, SelectionMode } from "./select.types.js";
 
@@ -12,21 +16,22 @@ export class SelectState {
   #invalid: () => boolean;
   #placeholder: () => string | undefined;
   #disabledKeys: () => Set<Key>;
-  #isOpen: () => boolean;
-  #setIsOpen: (val: boolean) => void;
   #focusedKey = $state<Key | null>(null);
+  #triggerEl = $state<HTMLElement | null>(null);
+  #contentEl = $state<HTMLElement | null>(null);
 
   readonly registry: ItemRegistryBehavior<Key>;
   readonly typeahead: TypeaheadBehavior<Key>;
   readonly selection: SelectionBehavior<Key>;
-  readonly overlay: OverlayState;
+  readonly openState: OpenStateBehavior;
+  readonly position: PositionBehavior;
+  readonly clickOutside: ClickOutsideBehavior;
+  readonly keyboard: KeyboardBehavior;
+  readonly scrollClose: ScrollCloseBehavior;
+  readonly mount: MountBehavior;
 
   get styles() {
     return selectStyles({});
-  }
-
-  get isOpen(): boolean {
-    return this.#isOpen();
   }
 
   get focusedKey(): Key | null {
@@ -56,7 +61,7 @@ export class SelectState {
   selectKey(key: Key): void {
     this.selection.select(key);
     if (this.selection.mode === "single") {
-      this.#setIsOpen(false);
+      this.openState.close();
     }
   }
 
@@ -93,8 +98,6 @@ export class SelectState {
     this.#invalid = props.invalid;
     this.#placeholder = props.placeholder;
     this.#disabledKeys = props.disabledKeys;
-    this.#isOpen = props.isOpen;
-    this.#setIsOpen = props.setIsOpen;
 
     this.registry = new ItemRegistryBehavior<Key>();
 
@@ -111,36 +114,53 @@ export class SelectState {
       onActivate: (key) => props.onaction()?.(key)
     });
 
-    this.overlay = new OverlayState({
-      get placement(): OverlayPlacement {
-        return "bottom";
-      },
-      get strategy(): Strategy {
-        return "absolute";
-      },
-      get offsetVal() {
-        return 8;
-      },
-      get closeOnScroll() {
-        return true;
-      },
-      get isOpen() {
-        return props.isOpen();
-      },
-      set isOpen(val: boolean) {
+    this.openState = new OpenStateBehavior({
+      getIsOpen: () => props.isOpen(),
+      setIsOpen: (val) => {
         props.setIsOpen(val);
         props.onOpenChange()?.(val);
-      },
-      get onOpenChange() {
-        return props.onOpenChange();
       }
+    });
+
+    this.position = new PositionBehavior({
+      getIsOpen: () => props.isOpen(),
+      getReferenceEl: () => this.#triggerEl,
+      getFloatingEl: () => this.#contentEl,
+      getPlacement: () => "bottom",
+      getStrategy: () => "fixed",
+      getOffset: () => 8
+    });
+
+    this.clickOutside = new ClickOutsideBehavior({
+      getEnabled: () => props.isOpen(),
+      getReferenceEl: () => this.#triggerEl,
+      getFloatingEl: () => this.#contentEl,
+      onClickOutside: () => this.openState.close()
+    });
+
+    this.keyboard = new KeyboardBehavior({
+      onEscape: () => this.openState.close()
+    });
+
+    this.scrollClose = new ScrollCloseBehavior({
+      getEnabled: () => props.isOpen(),
+      onClose: () => this.openState.close()
+    });
+
+    this.mount = new MountBehavior({
+      getIsOpen: () => props.isOpen(),
+      getEl: () => this.#contentEl,
+      exitDurationVar: "--select-exit-duration"
     });
 
     const self = this;
 
     setSelectContext({
       get isOpen() {
-        return self.isOpen;
+        return props.isOpen();
+      },
+      get isMounted() {
+        return self.mount.isMounted;
       },
       get selectedKeys() {
         return self.selection.selected;
@@ -166,6 +186,12 @@ export class SelectState {
       get focusedKey() {
         return self.focusedKey;
       },
+      get transformOrigin() {
+        return self.position.transformOrigin;
+      },
+      get placement() {
+        return self.position.resolvedPlacement;
+      },
       isSelected: (key) => self.isSelected(key),
       isDisabled: (key) => self.isDisabled(key),
       selectKey: (key) => self.selectKey(key),
@@ -173,15 +199,17 @@ export class SelectState {
       registerItem: (key, textValue) => self.registry.register(key, textValue),
       unregisterItem: (key) => self.registry.unregister(key),
       setFocusedKey: (key) => self.setFocusedKey(key),
-      open: () => self.#setIsOpen(true),
-      close: () => self.#setIsOpen(false),
-      toggle: () => self.#setIsOpen(!self.isOpen),
+      open: () => self.openState.open(),
+      close: () => self.openState.close(),
+      toggle: () => self.openState.toggle(),
+      handleKeydown: (e) => self.keyboard.handleKeydown(e),
       setTriggerEl: (el) => {
-        self.overlay.referenceEl = el;
+        self.#triggerEl = el;
       },
       setContentEl: (el) => {
-        self.overlay.floatingEl = el;
-      }
+        self.#contentEl = el;
+      },
+      updatePosition: () => self.position.updatePosition()
     });
   }
 }

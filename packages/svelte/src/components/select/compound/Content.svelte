@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { cn, portal } from "@shizen-ui/styles";
+  import { cn } from "@shizen-ui/styles";
   import { useSelectContext } from "../_internal/index.js";
   import type { SelectContentProps } from "../_internal/index.js";
 
@@ -8,11 +8,6 @@
   const ctx = useSelectContext();
 
   let el = $state<HTMLDivElement | undefined>();
-
-  $effect(() => {
-    ctx.setContentEl(el ?? null);
-    return () => ctx.setContentEl(null);
-  });
 
   $effect(() => {
     if (!ctx.isOpen || !el) return;
@@ -35,24 +30,14 @@
   });
 </script>
 
-{#if ctx.isOpen}
-  <div
-    use:portal
-    bind:this={el}
-    role="listbox"
-    tabindex="-1"
-    aria-multiselectable={ctx.selectionMode === "multiple" || undefined}
-    class={cn("select__content", className)}
-    data-state="open"
-    onkeydown={(e) => {
-      if (e.key === "Escape") {
-        e.preventDefault();
-        ctx.close();
-      }
-    }}
-  >
-    {#if children}
-      {@render children()}
-    {/if}
-  </div>
-{/if}
+<div
+  bind:this={el}
+  role="listbox"
+  tabindex="-1"
+  aria-multiselectable={ctx.selectionMode === "multiple" || undefined}
+  class={cn("select__content", className)}
+>
+  {#if children}
+    {@render children()}
+  {/if}
+</div>

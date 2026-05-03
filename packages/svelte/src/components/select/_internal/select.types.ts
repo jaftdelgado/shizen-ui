@@ -5,6 +5,7 @@ import type {
   Key
 } from "../../../shared/collections/item-registry.svelte.js";
 import type { SelectionMode, Selection } from "../../../shared/collections/selection.svelte.js";
+import type { OverlayPlacement } from "../../../shared/overlays/position.svelte.js";
 
 export type { Key, SelectionMode, Selection };
 
@@ -33,6 +34,11 @@ export interface SelectValueProps {
 export interface SelectIndicatorProps {
   class?: string;
   children?: Snippet<[{ isOpen: boolean }]>;
+}
+
+export interface SelectPopoverProps {
+  class?: string;
+  children?: Snippet;
 }
 
 export interface SelectContentProps {
@@ -65,6 +71,8 @@ export interface SelectGroupHeaderProps {
 
 export interface SelectContextValue {
   readonly isOpen: boolean;
+  readonly isMounted: boolean;
+  readonly placement: OverlayPlacement;
   readonly selectedKeys: Selection;
   readonly disabledKeys: Set<Key>;
   readonly selectionMode: SelectionMode;
@@ -73,6 +81,7 @@ export interface SelectContextValue {
   readonly invalid: boolean;
   readonly registry: ItemRegistryBehavior<Key>;
   readonly focusedKey: Key | null;
+  readonly transformOrigin: string;
   isSelected: (key: Key) => boolean;
   isDisabled: (key: Key) => boolean;
   selectKey: (key: Key) => void;
@@ -83,8 +92,10 @@ export interface SelectContextValue {
   open: () => void;
   close: () => void;
   toggle: () => void;
+  handleKeydown: (e: KeyboardEvent) => void;
   setTriggerEl: (el: HTMLElement | null) => void;
   setContentEl: (el: HTMLElement | null) => void;
+  updatePosition: () => Promise<void>;
 }
 
 export interface SelectContextResult extends SelectContextValue {

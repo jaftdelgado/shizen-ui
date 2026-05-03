@@ -1,0 +1,44 @@
+---
+title: "Select"
+layout: "@layouts/DocsLayout.astro"
+---
+
+import CodeImport from "@components/astro/CodeImport.astro";
+import ComponentExample from "@components/astro/ComponentExample.astro";
+import SourceLinks from "@components/svelte/SourceLinks.svelte";
+
+import SelectUsage from "@examples/svelte/select/SelectUsage.svelte";
+
+# Select
+
+A dropdown control that allows users to choose one or more options from a list.
+
+<SourceLinks
+  client:load
+  svelteUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/svelte/src/components/select/Select.svelte"
+  stylesUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/styles/src/components/select.css"
+/>
+
+## Import
+
+<CodeImport code={`import { Select } from "@shizen-ui/svelte";`} />
+
+<ComponentExample src="svelte/select/SelectUsage.svelte">
+  <SelectUsage client:load />
+</ComponentExample>
+
+## Examples
+
+### Controlled
+
+### Multiple Selection
+
+### Groups
+
+### Disabled Items
+
+### Disabled
+
+### Invalid
+
+### Custom Indicator

@@ -20,6 +20,8 @@ export function useSelectContext(): SelectContextResult {
   if (!ctx) {
     return {
       isOpen: false,
+      isMounted: false,
+      placement: "bottom",
       selectedKeys: new Set(),
       disabledKeys: new Set(),
       selectionMode: "single",
@@ -28,6 +30,7 @@ export function useSelectContext(): SelectContextResult {
       invalid: false,
       registry: new ItemRegistryBehavior<Key>(),
       focusedKey: null,
+      transformOrigin: "center",
       isSelected: () => false,
       isDisabled: () => false,
       selectKey: () => {},
@@ -38,8 +41,10 @@ export function useSelectContext(): SelectContextResult {
       open: () => {},
       close: () => {},
       toggle: () => {},
+      handleKeydown: () => {},
       setTriggerEl: () => {},
       setContentEl: () => {},
+      updatePosition: () => Promise.resolve(),
       get exists() {
         return false;
       }
@@ -49,6 +54,12 @@ export function useSelectContext(): SelectContextResult {
   return {
     get isOpen() {
       return ctx.isOpen;
+    },
+    get isMounted() {
+      return ctx.isMounted;
+    },
+    get placement() {
+      return ctx.placement;
     },
     get selectedKeys() {
       return ctx.selectedKeys;
@@ -74,6 +85,9 @@ export function useSelectContext(): SelectContextResult {
     get focusedKey() {
       return ctx.focusedKey;
     },
+    get transformOrigin() {
+      return ctx.transformOrigin;
+    },
     isSelected: ctx.isSelected,
     isDisabled: ctx.isDisabled,
     selectKey: ctx.selectKey,
@@ -84,8 +98,10 @@ export function useSelectContext(): SelectContextResult {
     open: ctx.open,
     close: ctx.close,
     toggle: ctx.toggle,
+    handleKeydown: ctx.handleKeydown,
     setTriggerEl: ctx.setTriggerEl,
     setContentEl: ctx.setContentEl,
+    updatePosition: ctx.updatePosition,
     get exists() {
       return true;
     }

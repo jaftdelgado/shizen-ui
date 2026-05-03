@@ -7,6 +7,7 @@ export const selectStyles = tv({
     value: "select__value",
     placeholder: "select__placeholder",
     indicator: "select__indicator",
+    popover: "select__popover",
     content: "select__content",
     item: "select__item",
     itemLabel: "select__item__label",

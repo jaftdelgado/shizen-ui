@@ -7,6 +7,7 @@ import Item from "./compound/Item.svelte";
 import ItemIndicator from "./compound/ItemIndicator.svelte";
 import Group from "./compound/Group.svelte";
 import GroupHeader from "./compound/GroupHeader.svelte";
+import Popover from "./compound/Popover.svelte";
 
 export const Select = Object.assign(SelectRoot, {
   Trigger,
@@ -15,6 +16,7 @@ export const Select = Object.assign(SelectRoot, {
   Content,
   Item,
   ItemIndicator,
+  Popover,
   Group,
   GroupHeader
 });

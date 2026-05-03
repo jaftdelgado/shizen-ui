@@ -19,6 +19,7 @@ export type {
   SelectTriggerProps,
   SelectValueProps,
   SelectIndicatorProps,
+  SelectPopoverProps,
   SelectContentProps,
   SelectItemProps,
   SelectItemIndicatorProps,
