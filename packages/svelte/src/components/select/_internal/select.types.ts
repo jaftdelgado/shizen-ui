@@ -81,7 +81,9 @@ export interface SelectContextValue {
   readonly invalid: boolean;
   readonly registry: ItemRegistryBehavior<Key>;
   readonly focusedKey: Key | null;
+  readonly isShiftNavigating: boolean;
   readonly transformOrigin: string;
+  readonly openedByKeyboard: boolean;
   isSelected: (key: Key) => boolean;
   isDisabled: (key: Key) => boolean;
   selectKey: (key: Key) => void;
@@ -90,9 +92,11 @@ export interface SelectContextValue {
   unregisterItem: (key: Key) => void;
   setFocusedKey: (key: Key | null) => void;
   open: () => void;
-  close: () => void;
   toggle: () => void;
+  setOpenedByKeyboard: (val: boolean) => void;
+  close: () => void;
   handleKeydown: (e: KeyboardEvent) => void;
+  handleContentKeydown: (e: KeyboardEvent) => void;
   setTriggerEl: (el: HTMLElement | null) => void;
   setContentEl: (el: HTMLElement | null) => void;
   updatePosition: () => Promise<void>;

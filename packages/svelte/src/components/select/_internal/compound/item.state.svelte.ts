@@ -6,8 +6,6 @@ export class SelectItemState {
   #id: () => Key;
   #disabled: () => boolean;
   #variant: () => SelectVariant | undefined;
-
-  isFocused = $state(false);
   isPressed = $state(false);
 
   readonly selectCtx: ReturnType<typeof useSelectContext>;
@@ -22,6 +20,12 @@ export class SelectItemState {
 
   get isSelected(): boolean {
     return this.selectCtx.isSelected(this.#id());
+  }
+
+  get isFocused(): boolean {
+    const result = this.selectCtx.focusedKey === this.#id();
+    if (result) console.log("isFocused TRUE for:", this.#id());
+    return result;
   }
 
   get resolvedVariant(): SelectVariant {

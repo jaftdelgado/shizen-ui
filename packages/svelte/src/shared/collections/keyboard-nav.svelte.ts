@@ -17,12 +17,13 @@ export interface ActivationKeys {
 export interface KeyboardNavProps<K extends Key = Key> {
   navigationKeys?: NavigationKeys;
   activationKeys?: ActivationKeys;
+  blockedKeys?: string[];
   wrapAround?: boolean;
-  shiftSelect?: boolean;
+  shiftSelect?: () => boolean;
   getKeys: () => K[];
   isDisabled: (key: K) => boolean;
   getFocusedKey: () => K | null;
-  onNavigate: (key: K, direction: NavDirection) => void;
+  onNavigate: (key: K, direction: NavDirection, isShift: boolean) => void;
   onActivate: (key: K) => void;
   onSelect: (key: K) => void;
   onShiftSelect?: (range: K[]) => void;
@@ -100,11 +101,17 @@ export class KeyboardNavBehavior<K extends Key = Key> {
 
   handleKeyDown(e: KeyboardEvent): boolean {
     const { key, shiftKey } = e;
+
+    if (this.#props.blockedKeys?.includes(key)) {
+      e.preventDefault();
+      return true;
+    }
+
     const enabledKeys = this.#getEnabledKeys();
     if (enabledKeys.length === 0) return false;
 
     const currentIdx = this.#currentIndex(enabledKeys);
-    const shiftSelect = this.#props.shiftSelect ?? false;
+    const shiftSelect = this.#props.shiftSelect?.() ?? false;
 
     const isNext =
       this.#navKeys.next.includes(key) || (this.#navKeys.nextWithTab && key === "Tab" && !shiftKey);
@@ -112,11 +119,14 @@ export class KeyboardNavBehavior<K extends Key = Key> {
     if (isNext) {
       const target = this.#resolveNext(enabledKeys, currentIdx);
       if (target === null) return false;
-      if (shiftSelect && shiftKey) {
+      const isShift = shiftSelect && shiftKey;
+      if (isShift) {
         if (this.#anchorKey === null) this.#anchorKey = this.#props.getFocusedKey();
         this.#props.onShiftSelect?.(this.#buildShiftRange(target));
+      } else {
+        this.#anchorKey = null;
       }
-      this.#props.onNavigate(target, "down");
+      this.#props.onNavigate(target, "down", isShift);
       return true;
     }
 
@@ -126,25 +136,28 @@ export class KeyboardNavBehavior<K extends Key = Key> {
     if (isPrev) {
       const target = this.#resolvePrev(enabledKeys, currentIdx);
       if (target === null) return false;
-      if (shiftSelect && shiftKey) {
+      const isShift = shiftSelect && shiftKey;
+      if (isShift) {
         if (this.#anchorKey === null) this.#anchorKey = this.#props.getFocusedKey();
         this.#props.onShiftSelect?.(this.#buildShiftRange(target));
+      } else {
+        this.#anchorKey = null;
       }
-      this.#props.onNavigate(target, "up");
+      this.#props.onNavigate(target, "up", isShift);
       return true;
     }
 
     if (this.#navKeys.first.includes(key)) {
       const target = enabledKeys[0];
       if (target === undefined) return false;
-      this.#props.onNavigate(target, "first");
+      this.#props.onNavigate(target, "first", false);
       return true;
     }
 
     if (this.#navKeys.last.includes(key)) {
       const target = enabledKeys[enabledKeys.length - 1];
       if (target === undefined) return false;
-      this.#props.onNavigate(target, "last");
+      this.#props.onNavigate(target, "last", false);
       return true;
     }
 

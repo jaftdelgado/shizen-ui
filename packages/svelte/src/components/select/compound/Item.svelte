@@ -37,12 +37,13 @@
   data-key={id}
   aria-selected={state.isSelected}
   aria-disabled={state.isDisabled || undefined}
-  tabindex={state.isDisabled ? -1 : 0}
+  tabindex="-1"
   class={cn(state.styles.item(), className)}
   data-selected={state.isSelected ? "" : undefined}
   data-disabled={state.isDisabled ? "" : undefined}
   data-pressed={state.isPressed ? "" : undefined}
   data-focus-visible={focus.isFocusVisible ? "" : undefined}
+  data-focused={state.isFocused ? "" : undefined}
   data-variant={state.resolvedVariant}
   data-textvalue={textValue}
   onclick={handlers.handleClick}
@@ -50,15 +51,20 @@
   onpointerup={handlers.handlePointerUp}
   onpointerleave={handlers.handlePointerLeave}
   onfocus={() => {
+    console.log("FOCUS item:", id, "focusedKey:", state.selectCtx.focusedKey);
     handlers.handleFocus();
     focus.onFocus();
   }}
-  onblur={() => {
+  onblur={(e) => {
+    console.log("BLUR item:", id, "relatedTarget:", e.relatedTarget);
     handlers.handleBlur();
     focus.onBlur();
   }}
-  onkeydown={handlers.handleKeyDown}
-  onkeyup={handlers.handleKeyUp}
+  onkeydown={(e) => {
+    if (["ArrowLeft", "ArrowRight"].includes(e.key)) {
+      e.preventDefault();
+    }
+  }}
   onmousedown={focus.onWrapperMouseDown}
   {...rest}
 >

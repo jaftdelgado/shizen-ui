@@ -5,37 +5,57 @@ import type { Key } from "./select.types.js";
 
 export function createSelectKeyboardNav(
   state: SelectStateInstance,
-  focusItemEl: (key: Key) => void
+  focusItemEl: (key: Key) => void,
+  focusContent: () => void
 ) {
+  let currentFocusedKey: Key | null = null;
+
   return new KeyboardNavBehavior<Key>({
     getKeys: () => state.getRegisteredKeys(),
     isDisabled: (key) => state.isDisabled(key),
-    getFocusedKey: () => state.focusedKey,
+    getFocusedKey: () => currentFocusedKey,
     wrapAround: true,
-    onNavigate: (key) => {
+    shiftSelect: () => state.selection.mode === "multiple",
+    onNavigate: (key, _direction, isShift) => {
+      currentFocusedKey = key;
       state.setFocusedKey(key);
-      focusItemEl(key);
+      if (!isShift) {
+        focusItemEl(key);
+      }
     },
     onActivate: (key) => state.activateKey(key),
-    onSelect: (key) => state.selectKey(key)
+    onSelect: (key) => state.selectKey(key),
+    onShiftSelect: (range) => state.selection.selectRange(range),
+    blockedKeys: ["ArrowLeft", "ArrowRight"]
   });
 }
 
 export function createSelectTriggerHandlers(ctx: SelectContextResult) {
   function handleClick(): void {
     if (ctx.disabled) return;
+    ctx.setOpenedByKeyboard(false);
     ctx.toggle();
   }
 
   function handleKeyDown(e: KeyboardEvent): void {
     if (ctx.disabled) return;
 
+    if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
+      if (ctx.isOpen) e.preventDefault();
+      return;
+    }
+
     if (e.key === "ArrowDown" || e.key === "ArrowUp") {
       e.preventDefault();
       if (!ctx.isOpen) {
+        ctx.setOpenedByKeyboard(true);
         ctx.open();
         return;
       }
+
+      ctx.setOpenedByKeyboard(true);
+      ctx.handleContentKeydown(e);
+      return;
     }
 
     if (e.key === "Escape") {
@@ -46,6 +66,7 @@ export function createSelectTriggerHandlers(ctx: SelectContextResult) {
 
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
+      ctx.setOpenedByKeyboard(true);
       ctx.toggle();
       return;
     }
@@ -65,6 +86,7 @@ export function createSelectTriggerHandlers(ctx: SelectContextResult) {
   }
 
   function handleBlur(e: FocusEvent): void {
+    if (!e) return;
     const related = e.relatedTarget as Node | null;
     const popoverEl = document.querySelector("[data-state='open'].select__popover");
     if (popoverEl?.contains(related)) return;

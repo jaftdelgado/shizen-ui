@@ -1,15 +1,12 @@
 import type { SelectItemStateInstance } from "./item.state.svelte.js";
 
 export function createSelectItemHandlers(state: SelectItemStateInstance) {
-  let isKeyboardActivation = false;
-
   function activate(): void {
     if (state.isDisabled) return;
     state.selectCtx.selectKey(state.id);
   }
 
   function handleClick(): void {
-    if (isKeyboardActivation) return;
     activate();
   }
 
@@ -26,29 +23,12 @@ export function createSelectItemHandlers(state: SelectItemStateInstance) {
   }
 
   function handleFocus(): void {
-    state.isFocused = true;
-    state.selectCtx.setFocusedKey(state.id);
-  }
-
-  function handleBlur(): void {
-    state.isFocused = false;
-  }
-
-  function handleKeyDown(e: KeyboardEvent): void {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      state.isPressed = true;
-      isKeyboardActivation = true;
+    if (state.selectCtx.focusedKey !== state.id) {
+      state.selectCtx.setFocusedKey(state.id);
     }
   }
 
-  function handleKeyUp(e: KeyboardEvent): void {
-    if (e.key === "Enter" || e.key === " ") {
-      state.isPressed = false;
-      activate();
-      isKeyboardActivation = false;
-    }
-  }
+  function handleBlur(): void {}
 
   return {
     handleClick,
@@ -56,8 +36,6 @@ export function createSelectItemHandlers(state: SelectItemStateInstance) {
     handlePointerUp,
     handlePointerLeave,
     handleFocus,
-    handleBlur,
-    handleKeyDown,
-    handleKeyUp
+    handleBlur
   };
 }

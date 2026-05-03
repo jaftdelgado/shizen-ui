@@ -8,6 +8,9 @@ import ComponentExample from "@components/astro/ComponentExample.astro";
 import SourceLinks from "@components/svelte/SourceLinks.svelte";
 
 import SelectUsage from "@examples/svelte/select/SelectUsage.svelte";
+import SelectControlled from "@examples/svelte/select/SelectControlled.svelte";
+import SelectMultiple from "@examples/svelte/select/SelectMultiple.svelte";
+import SelectGroup from "@examples/svelte/select/SelectGroup.svelte";
 
 # Select
 
@@ -31,9 +34,21 @@ A dropdown control that allows users to choose one or more options from a list.
 
 ### Controlled
 
+<ComponentExample src="svelte/select/SelectControlled.svelte">
+  <SelectControlled client:load />
+</ComponentExample>
+
 ### Multiple Selection
 
+<ComponentExample src="svelte/select/SelectMultiple.svelte">
+  <SelectMultiple client:load />
+</ComponentExample>
+
 ### Groups
+
+<ComponentExample src="svelte/select/SelectGroup.svelte">
+  <SelectGroup client:load />
+</ComponentExample>
 
 ### Disabled Items
 

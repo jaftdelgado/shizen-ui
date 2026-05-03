@@ -8,9 +8,14 @@
   const ctx = useSelectContext();
 
   let el = $state<HTMLDivElement | undefined>();
+  let didFocusOnOpen = $state(false);
 
   $effect(() => {
-    if (!ctx.isOpen || !el) return;
+    if (!ctx.isOpen) {
+      didFocusOnOpen = false;
+      return;
+    }
+    if (!el || !ctx.openedByKeyboard || didFocusOnOpen) return;
 
     const keys = ctx.registry.orderedKeys();
     const firstKey = keys[0];
@@ -21,6 +26,8 @@
       selectedKeys !== "all" && selectedKeys.size > 0 ? Array.from(selectedKeys)[0] : firstKey;
 
     if (targetKey === undefined) return;
+
+    didFocusOnOpen = true;
 
     requestAnimationFrame(() => {
       const target = el?.querySelector<HTMLElement>(`[data-key="${targetKey}"]`);
@@ -36,6 +43,12 @@
   tabindex="-1"
   aria-multiselectable={ctx.selectionMode === "multiple" || undefined}
   class={cn("select__content", className)}
+  onkeydown={(e) => {
+    if (["ArrowDown", "ArrowUp", "Home", "End", "Enter", " "].includes(e.key)) {
+      e.preventDefault();
+    }
+    ctx.handleContentKeydown(e);
+  }}
 >
   {#if children}
     {@render children()}

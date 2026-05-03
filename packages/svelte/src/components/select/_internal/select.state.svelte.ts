@@ -6,6 +6,8 @@ import { OpenStateBehavior } from "../../../shared/overlays/open-state.svelte.js
 import { PositionBehavior } from "../../../shared/overlays/position.svelte.js";
 import { ClickOutsideBehavior } from "../../../shared/overlays/click-outside.svelte.js";
 import { KeyboardBehavior } from "../../../shared/overlays/keyboard.svelte.js";
+import { KeyboardNavBehavior } from "../../../shared/collections/keyboard-nav.svelte.js";
+import { createSelectKeyboardNav } from "./select.handlers.svelte.js";
 import { ScrollCloseBehavior } from "../../../shared/overlays/scroll.svelte.js";
 import { MountBehavior } from "../../../shared/overlays/mount.svelte.js";
 import { setSelectContext } from "./select.context.svelte.js";
@@ -17,6 +19,7 @@ export class SelectState {
   #placeholder: () => string | undefined;
   #disabledKeys: () => Set<Key>;
   #focusedKey = $state<Key | null>(null);
+  #shiftNavigating = $state(false);
   #triggerEl = $state<HTMLElement | null>(null);
   #contentEl = $state<HTMLElement | null>(null);
 
@@ -27,6 +30,7 @@ export class SelectState {
   readonly position: PositionBehavior;
   readonly clickOutside: ClickOutsideBehavior;
   readonly keyboard: KeyboardBehavior;
+  readonly keyboardNav: KeyboardNavBehavior<Key>;
   readonly scrollClose: ScrollCloseBehavior;
   readonly mount: MountBehavior;
 
@@ -36,6 +40,10 @@ export class SelectState {
 
   get focusedKey(): Key | null {
     return this.#focusedKey;
+  }
+
+  get isShiftNavigating(): boolean {
+    return this.#shiftNavigating;
   }
 
   get placeholder(): string | undefined {
@@ -61,7 +69,10 @@ export class SelectState {
   selectKey(key: Key): void {
     this.selection.select(key);
     if (this.selection.mode === "single") {
-      this.openState.close();
+      this.close();
+      if (this.openState.openedByKeyboard) {
+        this.#triggerEl?.focus();
+      }
     }
   }
 
@@ -69,8 +80,21 @@ export class SelectState {
     this.selection.activate(key);
   }
 
+  close(): void {
+    this.openState.close();
+    this.setFocusedKey(null);
+  }
+
   setFocusedKey(key: Key | null): void {
     this.#focusedKey = key;
+  }
+
+  beginShiftNav(): void {
+    this.#shiftNavigating = true;
+  }
+
+  endShiftNav(): void {
+    this.#shiftNavigating = false;
   }
 
   getRegisteredKeys(): Key[] {
@@ -101,6 +125,17 @@ export class SelectState {
 
     this.registry = new ItemRegistryBehavior<Key>();
 
+    this.keyboardNav = createSelectKeyboardNav(
+      this,
+      (key: Key) => {
+        const el = this.#contentEl?.querySelector<HTMLElement>(`[data-key="${key}"]`);
+        el?.focus();
+      },
+      () => {
+        this.#contentEl?.focus({ preventScroll: true });
+      }
+    );
+
     this.typeahead = new TypeaheadBehavior<Key>({
       getEntries: () => this.registry.entries(),
       isDisabled: (key) => this.isDisabled(key)
@@ -127,7 +162,7 @@ export class SelectState {
       getReferenceEl: () => this.#triggerEl,
       getFloatingEl: () => this.#contentEl,
       getPlacement: () => "bottom",
-      getStrategy: () => "fixed",
+      getStrategy: () => "absolute",
       getOffset: () => 8
     });
 
@@ -135,16 +170,16 @@ export class SelectState {
       getEnabled: () => props.isOpen(),
       getReferenceEl: () => this.#triggerEl,
       getFloatingEl: () => this.#contentEl,
-      onClickOutside: () => this.openState.close()
+      onClickOutside: () => this.close()
     });
 
     this.keyboard = new KeyboardBehavior({
-      onEscape: () => this.openState.close()
+      onEscape: () => this.close()
     });
 
     this.scrollClose = new ScrollCloseBehavior({
       getEnabled: () => props.isOpen(),
-      onClose: () => this.openState.close()
+      onClose: () => this.close()
     });
 
     this.mount = new MountBehavior({
@@ -158,6 +193,9 @@ export class SelectState {
     setSelectContext({
       get isOpen() {
         return props.isOpen();
+      },
+      get openedByKeyboard() {
+        return self.openState.openedByKeyboard;
       },
       get isMounted() {
         return self.mount.isMounted;
@@ -186,6 +224,9 @@ export class SelectState {
       get focusedKey() {
         return self.focusedKey;
       },
+      get isShiftNavigating() {
+        return self.isShiftNavigating;
+      },
       get transformOrigin() {
         return self.position.transformOrigin;
       },
@@ -200,9 +241,11 @@ export class SelectState {
       unregisterItem: (key) => self.registry.unregister(key),
       setFocusedKey: (key) => self.setFocusedKey(key),
       open: () => self.openState.open(),
-      close: () => self.openState.close(),
+      close: () => self.close(),
       toggle: () => self.openState.toggle(),
+      setOpenedByKeyboard: (val) => self.openState.setOpenedByKeyboard(val),
       handleKeydown: (e) => self.keyboard.handleKeydown(e),
+      handleContentKeydown: (e) => self.keyboardNav.handleKeyDown(e),
       setTriggerEl: (el) => {
         self.#triggerEl = el;
       },

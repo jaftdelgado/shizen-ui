@@ -1,3 +1,5 @@
+export type OpenTrigger = "keyboard" | "pointer";
+
 export interface OpenStateProps {
   getIsOpen: () => boolean;
   setIsOpen: (value: boolean) => void;
@@ -6,6 +8,7 @@ export interface OpenStateProps {
 
 export class OpenStateBehavior {
   readonly #props: OpenStateProps;
+  #openedByKeyboard = $state(false);
 
   constructor(props: OpenStateProps) {
     this.#props = props;
@@ -15,10 +18,15 @@ export class OpenStateBehavior {
     return this.#props.getIsOpen();
   }
 
+  get openedByKeyboard(): boolean {
+    return this.#openedByKeyboard;
+  }
+
   close(): void {
     if (!this.#props.getIsOpen()) return;
     this.#props.setIsOpen(false);
     this.#props.onOpenChange?.(false);
+    this.#openedByKeyboard = false;
   }
 
   open(): void {
@@ -29,7 +37,12 @@ export class OpenStateBehavior {
 
   toggle(): void {
     const next = !this.#props.getIsOpen();
+    if (!next) this.#openedByKeyboard = false;
     this.#props.setIsOpen(next);
     this.#props.onOpenChange?.(next);
+  }
+
+  setOpenedByKeyboard(val: boolean): void {
+    this.#openedByKeyboard = val;
   }
 }

@@ -20,6 +20,7 @@ export function useSelectContext(): SelectContextResult {
   if (!ctx) {
     return {
       isOpen: false,
+      openedByKeyboard: false,
       isMounted: false,
       placement: "bottom",
       selectedKeys: new Set(),
@@ -40,8 +41,10 @@ export function useSelectContext(): SelectContextResult {
       setFocusedKey: () => {},
       open: () => {},
       close: () => {},
+      setOpenedByKeyboard: () => {},
       toggle: () => {},
       handleKeydown: () => {},
+      handleContentKeydown: () => {},
       setTriggerEl: () => {},
       setContentEl: () => {},
       updatePosition: () => Promise.resolve(),
@@ -54,6 +57,9 @@ export function useSelectContext(): SelectContextResult {
   return {
     get isOpen() {
       return ctx.isOpen;
+    },
+    get openedByKeyboard() {
+      return ctx.openedByKeyboard;
     },
     get isMounted() {
       return ctx.isMounted;
@@ -98,7 +104,9 @@ export function useSelectContext(): SelectContextResult {
     open: ctx.open,
     close: ctx.close,
     toggle: ctx.toggle,
+    setOpenedByKeyboard: ctx.setOpenedByKeyboard,
     handleKeydown: ctx.handleKeydown,
+    handleContentKeydown: ctx.handleContentKeydown,
     setTriggerEl: ctx.setTriggerEl,
     setContentEl: ctx.setContentEl,
     updatePosition: ctx.updatePosition,
