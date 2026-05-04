@@ -121,7 +121,7 @@ export class KeyboardNavBehavior<K extends Key = Key> {
       if (target === null) return false;
       const isShift = shiftSelect && shiftKey;
       if (isShift) {
-        if (this.#anchorKey === null) this.#anchorKey = this.#props.getFocusedKey();
+        if (this.#anchorKey === null) this.#anchorKey = target;
         this.#props.onShiftSelect?.(this.#buildShiftRange(target));
       } else {
         this.#anchorKey = null;
@@ -138,7 +138,7 @@ export class KeyboardNavBehavior<K extends Key = Key> {
       if (target === null) return false;
       const isShift = shiftSelect && shiftKey;
       if (isShift) {
-        if (this.#anchorKey === null) this.#anchorKey = this.#props.getFocusedKey();
+        if (this.#anchorKey === null) this.#anchorKey = target;
         this.#props.onShiftSelect?.(this.#buildShiftRange(target));
       } else {
         this.#anchorKey = null;

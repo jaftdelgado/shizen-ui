@@ -13,6 +13,11 @@
     ctx.setContentEl(el ?? null);
     return () => ctx.setContentEl(null);
   });
+
+  $effect(() => {
+    if (!ctx.isOpen || !el || ctx.openedByKeyboard) return;
+    el.focus({ preventScroll: true });
+  });
 </script>
 
 {#if ctx.isMounted}
@@ -26,7 +31,14 @@
     data-state={ctx.isOpen ? "open" : "closed"}
     data-placement={ctx.placement}
     style:transform-origin={ctx.transformOrigin}
-    onkeydown={(e) => ctx.handleKeydown(e)}
+    onkeydown={(e) => {
+      if (["ArrowDown", "ArrowUp", "Home", "End", "Enter", " "].includes(e.key)) {
+        e.preventDefault();
+        ctx.handleContentKeydown(e);
+      } else {
+        ctx.handleKeydown(e);
+      }
+    }}
   >
     {#if children}
       {@render children()}

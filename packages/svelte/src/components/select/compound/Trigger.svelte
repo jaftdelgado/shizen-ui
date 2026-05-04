@@ -11,7 +11,6 @@
   const handlers = createSelectTriggerHandlers(ctx);
 
   let el = $state<HTMLButtonElement | undefined>();
-  let wasOpen = false;
 
   $effect(() => {
     ctx.setTriggerEl(el ?? null);
@@ -19,15 +18,15 @@
   });
 
   $effect(() => {
-    if (ctx.isOpen) {
-      wasOpen = true;
-      return;
-    }
-    if (wasOpen && !ctx.openedByKeyboard) {
-      focus.onWrapperMouseDown();
-      el?.focus({ preventScroll: true });
-      wasOpen = false;
-    }
+    ctx.isOpen;
+    ctx.setOnClose(() => {
+      const shouldFocus =
+        ctx.closeReason === "escape" || (ctx.closeReason === "other" && !ctx.openedByKeyboard);
+      if (shouldFocus) {
+        focus.onWrapperMouseDown();
+        el?.focus({ preventScroll: true });
+      }
+    });
   });
 </script>
 
@@ -47,7 +46,7 @@
   onkeydown={handlers.handleKeyDown}
   onblur={(e) => {
     focus.onBlur();
-    handlers.handleBlur();
+    handlers.handleBlur(e);
   }}
   onmousedown={focus.onWrapperMouseDown}
   onfocus={focus.onFocus}

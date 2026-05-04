@@ -31,6 +31,8 @@ export function useSelectContext(): SelectContextResult {
       invalid: false,
       registry: new ItemRegistryBehavior<Key>(),
       focusedKey: null,
+      isShiftNavigating: false,
+      closeReason: "other",
       transformOrigin: "center",
       isSelected: () => false,
       isDisabled: () => false,
@@ -41,6 +43,7 @@ export function useSelectContext(): SelectContextResult {
       setFocusedKey: () => {},
       open: () => {},
       close: () => {},
+      setOnClose: () => {},
       setOpenedByKeyboard: () => {},
       toggle: () => {},
       handleKeydown: () => {},
@@ -91,6 +94,12 @@ export function useSelectContext(): SelectContextResult {
     get focusedKey() {
       return ctx.focusedKey;
     },
+    get isShiftNavigating() {
+      return ctx.isShiftNavigating;
+    },
+    get closeReason() {
+      return ctx.closeReason;
+    },
     get transformOrigin() {
       return ctx.transformOrigin;
     },
@@ -103,6 +112,7 @@ export function useSelectContext(): SelectContextResult {
     setFocusedKey: ctx.setFocusedKey,
     open: ctx.open,
     close: ctx.close,
+    setOnClose: ctx.setOnClose,
     toggle: ctx.toggle,
     setOpenedByKeyboard: ctx.setOpenedByKeyboard,
     handleKeydown: ctx.handleKeydown,

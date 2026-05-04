@@ -9,6 +9,8 @@
     @apply outline-none cursor-pointer select-none;
     @apply transition-colors duration-200;
 
+    transition: box-shadow 200ms ease;
+
     --select-bg: var(--color-field);
     --select-bg-hover: var(--color-field-hover);
     --select-fg: var(--color-field-foreground);
@@ -97,7 +99,8 @@
 
     transition:
       background-color 200ms ease,
-      transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+      transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1),
+      box-shadow 200ms ease;
 
     --select-item-bg: transparent;
     --select-item-bg-hover: var(--color-ghost-hover);

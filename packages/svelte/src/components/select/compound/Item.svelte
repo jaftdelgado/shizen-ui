@@ -42,7 +42,7 @@
   data-selected={state.isSelected ? "" : undefined}
   data-disabled={state.isDisabled ? "" : undefined}
   data-pressed={state.isPressed ? "" : undefined}
-  data-focus-visible={focus.isFocusVisible ? "" : undefined}
+  data-focus-visible={focus.isFocusVisible && state.selectCtx.focusedKey === id ? "" : undefined}
   data-focused={state.isFocused ? "" : undefined}
   data-variant={state.resolvedVariant}
   data-textvalue={textValue}
@@ -51,12 +51,10 @@
   onpointerup={handlers.handlePointerUp}
   onpointerleave={handlers.handlePointerLeave}
   onfocus={() => {
-    console.log("FOCUS item:", id, "focusedKey:", state.selectCtx.focusedKey);
-    handlers.handleFocus();
     focus.onFocus();
+    handlers.handleFocus(focus.isFocusVisible);
   }}
   onblur={(e) => {
-    console.log("BLUR item:", id, "relatedTarget:", e.relatedTarget);
     handlers.handleBlur();
     focus.onBlur();
   }}

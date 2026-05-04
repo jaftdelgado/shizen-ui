@@ -46,6 +46,7 @@
   onkeydown={(e) => {
     if (["ArrowDown", "ArrowUp", "Home", "End", "Enter", " "].includes(e.key)) {
       e.preventDefault();
+      e.stopPropagation();
     }
     ctx.handleContentKeydown(e);
   }}

@@ -22,7 +22,8 @@ export function createSelectItemHandlers(state: SelectItemStateInstance) {
     state.isPressed = false;
   }
 
-  function handleFocus(): void {
+  function handleFocus(fromKeyboard: boolean): void {
+    if (!fromKeyboard) return;
     if (state.selectCtx.focusedKey !== state.id) {
       state.selectCtx.setFocusedKey(state.id);
     }

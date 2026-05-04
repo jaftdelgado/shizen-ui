@@ -8,16 +8,13 @@ export function createSelectKeyboardNav(
   focusItemEl: (key: Key) => void,
   focusContent: () => void
 ) {
-  let currentFocusedKey: Key | null = null;
-
   return new KeyboardNavBehavior<Key>({
     getKeys: () => state.getRegisteredKeys(),
     isDisabled: (key) => state.isDisabled(key),
-    getFocusedKey: () => currentFocusedKey,
-    wrapAround: true,
+    getFocusedKey: () => state.focusedKey,
+    wrapAround: false,
     shiftSelect: () => state.selection.mode === "multiple",
     onNavigate: (key, _direction, isShift) => {
-      currentFocusedKey = key;
       state.setFocusedKey(key);
       if (!isShift) {
         focusItemEl(key);
@@ -87,10 +84,15 @@ export function createSelectTriggerHandlers(ctx: SelectContextResult) {
 
   function handleBlur(e: FocusEvent): void {
     if (!e) return;
+    if (ctx.isOpen) return;
     const related = e.relatedTarget as Node | null;
     const popoverEl = document.querySelector("[data-state='open'].select__popover");
     if (popoverEl?.contains(related)) return;
-    ctx.close();
+    if (related !== null) {
+      ctx.close("tab");
+      return;
+    }
+    ctx.close("other");
   }
 
   return { handleClick, handleKeyDown, handleBlur };

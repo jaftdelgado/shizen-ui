@@ -84,6 +84,7 @@ export interface SelectContextValue {
   readonly isShiftNavigating: boolean;
   readonly transformOrigin: string;
   readonly openedByKeyboard: boolean;
+  readonly closeReason: "escape" | "other" | "tab";
   isSelected: (key: Key) => boolean;
   isDisabled: (key: Key) => boolean;
   selectKey: (key: Key) => void;
@@ -93,8 +94,9 @@ export interface SelectContextValue {
   setFocusedKey: (key: Key | null) => void;
   open: () => void;
   toggle: () => void;
+  setOnClose: (fn: () => void) => void;
   setOpenedByKeyboard: (val: boolean) => void;
-  close: () => void;
+  close: (reason?: "escape" | "other" | "tab") => void;
   handleKeydown: (e: KeyboardEvent) => void;
   handleContentKeydown: (e: KeyboardEvent) => void;
   setTriggerEl: (el: HTMLElement | null) => void;

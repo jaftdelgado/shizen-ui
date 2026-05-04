@@ -23,9 +23,7 @@ export class SelectItemState {
   }
 
   get isFocused(): boolean {
-    const result = this.selectCtx.focusedKey === this.#id();
-    if (result) console.log("isFocused TRUE for:", this.#id());
-    return result;
+    return this.selectCtx.focusedKey === this.#id();
   }
 
   get resolvedVariant(): SelectVariant {

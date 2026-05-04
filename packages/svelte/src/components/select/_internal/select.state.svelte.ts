@@ -22,6 +22,8 @@ export class SelectState {
   #shiftNavigating = $state(false);
   #triggerEl = $state<HTMLElement | null>(null);
   #contentEl = $state<HTMLElement | null>(null);
+  #onClose: (() => void) | null = null;
+  #closeReason: "escape" | "other" | "tab" = "other";
 
   readonly registry: ItemRegistryBehavior<Key>;
   readonly typeahead: TypeaheadBehavior<Key>;
@@ -44,6 +46,10 @@ export class SelectState {
 
   get isShiftNavigating(): boolean {
     return this.#shiftNavigating;
+  }
+
+  get closeReason(): "escape" | "other" | "tab" {
+    return this.#closeReason;
   }
 
   get placeholder(): string | undefined {
@@ -69,10 +75,7 @@ export class SelectState {
   selectKey(key: Key): void {
     this.selection.select(key);
     if (this.selection.mode === "single") {
-      this.close();
-      if (this.openState.openedByKeyboard) {
-        this.#triggerEl?.focus();
-      }
+      this.close("other");
     }
   }
 
@@ -80,9 +83,18 @@ export class SelectState {
     this.selection.activate(key);
   }
 
-  close(): void {
+  close(reason: "escape" | "other" | "tab" = "other"): void {
+    this.#closeReason = reason;
     this.openState.close();
     this.setFocusedKey(null);
+    const onClose = this.#onClose;
+    this.#onClose = null;
+    onClose?.();
+    this.#closeReason = "other";
+  }
+
+  setOnClose(fn: () => void): void {
+    this.#onClose = fn;
   }
 
   setFocusedKey(key: Key | null): void {
@@ -170,16 +182,16 @@ export class SelectState {
       getEnabled: () => props.isOpen(),
       getReferenceEl: () => this.#triggerEl,
       getFloatingEl: () => this.#contentEl,
-      onClickOutside: () => this.close()
+      onClickOutside: () => this.close("other")
     });
 
     this.keyboard = new KeyboardBehavior({
-      onEscape: () => this.close()
+      onEscape: () => this.close("escape")
     });
 
     this.scrollClose = new ScrollCloseBehavior({
       getEnabled: () => props.isOpen(),
-      onClose: () => this.close()
+      onClose: () => this.close("other")
     });
 
     this.mount = new MountBehavior({
@@ -227,6 +239,9 @@ export class SelectState {
       get isShiftNavigating() {
         return self.isShiftNavigating;
       },
+      get closeReason() {
+        return self.closeReason;
+      },
       get transformOrigin() {
         return self.position.transformOrigin;
       },
@@ -241,7 +256,7 @@ export class SelectState {
       unregisterItem: (key) => self.registry.unregister(key),
       setFocusedKey: (key) => self.setFocusedKey(key),
       open: () => self.openState.open(),
-      close: () => self.close(),
+      close: (reason) => self.close(reason),
       toggle: () => self.openState.toggle(),
       setOpenedByKeyboard: (val) => self.openState.setOpenedByKeyboard(val),
       handleKeydown: (e) => self.keyboard.handleKeydown(e),
@@ -252,7 +267,8 @@ export class SelectState {
       setContentEl: (el) => {
         self.#contentEl = el;
       },
-      updatePosition: () => self.position.updatePosition()
+      updatePosition: () => self.position.updatePosition(),
+      setOnClose: (fn) => self.setOnClose(fn)
     });
   }
 }
