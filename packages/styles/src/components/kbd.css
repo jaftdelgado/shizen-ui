@@ -1,0 +1,15 @@
+/* Block - Kbd */
+.kbd {
+  @apply inline-flex items-center gap-0.5;
+  @apply rounded-md bg-surface px-1.5 py-0.5;
+  @apply text-xs text-primary-text;
+  @apply shadow-sm;
+}
+
+.kbd__abbr {
+  @apply no-underline;
+}
+
+.kbd__content {
+  @apply leading-none tracking-tight;
+}

@@ -1,0 +1,44 @@
+---
+title: "Kbd"
+layout: "@layouts/DocsLayout.astro"
+---
+
+import CodeImport from "@components/astro/CodeImport.astro";
+import ComponentExample from "@components/astro/ComponentExample.astro";
+import SourceLinks from "@components/svelte/SourceLinks.svelte";
+import CodeBlock from "@components/astro/CodeBlock.astro";
+
+import KbdAnatomyCode from "@examples/svelte/kbd/KbdAnatomy.svelte?raw";
+
+import KbdUsage from "@examples/svelte/kbd/KbdUsage.svelte";
+import KbdNavigation from "@examples/svelte/kbd/KbdNavigation.svelte";
+
+# Kbd
+
+Displays keyboard shortcuts and key combinations inline with instructional text.
+
+<SourceLinks
+  client:load
+  svelteUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/svelte/src/components/kbd/Kbd.svelte"
+  stylesUrl="https://github.com/jaftdelgado/shizen-ui/blob/main/packages/styles/src/components/kbd.css"
+/>
+
+## Import
+
+<CodeImport code={`import { Kbd } from "@shizen-ui/svelte";`} />
+
+<ComponentExample src="svelte/kbd/KbdUsage.svelte">
+  <KbdUsage client:load />
+</ComponentExample>
+
+## Anatomy
+
+<CodeBlock code={KbdAnatomyCode} lang="svelte" showLineNumbers={false} collapsible={false} />
+
+## Examples
+
+### Navigation Keys
+
+<ComponentExample src="svelte/kbd/KbdNavigation.svelte">
+  <KbdNavigation client:load />
+</ComponentExample>

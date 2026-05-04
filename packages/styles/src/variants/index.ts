@@ -13,6 +13,7 @@ export * from "./description";
 export * from "./field-error";
 export * from "./input";
 export * from "./input-group";
+export * from "./kbd";
 export * from "./label";
 export * from "./list-box";
 export * from "./number-input";

@@ -13,6 +13,7 @@ export * from "./components/description/index.js";
 export * from "./components/field-error/index.js";
 export * from "./components/input-group/index.js";
 export * from "./components/input/index.js";
+export * from "./components/kbd/index.js";
 export * from "./components/label/index.js";
 export * from "./components/list-box/index.js";
 export * from "./components/number-input/index.js";
