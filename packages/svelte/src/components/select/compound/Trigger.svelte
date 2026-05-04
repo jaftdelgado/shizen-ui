@@ -8,25 +8,17 @@
 
   const ctx = useSelectContext();
   const focus = createFocusVisible();
-  const handlers = createSelectTriggerHandlers(ctx);
+  const handlers = createSelectTriggerHandlers(ctx, () => ctx.getContentEl());
 
   let el = $state<HTMLButtonElement | undefined>();
 
   $effect(() => {
     ctx.setTriggerEl(el ?? null);
-    return () => ctx.setTriggerEl(null);
-  });
-
-  $effect(() => {
-    ctx.isOpen;
-    ctx.setOnClose(() => {
-      const shouldFocus =
-        ctx.closeReason === "escape" || (ctx.closeReason === "other" && !ctx.openedByKeyboard);
-      if (shouldFocus) {
-        focus.onWrapperMouseDown();
-        el?.focus({ preventScroll: true });
-      }
-    });
+    ctx.setSuppressFocusRing(focus.onWrapperMouseDown);
+    return () => {
+      ctx.setTriggerEl(null);
+      ctx.setSuppressFocusRing(null);
+    };
   });
 </script>
 

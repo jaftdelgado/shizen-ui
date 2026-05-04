@@ -15,7 +15,7 @@
     if (selectedKeys === "all") return "All";
     if (selectedKeys.size === 0) return null;
     return Array.from(selectedKeys)
-      .map((key) => ctx.registry.getTextValue(key) ?? String(key))
+      .map((key) => ctx.getTextValue(key) ?? String(key))
       .join(", ");
   });
 </script>

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { cn, portal } from "@shizen-ui/styles";
-  import { useSelectContext } from "../_internal/index.js";
+  import { SELECT_NAV_KEYS, useSelectContext } from "../_internal/index.js";
   import type { SelectPopoverProps } from "../_internal/index.js";
 
   let { class: className, children }: SelectPopoverProps = $props();
@@ -15,7 +15,9 @@
   });
 
   $effect(() => {
-    if (!ctx.isOpen || !el || ctx.openedByKeyboard) return;
+    if (!ctx.isMounted || !ctx.isOpen || !el) return;
+    const wasOpenedByKeyboard = ctx.openedByKeyboard;
+    if (wasOpenedByKeyboard) return;
     el.focus({ preventScroll: true });
   });
 </script>
@@ -32,7 +34,7 @@
     data-placement={ctx.placement}
     style:transform-origin={ctx.transformOrigin}
     onkeydown={(e) => {
-      if (["ArrowDown", "ArrowUp", "Home", "End", "Enter", " "].includes(e.key)) {
+      if (SELECT_NAV_KEYS.includes(e.key as (typeof SELECT_NAV_KEYS)[number])) {
         e.preventDefault();
         ctx.handleContentKeydown(e);
       } else {

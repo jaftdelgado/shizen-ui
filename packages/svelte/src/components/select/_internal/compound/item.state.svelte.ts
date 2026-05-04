@@ -1,4 +1,3 @@
-import { selectStyles } from "@shizen-ui/styles";
 import { useSelectContext, setSelectItemContext } from "../select.context.svelte.js";
 import type { Key, SelectVariant } from "../select.types.js";
 
@@ -6,7 +5,7 @@ export class SelectItemState {
   #id: () => Key;
   #disabled: () => boolean;
   #variant: () => SelectVariant | undefined;
-  isPressed = $state(false);
+  #isPressed = $state(false);
 
   readonly selectCtx: ReturnType<typeof useSelectContext>;
 
@@ -30,8 +29,24 @@ export class SelectItemState {
     return this.#variant() ?? "default";
   }
 
-  get styles() {
-    return selectStyles({ variant: this.resolvedVariant });
+  get isPressed(): boolean {
+    return this.#isPressed;
+  }
+
+  press(): void {
+    this.#isPressed = true;
+  }
+
+  release(): void {
+    this.#isPressed = false;
+  }
+
+  register(textValue: string): void {
+    this.selectCtx.registerItem(this.id, textValue);
+  }
+
+  unregister(): void {
+    this.selectCtx.unregisterItem(this.id);
   }
 
   constructor(props: {

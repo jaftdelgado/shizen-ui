@@ -1,15 +1,14 @@
 import type { Snippet } from "svelte";
 import type { HTMLAttributes, HTMLButtonAttributes } from "svelte/elements";
-import type {
-  ItemRegistryBehavior,
-  Key
-} from "../../../shared/collections/item-registry.svelte.js";
+import type { Key } from "../../../shared/collections/item-registry.svelte.js";
 import type { SelectionMode, Selection } from "../../../shared/collections/selection.svelte.js";
 import type { OverlayPlacement } from "../../../shared/overlays/position.svelte.js";
+import type { Strategy } from "@floating-ui/dom";
 
 export type { Key, SelectionMode, Selection };
 
 export type SelectVariant = "default" | "danger";
+export type CloseReason = "escape" | "other" | "tab" | "click-outside";
 
 export interface SelectProps extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
   selectionMode?: SelectionMode;
@@ -18,6 +17,10 @@ export interface SelectProps extends Omit<HTMLAttributes<HTMLDivElement>, "child
   placeholder?: string;
   disabled?: boolean;
   invalid?: boolean;
+  placement?: OverlayPlacement;
+  strategy?: Strategy;
+  offset?: number;
+  onOpenChange?: (val: boolean) => void;
   onaction?: (key: Key) => void;
   children?: Snippet;
 }
@@ -79,28 +82,29 @@ export interface SelectContextValue {
   readonly placeholder: string | undefined;
   readonly disabled: boolean;
   readonly invalid: boolean;
-  readonly registry: ItemRegistryBehavior<Key>;
   readonly focusedKey: Key | null;
-  readonly isShiftNavigating: boolean;
   readonly transformOrigin: string;
   readonly openedByKeyboard: boolean;
-  readonly closeReason: "escape" | "other" | "tab";
   isSelected: (key: Key) => boolean;
   isDisabled: (key: Key) => boolean;
+  getFirstSelectableKey: () => Key | null;
+  getTextValue: (key: Key) => string | undefined;
+  handleTypeahead: (char: string) => Key | null;
   selectKey: (key: Key) => void;
-  activateKey: (key: Key) => void;
+  triggerAction: (key: Key) => void;
   registerItem: (key: Key, textValue: string) => void;
   unregisterItem: (key: Key) => void;
   setFocusedKey: (key: Key | null) => void;
   open: () => void;
   toggle: () => void;
-  setOnClose: (fn: () => void) => void;
   setOpenedByKeyboard: (val: boolean) => void;
-  close: (reason?: "escape" | "other" | "tab") => void;
+  close: (reason?: CloseReason) => void;
   handleKeydown: (e: KeyboardEvent) => void;
   handleContentKeydown: (e: KeyboardEvent) => void;
   setTriggerEl: (el: HTMLElement | null) => void;
+  setSuppressFocusRing: (fn: (() => void) | null) => void;
   setContentEl: (el: HTMLElement | null) => void;
+  getContentEl: () => HTMLElement | null;
   updatePosition: () => Promise<void>;
 }
 

@@ -26,7 +26,7 @@
 
     &:focus-visible,
     &[data-focus-visible] {
-      @apply status-focused;
+      @apply status-focused-field;
     }
 
     &[data-disabled] {

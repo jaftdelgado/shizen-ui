@@ -43,4 +43,9 @@ export class TypeaheadBehavior<K extends Key = Key> {
       this.#timer = null;
     }
   }
+
+  // Components can call `destroy()` from teardown without needing to know timer internals.
+  destroy(): void {
+    this.reset();
+  }
 }

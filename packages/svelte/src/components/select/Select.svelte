@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { cn } from "@shizen-ui/styles";
+  import { cn, selectStyles } from "@shizen-ui/styles";
   import { SelectState } from "./_internal/index.js";
   import type { SelectProps, Key, Selection } from "./_internal/index.js";
 
@@ -11,17 +11,22 @@
     placeholder,
     disabled = false,
     invalid = false,
+    placement,
+    strategy,
+    offset,
+    onOpenChange,
     onaction,
     children,
     ...rest
   }: SelectProps = $props();
 
   let isOpen = $state(false);
+  const disabledKeysSet = $derived(new Set<Key>(disabledKeys ?? []));
 
   const select = new SelectState({
     selectionMode: () => selectionMode,
     selectedKeys: () => selectedKeys,
-    disabledKeys: () => new Set<Key>(disabledKeys ?? []),
+    disabledKeys: () => disabledKeysSet,
     disabled: () => disabled,
     invalid: () => invalid,
     placeholder: () => placeholder,
@@ -33,12 +38,15 @@
     setIsOpen: (val) => {
       isOpen = val;
     },
-    onOpenChange: () => undefined
+    onOpenChange: () => onOpenChange,
+    placement: () => placement,
+    strategy: () => strategy,
+    offset: () => offset
   });
 </script>
 
 <div
-  class={cn(select.styles.base(), className)}
+  class={cn(selectStyles({}).base(), className)}
   data-disabled={disabled ? "" : undefined}
   data-invalid={invalid ? "" : undefined}
   {...rest}

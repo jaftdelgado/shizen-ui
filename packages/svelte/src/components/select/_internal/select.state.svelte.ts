@@ -1,17 +1,30 @@
-import { selectStyles } from "@shizen-ui/styles";
 import { ItemRegistryBehavior } from "../../../shared/collections/item-registry.svelte.js";
 import { TypeaheadBehavior } from "../../../shared/collections/typeahead.svelte.js";
 import { SelectionBehavior } from "../../../shared/collections/selection.svelte.js";
 import { OpenStateBehavior } from "../../../shared/overlays/open-state.svelte.js";
 import { PositionBehavior } from "../../../shared/overlays/position.svelte.js";
 import { ClickOutsideBehavior } from "../../../shared/overlays/click-outside.svelte.js";
+import { FocusManagerBehavior } from "../../../shared/overlays/focus-manager.svelte.js";
+import { FocusTrapBehavior } from "../../../shared/overlays/focus-trap.svelte.js";
 import { KeyboardBehavior } from "../../../shared/overlays/keyboard.svelte.js";
 import { KeyboardNavBehavior } from "../../../shared/collections/keyboard-nav.svelte.js";
 import { createSelectKeyboardNav } from "./select.handlers.svelte.js";
 import { ScrollCloseBehavior } from "../../../shared/overlays/scroll.svelte.js";
 import { MountBehavior } from "../../../shared/overlays/mount.svelte.js";
 import { setSelectContext } from "./select.context.svelte.js";
-import type { Key, Selection, SelectionMode } from "./select.types.js";
+import type { Strategy } from "@floating-ui/dom";
+import type {
+  CloseReason,
+  Key,
+  SelectContextValue,
+  Selection,
+  SelectionMode
+} from "./select.types.js";
+import type { OverlayPlacement } from "../../../shared/overlays/position.svelte.js";
+
+const DEFAULT_SELECT_PLACEMENT: OverlayPlacement = "bottom";
+const DEFAULT_SELECT_STRATEGY: Strategy = "absolute";
+const DEFAULT_SELECT_OFFSET = 8;
 
 export class SelectState {
   #disabled: () => boolean;
@@ -19,11 +32,9 @@ export class SelectState {
   #placeholder: () => string | undefined;
   #disabledKeys: () => Set<Key>;
   #focusedKey = $state<Key | null>(null);
-  #shiftNavigating = $state(false);
   #triggerEl = $state<HTMLElement | null>(null);
   #contentEl = $state<HTMLElement | null>(null);
-  #onClose: (() => void) | null = null;
-  #closeReason: "escape" | "other" | "tab" = "other";
+  #suppressFocusRing: (() => void) | null = null;
 
   readonly registry: ItemRegistryBehavior<Key>;
   readonly typeahead: TypeaheadBehavior<Key>;
@@ -31,25 +42,15 @@ export class SelectState {
   readonly openState: OpenStateBehavior;
   readonly position: PositionBehavior;
   readonly clickOutside: ClickOutsideBehavior;
+  readonly focusManager: FocusManagerBehavior;
+  readonly focusTrap: FocusTrapBehavior;
   readonly keyboard: KeyboardBehavior;
   readonly keyboardNav: KeyboardNavBehavior<Key>;
   readonly scrollClose: ScrollCloseBehavior;
   readonly mount: MountBehavior;
 
-  get styles() {
-    return selectStyles({});
-  }
-
   get focusedKey(): Key | null {
     return this.#focusedKey;
-  }
-
-  get isShiftNavigating(): boolean {
-    return this.#shiftNavigating;
-  }
-
-  get closeReason(): "escape" | "other" | "tab" {
-    return this.#closeReason;
   }
 
   get placeholder(): string | undefined {
@@ -79,42 +80,15 @@ export class SelectState {
     }
   }
 
-  activateKey(key: Key): void {
-    this.selection.activate(key);
-  }
-
-  close(reason: "escape" | "other" | "tab" = "other"): void {
-    this.#closeReason = reason;
+  close(reason: CloseReason = "other"): void {
+    if (!this.openState.isOpen) return;
     this.openState.close();
     this.setFocusedKey(null);
-    const onClose = this.#onClose;
-    this.#onClose = null;
-    onClose?.();
-    this.#closeReason = "other";
-  }
-
-  setOnClose(fn: () => void): void {
-    this.#onClose = fn;
+    this.focusManager.restoreFocus(reason);
   }
 
   setFocusedKey(key: Key | null): void {
     this.#focusedKey = key;
-  }
-
-  beginShiftNav(): void {
-    this.#shiftNavigating = true;
-  }
-
-  endShiftNav(): void {
-    this.#shiftNavigating = false;
-  }
-
-  getRegisteredKeys(): Key[] {
-    return this.registry.orderedKeys();
-  }
-
-  handleTypeahead(char: string): Key | null {
-    return this.typeahead.handle(char);
   }
 
   constructor(props: {
@@ -129,6 +103,9 @@ export class SelectState {
     isOpen: () => boolean;
     setIsOpen: (val: boolean) => void;
     onOpenChange: () => ((val: boolean) => void) | undefined;
+    placement: () => OverlayPlacement | undefined;
+    strategy: () => Strategy | undefined;
+    offset: () => number | undefined;
   }) {
     this.#disabled = props.disabled;
     this.#invalid = props.invalid;
@@ -137,20 +114,26 @@ export class SelectState {
 
     this.registry = new ItemRegistryBehavior<Key>();
 
-    this.keyboardNav = createSelectKeyboardNav(
-      this,
-      (key: Key) => {
-        const el = this.#contentEl?.querySelector<HTMLElement>(`[data-key="${key}"]`);
-        el?.focus();
-      },
-      () => {
-        this.#contentEl?.focus({ preventScroll: true });
-      }
-    );
+    this.keyboardNav = createSelectKeyboardNav({
+      getKeys: () => this.registry.orderedKeys(),
+      isDisabled: (key) => this.isDisabled(key),
+      getFocusedKey: () => this.focusedKey,
+      getSelectionMode: () => this.selection.mode,
+      navigate: (key) => this.setFocusedKey(key),
+      triggerAction: (key) => this.selection.activate(key),
+      selectKey: (key) => this.selectKey(key),
+      selectRange: (range) => this.selection.selectRange(range)
+    });
 
     this.typeahead = new TypeaheadBehavior<Key>({
       getEntries: () => this.registry.entries(),
       isDisabled: (key) => this.isDisabled(key)
+    });
+
+    $effect(() => {
+      return () => {
+        this.typeahead.destroy();
+      };
     });
 
     this.selection = new SelectionBehavior<Key>({
@@ -163,26 +146,35 @@ export class SelectState {
 
     this.openState = new OpenStateBehavior({
       getIsOpen: () => props.isOpen(),
-      setIsOpen: (val) => {
-        props.setIsOpen(val);
-        props.onOpenChange()?.(val);
-      }
+      setIsOpen: (val) => props.setIsOpen(val),
+      onOpenChange: (val) => props.onOpenChange()?.(val)
     });
 
     this.position = new PositionBehavior({
       getIsOpen: () => props.isOpen(),
       getReferenceEl: () => this.#triggerEl,
       getFloatingEl: () => this.#contentEl,
-      getPlacement: () => "bottom",
-      getStrategy: () => "absolute",
-      getOffset: () => 8
+      getPlacement: () => props.placement() ?? DEFAULT_SELECT_PLACEMENT,
+      getStrategy: () => props.strategy() ?? DEFAULT_SELECT_STRATEGY,
+      getOffset: () => props.offset() ?? DEFAULT_SELECT_OFFSET
     });
 
     this.clickOutside = new ClickOutsideBehavior({
       getEnabled: () => props.isOpen(),
       getReferenceEl: () => this.#triggerEl,
       getFloatingEl: () => this.#contentEl,
-      onClickOutside: () => this.close("other")
+      onClickOutside: () => this.close("click-outside")
+    });
+
+    this.focusManager = new FocusManagerBehavior({
+      getEnabled: () => props.isOpen(),
+      shouldRestoreFocus: (reason) => reason === "escape" || reason === "other",
+      suppressFocusRing: () => this.#suppressFocusRing?.()
+    });
+
+    this.focusTrap = new FocusTrapBehavior({
+      getEnabled: () => false,
+      getContainerEl: () => this.#contentEl
     });
 
     this.keyboard = new KeyboardBehavior({
@@ -200,9 +192,16 @@ export class SelectState {
       exitDurationVar: "--select-exit-duration"
     });
 
+    setSelectContext(this.#createContext(props));
+  }
+
+  #createContext(props: {
+    isOpen: () => boolean;
+    disabledKeys: () => Set<Key>;
+  }): SelectContextValue & { readonly registry: ItemRegistryBehavior<Key> } {
     const self = this;
 
-    setSelectContext({
+    return {
       get isOpen() {
         return props.isOpen();
       },
@@ -216,7 +215,7 @@ export class SelectState {
         return self.selection.selected;
       },
       get disabledKeys() {
-        return self.#disabledKeys();
+        return props.disabledKeys();
       },
       get selectionMode() {
         return self.selection.mode;
@@ -230,17 +229,8 @@ export class SelectState {
       get invalid() {
         return self.invalid;
       },
-      get registry() {
-        return self.registry;
-      },
       get focusedKey() {
         return self.focusedKey;
-      },
-      get isShiftNavigating() {
-        return self.isShiftNavigating;
-      },
-      get closeReason() {
-        return self.closeReason;
       },
       get transformOrigin() {
         return self.position.transformOrigin;
@@ -250,8 +240,15 @@ export class SelectState {
       },
       isSelected: (key) => self.isSelected(key),
       isDisabled: (key) => self.isDisabled(key),
+      get registry() {
+        return self.registry;
+      },
+      getFirstSelectableKey: () =>
+        self.registry.orderedKeys().find((key) => !self.isDisabled(key)) ?? null,
+      getTextValue: (key) => self.registry.getTextValue(key),
+      handleTypeahead: (char) => self.typeahead.handle(char),
       selectKey: (key) => self.selectKey(key),
-      activateKey: (key) => self.activateKey(key),
+      triggerAction: (key) => self.selection.activate(key),
       registerItem: (key, textValue) => self.registry.register(key, textValue),
       unregisterItem: (key) => self.registry.unregister(key),
       setFocusedKey: (key) => self.setFocusedKey(key),
@@ -264,12 +261,15 @@ export class SelectState {
       setTriggerEl: (el) => {
         self.#triggerEl = el;
       },
+      setSuppressFocusRing: (fn) => {
+        self.#suppressFocusRing = fn;
+      },
       setContentEl: (el) => {
         self.#contentEl = el;
       },
-      updatePosition: () => self.position.updatePosition(),
-      setOnClose: (fn) => self.setOnClose(fn)
-    });
+      getContentEl: () => self.#contentEl,
+      updatePosition: () => self.position.updatePosition()
+    };
   }
 }
 

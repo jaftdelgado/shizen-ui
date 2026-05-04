@@ -1,7 +1,8 @@
 <script lang="ts">
   import { cn } from "@shizen-ui/styles";
-  import { useSelectContext } from "../_internal/index.js";
-  import type { SelectContentProps } from "../_internal/index.js";
+  import { tick } from "svelte";
+  import { SELECT_NAV_KEYS, useSelectContext } from "../_internal/index.js";
+  import type { Key, SelectContentProps } from "../_internal/index.js";
 
   let { class: className, children }: SelectContentProps = $props();
 
@@ -10,6 +11,13 @@
   let el = $state<HTMLDivElement | undefined>();
   let didFocusOnOpen = $state(false);
 
+  async function focusInitialItem(key: Key): Promise<void> {
+    await tick();
+    const target = el?.querySelector<HTMLElement>(`[data-key="${key}"]`);
+    target?.focus({ preventScroll: true });
+    ctx.setFocusedKey(key);
+  }
+
   $effect(() => {
     if (!ctx.isOpen) {
       didFocusOnOpen = false;
@@ -17,23 +25,27 @@
     }
     if (!el || !ctx.openedByKeyboard || didFocusOnOpen) return;
 
-    const keys = ctx.registry.orderedKeys();
-    const firstKey = keys[0];
-    if (firstKey === undefined) return;
-
     const selectedKeys = ctx.selectedKeys;
+    const firstSelectableKey = ctx.getFirstSelectableKey();
     const targetKey =
-      selectedKeys !== "all" && selectedKeys.size > 0 ? Array.from(selectedKeys)[0] : firstKey;
+      selectedKeys !== "all" && selectedKeys.size > 0
+        ? (Array.from(selectedKeys)[0] ?? firstSelectableKey)
+        : firstSelectableKey;
 
-    if (targetKey === undefined) return;
+    if (targetKey === null || targetKey === undefined) return;
 
     didFocusOnOpen = true;
 
-    requestAnimationFrame(() => {
-      const target = el?.querySelector<HTMLElement>(`[data-key="${targetKey}"]`);
-      target?.focus();
-      ctx.setFocusedKey(targetKey ?? null);
-    });
+    void focusInitialItem(targetKey);
+  });
+
+  $effect(() => {
+    const key = ctx.focusedKey;
+    if (key === null || !el) return;
+    const target = el.querySelector<HTMLElement>(`[data-key="${key}"]`);
+    if (target && document.activeElement !== target) {
+      target.focus({ preventScroll: true });
+    }
   });
 </script>
 
@@ -44,7 +56,7 @@
   aria-multiselectable={ctx.selectionMode === "multiple" || undefined}
   class={cn("select__content", className)}
   onkeydown={(e) => {
-    if (["ArrowDown", "ArrowUp", "Home", "End", "Enter", " "].includes(e.key)) {
+    if (SELECT_NAV_KEYS.includes(e.key as (typeof SELECT_NAV_KEYS)[number])) {
       e.preventDefault();
       e.stopPropagation();
     }

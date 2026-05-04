@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { cn } from "@shizen-ui/styles";
+  import { cn, selectStyles } from "@shizen-ui/styles";
   import { untrack } from "svelte";
   import { createFocusVisible } from "../../../shared/focus-visible.svelte.js";
   import { SelectItemState, createSelectItemHandlers } from "../_internal/index.js";
@@ -25,10 +25,9 @@
   const focus = createFocusVisible();
 
   $effect(() => {
-    const currentId = id;
     const currentTextValue = textValue ?? String(id);
-    untrack(() => state.selectCtx.registerItem(currentId, currentTextValue));
-    return () => untrack(() => state.selectCtx.unregisterItem(currentId));
+    untrack(() => state.register(currentTextValue));
+    return () => untrack(() => state.unregister());
   });
 </script>
 
@@ -38,11 +37,11 @@
   aria-selected={state.isSelected}
   aria-disabled={state.isDisabled || undefined}
   tabindex="-1"
-  class={cn(state.styles.item(), className)}
+  class={cn(selectStyles({ variant: state.resolvedVariant }).item(), className)}
   data-selected={state.isSelected ? "" : undefined}
   data-disabled={state.isDisabled ? "" : undefined}
   data-pressed={state.isPressed ? "" : undefined}
-  data-focus-visible={focus.isFocusVisible && state.selectCtx.focusedKey === id ? "" : undefined}
+  data-focus-visible={focus.isFocusVisible && state.isFocused ? "" : undefined}
   data-focused={state.isFocused ? "" : undefined}
   data-variant={state.resolvedVariant}
   data-textvalue={textValue}
@@ -54,8 +53,7 @@
     focus.onFocus();
     handlers.handleFocus(focus.isFocusVisible);
   }}
-  onblur={(e) => {
-    handlers.handleBlur();
+  onblur={() => {
     focus.onBlur();
   }}
   onkeydown={(e) => {

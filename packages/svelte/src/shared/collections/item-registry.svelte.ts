@@ -33,6 +33,8 @@ export class ItemRegistryBehavior<K extends Key = Key> {
   }
 
   has(key: K): boolean {
+    // Keep `has()` reactive for consumers that read membership in effects or derived state.
+    void this.#version;
     return this.#registry.has(key);
   }
 

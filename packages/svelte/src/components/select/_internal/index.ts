@@ -10,7 +10,10 @@ export { createSelectItemHandlers } from "./compound/item.handlers.svelte.js";
 export { setSelectContext, useSelectContext } from "./select.context.svelte.js";
 export { setSelectItemContext, useSelectItemContext } from "./select.context.svelte.js";
 
+export const SELECT_NAV_KEYS = ["ArrowDown", "ArrowUp", "Home", "End", "Enter", " "] as const;
+
 export type {
+  CloseReason,
   Key,
   Selection,
   SelectionMode,

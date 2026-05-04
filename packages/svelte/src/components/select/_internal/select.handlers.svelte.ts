@@ -1,33 +1,41 @@
 import { KeyboardNavBehavior } from "../../../shared/collections/keyboard-nav.svelte.js";
-import type { SelectStateInstance } from "./select.state.svelte.js";
 import type { SelectContextResult } from "./select.types.js";
 import type { Key } from "./select.types.js";
 
-export function createSelectKeyboardNav(
-  state: SelectStateInstance,
-  focusItemEl: (key: Key) => void,
-  focusContent: () => void
-) {
+export interface KeyboardNavDeps<K extends Key = Key> {
+  getKeys: () => K[];
+  isDisabled: (key: K) => boolean;
+  getFocusedKey: () => K | null;
+  getSelectionMode: () => "none" | "single" | "multiple";
+  navigate: (key: K, direction: "up" | "down" | "first" | "last", isShift: boolean) => void;
+  triggerAction: (key: K) => void;
+  selectKey: (key: K) => void;
+  selectRange: (range: K[]) => void;
+}
+
+export function createSelectKeyboardNav(deps: KeyboardNavDeps<Key>): KeyboardNavBehavior<Key> {
   return new KeyboardNavBehavior<Key>({
-    getKeys: () => state.getRegisteredKeys(),
-    isDisabled: (key) => state.isDisabled(key),
-    getFocusedKey: () => state.focusedKey,
+    getKeys: deps.getKeys,
+    isDisabled: deps.isDisabled,
+    getFocusedKey: deps.getFocusedKey,
     wrapAround: false,
-    shiftSelect: () => state.selection.mode === "multiple",
-    onNavigate: (key, _direction, isShift) => {
-      state.setFocusedKey(key);
-      if (!isShift) {
-        focusItemEl(key);
-      }
-    },
-    onActivate: (key) => state.activateKey(key),
-    onSelect: (key) => state.selectKey(key),
-    onShiftSelect: (range) => state.selection.selectRange(range),
+    shiftSelect: () => deps.getSelectionMode() === "multiple",
+    onNavigate: (key, direction, isShift) => deps.navigate(key, direction, isShift),
+    onActivate: deps.triggerAction,
+    onSelect: deps.selectKey,
+    onShiftSelect: deps.selectRange,
     blockedKeys: ["ArrowLeft", "ArrowRight"]
   });
 }
 
-export function createSelectTriggerHandlers(ctx: SelectContextResult) {
+export function createSelectTriggerHandlers(
+  ctx: SelectContextResult,
+  getContentEl: () => HTMLElement | null
+): {
+  handleClick: () => void;
+  handleKeyDown: (e: KeyboardEvent) => void;
+  handleBlur: (e: FocusEvent) => void;
+} {
   function handleClick(): void {
     if (ctx.disabled) return;
     ctx.setOpenedByKeyboard(false);
@@ -50,14 +58,13 @@ export function createSelectTriggerHandlers(ctx: SelectContextResult) {
         return;
       }
 
-      ctx.setOpenedByKeyboard(true);
       ctx.handleContentKeydown(e);
       return;
     }
 
     if (e.key === "Escape") {
       e.preventDefault();
-      ctx.close();
+      ctx.close("escape");
       return;
     }
 
@@ -69,13 +76,8 @@ export function createSelectTriggerHandlers(ctx: SelectContextResult) {
     }
 
     if (e.key.length === 1 && !e.ctrlKey && !e.metaKey) {
-      const matched = ctx.registry.orderedKeys().find((key) => {
-        if (ctx.isDisabled(key)) return false;
-        const textValue = ctx.registry.getTextValue(key) ?? "";
-        return textValue.toLowerCase().startsWith(e.key.toLowerCase());
-      });
-
-      if (matched !== undefined) {
+      const matched = ctx.handleTypeahead(e.key);
+      if (matched !== null) {
         ctx.selectKey(matched);
         ctx.setFocusedKey(matched);
       }
@@ -83,16 +85,17 @@ export function createSelectTriggerHandlers(ctx: SelectContextResult) {
   }
 
   function handleBlur(e: FocusEvent): void {
-    if (!e) return;
-    if (ctx.isOpen) return;
     const related = e.relatedTarget as Node | null;
-    const popoverEl = document.querySelector("[data-state='open'].select__popover");
-    if (popoverEl?.contains(related)) return;
-    if (related !== null) {
+    const contentEl = getContentEl();
+
+    if (ctx.isOpen && related !== null && !(contentEl?.contains(related) ?? false)) {
       ctx.close("tab");
       return;
     }
-    ctx.close("other");
+
+    if (ctx.isOpen && related === null) {
+      ctx.close("other");
+    }
   }
 
   return { handleClick, handleKeyDown, handleBlur };
